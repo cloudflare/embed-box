@@ -1,18 +1,17 @@
 {
-  "name": "embedded-ui",
+  "name": "universal-embed",
   "version": "0.0.1",
-  "description": "To run, view [example.com.html](https://github.com/EagerIO/EmbeddedUI/blob/master/example.com.html) in your browser, running on a local server.",
   "private": true,
   "repository": {
     "type": "git",
-    "url": "git://github.com/EagerIO/EmbeddedUI.git"
+    "url": "git://github.com/EagerIO/UniversalEmbed.git"
   },
   "browserify": {
     "transform": [
       "coffeeify"
     ]
   },
-  "homepage": "https://github.com/EagerIO/EmbeddedUI",
+  "homepage": "https://github.com/EagerIO/UniversalEmbed",
   "dependencies": {
     "coffee-script": "^1.7.1",
     "gulp": "^3.6.2",
@@ -27,7 +26,6 @@
     "browserify": "^4.1.6",
     "coffeeify": "^0.6.0",
     "vinyl-source-stream": "^0.1.1",
-    "build": "git+ssh://git@github.com/EagerIO/Build.git#v0.0.2",
     "protractor": "^0.23.1",
     "protractor-coffee-preprocessor": "0.0.1",
     "gulp-uglify": "^0.3.1",

@@ -1,5 +1,5 @@
 {
-  "name": "embedded-ui",
+  "name": "universal-embed",
   "version": "0.0.1",
   "private": true,
   "ignore": [
@@ -12,8 +12,5 @@
     "pages/",
     "test/",
     "tools/"
-  ],
-  "dependencies": {
-    "bus": "git@github.com:EagerIO/Bus.git"
-  }
+  ]
 }

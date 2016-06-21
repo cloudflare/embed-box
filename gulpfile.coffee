@@ -70,7 +70,6 @@ gulp.task 'watch', ->
 
   gulp.watch './pages/*/{jade,coffee,styl}/*', ['pages']
   gulp.watch './jade/*', ['pages']
-  gulp.watch './bower_components/ui/{jade,styl}/*', ['pages']
 
   gulp.watch './coffee/**', ['browserify']
   gulp.watch './**/*.coffee', ['tests']

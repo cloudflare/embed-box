@@ -1,5 +1,3 @@
-Bus = require('../bower_components/bus/coffee/client')
-
 {EmbedModalView} = require('./views/embedModal')
 
 init = ->
