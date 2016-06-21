@@ -11,6 +11,4 @@ init = ->
     el.addEventListener 'click', ->
       modal.open() unless modal.isOpen()
 
-    el.click()
-
 document.addEventListener 'DOMContentLoaded', init
