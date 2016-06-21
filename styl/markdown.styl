@@ -1,0 +1,84 @@
+@import nib
+
+@import colors
+
+.markdown
+
+  > *:first-child
+    margin-top 0
+
+  > *:last-child
+    margin-bottom 0
+
+  img
+    margin 1em 0
+    display block
+    max-width 100%
+
+    &.bordered
+      border .125em solid lightGray
+
+  sup
+    vertical-align baseline
+    position relative
+    top -.5em
+    font-size .85em
+
+  h1, h2, h3, h4, h5, h6
+    font-weight 600
+    line-height 1.2em
+    margin-top 2rem
+    margin-bottom .125em
+
+    & + *
+      margin-top 0
+
+  h1 + h2, h2 + h3, h3 + h4, h4 + h5, h5 + h6
+    margin-top 1em
+
+  code, pre
+    font-family monospaceFonts
+
+  pre
+    background-color lightGray
+    color #333
+    padding .5em .666666em
+    overflow-x auto
+    -webkit-overflow-scrolling touch
+    font-size .8em
+    line-height 1.71em
+    white-space pre
+    word-wrap normal
+
+  code
+    font-size .8em
+    padding .15625em .3125em
+    background lightGray
+    white-space nowrap
+    font-style normal
+
+  pre > code
+    font-size inherit
+    background transparent
+    padding 0
+    white-space inherit
+
+  ol, ul, dl
+
+    > li:not(.markdown-unstyled)
+      margin-bottom .666em
+
+      &:last-child
+        margin-bottom 0
+
+      > *:last-child
+        margin-bottom 0
+
+  dl
+    clearfix()
+    margin 1.5em auto
+
+    dt
+      display inline-block
+      line-height 2em
+      border-left .25em solid

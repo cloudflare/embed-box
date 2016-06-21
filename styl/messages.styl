@@ -1,0 +1,85 @@
+@import nib
+
+@import colors
+@import media-query-variables
+@import link-underlines
+
+.message
+  padding .6em 1.25em
+  border-radius .1875em
+  background lightGray
+
+  &.square
+    border-radius 0
+
+  &.vertically-slim
+    padding-top .4em
+    padding-bottom .4em
+
+  &.with-x-icon
+    position relative
+    padding-right 3em
+
+    a.x-icon
+      color inherit
+      position absolute
+      display inline-block
+      cursor pointer
+      right 0
+      top 0
+      text-align center
+      height 2.45em
+      width 2.45em
+      line-height 3.125em
+      opacity .25
+
+      &:hover
+        opacity .8
+
+  &.inline-block
+    display inline-block
+
+  &.large
+    @media desktopMinWidthQuery
+      font-size 1.125em
+      line-height 1.5em
+
+  &.centered
+    text-align center
+
+  &.success
+    background successBackgroundColor
+    color successColor
+
+    a:not(.x-icon):not(.button)
+      linkUnderlines successBackgroundColor, darken(successColor, 10%)
+
+  &.error, &.pink
+    errorBackgroundColor = lighten(brandPink, 80%)
+
+    background errorBackgroundColor
+    color brandPinkDarkened
+
+    a:not(.x-icon):not(.button)
+      linkUnderlines errorBackgroundColor, darken(brandPink, 40%)
+
+  &.info
+    background infoBackgroundColor
+    color infoColor
+
+    a:not(.x-icon):not(.button)
+      linkUnderlines infoBackgroundColor, darken(infoColor, 10%)
+
+  &.warn
+    background warnBackgroundColor
+    color warnColor
+
+    a:not(.x-icon):not(.button)
+      linkUnderlines warnBackgroundColor, darken(warnColor, 10%)
+
+  hr
+    background lighterLineGrayRGBA
+
+  .subtle-text
+    color inherit
+    opacity .5

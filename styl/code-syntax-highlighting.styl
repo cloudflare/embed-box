@@ -1,0 +1,91 @@
+@import colors
+@import code-colors
+
+pre.cm-s-default
+
+  > span
+    color inherit
+
+  .cm-string
+    color darkGray
+
+  .cm-comment
+    color codeLightPink
+
+  .cm-atom, .cm-number
+    color codeBlue
+
+  &.lang-css
+
+    .cm-builtin
+      color codeBlue
+
+    .cm-property
+      color codePurple
+
+    .cm-tag
+      color codeTeal
+
+    .cm-qualifier
+      color codeRed
+
+    .cm-def
+      color codePink
+
+    .cm-keyword
+      color codeGold
+
+    &.lang-stylus
+
+      .cm-qualifier
+        color codeTeal
+
+      .cm-tag
+        color codePurple
+
+  &.lang-html
+
+    .cm-tag
+      color codePurple
+
+    .cm-attribute
+      color codeBlue
+
+    .cm-string
+      color codePink
+
+  &.lang-coffeescript
+
+    .cm-tag
+      color codePurple
+
+    .cm-attribute
+      color codeBlue
+
+    .cm-string-2
+      color codeTeal
+
+    .cm-keyword
+      color codePink
+
+    .cm-operator
+      color codeRed
+
+    .cm-variable:first-child + .cm-variable, :not(.cm-variable) + .cm-variable + .cm-variable
+      color codeBlue
+
+  &.lang-javascript
+
+    .cm-keyword
+      color codePurple
+
+    .cm-def
+      color codeBlue
+
+    .cm-variable-2
+      color codeTeal
+
+  &.lang-go
+
+    .cm-keyword
+      color codePurple

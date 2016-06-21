@@ -1,0 +1,84 @@
+@import nib
+
+article, aside, details, figcaption, figure, footer, header, hgroup, nav, section, summary
+  display block
+
+audio, canvas, video
+  display inline
+  zoom 1
+
+audio:not([controls])
+  display none
+  height 0
+
+[hidden]
+  display none
+
+html
+  font-size 100%
+  text-size-adjust 100%
+
+body
+  margin 0
+  text-rendering optimizeLegibility
+
+button, input, select, textarea
+  font-family inherit
+  font-size inherit
+  margin 0
+
+button, input
+  line-height normal
+
+button, input[type="button"], input[type="reset"], input[type="submit"]
+  cursor pointer
+
+  &[disabled]
+    cursor not-allowed
+
+button::-moz-focus-inner, input::-moz-focus-inner
+  border 0
+  padding 0
+
+a
+
+  &:focus
+    outline thin dotted
+
+  &:active, &:hover
+    outline 0
+
+abbr[title]
+  border-bottom thin dotted
+
+b, strong
+  font-weight 700
+
+dfn
+  font-style italic
+
+pre
+  white-space pre-wrap
+  word-wrap break-word
+
+img
+  border 0
+  -ms-interpolation-mode bicubic
+
+svg:not(:root)
+  overflow hidden
+
+textarea
+  overflow auto
+  vertical-align top
+  resize vertical
+
+table
+  border-collapse collapse
+  border-spacing 0
+
+figure, form
+  margin 0
+
+p, pre, dl, menu, ol, ul
+  margin 1em 0

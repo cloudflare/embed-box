@@ -1,0 +1,20 @@
+{
+  "name": "embedded-ui",
+  "version": "0.0.1",
+  "private": true,
+  "ignore": [
+    "deploy.yaml",
+    "circle.yml",
+    "coffee/",
+    "examples/",
+    "jade/",
+    "node_modules/",
+    "pages/",
+    "test/",
+    "tools/"
+  ],
+  "dependencies": {
+    "ui": "git@github.com:EagerIO/UI.git",
+    "bus": "git@github.com:EagerIO/Bus.git"
+  }
+}

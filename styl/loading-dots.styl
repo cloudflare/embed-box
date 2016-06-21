@@ -1,0 +1,55 @@
+@import nib
+
+@import colors
+
+.loading-dots
+  opacity 0
+  animation loading-dots-fadein .5s linear forwards
+
+  i
+    width .5em
+    height .5em
+    display inline-block
+    vertical-align middle
+    background gray
+    border-radius 50%
+    margin 0 .25em
+    animation loading-dots-middle-dots .5s linear infinite
+
+    &:first-child
+      animation loading-dots-first-dot .5s linear infinite
+      opacity 0
+      transform translate(-1em)
+
+    &:last-child
+      animation loading-dots-last-dot .5s linear infinite
+
+  &.primary i
+    background brandPink
+
+  &.secondary i
+    background secondaryButtonColor
+
+  &.dark-gray i
+    background darkGray
+
+  &.white i
+    background #fff
+
+@keyframes loading-dots-fadein
+  100%
+    opacity 1
+
+@keyframes loading-dots-first-dot
+  100%
+    transform translate(1em)
+    opacity 1
+
+@keyframes loading-dots-middle-dots
+  100%
+    transform translate(1em)
+
+@keyframes loading-dots-last-dot
+  100%
+    transform translate(2em)
+    opacity 0
