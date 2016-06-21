@@ -27,6 +27,10 @@ class EmbedModalView extends Evented
       </style>
     """
 
+    window.addEventListener 'message', (messageEvent) =>
+      if messageEvent.data is 'embed-modal:cancel:click'
+        @close()
+
     ui.executeIncludedScripts @document.body, @document
 
     @el.setAttribute('style', ui.inlineStyles(extend {}, resets.IFRAME,
