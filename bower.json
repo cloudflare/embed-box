@@ -14,7 +14,6 @@
     "tools/"
   ],
   "dependencies": {
-    "ui": "git@github.com:EagerIO/UI.git",
     "bus": "git@github.com:EagerIO/Bus.git"
   }
 }
