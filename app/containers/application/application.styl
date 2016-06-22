@@ -1,0 +1,38 @@
+@import "~styl/colors"
+
+[data-component="containers/application"]
+  align-items center
+  justify-content center
+  min-height 100%
+
+
+  .modal
+    background #fff
+    border-radius .3125em
+    overflow hidden
+    width 35em
+
+  .header
+    align-items center
+    box-shadow 0 1px lightLineGrayRGBA
+    flex 1 0 auto
+    justify-content space-between
+    width 100%
+
+    button[data-action]
+      appearance none
+      background inherit
+      border-radius 0
+      color inherit
+      cursor pointer
+      display flex
+      height 4em
+      justify-content center
+      width 4em
+
+      &:hover
+        background lightGray
+        box-shadow none
+
+      &:not(:hover)
+        color subtleText
