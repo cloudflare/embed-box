@@ -15,7 +15,8 @@
   "homepage": "https://github.com/EagerIO/UniversalEmbed",
   "dependencies": {
     "react": "^15.1.0",
-    "react-dom": "^15.1.0"
+    "react-dom": "^15.1.0",
+    "svg-inline-react": "^1.0.1"
   },
   "devDependencies": {
     "autoprefixer-loader": "^3.2.0",
@@ -35,6 +36,7 @@
     "style-loader": "^0.13.1",
     "stylus": "^0.54.5",
     "stylus-loader": "^2.1.1",
+    "svg-inline-loader": "^0.4.1",
     "webpack": "^2.1.0-beta.13",
     "webpack-dev-server": "^2.1.0-beta.0",
     "webpack-server": "^0.1.2"

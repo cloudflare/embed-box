@@ -50,6 +50,7 @@ exports.stylus = {
 }
 
 exports.module.loaders.push(
+  {test: /\.svg$/, loader: "svg-inline", exclude: /node_modules/},
   {test: /\.styl$/, loader: "style-loader?singleton!css-loader!autoprefixer!stylus-loader?paths=app/resources/"},
   {test: /\.js$/, loader: "babel-loader", exclude: /node_modules/}
 )
