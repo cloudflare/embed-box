@@ -7,6 +7,7 @@
 @import "styl/modal"
 @import "styl/more-links-and-buttons"
 @import "styl/plugin-choice"
+@import "styl/markdown"
 
 @import "styl/media-query-variables"
 @import "styl/colors"
@@ -22,6 +23,32 @@ html
 body
   background rgba(#000, .4)
   margin 0
+
+.instructions.markdown
+  padding-left 3em
+
+  h1
+    font-size 1.25em
+    font-weight 300
+
+  h2
+    font-size 1em
+    font-weight 500
+
+    .step-number
+      display inline-block
+      width 2em
+      height 2em
+      margin-right 1em
+      margin-left -3em
+      line-height 2em
+      text-align center
+      vertical-align baseline
+      background gray
+      border-radius 999em
+
+  p
+    color subtleText
 
 // TODO
 .modal-footer
