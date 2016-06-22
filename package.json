@@ -6,39 +6,53 @@
     "type": "git",
     "url": "git://github.com/EagerIO/UniversalEmbed.git"
   },
-  "browserify": {
-    "transform": [
-      "coffeeify"
-    ]
+  "scripts": {
+    "start": "babel-node scripts/watch.js",
+    "build": "NODE_ENV=production webpack -p",
+    "lint": "eslint ./app",
+    "lint:fix": "eslint --fix ./app"
   },
   "homepage": "https://github.com/EagerIO/UniversalEmbed",
   "dependencies": {
-    "coffee-script": "^1.7.1",
-    "gulp": "^3.6.2",
-    "gulp-stylus": "^1.0.0",
-    "nib": "^1.0.2",
-    "event-stream": "^3.1.4",
-    "gulp-jade": "^0.5.0",
-    "gulp-concat": "^2.2.0",
-    "gulp-coffee": "^1.4.2",
-    "gulp-util": "^2.2.14",
-    "gulp-bower": "0.0.4",
-    "browserify": "^4.1.6",
-    "coffeeify": "^0.6.0",
-    "vinyl-source-stream": "^0.1.1",
-    "protractor": "^0.23.1",
-    "protractor-coffee-preprocessor": "0.0.1",
-    "gulp-uglify": "^0.3.1",
-    "gulp-uncss": "^0.4.5",
-    "gulp-minify-css": "^0.3.7"
+    "react": "^15.1.0",
+    "react-dom": "^15.1.0"
   },
   "devDependencies": {
-    "ayepromise": "^1.1.1",
-    "debug": "^1.0.4",
-    "gulp-buffer": "0.0.2",
-    "gulp-html2string": "^0.1.1",
-    "gulp-rename": "^1.2.2",
-    "gulp-replace": "^0.4.0",
-    "gulp-uglify": "^0.3.1"
+    "autoprefixer-loader": "^3.2.0",
+    "babel-cli": "^6.10.1",
+    "babel-eslint": "^6.0.5",
+    "babel-loader": "^6.2.4",
+    "babel-preset-es2015-native-modules": "^6.6.0",
+    "babel-preset-react": "^6.5.0",
+    "babel-preset-stage-0": "^6.5.0",
+    "css-loader": "^0.23.1",
+    "eslint": "^2.13.1",
+    "eslint-loader": "^1.3.0",
+    "eslint-plugin-babel": "^3.3.0",
+    "eslint-plugin-react": "^5.2.2",
+    "html-webpack-plugin": "^2.21.0",
+    "nib": "^1.1.0",
+    "style-loader": "^0.13.1",
+    "stylus": "^0.54.5",
+    "stylus-loader": "^2.1.1",
+    "webpack": "^2.1.0-beta.13",
+    "webpack-dev-server": "^2.1.0-beta.0",
+    "webpack-server": "^0.1.2"
+  },
+  "routes": {
+    "development": {
+      "views": {
+        "hostname": "localhost",
+        "port": 9000,
+        "protocol": "http"
+      }
+    },
+    "production": {
+      "views": {
+        "hostname": "eager.io",
+        "port": "",
+        "protocol": "https"
+      }
+    }
   }
 }
