@@ -13,6 +13,7 @@
     flex 1 1 auto
     overflow hidden
     width 35em
+    max-width 100%
 
     .content
       flex 1 1 auto // Fill center unused space.
@@ -56,3 +57,8 @@
 @media desktopMinWidthQuery
   [data-component="application"] .modal
     margin 1.5em 0
+
+@media mobileMaxWidthQuery
+  [data-component="application"] .modal
+    border-radius 0
+
