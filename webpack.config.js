@@ -34,8 +34,7 @@ exports.plugins = [
     "process.env.NODE_ENV": JSON.stringify(ENVIRONMENT)
   }),
   new HtmlWebpackPlugin({
-    meta: {title: "Eager"},
-    template: "app/index.ejs"
+    template: "app/index.pug"
   })
 ]
 
@@ -50,9 +49,10 @@ exports.stylus = {
 }
 
 exports.module.loaders.push(
+  {test: /\.jade|pug$/, loader: "pug-html-loader", exclude: /node_modules/},
+  {test: /\.js$/, loader: "babel-loader", exclude: /node_modules/},
   {test: /\.svg$/, loader: "svg-inline", exclude: /node_modules/},
-  {test: /\.styl$/, loader: "style-loader?singleton!css-loader!autoprefixer!stylus-loader?paths=app/resources/"},
-  {test: /\.js$/, loader: "babel-loader", exclude: /node_modules/}
+  {test: /\.styl$/, loader: "style-loader?singleton!css-loader!autoprefixer!stylus-loader?paths=app/resources/"}
 )
 
 if (ENVIRONMENT === "development") {
