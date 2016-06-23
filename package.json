@@ -14,9 +14,7 @@
   },
   "homepage": "https://github.com/EagerIO/UniversalEmbed",
   "dependencies": {
-    "react": "^15.1.0",
-    "react-dom": "^15.1.0",
-    "svg-inline-react": "^1.0.1"
+    "vue": "^1.0.25"
   },
   "devDependencies": {
     "autoprefixer-loader": "^3.2.0",
@@ -24,13 +22,11 @@
     "babel-eslint": "^6.0.5",
     "babel-loader": "^6.2.4",
     "babel-preset-es2015-native-modules": "^6.6.0",
-    "babel-preset-react": "^6.5.0",
     "babel-preset-stage-0": "^6.5.0",
     "css-loader": "^0.23.1",
     "eslint": "^2.13.1",
     "eslint-loader": "^1.3.0",
     "eslint-plugin-babel": "^3.3.0",
-    "eslint-plugin-react": "^5.2.2",
     "html-webpack-plugin": "^2.21.0",
     "nib": "^1.1.0",
     "pug-html-loader": "^1.0.8",

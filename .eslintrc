@@ -5,11 +5,12 @@
   },
   "extends": "eslint:recommended",
   "ecmaVersion": 7,
-  "globals": {},
+  "globals": {
+    "process": null
+  },
   "parser": "babel-eslint",
   "plugins": [
-    "babel",
-    "eslint-plugin-react"
+    "babel"
   ],
   "rules": {
     "babel/object-curly-spacing": ["warn", "never"],
@@ -127,32 +128,6 @@
     "prefer-spread": "warn",
     "quote-props": ["warn", "as-needed"],
     "quotes": ["warn", "double"],
-    "react/display-name": "off",
-    "react/jsx-boolean-value": ["warn", "never"],
-    "react/jsx-closing-bracket-location": "off",
-    "react/jsx-curly-spacing": "warn",
-    "react/jsx-indent-props": ["warn", 2],
-    "react/jsx-max-props-per-line": "off",
-    "react/jsx-no-duplicate-props": "warn",
-    "react/jsx-no-literals": "off",
-    "react/jsx-no-undef": "warn",
-    "react/jsx-sort-prop-types": "off",
-    "react/jsx-sort-props": "warn",
-    "react/jsx-uses-react": "warn",
-    "react/jsx-uses-vars": "warn",
-    "react/no-danger": "off",
-    "react/no-did-update-set-state": "warn",
-    "react/no-multi-comp": ["warn", {
-      "ignoreStateless": true
-    }],
-    "react/no-set-state": "off",
-    "react/no-unknown-property": "warn",
-    "react/prop-types": "off",
-    "react/react-in-jsx-scope": "warn",
-    "react/require-extension": "warn",
-    "react/self-closing-comp": "warn",
-    "react/sort-comp": "off",
-    "react/wrap-multilines": "off",
     "semi": ["error", "never"],
     "semi-spacing": ["warn", {
       "after": true,

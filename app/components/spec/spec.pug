@@ -1,0 +1,15 @@
+main
+  section(data-column data-component="application")
+    .modal(data-column)
+      .modal-header
+        button(data-action="previous")
+          icon-previous.icon(v-bind:stroke="accent")
+
+        span Add {{appName}} to your site
+        button(data-action="close")
+          icon-close.icon(v-bind:stroke="accent")
+
+      site-type-search.content(v-bind:types="types")
+
+      .modal-footer
+        button.primary.slim.more(v-bind:style="{backgroundColor: accent}") Next

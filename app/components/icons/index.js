@@ -1,16 +1,19 @@
-import "./icons.styl"
+const toComponent = template => ({replace: true, template})
 
-import React from "react"
-import InlineSVG from "svg-inline-react"
+import close from "./close.svg"
+export const iconClose = toComponent(close)
 
-import drupalSVG from "./drupal.svg"
-export const drupal = <InlineSVG className="inline-svg" src={drupalSVG} />
+import previous from "./previous.svg"
+export const iconPrevious = toComponent(previous)
 
-import embedSVG from "./embed.svg"
-export const embed = <InlineSVG className="inline-svg" src={embedSVG} />
+import drupal from "./drupal.svg"
+export const iconDrupal = toComponent(drupal)
 
-import joomlaSVG from "./joomla.svg"
-export const joomla = <InlineSVG className="inline-svg" src={joomlaSVG} />
+import embed from "./embed.svg"
+export const iconEmbed = toComponent(embed)
 
-import wordpressSVG from "./wordpress.svg"
-export const wordpress = <InlineSVG className="inline-svg" src={wordpressSVG} />
+import joomla from "./joomla.svg"
+export const iconJoomla = toComponent(joomla)
+
+import wordpress from "./wordpress.svg"
+export const iconWordpress = toComponent(wordpress)
