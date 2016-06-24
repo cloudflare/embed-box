@@ -11,9 +11,10 @@
     background #fff
     border-radius .3125em
     flex 1 1 auto
-    overflow hidden
-    width 35em
     max-width 100%
+    overflow hidden
+    position relative
+    width 35em
 
     .content
       flex 1 1 auto // Fill center unused space.
@@ -30,18 +31,22 @@
       background inherit
       border-radius 0
       color inherit
-      cursor pointer
       display flex
       height 4em
       justify-content center
+      opacity .85
       width 4em
 
       &:hover
         background lightGray
         box-shadow none
+        opacity 1
 
       &:not(:hover)
         color subtleText
+
+      &[data-hidden]
+        visibility hidden
 
       > .icon
         flex 1 0 auto

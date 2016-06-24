@@ -2,7 +2,7 @@ main
   section(data-column data-component="application")
     .modal(data-column)
       .modal-header
-        button(data-action="previous")
+        button(data-action="previous" transition v-bind:data-hidden="!previousAvailable")
           icon-previous.icon(v-bind:stroke="accent")
 
         span Add {{appName}} to your site

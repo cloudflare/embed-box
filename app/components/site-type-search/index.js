@@ -1,7 +1,5 @@
 import "./site-type-search.styl"
 
-const TYPE_PATTERN = /\s/g
-const normalizeLabel = type => type.toLowerCase().replace(TYPE_PATTERN, "-")
 
 export const computed = {
   visibleTypes() {
@@ -10,15 +8,19 @@ export const computed = {
     if (this.query) {
       const pattern = new RegExp(this.query, "i")
 
-      types = types.filter(criteria => criteria.search(pattern) !== -1)
+      types = types.filter(({label}) => label.search(pattern) !== -1)
+
+      // TODO: get feedback on this approach.
+      if (!types.length) types.push({label: "Embed", id: "embed"})
     }
 
-    return types.map(label => ({label, id: normalizeLabel(label)}))
+    return types
   }
 }
 
 export function data() {
   return {
+    selected: "",
     query: ""
   }
 }

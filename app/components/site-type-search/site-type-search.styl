@@ -2,9 +2,10 @@
 
 [data-component="site-type-search"]
   .header
-    box-shadow 0 1px lightLineGrayRGBA
+    box-shadow 0 1px lightLineGray
     flex 0 0 auto
     width 100%
+    z-index 1 // Fix box-shadow translucent stacking artifacts
 
     .search
       border none
@@ -22,9 +23,19 @@
       flex 0 0 auto
       padding 1em
 
+      &:not([data-selected])
+        background transparent
+        color inherit
+
+        &:hover
+          background lightGray
+
+          & + .type
+            box-shadow inset 0 1px lighterLineGrayRGBA
+
+      & + .type:not([data-selected])
+        box-shadow inset 0 1px lighterLineGray
+
       .icon
         width 2em
         margin-right 1em
-
-      & + .type
-        box-shadow inset 0 1px lighterLineGray
