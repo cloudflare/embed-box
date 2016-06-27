@@ -28,13 +28,14 @@ exports.output = {
   sourceMapFilename: "[name].map"
 }
 
+// TODO: polyfill Object.assign
 exports.plugins = [
   new webpack.NoErrorsPlugin(),
   new webpack.DefinePlugin({
     "process.env.NODE_ENV": JSON.stringify(ENVIRONMENT)
   }),
   new HtmlWebpackPlugin({
-    template: "app/index.pug"
+    template: "app/index.tmpl.pug"
   })
 ]
 
@@ -49,7 +50,8 @@ exports.stylus = {
 }
 
 exports.module.loaders.push(
-  {test: /\.jade|pug$/, loader: "pug-html-loader", exclude: /node_modules/},
+  {test: /\.tmpl\.pug$/, loader: "pug-html-loader", exclude: /node_modules/},
+  {test: /[^\.tmpl]\.pug$/, loader: "jade-loader", exclude: /node_modules/},
   {test: /\.js$/, loader: "babel-loader", exclude: /node_modules/},
   {test: /\.svg$/, loader: "svg-inline", exclude: /node_modules/},
   {test: /\.styl$/, loader: "style-loader?singleton!css-loader!autoprefixer!stylus-loader?paths=app/resources/"}

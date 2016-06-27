@@ -13,9 +13,7 @@
     "lint:fix": "eslint --fix ./app"
   },
   "homepage": "https://github.com/EagerIO/UniversalEmbed",
-  "dependencies": {
-    "vue": "^1.0.25"
-  },
+  "dependencies": {},
   "devDependencies": {
     "autoprefixer-loader": "^3.2.0",
     "babel-cli": "^6.10.1",
@@ -28,15 +26,17 @@
     "eslint-loader": "^1.3.0",
     "eslint-plugin-babel": "^3.3.0",
     "html-webpack-plugin": "^2.21.0",
+    "jade": "^1.11.0",
+    "jade-loader": "^0.8.0",
     "nib": "^1.1.0",
+    "pug": "^0.1.0",
     "pug-html-loader": "^1.0.8",
     "style-loader": "^0.13.1",
     "stylus": "^0.54.5",
     "stylus-loader": "^2.1.1",
     "svg-inline-loader": "^0.4.1",
     "webpack": "^2.1.0-beta.13",
-    "webpack-dev-server": "^2.1.0-beta.0",
-    "webpack-server": "^0.1.2"
+    "webpack-dev-server": "^2.1.0-beta.0"
   },
   "routes": {
     "development": {

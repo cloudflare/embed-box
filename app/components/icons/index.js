@@ -1,19 +1,41 @@
-const toComponent = template => ({replace: true, template})
+import BaseComponent from "components/base-component"
 
-import close from "./close.svg"
-export const iconClose = toComponent(close)
+const toComponent = template => {
+  return class Icon extends BaseComponent {
+    template = template;
 
-import previous from "./previous.svg"
-export const iconPrevious = toComponent(previous)
+    constructor(attributes = {}) {
+      super()
 
-import drupal from "./drupal.svg"
-export const iconDrupal = toComponent(drupal)
+      this.attributes = {class: "icon", ...attributes}
+    }
 
-import embed from "./embed.svg"
-export const iconEmbed = toComponent(embed)
+    render() {
+      const element = this.compileTemplate()
 
-import joomla from "./joomla.svg"
-export const iconJoomla = toComponent(joomla)
+      Object
+        .keys(this.attributes)
+        .forEach(key => element.setAttribute(key, this.attributes[key]))
 
-import wordpress from "./wordpress.svg"
-export const iconWordpress = toComponent(wordpress)
+      return element
+    }
+  }
+}
+
+import closeSVG from "./close.svg"
+export const close = toComponent(closeSVG)
+
+import previousSVG from "./previous.svg"
+export const previous = toComponent(previousSVG)
+
+import drupalSVG from "./drupal.svg"
+export const drupal = toComponent(drupalSVG)
+
+import embedSVG from "./embed.svg"
+export const embed = toComponent(embedSVG)
+
+import joomlaSVG from "./joomla.svg"
+export const joomla = toComponent(joomlaSVG)
+
+import wordpressSVG from "./wordpress.svg"
+export const wordpress = toComponent(wordpressSVG)

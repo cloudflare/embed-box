@@ -1,12 +1,9 @@
-section(data-column, data-component="site-type-search")
+section(data-column, data-component="site-type-search").content
   .header
     input.search(
       autofocus
       placeholder="Select or search the type of website you have."
-      type="text"
-      v-model="query")
+      type="text")
 
   .types(data-column)
-    .type(v-for="type in visibleTypes" v-bind:data-type="type.id")
-      component.icon(v-bind:is="'icon-' + type.id" v-bind:fill="$root.accent")
-      | {{type.label}}
+

@@ -1,25 +1,33 @@
 import "./spec.styl"
 
-export const computed = {
-  previousAvailable() {
-    return false // TODO: flesh out
+import BaseComponent from "components/base-component"
+import template from "./spec.pug"
+import SiteTypeSearch from "components/site-type-search"
+import * as icons from "components/icons"
+
+export default class App extends BaseComponent {
+  template = template;
+
+  get previousAvailable() {
+    return true // TODO: flesh out
+  }
+
+  mount(mountPoint) {
+    const siteTypeSearch = new SiteTypeSearch()
+    const element = this.compileTemplate()
+
+    Array
+      .from(element.querySelectorAll(".modal-header button[data-action]"))
+      .forEach(child => {
+        const id = child.getAttribute("data-action")
+        const icon = new icons[id]({stroke: this.store.accent})
+
+        child.appendChild(icon.render())
+      })
+
+    siteTypeSearch.mount(element.querySelector(".content"))
+
+    mountPoint.appendChild(element)
   }
 }
 
-export const el = "body"
-
-export const data = {
-  appName: "Drift Chat",
-  backgroundColor: "white",
-  accent: "black",
-  types: [
-    {label: "WordPress", id: "wordpress"},
-    {label: "Drupal", id: "drupal"},
-    {label: "Joomla", id: "joomla"},
-    {label: "Embed", id: "embed"}
-  ]
-}
-
-export const replace = false
-
-export template from "./spec.pug"

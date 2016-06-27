@@ -2,14 +2,12 @@ main
   section(data-column data-component="application")
     .modal(data-column)
       .modal-header
-        button(data-action="previous" transition v-bind:data-hidden="!previousAvailable")
-          icon-previous.icon(v-bind:stroke="accent")
+        button(data-action="previous" data-hidden=!this.previousAvailable)
 
-        span Add {{appName}} to your site
+        span Add #{store.appName} to your site
         button(data-action="close")
-          icon-close.icon(v-bind:stroke="accent")
 
-      site-type-search.content(v-bind:types="types")
+      .content
 
       .modal-footer
-        button.primary.slim.more(v-bind:style="{backgroundColor: accent}") Next
+        button.primary.slim.more(style={"background-color": store.accent}) Next
