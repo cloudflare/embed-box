@@ -36,7 +36,6 @@ export default class Application extends BaseComponent {
     closeModalButton.addEventListener("click", this.closeModal.bind(this))
     doneButton.addEventListener("click", this.closeModal.bind(this))
 
-    this.setPreviousVisibility()
     previousPageButton.addEventListener("click", this.navigateToHome.bind(this))
 
     this.setNavigationState()
@@ -74,22 +73,18 @@ export default class Application extends BaseComponent {
     content.innerHTML = ""
     content.appendChild(page.render())
 
-    this.setPreviousVisibility()
     this.setNavigationState()
   }
 
   setNavigationState() {
-    const {doneButton, nextPageButton} = this.refs
+    const {doneButton, nextPageButton, previousPageButton} = this.refs
+    const isHome = this.isHome()
 
     nextPageButton.disabled = !this.store.selectedId
-    nextPageButton.style.display = this.isHome() ? "" : "none"
-    doneButton.style.display = this.isHome() ? "none" : ""
-  }
+    nextPageButton.style.display = isHome ? "" : "none"
+    doneButton.style.display = isHome ? "none" : ""
 
-  setPreviousVisibility() {
-    const {previousPageButton} = this.refs
-
-    if (this.isHome()) previousPageButton.setAttribute("data-hidden", "")
+    if (isHome) previousPageButton.setAttribute("data-hidden", "")
     else previousPageButton.removeAttribute("data-hidden")
   }
 }
