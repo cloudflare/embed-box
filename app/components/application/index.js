@@ -12,9 +12,15 @@ export default class Application extends BaseComponent {
     return true // TODO: flesh out
   }
 
+  handleSelection() {
+    this.setNextInteraction()
+  }
+
   mount(mountPoint) {
-    const siteTypeSearch = new SiteTypeSearch()
-    const element = this.compileTemplate()
+    const element = this.element = this.compileTemplate()
+    const siteTypeSearch = new SiteTypeSearch({
+      onSelection: this.handleSelection.bind(this)
+    })
 
     Array
       .from(element.querySelectorAll(".modal-header button[data-action]"))
@@ -27,7 +33,15 @@ export default class Application extends BaseComponent {
 
     siteTypeSearch.mount(element.querySelector(".content"))
 
+    this.setNextInteraction()
+
     mountPoint.appendChild(element)
+  }
+
+  setNextInteraction() {
+    const button = this.element.querySelector("button[data-action='next']")
+
+    button.disabled = !this.store.selectedId
   }
 }
 

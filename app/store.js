@@ -3,6 +3,7 @@ export default {
   backgroundColor: "white",
   textColor: "black",
   accent: "red",
+  selectedId: "",
   types: [
     {label: "WordPress", id: "wordpress"},
     {label: "Drupal", id: "drupal"},

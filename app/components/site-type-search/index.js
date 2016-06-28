@@ -10,7 +10,6 @@ function setVisibility(element, hidden) {
 
 export default class SiteTypeSearch extends BaseComponent {
   template = template;
-  selectedId = "";
 
   get types() {
     let {types} = this.store
@@ -29,6 +28,7 @@ export default class SiteTypeSearch extends BaseComponent {
     return types
   }
 
+  // TODO: Flesh out keyboard navigation
   handleSearchInput({target: {value}}) {
     this.query = value
 
@@ -40,11 +40,13 @@ export default class SiteTypeSearch extends BaseComponent {
   }
 
   handleSelection(selectedId) {
-    this.selectedId = selectedId
+    this.store.selectedId = selectedId
 
     Array
       .from(this.element.querySelectorAll(".types .type"))
       .forEach(this.setTypeStyle.bind(this))
+
+    this.onSelection()
   }
 
   mount(mountEl) {
@@ -83,7 +85,7 @@ export default class SiteTypeSearch extends BaseComponent {
   setTypeStyle(element) {
     const icon = element.querySelector(".icon")
 
-    if (element.getAttribute("data-id") === this.selectedId) {
+    if (element.getAttribute("data-id") === this.store.selectedId) {
       element.setAttribute("data-selected", "")
       Object.assign(element.style, {
         backgroundColor: this.store.accent,
