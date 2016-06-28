@@ -1,0 +1,34 @@
+section(data-column data-component="drupal-page").markdown.instructions
+  h1 Installing #{this.store.appName} onto a Drupal site
+  h2
+    span.step-number 1
+    span
+      a.more(target="_blank" href="//packager.eager.io/drupal/v2.0.0/plugin.zip?siteId=#{this.store.siteId}")
+        | Download the Drupal plugin
+
+  p After downloading, don’t unzip the file.
+
+  h2
+    span.step-number 2
+    span
+      | Move the contents to
+
+  figure
+    img(src=require("./upload-plugin.png"))
+
+  p Unzip the file and move it into the <strong>sites &gt; all &gt; modules</strong> folder inside your Drupal installation.
+
+  p If you don’t have access to these files, please <a href="https://eager.io/contact">contact</a> us for help.
+
+  h2
+    span.step-number 3
+    span Activate the plugin and view your site
+
+  figure
+    img(src=require("./activate-plugin.png"))
+
+  p On the Modules page, scroll down to find the new “Eager” plugin.
+
+  p Check the “Enabled” checkbox to activate the plugin, and click “Save configuration”.
+
+  p After it activates, visit your site to see a welcome message letting you know the installation was successful!
