@@ -10,6 +10,11 @@ document.addEventListener("DOMContentLoaded", () => {
     a {
       color: ${store.accentColor}
     }
+
+    .button.primary, button.primary,
+    [data-component="site-type-search"] .types .type[data-selected] {
+      background: ${store.accentColor}
+    }
   `
 
   document.head.appendChild(style)

@@ -1,6 +1,6 @@
 main
   section(data-column data-component="application")
-    .modal(data-column style={"background-color": store.backgroundColor, "color": store.textColor})
+    .modal(data-column)
       .modal-header(aria-role="menubar")
         button(aria-role="menuitem" data-action="previous" data-ref="previousPageButton")
 
@@ -10,8 +10,8 @@ main
       .content(data-ref="content")
 
       .modal-footer
-        button.primary.slim.more(data-action="next" data-ref="nextPageButton" style={"background-color": store.accentColor})
+        button.primary.slim.more(data-action="next" data-ref="nextPageButton")
           | Next
 
-        button.primary.slim(data-action="close" data-ref="doneButton" style={"background-color": store.accentColor})
+        button.primary.slim(data-action="close" data-ref="doneButton")
           | Done
