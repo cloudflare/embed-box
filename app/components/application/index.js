@@ -47,7 +47,8 @@ export default class Application extends BaseComponent {
   renderSiteTypeSearch() {
     const {content} = this.refs
     const siteTypeSearch = new SiteTypeSearch({
-      onSelection: this.setNavigationState.bind(this)
+      onSelection: this.setNavigationState.bind(this),
+      onSubmit: this.navigateToPage.bind(this)
     })
 
     content.innerHTML = ""

@@ -3,6 +3,7 @@ import "./site-type-search.styl"
 import BaseComponent from "components/base-component"
 import template from "./site-type-search.pug"
 import * as icons from "components/icons"
+import KM from "lib/key-map"
 
 function setVisibility(element, hidden) {
   element.style.display = hidden ? "none" : ""
@@ -28,7 +29,6 @@ export default class SiteTypeSearch extends BaseComponent {
     return types
   }
 
-  // TODO: Flesh out keyboard navigation
   handleSearchInput({target: {value}}) {
     this.query = value
     const {typesContainer} = this.refs
@@ -38,6 +38,42 @@ export default class SiteTypeSearch extends BaseComponent {
 
       setVisibility(type, $.hidden)
     })
+  }
+
+  handleSearchKeyDown(event) {
+    let delta = {
+      [KM.up]: -1,
+      [KM.down]: 1
+    }[event.keyCode]
+
+    if (!delta) return
+
+    event.preventDefault()
+
+    let {selectedId} = this.store
+    const types = this.types.filter(type => !type.hidden)
+
+    if (!types.length) return
+
+    const {length} = types
+    const currentIndex = types.findIndex(({id}) => id === selectedId) || 0
+
+    // Implements torus cursor, wrapping around the list from top and bottom.
+    delta = currentIndex + delta
+    delta %= length // Limit to domain to entries for positive deltas
+    delta += length // Reverse negative deltas
+    delta %= length // Limit deltas greater than domain
+
+    selectedId = types[delta].id
+    this.handleSelection(selectedId)
+  }
+
+  handleSearchKeypress(event) {
+    if (event.keyCode !== KM.enter || !this.store.selectedId) return
+
+    event.preventDefault()
+
+    this.onSubmit()
   }
 
   handleSelection(selectedId) {
@@ -51,7 +87,11 @@ export default class SiteTypeSearch extends BaseComponent {
   render() {
     this.compileTemplate()
 
-    this.refs.search.addEventListener("input", this.handleSearchInput.bind(this))
+    const {search} = this.refs
+
+    search.addEventListener("input", this.handleSearchInput.bind(this))
+    search.addEventListener("keydown", this.handleSearchKeyDown.bind(this))
+    search.addEventListener("keypress", this.handleSearchKeypress.bind(this))
 
     this.renderTypes()
 
