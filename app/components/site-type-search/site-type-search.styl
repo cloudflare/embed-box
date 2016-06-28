@@ -21,22 +21,44 @@
     z-index 1 // Fix box-shadow translucent stacking artifacts
 
     .type
+      position relative
+      cursor pointer
       align-items center
       flex 0 0 auto
       padding 1em
+      overflow ellipsis
+
+      &:not(:first-child)
+        margin-top -1px
+
+      &:not(:last-child):not(:hover)
+        box-shadow inset 0 -1px lighterLineGray
 
       &:not([data-selected])
+        z-index 1
         background transparent
         color inherit
 
         &:hover
-          filter contrast(90%)
+          z-index 1
+          box-shadow none
+          background lightGray
 
-          & + .type
-            box-shadow inset 0 1px lighterLineGrayRGBA
+        &:first-child:hover
+          box-shadow inset 0 -1px lighterLineGrayRGBA
 
-      & + .type:not([data-selected])
-        box-shadow inset 0 1px lighterLineGray
+        &:last-child:hover
+          box-shadow inset 0 1px lighterLineGrayRGBA
+
+        &:not(:first-child):not(:last-child):hover
+          box-shadow inset 0 -1px lighterLineGrayRGBA, inset 0 1px lighterLineGrayRGBA
+
+      &[data-selected]
+
+        &, &:hover
+          z-index 2
+          color #fff
+          box-shadow none !important
 
       .icon
         width 2em
