@@ -5,6 +5,7 @@ export default {
   page: "home",
   textColor: "black",
   selectedId: "",
+  siteId: "Icc0-PIkXF",
   types: [
     {label: "WordPress", id: "wordpress"},
     {label: "Drupal", id: "drupal"},
