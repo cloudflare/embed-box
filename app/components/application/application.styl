@@ -7,15 +7,20 @@
   max-height 100%
   min-height 100%
 
+  @media (max-height 24em)
+    justify-content flex-start
+
   .modal
+    position relative
+    z-index 1 // Fix border radius overflow issues.
+    flex 1 1 auto
+    min-height 18em
+    max-height 38em
+    overflow hidden
+    width 35em
+    max-width 100%
     background #fff
     border-radius .3125em
-    flex 1 1 auto
-    max-width 100%
-    overflow hidden
-    position relative
-    width 35em
-    z-index 1 // Fix border radius overflow issues.
 
     .content
       flex 1 1 auto // Fill center unused space.
@@ -73,4 +78,5 @@
 @media mobileMaxWidthQuery
   [data-component="application"] .modal
     border-radius 0
-
+    max-height 100vh
+    width 100%
