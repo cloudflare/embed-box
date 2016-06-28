@@ -52,6 +52,7 @@ exports.stylus = {
 exports.module.loaders.push(
   {test: /\.tmpl\.pug$/, loader: "pug-html-loader", exclude: /node_modules/},
   {test: /[^\.tmpl]\.pug$/, loader: "jade-loader", exclude: /node_modules/},
+  {test: /\.png|jpe?g|gif$/i, loader: "file-loader", exclude: /node_modules/},
   {test: /\.js$/, loader: "babel-loader", exclude: /node_modules/},
   {test: /\.svg$/, loader: "svg-inline", exclude: /node_modules/},
   {test: /\.styl$/, loader: "style-loader?singleton!css-loader!autoprefixer!stylus-loader?paths=app/resources/"}
