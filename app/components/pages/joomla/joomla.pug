@@ -1,0 +1,33 @@
+section(data-column data-component="joomla-page").markdown.instructions
+  h1 Installing #{this.store.appName} onto a Joomla site
+  h2
+    span.step-number 1
+    span
+      a.more(target="_blank" href="//packager.eager.io/joomla/v1.0.3/plugin.zip?siteId=#{this.store.siteId}")
+        | Download the Joomla plugin
+
+  p After downloading, don’t unzip the file.
+
+  h2
+    span.step-number 2
+    span Upload the plugin to your Joomla Admin site
+
+  figure
+    img(src=require("./upload-plugin.png"))
+
+  p In your Joomla Admin, navigate to: <strong>Extensions &gt; Install &gt; Upload Package File</strong>.
+
+  p Click “Choose File” and select the file you just downloaded.</p>
+
+  h2
+    span.step-number 3
+    span Activate the plugin and view your site
+
+  figure
+    img(src=require("./activate-plugin.png"))
+
+    p On the <strong>Extensions &gt; Manage</strong> page, search for “eager”.
+
+  p When you’ve found the plugin, click the red “×” to enable the extension.
+
+  p After it activates, visit your site to see a welcome message letting you know the installation was successful!
