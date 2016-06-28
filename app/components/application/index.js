@@ -9,55 +9,88 @@ import * as pages from "components/pages"
 export default class Application extends BaseComponent {
   template = template;
 
-  get previousAvailable() {
-    return true // TODO: flesh out
+  closeModal() {
+    // TODO: flesh out.
+    console.log("Modal close")
   }
 
-  handleSelection() {
-    this.setNextInteraction()
-  }
-
-  handleBackwardProgression() {
-    // TODO: flesh out
-  }
-
-  navigateToPage() {
-    const {content} = this.refs
-    const page = new pages[this.store.selectedId]()
-
-    content.innerHTML = ""
-    content.appendChild(page.render())
+  isHome() {
+    return this.store.page === "home"
   }
 
   mount(mountPoint) {
     this.compileTemplate()
 
-    const {content, headerButtons, nextPageButton} = this.refs
+    const {doneButton, closeModalButton, nextPageButton, previousPageButton} = this.refs
+    const headerButtons = [closeModalButton, previousPageButton]
 
-    const siteTypeSearch = new SiteTypeSearch({
-      onSelection: this.handleSelection.bind(this)
+    headerButtons.forEach(button => {
+      const id = button.getAttribute("data-action")
+      const icon = new icons[id]({stroke: this.store.accent})
+
+      button.appendChild(icon.render())
     })
 
-    headerButtons
-      .forEach(button => {
-        const id = button.getAttribute("data-action")
-        const icon = new icons[id]({stroke: this.store.accent})
+    this.renderSiteTypeSearch()
 
-        button.appendChild(icon.render())
-      })
+    closeModalButton.addEventListener("click", this.closeModal.bind(this))
+    doneButton.addEventListener("click", this.closeModal.bind(this))
 
-    content.appendChild(siteTypeSearch.render())
+    this.setPreviousVisibility()
+    previousPageButton.addEventListener("click", this.navigateToHome.bind(this))
 
-    this.setNextInteraction()
+    this.setNavigationState()
     nextPageButton.addEventListener("click", this.navigateToPage.bind(this))
 
     mountPoint.appendChild(this.element)
   }
 
-  setNextInteraction() {
-    const {nextPageButton} = this.refs
+  renderSiteTypeSearch() {
+    const {content} = this.refs
+    const siteTypeSearch = new SiteTypeSearch({
+      onSelection: this.setNavigationState.bind(this)
+    })
+
+    content.innerHTML = ""
+
+    content.appendChild(siteTypeSearch.render())
+  }
+
+  navigateToHome() {
+    this.store.page = "home"
+    this.setNavigationState()
+    this.renderSiteTypeSearch()
+  }
+
+  navigateToPage() {
+    const {store} = this
+
+    store.page = store.selectedId
+    store.selectedId = ""
+
+    const {content} = this.refs
+    const page = new pages[store.page]()
+
+    content.innerHTML = ""
+    content.appendChild(page.render())
+
+    this.setPreviousVisibility()
+    this.setNavigationState()
+  }
+
+  setNavigationState() {
+    const {doneButton, nextPageButton} = this.refs
 
     nextPageButton.disabled = !this.store.selectedId
+    nextPageButton.style.display = this.isHome() ? "" : "none"
+    doneButton.style.display = this.isHome() ? "none" : ""
+  }
+
+  setPreviousVisibility() {
+    const {previousPageButton} = this.refs
+
+    if (this.isHome()) previousPageButton.setAttribute("data-hidden", "")
+    else previousPageButton.removeAttribute("data-hidden")
   }
 }
 

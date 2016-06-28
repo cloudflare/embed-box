@@ -1,8 +1,9 @@
 export default {
+  accent: "red",
   appName: "Drift Chat",
   backgroundColor: "white",
+  page: "home",
   textColor: "black",
-  accent: "red",
   selectedId: "",
   types: [
     {label: "WordPress", id: "wordpress"},

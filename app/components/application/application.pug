@@ -1,14 +1,17 @@
 main
   section(data-column data-component="application")
-    .modal(data-column)
+    .modal(data-column style={"background-color": store.backgroundColor, "color": store.textColor})
       .modal-header(aria-role="menubar")
-        button(aria-role="menuitem" data-action="previous" data-ref="headerButtons[]")
+        button(aria-role="menuitem" data-action="previous" data-ref="previousPageButton")
 
         span Add #{store.appName} to your site
-        button(aria-role="menuitem" data-action="close" data-ref="headerButtons[]")
+        button(aria-role="menuitem" data-action="close" data-ref="closeModalButton")
 
       .content(data-ref="content")
 
       .modal-footer
         button.primary.slim.more(data-action="next" data-ref="nextPageButton" style={"background-color": store.accent})
           | Next
+
+        button.primary.slim(data-action="close" data-ref="doneButton" style={"background-color": store.accent})
+          | Done
