@@ -26,7 +26,7 @@ export default class Application extends BaseComponent {
 
     headerButtons.forEach(button => {
       const id = button.getAttribute("data-action")
-      const icon = new icons[id]({stroke: this.store.accent})
+      const icon = new icons[id]({stroke: this.store.accentColor})
 
       button.appendChild(icon.render())
     })

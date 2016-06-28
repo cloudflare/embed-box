@@ -1,5 +1,5 @@
 export default {
-  accent: "red",
+  accentColor: "hotpink",
   appName: "Drift Chat",
   backgroundColor: "white",
   page: "home",

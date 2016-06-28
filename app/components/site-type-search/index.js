@@ -102,7 +102,7 @@ export default class SiteTypeSearch extends BaseComponent {
     const {typesContainer} = this.refs
 
     this.types.forEach($ => {
-      const icon = new icons[$.id]({fill: this.store.accent})
+      const icon = new icons[$.id]({fill: this.store.accentColor})
       const typeEl = typesContainer.appendChild(document.createElement("div"))
 
       typeEl.className = "type"
@@ -127,11 +127,11 @@ export default class SiteTypeSearch extends BaseComponent {
     if (element.getAttribute("data-id") === this.store.selectedId) {
       element.setAttribute("data-selected", "")
       Object.assign(element.style, {
-        backgroundColor: this.store.accent,
+        backgroundColor: this.store.accentColor,
         color: this.store.backgroundColor
       })
 
-      element.style.backgroundColor = this.store.accent
+      element.style.backgroundColor = this.store.accentColor
       icon.setAttribute("fill", this.store.backgroundColor)
     }
     else {
@@ -140,7 +140,7 @@ export default class SiteTypeSearch extends BaseComponent {
         backgroundColor: this.store.backgroundColor,
         color: this.store.textColor
       })
-      icon.setAttribute("fill", this.store.accent)
+      icon.setAttribute("fill", this.store.accentColor)
     }
   }
 }
