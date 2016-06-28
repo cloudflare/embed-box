@@ -1,2 +1,32 @@
+@import "~styl/colors"
+
 [data-component$="-page"]
   overflow scroll
+
+.instructions.markdown
+  cursor auto
+  padding 0 1em 0 4em
+  user-select text
+
+  h1
+    font-size 1.25em
+    font-weight 300
+
+  h2
+    font-size 1em
+    font-weight 500
+
+    .step-number
+      display inline-block
+      width 2em
+      height 2em
+      margin-right 1em
+      margin-left -3em
+      line-height 2em
+      text-align center
+      vertical-align baseline
+      background gray
+      border-radius 999em
+
+  p
+    color subtleText
