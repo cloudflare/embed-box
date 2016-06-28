@@ -12,8 +12,10 @@ export default class BaseComponent {
     Object.assign(this, spec)
   }
 
+  // NOTE: Calling `updateRefs` multiple times from different tree depths may
+  // allow parents to inherit a grandchild.
   updateRefs() {
-    const refs = this.refs = {}
+    const {refs} = this
 
     Array
       .from(this.element.querySelectorAll("[data-ref]"))
@@ -31,6 +33,8 @@ export default class BaseComponent {
           // Single element
           refs[key] = element
         }
+
+        element.removeAttribute("data-ref")
       })
   }
 
