@@ -1,6 +1,7 @@
 export default {
   appName: "Drift Chat",
   backgroundColor: "white",
+  textColor: "black",
   accent: "red",
   types: [
     {label: "WordPress", id: "wordpress"},

@@ -8,19 +8,9 @@ function setVisibility(element, hidden) {
   element.style.display = hidden ? "none" : ""
 }
 
-function setSelected(selectedId, element) {
-  if (element.getAttribute("data-id") === selectedId) element.setAttribute("data-selected", "")
-  else element.removeAttribute("data-selected")
-}
-
 export default class SiteTypeSearch extends BaseComponent {
   template = template;
-
-  constructor() {
-    super()
-
-    this.selected = ""
-  }
+  selectedId = "";
 
   get types() {
     let {types} = this.store
@@ -28,7 +18,12 @@ export default class SiteTypeSearch extends BaseComponent {
     if (this.query) {
       const pattern = new RegExp(this.query, "i")
 
-      types = types.map($ => ({...$, hidden: $.label.search(pattern) === -1}))
+      types = types.map(type => {
+        return {
+          ...type,
+          hidden: type.label.search(pattern) === -1
+        }
+      })
     }
 
     return types
@@ -45,11 +40,24 @@ export default class SiteTypeSearch extends BaseComponent {
   }
 
   handleSelection(selectedId) {
-    this.selected = selectedId
+    this.selectedId = selectedId
 
     Array
       .from(this.element.querySelectorAll(".types .type"))
-      .forEach(setSelected.bind(null, selectedId))
+      .forEach(this.setTypeStyle.bind(this))
+  }
+
+  mount(mountEl) {
+    this.element = this.compileTemplate()
+
+    this.element
+      .querySelector("input.search")
+      .addEventListener("input", this.handleSearchInput.bind(this))
+
+    this.renderTypes()
+
+    mountEl.parentNode.insertBefore(this.element, mountEl)
+    mountEl.parentNode.removeChild(mountEl)
   }
 
   renderTypes() {
@@ -66,22 +74,33 @@ export default class SiteTypeSearch extends BaseComponent {
 
       typeEl.appendChild(icon.render())
       typeEl.appendChild(document.createTextNode($.label))
+      this.setTypeStyle(typeEl)
 
       typeEl.addEventListener("click", this.handleSelection.bind(this, $.id))
     })
   }
 
-  mount(mountEl) {
-    this.element = this.compileTemplate()
+  setTypeStyle(element) {
+    const icon = element.querySelector(".icon")
 
-    this.element
-      .querySelector("input.search")
-      .addEventListener("input", this.handleSearchInput.bind(this))
+    if (element.getAttribute("data-id") === this.selectedId) {
+      element.setAttribute("data-selected", "")
+      Object.assign(element.style, {
+        backgroundColor: this.store.accent,
+        color: this.store.backgroundColor
+      })
 
-    this.renderTypes()
-
-    mountEl.parentNode.insertBefore(this.element, mountEl)
-    mountEl.parentNode.removeChild(mountEl)
+      element.style.backgroundColor = this.store.accent
+      icon.setAttribute("fill", this.store.backgroundColor)
+    }
+    else {
+      element.removeAttribute("data-selected")
+      Object.assign(element.style, {
+        backgroundColor: this.store.backgroundColor,
+        color: this.store.textColor
+      })
+      icon.setAttribute("fill", this.store.accent)
+    }
   }
 }
 
