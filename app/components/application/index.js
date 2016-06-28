@@ -4,6 +4,7 @@ import BaseComponent from "components/base-component"
 import template from "./application.pug"
 import SiteTypeSearch from "components/site-type-search"
 import * as icons from "components/icons"
+import * as pages from "components/pages"
 
 export default class Application extends BaseComponent {
   template = template;
@@ -14,6 +15,17 @@ export default class Application extends BaseComponent {
 
   handleSelection() {
     this.setNextInteraction()
+  }
+
+  handleBackwardProgression() {
+    // TODO: flesh out
+  }
+
+  navigateToPage() {
+    const currentContent = this.element.querySelector(".content")
+    const page = new pages[this.store.selectedId]()
+
+    this.replaceElement(currentContent, page.render())
   }
 
   mount(mountPoint) {
@@ -33,7 +45,10 @@ export default class Application extends BaseComponent {
 
     siteTypeSearch.mount(element.querySelector(".content"))
 
+    const button = element.querySelector("button[data-action='next']")
+
     this.setNextInteraction()
+    button.addEventListener("click", this.navigateToPage.bind(this))
 
     mountPoint.appendChild(element)
   }

@@ -19,4 +19,9 @@ export default class BaseComponent {
 
     return this.serializer.firstChild
   }
+
+  replaceElement(current, next) {
+    current.parentNode.insertBefore(next, current)
+    current.parentNode.removeChild(current)
+  }
 }

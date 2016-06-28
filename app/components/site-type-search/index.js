@@ -58,8 +58,7 @@ export default class SiteTypeSearch extends BaseComponent {
 
     this.renderTypes()
 
-    mountEl.parentNode.insertBefore(this.element, mountEl)
-    mountEl.parentNode.removeChild(mountEl)
+    this.replaceElement(mountEl, this.element)
   }
 
   renderTypes() {
