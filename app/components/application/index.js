@@ -1,11 +1,11 @@
-import "./spec.styl"
+import "./application.styl"
 
 import BaseComponent from "components/base-component"
-import template from "./spec.pug"
+import template from "./application.pug"
 import SiteTypeSearch from "components/site-type-search"
 import * as icons from "components/icons"
 
-export default class App extends BaseComponent {
+export default class Application extends BaseComponent {
   template = template;
 
   get previousAvailable() {

@@ -1,9 +1,9 @@
 import "./index.styl"
 
-import App from "./components/spec"
+import Application from "./components/application"
 
 document.addEventListener("DOMContentLoaded", () => {
-  const app = new App()
+  const application = new Application()
 
-  app.mount(document.body)
+  application.mount(document.body)
 })
