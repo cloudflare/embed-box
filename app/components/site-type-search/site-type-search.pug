@@ -1,9 +1,10 @@
-section(data-column, data-component="site-type-search").content
+section(data-column data-component="site-type-search")
   .header
     input.search(
       autofocus
+      data-ref="search"
       placeholder="Select or search the type of website you have."
       type="text")
 
-  .types(data-column)
+  .types(data-column data-ref="typesContainer")
 

@@ -31,9 +31,10 @@ export default class SiteTypeSearch extends BaseComponent {
   // TODO: Flesh out keyboard navigation
   handleSearchInput({target: {value}}) {
     this.query = value
+    const {typesContainer} = this.refs
 
     this.types.forEach($ => {
-      const type = this.element.querySelector(`.type[data-id=${$.id}]`)
+      const type = typesContainer.querySelector(`.type[data-id=${$.id}]`)
 
       setVisibility(type, $.hidden)
     })
@@ -42,27 +43,23 @@ export default class SiteTypeSearch extends BaseComponent {
   handleSelection(selectedId) {
     this.store.selectedId = selectedId
 
-    Array
-      .from(this.element.querySelectorAll(".types .type"))
-      .forEach(this.setTypeStyle.bind(this))
+    this.refs.types.forEach(this.setTypeStyle.bind(this))
 
     this.onSelection()
   }
 
-  mount(mountEl) {
-    this.element = this.compileTemplate()
+  render() {
+    this.compileTemplate()
 
-    this.element
-      .querySelector("input.search")
-      .addEventListener("input", this.handleSearchInput.bind(this))
+    this.refs.search.addEventListener("input", this.handleSearchInput.bind(this))
 
     this.renderTypes()
 
-    this.replaceElement(mountEl, this.element)
+    return this.element
   }
 
   renderTypes() {
-    const typesContainer = this.element.querySelector(".types")
+    const {typesContainer} = this.refs
 
     this.types.forEach($ => {
       const icon = new icons[$.id]({fill: this.store.accent})
@@ -70,11 +67,14 @@ export default class SiteTypeSearch extends BaseComponent {
 
       typeEl.className = "type"
       typeEl.setAttribute("data-action", "")
+      typeEl.setAttribute("data-ref", "types[]")
       typeEl.setAttribute("data-id", $.id)
       setVisibility(typeEl, $.hidden)
 
       typeEl.appendChild(icon.render())
       typeEl.appendChild(document.createTextNode($.label))
+      this.updateRefs()
+
       this.setTypeStyle(typeEl)
 
       typeEl.addEventListener("click", this.handleSelection.bind(this, $.id))

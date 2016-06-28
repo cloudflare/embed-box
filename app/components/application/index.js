@@ -22,41 +22,42 @@ export default class Application extends BaseComponent {
   }
 
   navigateToPage() {
-    const currentContent = this.element.querySelector(".content")
+    const {content} = this.refs
     const page = new pages[this.store.selectedId]()
 
-    this.replaceElement(currentContent, page.render())
+    content.innerHTML = ""
+    content.appendChild(page.render())
   }
 
   mount(mountPoint) {
-    const element = this.element = this.compileTemplate()
+    this.compileTemplate()
+
+    const {content, headerButtons, nextPageButton} = this.refs
+
     const siteTypeSearch = new SiteTypeSearch({
       onSelection: this.handleSelection.bind(this)
     })
 
-    Array
-      .from(element.querySelectorAll(".modal-header button[data-action]"))
-      .forEach(child => {
-        const id = child.getAttribute("data-action")
+    headerButtons
+      .forEach(button => {
+        const id = button.getAttribute("data-action")
         const icon = new icons[id]({stroke: this.store.accent})
 
-        child.appendChild(icon.render())
+        button.appendChild(icon.render())
       })
 
-    siteTypeSearch.mount(element.querySelector(".content"))
-
-    const button = element.querySelector("button[data-action='next']")
+    content.appendChild(siteTypeSearch.render())
 
     this.setNextInteraction()
-    button.addEventListener("click", this.navigateToPage.bind(this))
+    nextPageButton.addEventListener("click", this.navigateToPage.bind(this))
 
-    mountPoint.appendChild(element)
+    mountPoint.appendChild(this.element)
   }
 
   setNextInteraction() {
-    const button = this.element.querySelector("button[data-action='next']")
+    const {nextPageButton} = this.refs
 
-    button.disabled = !this.store.selectedId
+    nextPageButton.disabled = !this.store.selectedId
   }
 }
 
