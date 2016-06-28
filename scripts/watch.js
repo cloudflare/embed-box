@@ -5,7 +5,7 @@ const webpack = require("webpack")
 const WebpackDevServer = require("webpack-dev-server")
 const config = require("../webpack.config")
 
-const {hostname, port} = routes.development.views
+const {hostname, port, protocol} = routes.development.views
 
 const server = new WebpackDevServer(webpack(config), {
   historyApiFallback: true,
@@ -21,4 +21,6 @@ const server = new WebpackDevServer(webpack(config), {
   }
 })
 
-server.listen(port, hostname)
+server.listen(port, hostname, () => {
+  console.log(`Listening on ${protocol}://${hostname}:${port}`)
+})
