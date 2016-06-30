@@ -54,11 +54,6 @@ export default class Application extends BaseComponent {
       default:
         this.delgateKeyEvent(event)
     }
-
-    if (event.keyCode === KM.backspace) {
-      return
-    }
-
   }
 
   mount(mountPoint) {

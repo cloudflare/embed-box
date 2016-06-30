@@ -9,7 +9,7 @@ export default {
     {label: "WordPress", id: "wordpress"},
     {label: "Drupal", id: "drupal"},
     {label: "Joomla", id: "joomla"},
-    {label: "Embed", id: "embed"}
+    {label: "Another CMS", id: "embed", fallback: true}
   ],
 
   accentColor: "#2d88f3",

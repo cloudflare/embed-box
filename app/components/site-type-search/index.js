@@ -16,18 +16,18 @@ export default class SiteTypeSearch extends BaseComponent {
   template = template;
 
   get types() {
-    let {types} = this.store
+    const {query, store: {types}} = this
 
-    if (this.query) {
-      types = types.map(type => {
-        return {
-          ...type,
-          hidden: type.label.toLowerCase().indexOf(this.query) === -1
-        }
-      })
-    }
+    if (!query) return types
 
-    return types
+    return types.map(type => {
+      const label = type.label.toLowerCase()
+
+      return {
+        ...type,
+        hidden: label.indexOf(query) === -1 && !type.fallback
+      }
+    })
   }
 
   @autobind
@@ -35,11 +35,15 @@ export default class SiteTypeSearch extends BaseComponent {
     this.query = value.toLowerCase()
     const {typesContainer} = this.refs
 
-    this.types.forEach($ => {
-      const type = typesContainer.querySelector(`.type[data-id=${$.id}]`)
+    this.types.forEach(({id, hidden}) => {
+      const type = typesContainer.querySelector(`.type[data-id=${id}]`)
 
-      setVisibility(type, $.hidden)
+      setVisibility(type, hidden)
     })
+
+    const [firstVisible] = this.types.filter(({hidden}) => !hidden)
+
+    this.selectType(firstVisible.id, {focus: true})
   }
 
   @autobind
