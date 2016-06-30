@@ -42,7 +42,7 @@ export default class SiteTypeSearch extends BaseComponent {
   }
 
   handleSearchKeyDown(event) {
-    let delta = {
+    const delta = {
       [KM.up]: -1,
       [KM.down]: 1
     }[event.keyCode]
@@ -59,13 +59,10 @@ export default class SiteTypeSearch extends BaseComponent {
     const {length} = types
     const currentIndex = types.findIndex(({id}) => id === selectedId) || 0
 
-    // Implements torus cursor, wrapping around the list from top and bottom.
-    delta = currentIndex + delta
-    delta %= length // Limit to domain to entries for positive deltas
-    delta += length // Reverse negative deltas
-    delta %= length // Limit deltas greater than domain
+    // Move the index by delta and wrap around the bottom/top
+    const nextIndex = (currentIndex + delta + length) % length
 
-    selectedId = types[delta].id
+    selectedId = types[nextIndex].id
     this.handleSelection(selectedId)
   }
 
