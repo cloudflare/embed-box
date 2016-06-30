@@ -11,12 +11,14 @@ document.addEventListener("DOMContentLoaded", () => {
       color: ${store.textColor};
     }
 
-    a {
+    a,
+    .accent-color {
       color: ${store.accentColor};
     }
 
     .button.primary, button.primary,
-    [data-component="site-type-search"] .types .type[data-selected] {
+    [data-component="site-type-search"] .types .type[data-selected],
+    .accent-background-color {
       background: ${store.accentColor};
     }
   `

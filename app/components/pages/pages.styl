@@ -6,7 +6,7 @@
 .instructions.markdown
   cursor auto
   display block
-  padding 0 2em 0 4em
+  padding 3em 2em 3em 4em
   user-select text
 
   figure > img
@@ -15,10 +15,15 @@
   h1
     font-size 1.25em
     font-weight 300
+    margin-top 2em
+    margin-bottom 2em
+    text-align center
+    padding-right 2em
 
   h2
     font-size 1em
     font-weight 500
+    margin-top 3em
 
     .step-number
       display inline-block
@@ -29,8 +34,19 @@
       line-height 2em
       text-align center
       vertical-align baseline
-      background lightGrayRGBA
       border-radius 999em
+
+      &:not(.accent-background-color)
+        background lightGrayRGBA
+
+      &.accent-background-color
+        color #fff
 
   p
     color subtleText
+
+  > *:first-child
+    margin-top 0
+
+  > *:last-child
+    margin-bottom 0
