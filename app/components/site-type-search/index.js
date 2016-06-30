@@ -17,12 +17,10 @@ export default class SiteTypeSearch extends BaseComponent {
     let {types} = this.store
 
     if (this.query) {
-      const pattern = new RegExp(this.query, "i")
-
       types = types.map(type => {
         return {
           ...type,
-          hidden: type.label.search(pattern) === -1
+          hidden: type.label.toLowerCase().indexOf(this.query) === -1
         }
       })
     }
@@ -30,8 +28,9 @@ export default class SiteTypeSearch extends BaseComponent {
     return types
   }
 
+  @autobind
   handleSearchInput({target: {value}}) {
-    this.query = value
+    this.query = value.toLowerCase()
     const {typesContainer} = this.refs
 
     this.types.forEach($ => {
@@ -41,15 +40,16 @@ export default class SiteTypeSearch extends BaseComponent {
     })
   }
 
-  handleSearchKeyDown(event) {
+  @autobind
+  handleDelgatedKeydown({detail: {nativeEvent}}) {
     const delta = {
       [KM.up]: -1,
       [KM.down]: 1
-    }[event.keyCode]
+    }[nativeEvent.keyCode]
 
     if (!delta) return
 
-    event.preventDefault()
+    nativeEvent.preventDefault()
 
     let {selectedId} = this.store
     const types = this.types.filter(type => !type.hidden)
@@ -66,10 +66,11 @@ export default class SiteTypeSearch extends BaseComponent {
     this.handleSelection(selectedId)
   }
 
-  handleSearchKeypress(event) {
-    if (event.keyCode !== KM.enter || !this.store.selectedId) return
+  @autobind
+  handleDelgatedKeypress({detail: {nativeEvent}}) {
+    if (nativeEvent.keyCode !== KM.enter || !this.store.selectedId) return
 
-    event.preventDefault()
+    nativeEvent.preventDefault()
 
     this.onSubmit()
   }
@@ -87,11 +88,12 @@ export default class SiteTypeSearch extends BaseComponent {
 
     const {search} = this.refs
 
-    search.addEventListener("input", this.handleSearchInput.bind(this))
-    search.addEventListener("keydown", this.handleSearchKeyDown.bind(this))
-    search.addEventListener("keypress", this.handleSearchKeypress.bind(this))
+    search.addEventListener("input", this.handleSearchInput)
 
     this.renderTypes()
+
+    this.element.addEventListener("dispatched-keydown", this.handleDelgatedKeydown)
+    this.element.addEventListener("dispatched-keypress", this.handleDelgatedKeypress)
 
     return this.element
   }

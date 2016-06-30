@@ -1,4 +1,5 @@
 export default {
+  backspace: 8,
   enter: 13,
   left: 37,
   up: 38,

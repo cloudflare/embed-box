@@ -19,7 +19,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
   document.head.appendChild(style)
 
-  const application = new Application()
+  const application = new Application({
+    // TODO: Check IE for custom event constructor support.
+    supportsCustomEvents: true
+  })
 
   application.mount(document.body)
 })

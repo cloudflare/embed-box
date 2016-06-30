@@ -6,6 +6,7 @@ import * as icons from "components/icons"
 import * as pages from "components/pages"
 import SiteTypeSearch from "components/site-type-search"
 import template from "./application.pug"
+import KM from "lib/key-map"
 
 export default class Application extends BaseComponent {
   template = template;
@@ -20,6 +21,35 @@ export default class Application extends BaseComponent {
     return this.store.page === "home"
   }
 
+  @autobind
+  delgateKeyEvent(nativeEvent) {
+    const receiver = this.refs.content.querySelector("[data-event-receiver]")
+
+    if (!receiver || !this.supportsCustomEvents) return
+
+    const delgated = new CustomEvent(`dispatched-${nativeEvent.type}`, {
+      detail: {nativeEvent}
+    })
+
+    receiver.dispatchEvent(delgated)
+  }
+
+  @autobind
+  handleKeyNavigation(event) {
+    if (event.keyCode === KM.backspace) {
+      const {type} = window.getSelection()
+
+      if (type !== "None") return // User is in a text field.
+
+      event.preventDefault()
+
+      if (!this.isHome()) this.navigateToHome()
+      return
+    }
+
+    this.delgateKeyEvent(event)
+  }
+
   mount(mountPoint) {
     this.compileTemplate()
 
@@ -32,6 +62,10 @@ export default class Application extends BaseComponent {
 
       button.appendChild(icon.render())
     })
+
+    window.addEventListener("keyup", this.delgateKeyEvent)
+    window.addEventListener("keydown", this.handleKeyNavigation)
+    window.addEventListener("keypress", this.delgateKeyEvent)
 
     this.renderSiteTypeSearch()
 
