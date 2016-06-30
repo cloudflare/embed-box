@@ -1,15 +1,15 @@
-main(data-column data-component="application")
+main(data-column data-component="application" role="main")
   .modal(data-column)
-    .modal-header(aria-role="menubar")
-      button(aria-role="menuitem" data-action="previous" data-ref="previousPageButton")
+    header.modal-header(role="menubar")
+      button(role="menuitem" data-action="previous" data-ref="previousPageButton")
 
       span.title #{store.labels.title(store.appName)}
 
-      button(aria-role="menuitem" data-action="close" data-ref="closeModalButton")
+      button(role="menuitem" data-action="close" data-ref="closeModalButton")
 
     .content(data-ref="content")
 
-    .modal-footer
+    footer.modal-footer
       button.primary.slim.more(data-action="next" data-ref="nextPageButton")
         | #{store.labels.next}
 

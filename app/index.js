@@ -7,13 +7,17 @@ const style = document.createElement("style")
 
 document.addEventListener("DOMContentLoaded", () => {
   style.innerHTML = `
+    body {
+      color: ${store.textColor};
+    }
+
     a {
-      color: ${store.accentColor}
+      color: ${store.accentColor};
     }
 
     .button.primary, button.primary,
     [data-component="site-type-search"] .types .type[data-selected] {
-      background: ${store.accentColor}
+      background: ${store.accentColor};
     }
   `
 
