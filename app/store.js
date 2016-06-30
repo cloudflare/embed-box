@@ -12,7 +12,6 @@ export default {
     {label: "Embed", id: "embed"}
   ],
 
-
   accentColor: "#2d88f3",
   textColor: "#000000",
   backgroundColor: "#ffffff",

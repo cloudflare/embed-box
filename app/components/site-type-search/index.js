@@ -6,6 +6,8 @@ import template from "./site-type-search.pug"
 import * as icons from "components/icons"
 import KM from "lib/key-map"
 
+const {search: SearchIcon} = icons
+
 function setVisibility(element, hidden) {
   element.style.display = hidden ? "none" : ""
 }
@@ -96,6 +98,9 @@ export default class SiteTypeSearch extends BaseComponent {
     this.compileTemplate()
 
     const {search} = this.refs
+    const searchIcon = new SearchIcon()
+
+    this.insertBefore(searchIcon.render(), search)
 
     search.addEventListener("input", this.handleSearchInput)
 

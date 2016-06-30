@@ -58,6 +58,10 @@ export default class BaseComponent {
     return this.element
   }
 
+  insertBefore(sibling, element) {
+    element.parentNode.insertBefore(sibling, element)
+  }
+
   render() {
     return this.compileTemplate()
   }
