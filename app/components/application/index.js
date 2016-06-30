@@ -36,16 +36,29 @@ export default class Application extends BaseComponent {
 
   @autobind
   handleKeyNavigation(event) {
+    switch (event.keyCode) {
+      case KM.esc:
+        event.preventDefault()
+        this.closeModal()
+
+        break
+
+      case KM.backspace:
+        if (this.element.querySelector("input:focus")) break // User is in a text field.
+
+        event.preventDefault()
+
+        if (!this.isHome()) this.navigateToHome()
+        break
+
+      default:
+        this.delgateKeyEvent(event)
+    }
+
     if (event.keyCode === KM.backspace) {
-      if (this.element.querySelector("input:focus")) return // User is in a text field.
-
-      event.preventDefault()
-
-      if (!this.isHome()) this.navigateToHome()
       return
     }
 
-    this.delgateKeyEvent(event)
   }
 
   mount(mountPoint) {
