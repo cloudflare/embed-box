@@ -25,9 +25,6 @@ const toComponent = template => {
 import closeSVG from "./close.svg"
 export const close = toComponent(closeSVG)
 
-import previousSVG from "./previous.svg"
-export const previous = toComponent(previousSVG)
-
 import drupalSVG from "./drupal.svg"
 export const drupal = toComponent(drupalSVG)
 
@@ -36,6 +33,12 @@ export const embed = toComponent(embedSVG)
 
 import joomlaSVG from "./joomla.svg"
 export const joomla = toComponent(joomlaSVG)
+
+import previousSVG from "./previous.svg"
+export const previous = toComponent(previousSVG)
+
+import searchSVG from "./search.svg"
+export const search = toComponent(searchSVG)
 
 import wordpressSVG from "./wordpress.svg"
 export const wordpress = toComponent(wordpressSVG)
