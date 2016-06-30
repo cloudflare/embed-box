@@ -65,15 +65,14 @@ export default class Application extends BaseComponent {
     window.addEventListener("keydown", this.handleKeyNavigation)
     window.addEventListener("keypress", this.delgateKeyEvent)
 
-    this.renderSiteTypeSearch()
-
     closeModalButton.addEventListener("click", this.closeModal)
     doneButton.addEventListener("click", this.closeModal)
 
     previousPageButton.addEventListener("click", this.navigateToHome)
 
-    this.setNavigationState()
     nextPageButton.addEventListener("click", this.navigateToPage)
+
+    this.navigateToHome()
 
     mountPoint.appendChild(this.element)
   }
@@ -96,6 +95,8 @@ export default class Application extends BaseComponent {
     this.setNavigationState()
     this.renderSiteTypeSearch()
     this.autofocus()
+
+    this.element.setAttribute("data-page", this.store.page)
   }
 
   @autobind
@@ -113,19 +114,15 @@ export default class Application extends BaseComponent {
 
     this.setNavigationState()
     this.autofocus()
+
+    this.element.setAttribute("data-page", store.page)
   }
 
   @autobind
   setNavigationState() {
-    const {doneButton, nextPageButton, previousPageButton} = this.refs
-    const isHome = this.isHome()
+    const {nextPageButton} = this.refs
 
     nextPageButton.disabled = !this.store.selectedId
-    nextPageButton.style.display = isHome ? "" : "none"
-    doneButton.style.display = isHome ? "none" : ""
-
-    if (isHome) previousPageButton.setAttribute("data-hidden", "")
-    else previousPageButton.removeAttribute("data-hidden")
   }
 }
 

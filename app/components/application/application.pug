@@ -1,17 +1,16 @@
-main
-  section(data-column data-component="application")
-    .modal(data-column)
-      .modal-header(aria-role="menubar")
-        button(aria-role="menuitem" data-action="previous" data-ref="previousPageButton")
+main(data-column data-component="application")
+  .modal(data-column)
+    .modal-header(aria-role="menubar")
+      button(aria-role="menuitem" data-action="previous" data-ref="previousPageButton")
 
-        span Add #{store.appName} to your site
-        button(aria-role="menuitem" data-action="close" data-ref="closeModalButton")
+      span Add #{store.appName} to your site
+      button(aria-role="menuitem" data-action="close" data-ref="closeModalButton")
 
-      .content(data-ref="content")
+    .content(data-ref="content")
 
-      .modal-footer
-        button.primary.slim.more(data-action="next" data-ref="nextPageButton")
-          | Next
+    .modal-footer
+      button.primary.slim.more(data-action="next" data-ref="nextPageButton")
+        | Next
 
-        button.primary.slim(data-action="close" data-ref="doneButton")
-          | Done
+      button.primary.slim(data-action="close" data-ref="doneButton")
+        | Done

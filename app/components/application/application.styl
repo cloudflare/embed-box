@@ -7,6 +7,17 @@
   max-height 100%
   min-height 100%
 
+  &[data-page="home"]
+    .modal-footer [data-action="close"]
+      display none
+
+    .modal-header [data-action="previous"]
+      visibility hidden
+
+  &:not([data-page="home"])
+    .modal-footer [data-action="next"]
+      display none
+
   @media (max-height 24em)
     justify-content flex-start
 
@@ -53,9 +64,6 @@
 
       &:not(:hover)
         color subtleText
-
-      &[data-hidden]
-        visibility hidden
 
       > .icon
         flex 1 0 auto
