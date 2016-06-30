@@ -63,7 +63,8 @@ export default class SiteTypeSearch extends BaseComponent {
     const nextIndex = (currentIndex + delta + length) % length
 
     selectedId = types[nextIndex].id
-    this.handleSelection(selectedId)
+
+    this.selectType(selectedId, {focus: true})
   }
 
   @autobind
@@ -75,10 +76,18 @@ export default class SiteTypeSearch extends BaseComponent {
     this.onSubmit()
   }
 
-  handleSelection(selectedId) {
+  selectType(selectedId, options = {}) {
+    const {types, typesContainer} = this.refs
+
     this.store.selectedId = selectedId
 
-    this.refs.types.forEach(this.setTypeStyle)
+    types.forEach(this.setTypeStyle)
+
+    if (options.focus) {
+      typesContainer
+        .querySelector(`.type[data-id="${selectedId}"]`)
+        .scrollIntoView(true)
+    }
 
     this.onSelection()
   }
@@ -117,7 +126,7 @@ export default class SiteTypeSearch extends BaseComponent {
 
       this.setTypeStyle(typeEl)
 
-      typeEl.addEventListener("click", this.handleSelection.bind(this, $.id))
+      typeEl.addEventListener("click", ({id}) => this.selectType(id))
     })
   }
 

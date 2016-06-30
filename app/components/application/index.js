@@ -37,9 +37,7 @@ export default class Application extends BaseComponent {
   @autobind
   handleKeyNavigation(event) {
     if (event.keyCode === KM.backspace) {
-      const {type} = window.getSelection()
-
-      if (type !== "None") return // User is in a text field.
+      if (this.element.querySelector("input:focus")) return // User is in a text field.
 
       event.preventDefault()
 
@@ -97,6 +95,7 @@ export default class Application extends BaseComponent {
     this.store.page = "home"
     this.setNavigationState()
     this.renderSiteTypeSearch()
+    this.autofocus()
   }
 
   @autobind
@@ -113,6 +112,7 @@ export default class Application extends BaseComponent {
     content.appendChild(page.render())
 
     this.setNavigationState()
+    this.autofocus()
   }
 
   @autobind

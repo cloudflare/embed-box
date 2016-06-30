@@ -12,6 +12,12 @@ export default class BaseComponent {
     Object.assign(this, spec)
   }
 
+  autofocus() {
+    const focusElement = this.element.querySelector("[autofocus]")
+
+    if (focusElement) focusElement.focus()
+  }
+
   // NOTE: Calling `updateRefs` multiple times from different tree depths may
   // allow parents to inherit a grandchild.
   updateRefs() {
