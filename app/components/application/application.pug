@@ -11,7 +11,7 @@ main(data-column data-component="application")
 
     .modal-footer
       button.primary.slim.more(data-action="next" data-ref="nextPageButton")
-        | Next
+        | #{store.labels.next}
 
       button.primary.slim(data-action="close" data-ref="doneButton")
-        | Done
+        | #{store.labels.done}
