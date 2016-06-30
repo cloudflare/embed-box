@@ -3,7 +3,7 @@ main(data-column data-component="application")
     .modal-header(aria-role="menubar")
       button(aria-role="menuitem" data-action="previous" data-ref="previousPageButton")
 
-      span.title Add #{store.appName} to your site
+      span.title #{store.labels.title(store.appName)}
 
       button(aria-role="menuitem" data-action="close" data-ref="closeModalButton")
 

@@ -20,6 +20,7 @@ export default {
   labels: {
     done: "Done",
     searchPlaceholder: "Select or search the type of website you have...",
-    next: "Next"
+    next: "Next",
+    title: appName => `Add ${appName} to your site`
   }
 }
