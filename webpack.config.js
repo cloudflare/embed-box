@@ -58,7 +58,7 @@ exports.module.loaders.push(
 )
 
 if (ENVIRONMENT === "development") {
-  exports.devtool = "cheap-module-eval-source-map"
+  exports.devtool = "eval"
 
   exports.module.preLoaders = [{
     exclude: /node_modules/,
