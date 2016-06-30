@@ -126,7 +126,7 @@ export default class SiteTypeSearch extends BaseComponent {
 
       this.setTypeStyle(typeEl)
 
-      typeEl.addEventListener("click", ({id}) => this.selectType(id))
+      typeEl.addEventListener("click", () => this.selectType($.id))
     })
   }
 
