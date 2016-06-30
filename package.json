@@ -13,12 +13,15 @@
     "lint:fix": "eslint --fix ./app"
   },
   "homepage": "https://github.com/EagerIO/UniversalEmbed",
-  "dependencies": {},
+  "dependencies": {
+    "autobind-decorator": "^1.3.3"
+  },
   "devDependencies": {
     "autoprefixer-loader": "^3.2.0",
     "babel-cli": "^6.10.1",
     "babel-eslint": "^6.0.5",
     "babel-loader": "^6.2.4",
+    "babel-plugin-transform-decorators-legacy": "^1.3.4",
     "babel-preset-es2015-native-modules": "^6.6.0",
     "babel-preset-stage-0": "^6.5.0",
     "css-loader": "^0.23.1",

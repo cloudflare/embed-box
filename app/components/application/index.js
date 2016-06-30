@@ -1,17 +1,19 @@
 import "./application.styl"
 
+import autobind from "autobind-decorator"
 import BaseComponent from "components/base-component"
-import template from "./application.pug"
-import SiteTypeSearch from "components/site-type-search"
 import * as icons from "components/icons"
 import * as pages from "components/pages"
+import SiteTypeSearch from "components/site-type-search"
+import template from "./application.pug"
 
 export default class Application extends BaseComponent {
   template = template;
 
+  @autobind
   closeModal() {
     // TODO: flesh out.
-    console.log("Modal close")
+    console.log("Modal close", this)
   }
 
   isHome() {
@@ -33,13 +35,13 @@ export default class Application extends BaseComponent {
 
     this.renderSiteTypeSearch()
 
-    closeModalButton.addEventListener("click", this.closeModal.bind(this))
-    doneButton.addEventListener("click", this.closeModal.bind(this))
+    closeModalButton.addEventListener("click", this.closeModal)
+    doneButton.addEventListener("click", this.closeModal)
 
-    previousPageButton.addEventListener("click", this.navigateToHome.bind(this))
+    previousPageButton.addEventListener("click", this.navigateToHome)
 
     this.setNavigationState()
-    nextPageButton.addEventListener("click", this.navigateToPage.bind(this))
+    nextPageButton.addEventListener("click", this.navigateToPage)
 
     mountPoint.appendChild(this.element)
   }
@@ -47,8 +49,8 @@ export default class Application extends BaseComponent {
   renderSiteTypeSearch() {
     const {content} = this.refs
     const siteTypeSearch = new SiteTypeSearch({
-      onSelection: this.setNavigationState.bind(this),
-      onSubmit: this.navigateToPage.bind(this)
+      onSelection: this.setNavigationState,
+      onSubmit: this.navigateToPage
     })
 
     content.innerHTML = ""
@@ -56,12 +58,14 @@ export default class Application extends BaseComponent {
     content.appendChild(siteTypeSearch.render())
   }
 
+  @autobind
   navigateToHome() {
     this.store.page = "home"
     this.setNavigationState()
     this.renderSiteTypeSearch()
   }
 
+  @autobind
   navigateToPage() {
     const {store} = this
 
@@ -77,6 +81,7 @@ export default class Application extends BaseComponent {
     this.setNavigationState()
   }
 
+  @autobind
   setNavigationState() {
     const {doneButton, nextPageButton, previousPageButton} = this.refs
     const isHome = this.isHome()

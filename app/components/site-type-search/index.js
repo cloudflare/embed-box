@@ -1,5 +1,6 @@
 import "./site-type-search.styl"
 
+import autobind from "autobind-decorator"
 import BaseComponent from "components/base-component"
 import template from "./site-type-search.pug"
 import * as icons from "components/icons"
@@ -79,7 +80,7 @@ export default class SiteTypeSearch extends BaseComponent {
   handleSelection(selectedId) {
     this.store.selectedId = selectedId
 
-    this.refs.types.forEach(this.setTypeStyle.bind(this))
+    this.refs.types.forEach(this.setTypeStyle)
 
     this.onSelection()
   }
@@ -121,6 +122,7 @@ export default class SiteTypeSearch extends BaseComponent {
     })
   }
 
+  @autobind
   setTypeStyle(element) {
     if (element.getAttribute("data-id") === this.store.selectedId) {
       element.setAttribute("data-selected", "")
