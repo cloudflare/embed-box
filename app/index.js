@@ -1,34 +1,12 @@
-import "./index.styl"
+/* eslint-env node */
 
-import Application from "./components/application"
-import store from "./store"
+import EagerUniversalEmbed from "./eager-universal-embed"
 
-const style = document.createElement("style")
+const eagerUniversalEmbed = new EagerUniversalEmbed()
 
-document.addEventListener("DOMContentLoaded", () => {
-  style.innerHTML = `
-    body {
-      color: ${store.textColor};
-    }
-
-    a,
-    .accent-color {
-      color: ${store.accentColor};
-    }
-
-    .button.primary, button.primary,
-    [data-component="site-type-search"] .types .type[data-selected],
-    .accent-background-color {
-      background: ${store.accentColor};
-    }
-  `
-
-  document.head.appendChild(style)
-
-  const application = new Application({
-    // TODO: Check IE for custom event constructor support.
-    supportsCustomEvents: true
-  })
-
-  application.mount(document.body)
-})
+if (typeof module !== "undefined" && typeof module.exports !== "undefined") {
+  module.exports = eagerUniversalEmbed
+}
+else {
+  window.eagerUniversalEmbed = eagerUniversalEmbed
+}

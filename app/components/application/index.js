@@ -1,4 +1,4 @@
-import "./application.styl"
+import stylesheet from "./application.styl"
 
 import autobind from "autobind-decorator"
 import BaseComponent from "components/base-component"
@@ -9,12 +9,12 @@ import template from "./application.pug"
 import KM from "lib/key-map"
 
 export default class Application extends BaseComponent {
-  template = template;
+  static template = template;
+  static stylesheet = stylesheet;
 
   @autobind
   closeModal() {
-    // TODO: flesh out.
-    console.log("Modal close", this)
+    this.onClose()
   }
 
   isHome() {
@@ -59,6 +59,7 @@ export default class Application extends BaseComponent {
   mount(mountPoint) {
     this.compileTemplate()
 
+    const {window: iframeWindow} = this.store.iframe
     const {doneButton, closeModalButton, nextPageButton, previousPageButton} = this.refs
     const headerButtons = [closeModalButton, previousPageButton]
 
@@ -69,9 +70,9 @@ export default class Application extends BaseComponent {
       button.appendChild(icon.render())
     })
 
-    window.addEventListener("keyup", this.delgateKeyEvent)
-    window.addEventListener("keydown", this.handleKeyNavigation)
-    window.addEventListener("keypress", this.delgateKeyEvent)
+    iframeWindow.addEventListener("keyup", this.delgateKeyEvent)
+    iframeWindow.addEventListener("keydown", this.handleKeyNavigation)
+    iframeWindow.addEventListener("keypress", this.delgateKeyEvent)
 
     closeModalButton.addEventListener("click", this.closeModal)
     doneButton.addEventListener("click", this.closeModal)

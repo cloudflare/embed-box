@@ -1,15 +1,29 @@
 import store from "../store"
 
-const ARRAY_REF_PATTERN = /([a-zA-Z\d]*)(\[?\]?)/ // Ends with brackets e.g. [data-ref="foo[]"]
+// Ends with brackets e.g. [data-ref="foo[]"]
+const ARRAY_REF_PATTERN = /([a-zA-Z\d]*)(\[?\]?)/
 
 export default class BaseComponent {
+  static template = null;
+  static stylesheet = null;
+
   element = null;
   refs = {};
   serializer = document.createElement("div");
   store = store;
 
   constructor(spec = {}) {
+    const {stylesheet} = this.constructor
+    const {document: iframeDocument} = this.store.iframe
+
     Object.assign(this, spec)
+
+    if (stylesheet && !this.constructor.style) {
+      const style = this.constructor.style = iframeDocument.createElement("style")
+
+      style.innerHTML = stylesheet
+      iframeDocument.head.appendChild(style)
+    }
   }
 
   autofocus() {
@@ -45,11 +59,13 @@ export default class BaseComponent {
   }
 
   compileTemplate(options = {}) {
-    if (typeof this.template === "function") {
-      this.serializer.innerHTML = this.template({store, ...options})
+    const {template} = this.constructor
+
+    if (typeof template === "function") {
+      this.serializer.innerHTML = template({store, ...options})
     }
     else {
-      this.serializer.innerHTML = this.template
+      this.serializer.innerHTML = template
     }
 
     this.element = this.serializer.firstChild

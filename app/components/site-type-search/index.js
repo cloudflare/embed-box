@@ -1,4 +1,4 @@
-import "./site-type-search.styl"
+import stylesheet from "./site-type-search.styl"
 
 import autobind from "autobind-decorator"
 import BaseComponent from "components/base-component"
@@ -13,7 +13,8 @@ function setVisibility(element, hidden) {
 }
 
 export default class SiteTypeSearch extends BaseComponent {
-  template = template;
+  static template = template;
+  static stylesheet = stylesheet;
 
   get types() {
     const {query, store: {types}} = this
@@ -65,7 +66,7 @@ export default class SiteTypeSearch extends BaseComponent {
     const {length} = types
     const currentIndex = types.findIndex(({id}) => id === selectedId) || 0
 
-    // Move the index by delta and wrap around the bottom/top
+    // Move the index by delta and wrap around the bottom/top.
     const nextIndex = (currentIndex + delta + length) % length
 
     selectedId = types[nextIndex].id

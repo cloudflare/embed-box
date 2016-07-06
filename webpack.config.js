@@ -54,7 +54,7 @@ exports.module.loaders.push(
   {test: /\.png|jpe?g|gif$/i, loader: "file-loader", exclude: /node_modules/},
   {test: /\.js$/, loader: "babel-loader", exclude: /node_modules/},
   {test: /\.svg$/, loader: "svg-inline", exclude: /node_modules/},
-  {test: /\.styl$/, loader: "style-loader?singleton!css-loader!autoprefixer!stylus-loader?paths=app/resources/"}
+  {test: /\.styl$/, loader: "css-to-string!css!autoprefixer!stylus-loader?paths=app/resources/"}
 )
 
 if (ENVIRONMENT === "development") {

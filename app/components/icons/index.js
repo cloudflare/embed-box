@@ -2,7 +2,7 @@ import BaseComponent from "components/base-component"
 
 const toComponent = template => {
   return class Icon extends BaseComponent {
-    template = template;
+    static template = template;
 
     constructor(attributes = {}) {
       super()
