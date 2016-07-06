@@ -25,7 +25,10 @@ exports.output = {
   filename: "[name].js",
   path: resolve(__dirname, buildDirectory),
   publicPath: "/",
-  sourceMapFilename: "[name].map"
+  sourceMapFilename: "[name].map",
+  library: "EagerUniversalEmbed",
+  libraryTarget: "umd",
+  umdNamedDefine: true
 }
 
 // TODO: polyfill Object.assign
@@ -66,5 +69,5 @@ if (ENVIRONMENT === "development") {
     test: /\.js$/
   }]
 
-  exports.entry.unshift(`webpack-dev-server/client?http://0.0.0.0:${routes.views.port}`)
+  // exports.entry.unshift(`webpack-dev-server/client?http://0.0.0.0:${routes.views.port}`)
 }

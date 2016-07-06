@@ -57,7 +57,7 @@ export default class Application extends BaseComponent {
   }
 
   mount(mountPoint) {
-    this.compileTemplate()
+    const element = this.compileTemplate()
 
     const {window: iframeWindow} = this.store.iframe
     const {doneButton, closeModalButton, nextPageButton, previousPageButton} = this.refs
@@ -76,6 +76,9 @@ export default class Application extends BaseComponent {
 
     closeModalButton.addEventListener("click", this.closeModal)
     doneButton.addEventListener("click", this.closeModal)
+    element.addEventListener("click", event => {
+      if (event.target === element) this.closeModal()
+    })
 
     previousPageButton.addEventListener("click", this.navigateToHome)
 
