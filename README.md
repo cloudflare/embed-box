@@ -9,16 +9,16 @@ The universal embed supports the latest Chrome, Safari Firefox, and IE9+
 ### Standalone
 
 Download and include with a script tag.
-`EagerUniversalEmbed` will be registered as a global variable.
+`UniversalEmbed` will be registered as a global variable.
 
 ```html
 <head>
-  <script src="eager-universal-embed.js"></script>
+  <script src="universal-embed.js"></script>
 </head>
 
 <body>
   <script>
-    const universalEmbed = new EagerUniversalEmbed()
+    const universalEmbed = new UniversalEmbed()
 
     universalEmbed.show()
   </script>
@@ -30,28 +30,30 @@ Download and include with a script tag.
 NPM is the recommended install method when your application uses a build process.
 
 ```shell
-$ npm install --save eager-universal-embed
+$ npm install --save universal-embed
 ```
 
 ```javascript
-import EagerUniversalEmbed from "eager-universal-embed"
+import UniversalEmbed from "universal-embed"
 
-const universalEmbed = new EagerUniversalEmbed()
+const universalEmbed = new UniversalEmbed()
 
 universalEmbed.show()
 ```
 
 ### Customization
 
+#### Content
+
 Page content can be customized by adding content in slots.
 
 ```javascript
-import EagerUniversalEmbed from "eager-universal-embed"
+import UniversalEmbed from "universal-embed"
 
-EagerUniversalEmbed.beforeContent = "Contact ACME Inc. for an account ID."
-EagerUniversalEmbed.afterContent = "Thanks you for installing ACME Inc. embed!"
+UniversalEmbed.beforeContent = "Contact ACME Inc. for an account ID."
+UniversalEmbed.afterContent = "Thanks you for installing ACME Inc. embed!"
 
-const universalEmbed = new EagerUniversalEmbed()
+const universalEmbed = new UniversalEmbed()
 
 universalEmbed.show()
 ```
@@ -59,81 +61,100 @@ universalEmbed.show()
 Slot content can be limited to single pages as well.
 
 ```javascript
-const wordPressPage = EagerUniversalEmbed.getPage("wordpress")
+const wordPressPage = UniversalEmbed.getPage("wordpress")
 
 wordPressPage.beforeContent = "ACME recommends WordPress 4.5 or higher"
 ```
 
 A custom bundle can be made to include specific pages.
 
-### Standalone
+##### Standalone
 
 ```html
 <head>
-  <script src="eager-universal-embed-bare.js"></script>
-  <script src="eager-universal-embed-page-wordpress.js"></script>
-  <script src="eager-universal-embed-page-joomla.js"></script>
+  <script src="universal-embed-bare.js"></script>
+  <script src="universal-embed-page-wordpress.js"></script>
+  <script src="universal-embed-page-joomla.js"></script>
 </head>
 
 <body>
   <script>
-    console.log(EagerUniversalEmbed.pages) // [EagerWordPressPage, EagerJoomlaPage]
+    console.log(UniversalEmbed.pages) // [WordPressPage, JoomlaPage]
 
-    const universalEmbed = new EagerUniversalEmbed()
+    const universalEmbed = new UniversalEmbed()
 
     universalEmbed.show()
   </script>
 </body>
 ```
 
-#### With builder
+##### With builder
 
 ```javascript
-import EagerUniversalEmbed from "eager-universal-embed/bare"
-import WordPressPage from "eager-universal-embed/pages/wordpress"
-import JoomlaPage from "eager-universal-embed/pages/joomla"
+import UniversalEmbed from "universal-embed/bare"
+import WordPressPage from "universal-embed/pages/wordpress"
+import JoomlaPage from "universal-embed/pages/joomla"
 
-EagerUniversalEmbed.pages = [
+UniversalEmbed.pages = [
   WordPressPage,
   JoomlaPage
 ]
 
-const universalEmbed = new EagerUniversalEmbed()
+const universalEmbed = new UniversalEmbed()
 
 universalEmbed.show()
 ```
 
+#### Style
+
+If the `theme` configuration option is too coarse, the modal stylesheet can be altered or replaced.
+
+```javascript
+import UniversalEmbed from "universal-embed/bare"
+
+UniversalEmbed.modalStylesheet += `
+  header {
+    font-weight: bold
+  }
+`
+```
+
 ## Usage
 
-### Constructor - `new EagerUniversalEmbed(options)`,
+#### Constructor - `new UniversalEmbed(options)`,
 
 Accepts options config.
 
 - `container`: element or string passed to querySelector.
 
 ```javascript
-const universalEmbed = new EagerUniversalEmbed({
+const universalEmbed = new UniversalEmbed({
   container: document.body // Default
 })
 ```
 
 ```javascript
-const universalEmbed = new EagerUniversalEmbed({
+const universalEmbed = new UniversalEmbed({
   container: "#wrapper"
 })
 ```
 
-### `EagerUniversalEmbed#show`
+- `theme`: Object.
 
-Show modal
+```javascript
+const universalEmbed = new UniversalEmbed({
+  theme: {
+    accentColor: "#2d88f3",
+    backgroundColor: "#ffffff",
+    textColor: "#000000"
+  }
+})
 
-### `EagerUniversalEmbed#hide`
+#### `UniversalEmbed#show` - Show modal
 
-Hide modal
+#### `UniversalEmbed#hide` - Hide modal
 
-### `EagerUniversalEmbed#destroy`
-
-Destroy modal
+#### `UniversalEmbed#destroy` - Destroy modal
 
 ## Contributing
 

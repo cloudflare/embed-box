@@ -1,7 +1,5 @@
-/* eslint-env node */
-
 import stylesheet from "./eager-universal-embed.styl"
-import iframeStylesheet from "./iframe.styl"
+import modalStylesheet from "./iframe.styl"
 
 import autobind from "autobind-decorator"
 import Application from "./components/application"
@@ -13,9 +11,9 @@ function unmountElement(element) {
   return element.parentNode.removeChild(element)
 }
 
-module.exports = class EagerUniversalEmbed {
+export default class EagerUniversalEmbed {
   static stylesheet = stylesheet;
-  static iframeStylesheet = iframeStylesheet;
+  static modalStylesheet = modalStylesheet;
 
   static iframeAttributes = {
     allowTransparency: "",
@@ -24,19 +22,33 @@ module.exports = class EagerUniversalEmbed {
     seamless: "seamless"
   };
 
+  static page = [];
+
+  static getPage(id = "") {
+    const {pages} = this.constructor
+
+    return pages.filter($ => $.id === id)[0]
+  }
+
+  theme = {
+    accentColor: "#2d88f3",
+    backgroundColor: "#ffffff",
+    textColor: "#000000"
+  };
+
   iframe = document.createElement("iframe");
   style = document.createElement("style");
 
-  constructor({container} = {}) {
+  constructor(spec = {}) {
     const {iframeAttributes, stylesheet} = this.constructor
 
-    switch (typeof container) {
+    switch (typeof spec.container) {
       case "object": // Element
-        this.container = container
+        this.container = spec.container
         break
 
       case "string": // Selector
-        this.container = document.querySelector(container)
+        this.container = document.querySelector(spec.container)
         break
 
       default:
@@ -44,6 +56,10 @@ module.exports = class EagerUniversalEmbed {
     }
 
     if (!this.container) throw new Error("EagerUniversalEmbed: container was not found.")
+
+    if (spec.theme) {
+      this.theme = Object.assign(this.theme, spec.theme)
+    }
 
     this.style.innerHTML = stylesheet
     this.container.appendChild(this.style) // TODO: perhaps always the document.head?
@@ -60,29 +76,29 @@ module.exports = class EagerUniversalEmbed {
       window: this.iframe.contentWindow
     }
 
-    this.appendIframeStylesheet()
+    this.appendmodalStylesheet()
 
     this.init()
     this.show()
   }
 
-  appendIframeStylesheet() {
-    const {iframeStylesheet} = this.constructor
+  appendmodalStylesheet() {
+    const {theme, constructor: {modalStylesheet}} = this
     const style = document.createElement("style")
 
-    style.innerHTML = iframeStylesheet + `
+    style.innerHTML = modalStylesheet + `
       body {
-        color: ${store.textColor};
+        color: ${theme.textColor};
       }
 
       a, .accent-color {
-        color: ${store.accentColor};
+        color: ${theme.accentColor};
       }
 
       .button.primary, button.primary,
       [data-component="site-type-search"] .types .type[data-selected],
       .accent-background-color {
-        background: ${store.accentColor};
+        background: ${theme.accentColor};
       }
     `
 
