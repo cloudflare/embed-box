@@ -22,7 +22,7 @@ export default class EagerUniversalEmbed {
     seamless: "seamless"
   };
 
-  static page = [];
+  static pages = [];
 
   static getPage(id = "") {
     const {pages} = this.constructor
