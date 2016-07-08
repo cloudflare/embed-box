@@ -17,11 +17,11 @@ export default class SiteTypeSearch extends BaseComponent {
   static stylesheet = stylesheet;
 
   get types() {
-    const {query, store: {types}} = this
+    const {query, fooTypes} = this
 
-    if (!query) return types
+    if (!query) return fooTypes
 
-    return types.map(type => {
+    return fooTypes.map(type => {
       const label = type.label.toLowerCase()
 
       return {

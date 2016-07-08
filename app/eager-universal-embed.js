@@ -120,6 +120,7 @@ export default class EagerUniversalEmbed {
 
   init() {
     const application = new Application({
+      pages: this.constructor.pages,
       onClose: this.hide,
       // TODO: Check IE for custom event constructor support.
       supportsCustomEvents: true

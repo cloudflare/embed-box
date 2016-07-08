@@ -3,7 +3,6 @@ import stylesheet from "./application.styl"
 import autobind from "autobind-decorator"
 import BaseComponent from "components/base-component"
 import * as icons from "components/icons"
-import * as pages from "components/pages"
 import SiteTypeSearch from "components/site-type-search"
 import template from "./application.pug"
 import KM from "lib/key-map"
@@ -92,6 +91,7 @@ export default class Application extends BaseComponent {
   renderSiteTypeSearch() {
     const {content} = this.refs
     const siteTypeSearch = new SiteTypeSearch({
+      fooTypes: this.pages,
       onSelection: this.setNavigationState,
       onSubmit: this.navigateToPage
     })
@@ -119,7 +119,8 @@ export default class Application extends BaseComponent {
     store.selectedId = ""
 
     const {content} = this.refs
-    const page = new pages[store.page]()
+    const [Page] = this.pages.filter(page => page.id === store.page)
+    const page = new Page()
 
     content.innerHTML = ""
     content.appendChild(page.render())

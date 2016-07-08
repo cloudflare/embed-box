@@ -13,8 +13,9 @@ const buildDirectory = exports.buildDirectory = "dist"
 exports.devtool = "source-map"
 
 exports.entry = [
-  "./app/index.js",
-  "./app/bare.js"
+  "./app/bare.js",
+  "./app/page.js",
+  "./app/index.js"
 ]
 
 exports.module = {
@@ -27,7 +28,7 @@ exports.output = {
   path: resolve(__dirname, buildDirectory),
   publicPath: "/",
   sourceMapFilename: "[name].map",
-  library: "EagerUniversalEmbed",
+  library: "UniversalEmbed",
   libraryTarget: "umd",
   umdNamedDefine: true
 }

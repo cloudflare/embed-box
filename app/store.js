@@ -5,6 +5,8 @@ export default {
   selectedId: "",
   page: "home",
 
+  types: [],
+
   labels: {
     done: "Done",
     searchPlaceholder: "Select or search the type of website you have...",
