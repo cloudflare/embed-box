@@ -2,6 +2,7 @@ import stylesheet from "./application.styl"
 
 import autobind from "autobind-decorator"
 import BaseComponent from "components/base-component"
+import store from "../../store"
 import * as icons from "components/icons"
 import SiteTypeSearch from "components/site-type-search"
 import template from "./application.pug"
@@ -58,7 +59,7 @@ export default class Application extends BaseComponent {
   mount(mountPoint) {
     const element = this.compileTemplate()
 
-    const {window: iframeWindow} = this.store.iframe
+    const {window: iframeWindow} = store.iframe
     const {doneButton, closeModalButton, nextPageButton, previousPageButton} = this.refs
     const headerButtons = [closeModalButton, previousPageButton]
 

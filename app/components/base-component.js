@@ -14,7 +14,8 @@ export default class BaseComponent {
 
   constructor(spec = {}) {
     const {stylesheet} = this.constructor
-    const {document: iframeDocument} = this.store.iframe
+
+    const {document: iframeDocument} = store.iframe
 
     Object.assign(this, spec)
 

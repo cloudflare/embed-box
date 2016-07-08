@@ -121,7 +121,8 @@ export default class SiteTypeSearch extends BaseComponent {
     const {typesContainer} = this.refs
 
     this.types.forEach($ => {
-      const icon = new icons[$.id]()
+      const Icon = icons[$.id] || icons.embed
+      const icon = new Icon()
       const typeEl = typesContainer.appendChild(document.createElement("div"))
 
       typeEl.className = "type"

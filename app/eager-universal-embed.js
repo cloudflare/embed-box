@@ -1,9 +1,12 @@
 import stylesheet from "./eager-universal-embed.styl"
 import modalStylesheet from "./iframe.styl"
+import pagesStylesheet from "./pages.styl"
 
 import autobind from "autobind-decorator"
 import Application from "./components/application"
 import store from "./store"
+
+const {iframe} = store
 
 function unmountElement(element) {
   if (!element || !element.parentNode) return null
@@ -36,7 +39,6 @@ export default class EagerUniversalEmbed {
     textColor: "#000000"
   };
 
-  iframe = document.createElement("iframe");
   style = document.createElement("style");
 
   constructor(spec = {}) {
@@ -66,23 +68,28 @@ export default class EagerUniversalEmbed {
 
     Object
       .keys(iframeAttributes)
-      .forEach(key => this.iframe.setAttribute(key, iframeAttributes[key]))
+      .forEach(key => iframe.element.setAttribute(key, iframeAttributes[key]))
 
-    this.container.appendChild(this.iframe)
+    this.container.appendChild(iframe.element)
 
-    store.iframe = {
-      element: this.iframe,
-      document: this.iframe.contentDocument,
-      window: this.iframe.contentWindow
-    }
+    this.appendModalStylesheet()
 
-    this.appendmodalStylesheet()
+    const pageStyle = iframe.document.createElement("style")
 
-    this.init()
-    this.show()
+    pageStyle.innerHTML = pagesStylesheet
+    iframe.document.head.appendChild(pageStyle)
+
+    const application = new Application({
+      pages: this.constructor.pages,
+      onClose: this.hide,
+      // TODO: Check IE for custom event constructor support.
+      supportsCustomEvents: true
+    })
+
+    application.mount(iframe.document.body)
   }
 
-  appendmodalStylesheet() {
+  appendModalStylesheet() {
     const {theme, constructor: {modalStylesheet}} = this
     const style = document.createElement("style")
 
@@ -102,35 +109,24 @@ export default class EagerUniversalEmbed {
       }
     `
 
-    this.iframe.contentDocument.head.appendChild(style)
+    iframe.document.head.appendChild(style)
   }
 
   destroy() {
-    unmountElement(this.iframe)
+    unmountElement(iframe.element)
     unmountElement(this.style)
   }
 
   @autobind
   hide() {
-    this.iframe.setAttribute("data-eager-universal-embed", "hidden")
+    iframe.element.setAttribute("data-eager-universal-embed", "hidden")
 
     this.container.style.overflow = this.containerPreviousOverflow
     this.containerPreviousOverflow = ""
   }
 
-  init() {
-    const application = new Application({
-      pages: this.constructor.pages,
-      onClose: this.hide,
-      // TODO: Check IE for custom event constructor support.
-      supportsCustomEvents: true
-    })
-
-    application.mount(this.iframe.contentDocument.body)
-  }
-
   show() {
-    this.iframe.setAttribute("data-eager-universal-embed", "visible")
+    iframe.element.setAttribute("data-eager-universal-embed", "visible")
 
     this.containerPreviousOverflow = this.container.style.overflow
     this.container.style.overflow = "hidden"

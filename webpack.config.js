@@ -13,9 +13,9 @@ const buildDirectory = exports.buildDirectory = "dist"
 exports.devtool = "source-map"
 
 exports.entry = {
-  bare: "./app/bare.js",
-  page: "./app/page.js",
-  index: "./app/index.js"
+  UniversalEmbedCustom: "./app/custom.js",
+  UniversalEmbedCustomPage: "./app/custom-page.js",
+  UniversalEmbed: "./app/index.js"
 }
 
 exports.module = {
@@ -28,7 +28,7 @@ exports.output = {
   path: resolve(__dirname, buildDirectory),
   publicPath: "/",
   sourceMapFilename: "[name].map",
-  library: "UniversalEmbed",
+  library: "[name]",
   libraryTarget: "umd",
   umdNamedDefine: true
 }

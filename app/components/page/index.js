@@ -1,23 +1,12 @@
-import stylesheet from "./pages.styl"
-
 import BaseComponent from "components/base-component"
 
-let mountedSharedStyle = false
-
-export default class Page extends BaseComponent {
-  constructor() {
-    super()
-
-    const {document: iframeDocument} = this.store.iframe
-
-    if (!mountedSharedStyle) {
-      const style = iframeDocument.createElement("style")
-
-      style.innerHTML = stylesheet
-
-      iframeDocument.head.appendChild(style)
-
-      mountedSharedStyle = true
+export default class BasePage extends BaseComponent {
+  static extend = function extend({fallback = false, id, label, template = ""}) {
+    return class CustomPage extends BasePage {
+      static fallback = fallback;
+      static id = id;
+      static label = label;
+      static template = template;
     }
-  }
+  };
 }

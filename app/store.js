@@ -1,9 +1,21 @@
+const iframe = document.createElement("iframe")
+
 export default {
   appName: "Drift Chat",
   siteId: "Icc0-PIkXF",
 
   selectedId: "",
   page: "home",
+
+  iframe: {
+    element: iframe,
+    get document() {
+      return iframe.contentDocument
+    },
+    get window() {
+      return iframe.contentWindow
+    }
+  },
 
   types: [],
 

@@ -54,10 +54,21 @@
   <!-- TODO - bundle these together -->
   <!-- <script src="../../js/templates/embed-modal/index.js"></script> -->
   <!-- <script src="../../js/index.js"></script> -->
-  <script src="http://localhost:9000/index.js"></script>
+  <script src="http://localhost:9000/UniversalEmbed.js"></script>
+  <script src="http://localhost:9000/UniversalEmbedCustomPage.js"></script>
   <script type="text/javascript">
+    const CustomPage = UniversalEmbedCustomPage.extend({
+      template: "<div>Hello</div>",
+      id: "foo",
+      label: "Foo"
+    })
+
+    UniversalEmbed.pages.push(CustomPage)
+
     document.addEventListener("DOMContentLoaded", () => {
       const universalEmbed = new window.UniversalEmbed()
+
+      universalEmbed.show()
     })
   </script>
 </head>
