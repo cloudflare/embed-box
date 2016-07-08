@@ -3,7 +3,7 @@ main(data-column data-component="application" role="main")
     header.modal-header(role="menubar")
       button(role="menuitem" data-action="previous" data-ref="previousPageButton")
 
-      span.title #{store.labels.title(store.appName)}
+      span.title #{config.labels.title(config.appName)}
 
       button(role="menuitem" data-action="close" data-ref="closeModalButton")
 
@@ -11,7 +11,7 @@ main(data-column data-component="application" role="main")
 
     footer.modal-footer
       button.primary.slim.more(data-action="next" data-ref="nextPageButton")
-        | #{store.labels.next}
+        | #{config.labels.next}
 
       button.primary.slim(data-action="close" data-ref="doneButton")
-        | #{store.labels.done}
+        | #{config.labels.done}

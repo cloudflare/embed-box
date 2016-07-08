@@ -12,23 +12,16 @@ const buildDirectory = exports.buildDirectory = "dist"
 
 exports.devtool = "source-map"
 
-exports.entry = {
-  UniversalEmbedCustom: "./app/custom.js",
-  UniversalEmbedCustomPage: "./app/custom-page.js",
-  UniversalEmbed: "./app/index.js"
-}
+exports.entry = {}
 
 exports.module = {
   loaders: [],
   noParse: /\.min\.js/
 }
-// TODO fix library name
+
 exports.output = {
-  filename: "[name].js",
   path: resolve(__dirname, buildDirectory),
   publicPath: "/",
-  sourceMapFilename: "[name].map",
-  library: "[name]",
   libraryTarget: "umd",
   umdNamedDefine: true
 }
@@ -38,9 +31,6 @@ exports.plugins = [
   new webpack.NoErrorsPlugin(),
   new webpack.DefinePlugin({
     "process.env.NODE_ENV": JSON.stringify(ENVIRONMENT)
-  }),
-  new HtmlWebpackPlugin({
-    template: "app/index.pug"
   })
 ]
 
@@ -65,11 +55,24 @@ exports.module.loaders.push(
 if (ENVIRONMENT === "development") {
   exports.devtool = "eval"
 
+  exports.entry = ["./app/development.js"]
+
+  Object.assign(exports.output, {
+    filename: "[name].js",
+    sourceMapFilename: "[name].map"
+  })
+
+  exports.plugins.push(
+    new HtmlWebpackPlugin({
+      template: "app/index.pug"
+    })
+  )
+
   exports.module.preLoaders = [{
     exclude: /node_modules/,
     loader: "eslint-loader",
     test: /\.js$/
   }]
 
-  // exports.entry.unshift(`webpack-dev-server/client?http://0.0.0.0:${routes.views.port}`)
+  exports.entry.unshift(`webpack-dev-server/client?http://0.0.0.0:${routes.views.port}`)
 }

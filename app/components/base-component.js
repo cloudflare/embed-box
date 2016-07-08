@@ -63,7 +63,7 @@ export default class BaseComponent {
     const {template} = this.constructor
 
     if (typeof template === "function") {
-      this.serializer.innerHTML = template({store, ...options})
+      this.serializer.innerHTML = template({config: store, ...options})
     }
     else {
       this.serializer.innerHTML = template

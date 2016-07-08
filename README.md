@@ -66,6 +66,47 @@ const wordPressPage = UniversalEmbed.getPage("wordpress")
 wordPressPage.beforeContent = "ACME recommends WordPress 4.5 or higher"
 ```
 
+#### Custom Pages
+
+```javascript
+import UniversalEmbed from "universal-embed"
+import CustomPage from "universal-embed/custom-page"
+
+const CustomPage = UniversalEmbedCustomPage.extend({
+  id: "custom-test",
+  label: "Custom Page",
+  template: "<section>Hello from a custom page!</section>"
+})
+
+UniversalEmbed.pages.push(CustomPage)
+
+const universalEmbed = new UniversalEmbed()
+
+universalEmbed.show()
+```
+
+Templates can be passed as function as well to pass varibles.
+The UniversalEmbed configuration is available under `vars.config`.
+
+```javascript
+const CustomPage = UniversalEmbedCustomPage.extend({
+  id: "custom-test",
+  label: "Custom Page",
+  templateVars: {
+    registerURL: "http://example.com/register"
+  },
+  template: vars => `<section>
+    <h1>Installing ${vars.config.appName} from a custom page</h1>
+
+    <p>
+      <a href="${vars.registerURL}">Register an account</a> before installing.
+    </p>
+  </section>`
+})
+```
+
+#### Custom Bundles
+
 A custom bundle can be made to include specific pages.
 
 ##### Standalone

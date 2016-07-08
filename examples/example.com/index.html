@@ -51,24 +51,25 @@
     }
   </style>
 
-  <!-- TODO - bundle these together -->
-  <!-- <script src="../../js/templates/embed-modal/index.js"></script> -->
-  <!-- <script src="../../js/index.js"></script> -->
-  <script src="http://localhost:9000/UniversalEmbed.js"></script>
-  <script src="http://localhost:9000/UniversalEmbedCustomPage.js"></script>
+  <script src="../../dist/universal-embed.js"></script>
+  <script src="../../dist/universal-embed-custom-page.js"></script>
   <script type="text/javascript">
-    const CustomPage = UniversalEmbedCustomPage.extend({
-      template: "<div>Hello</div>",
-      id: "foo",
-      label: "Foo"
+    const CustomPage = window.UniversalEmbedCustomPage.extend({
+      template: "<div>Hello from a custom page!</div>",
+      id: "custom-test",
+      label: "Custom Page"
     })
 
-    UniversalEmbed.pages.push(CustomPage)
+    window.UniversalEmbed.pages.push(CustomPage)
 
     document.addEventListener("DOMContentLoaded", () => {
       const universalEmbed = new window.UniversalEmbed()
 
       universalEmbed.show()
+
+      document
+        .querySelector("[data-universal-embed-action='modal-open']")
+        .addEventListener("click", () => universalEmbed.show())
     })
   </script>
 </head>
@@ -79,12 +80,10 @@
     <p>This domain is established to be used for illustrative examples in documents. You may use this
       domain in examples without prior coordination or asking for permission.</p>
       <p class="link-paragraph"><a href="http://www.iana.org/domains/example">More information...</a></p>
-      <p><a class="button" data-universal-embed-action="modal-open" data-universal-embed-brand-color="#2d88f3">Embed Drift</a>   <--- Click me to get a demo of UniversalEmbed</p>
-    <!-- <script>
-        setTimeout(function(){
-            document.querySelector('[data-universal-embed-action="modal-open"]').click()
-        }, 0);
-      </script> -->
+      <p>
+        <a class="button" data-universal-embed-action="modal-open" data-universal-embed-brand-color="#2d88f3">Embed Drift</a>
+        &lt;--- Click me to get a demo of UniversalEmbed
+      </p>
     </div>
   </body>
   </html>
