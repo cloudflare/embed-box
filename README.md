@@ -110,7 +110,7 @@ universalEmbed.show()
 If the `theme` configuration option is too coarse, the modal stylesheet can be altered or replaced.
 
 ```javascript
-import UniversalEmbed from "universal-embed/bare"
+import UniversalEmbed from "universal-embed"
 
 UniversalEmbed.modalStylesheet += `
   header {
@@ -149,6 +149,7 @@ const universalEmbed = new UniversalEmbed({
     textColor: "#000000"
   }
 })
+```
 
 #### `UniversalEmbed#show` - Show modal
 
