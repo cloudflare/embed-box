@@ -8,12 +8,13 @@ const routes = require("./package.json").routes[ENVIRONMENT]
 const HtmlWebpackPlugin = require("html-webpack-plugin")
 const webpack = require("webpack")
 
-const buildDirectory = exports.buildDirectory = "build"
+const buildDirectory = exports.buildDirectory = "dist"
 
 exports.devtool = "source-map"
 
 exports.entry = [
-  "./app/index.js"
+  "./app/index.js",
+  "./app/bare.js"
 ]
 
 exports.module = {

@@ -1,15 +1,23 @@
 /* eslint-env node, es6 */
 
-const EagerUniversalEmbed = require("./eager-universal-embed")
+const UniversalEmbed = require("./eager-universal-embed")
 const Page = require("./page")
 
-const defaultPages = [
-  {label: "WordPress", id: "wordpress"},
-  {label: "Drupal", id: "drupal"},
-  {label: "Joomla", id: "joomla"},
-  {label: "Another CMS", id: "embed", fallback: true}
+const WordPressPage = require("./pages/wordpress")
+const DrupalPage = require("./pages/drupal")
+const JoomlaPage = require("./pages/joomla")
+const GenericPage = require("./pages/generic")
+
+// {label: "", id: "wordpress"},
+// {label: "", id: "drupal"},
+// {label: "", id: "joomla"},
+// {label: " CMS", id: "embed", fallback: true}
+
+UniversalEmbed.pages = [
+  WordPressPage,
+  DrupalPage,
+  JoomlaPage,
+  GenericPage
 ]
 
-EagerUniversalEmbed.pages = defaultPages.map(spec => new Page(spec))
-
-module.exports = EagerUniversalEmbed
+module.exports = UniversalEmbed
