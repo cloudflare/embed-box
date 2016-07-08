@@ -12,17 +12,17 @@ const buildDirectory = exports.buildDirectory = "dist"
 
 exports.devtool = "source-map"
 
-exports.entry = [
-  "./app/bare.js",
-  "./app/page.js",
-  "./app/index.js"
-]
+exports.entry = {
+  bare: "./app/bare.js",
+  page: "./app/page.js",
+  index: "./app/index.js"
+}
 
 exports.module = {
   loaders: [],
   noParse: /\.min\.js/
 }
-
+// TODO fix library name
 exports.output = {
   filename: "[name].js",
   path: resolve(__dirname, buildDirectory),
@@ -56,7 +56,7 @@ exports.stylus = {
 
 exports.module.loaders.push(
   {test: /\.pug$/, loader: "jade-loader", exclude: /node_modules/},
-  {test: /\.png|jpe?g|gif$/i, loader: "file-loader", exclude: /node_modules/},
+  {test: /\.png|jpe?g|gif$/i, loader: "url-loader?limit=0", exclude: /node_modules/},
   {test: /\.js$/, loader: "babel-loader", exclude: /node_modules/},
   {test: /\.svg$/, loader: "svg-inline", exclude: /node_modules/},
   {test: /\.styl$/, loader: "css-to-string!css!autoprefixer!stylus-loader?paths=app/resources/"}

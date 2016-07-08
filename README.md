@@ -151,6 +151,17 @@ const universalEmbed = new UniversalEmbed({
 })
 ```
 
+- `downloadURLs`: Object of strings
+
+```javascript
+const universalEmbed = new UniversalEmbed({
+  downloadURLs: {
+    wordpress: "http://example.com/wordpress-plugin.zip",
+    joomla: "http://example.com/joomla-plugin.zip"
+  }
+})
+```
+
 #### `UniversalEmbed#show` - Show modal
 
 #### `UniversalEmbed#hide` - Hide modal
