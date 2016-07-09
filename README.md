@@ -50,7 +50,7 @@ Page content can be customized by adding content in slots.
 ```javascript
 import UniversalEmbed from "universal-embed"
 
-UniversalEmbed.beforeContent = "Contact ACME Inc. for an account ID."
+UniversalEmbed.beforeContent = "Contact <strong>ACME Inc.</strong> for an account ID."
 UniversalEmbed.afterContent = "Thanks you for installing ACME Inc. embed!"
 
 const universalEmbed = new UniversalEmbed()
@@ -63,7 +63,7 @@ Slot content can be limited to single pages as well.
 ```javascript
 const wordPressPage = UniversalEmbed.getPage("wordpress")
 
-wordPressPage.beforeContent = "ACME recommends WordPress 4.5 or higher"
+wordPressPage.beforeContent = "ACME recommends WordPress <strong>4.5</strong> or higher"
 ```
 
 #### Custom Pages
