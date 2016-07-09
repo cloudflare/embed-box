@@ -51,7 +51,8 @@
     }
   </style>
 
-  <script src="../../dist/universal-embed.js"></script>
+  <script src="../../dist/universal-embed-custom.js"></script>
+  <script src="../../dist/universal-embed-page-wordpress.js"></script>
   <script src="../../dist/universal-embed-custom-page.js"></script>
   <script type="text/javascript">
     const CustomPage = window.UniversalEmbedCustomPage.extend({
@@ -60,10 +61,10 @@
       label: "Custom Page"
     })
 
-    window.UniversalEmbed.pages.push(CustomPage)
+    window.UniversalEmbedCustom.pages.push(CustomPage)
 
     document.addEventListener("DOMContentLoaded", () => {
-      const universalEmbed = new window.UniversalEmbed()
+      const universalEmbed = new window.UniversalEmbedCustom()
 
       universalEmbed.show()
 

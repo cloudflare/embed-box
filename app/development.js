@@ -1,5 +1,5 @@
-import UniversalEmbed from "./index.js"
-import UniversalEmbedCustomPage from "./custom-page.js"
+import UniversalEmbed from "../universal-embed.js"
+import UniversalEmbedCustomPage from "../custom-page.js"
 
 document.addEventListener("DOMContentLoaded", () => {
   const CustomPage = UniversalEmbedCustomPage.extend({

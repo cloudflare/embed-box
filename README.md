@@ -113,7 +113,7 @@ A custom bundle can be made to include specific pages.
 
 ```html
 <head>
-  <script src="universal-embed-bare.js"></script>
+  <script src="universal-embed-custom.js"></script>
   <script src="universal-embed-page-wordpress.js"></script>
   <script src="universal-embed-page-joomla.js"></script>
 </head>
@@ -132,7 +132,7 @@ A custom bundle can be made to include specific pages.
 ##### With builder
 
 ```javascript
-import UniversalEmbed from "universal-embed/bare"
+import UniversalEmbed from "universal-embed/custom"
 import WordPressPage from "universal-embed/pages/wordpress"
 import JoomlaPage from "universal-embed/pages/joomla"
 
