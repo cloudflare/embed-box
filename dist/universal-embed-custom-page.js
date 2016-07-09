@@ -62,7 +62,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ 	__webpack_require__.p = "/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 2);
+/******/ 	return __webpack_require__(__webpack_require__.s = 3);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -143,7 +143,7 @@ var BasePage = (_temp = _class = function (_BaseComponent) {
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__store__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__store__ = __webpack_require__(2);
 
 /* harmony export */ __webpack_require__.d(exports, "a", function() { return BaseComponent; });var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
 
@@ -274,15 +274,6 @@ var BaseComponent = (_temp = _class = function () {
 /* 2 */
 /***/ function(module, exports, __webpack_require__) {
 
-/* eslint-env node, es6 */
-var Page = __webpack_require__(0).default;
-
-module.exports = Page;
-
-/***/ },
-/* 3 */
-/***/ function(module, exports, __webpack_require__) {
-
 "use strict";
 var iframe = document.createElement("iframe");
 
@@ -312,6 +303,15 @@ var iframe = document.createElement("iframe");
     }
   }
 };
+
+/***/ },
+/* 3 */
+/***/ function(module, exports, __webpack_require__) {
+
+/* eslint-env node, es6 */
+var Page = __webpack_require__(0).default;
+
+module.exports = Page;
 
 /***/ }
 /******/ ])

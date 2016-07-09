@@ -62,7 +62,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ 	__webpack_require__.p = "/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 10);
+/******/ 	return __webpack_require__(__webpack_require__.s = 11);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -780,7 +780,7 @@ exports.DebugItem = function DebugItem(lineno, filename) {
 /* harmony import */ __webpack_require__.d(__WEBPACK_IMPORTED_MODULE_3_autobind_decorator___default, 'a', __WEBPACK_IMPORTED_MODULE_3_autobind_decorator___default);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_application__ = __webpack_require__(8);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__store__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_lib_custom_event__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_lib_custom_event__ = __webpack_require__(10);
 
 /* harmony export */ __webpack_require__.d(exports, "default", function() { return EagerUniversalEmbed; });var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
@@ -1466,16 +1466,6 @@ var SiteTypeSearch = (_class = (_temp = _class2 = function (_BaseComponent) {
 /* 10 */
 /***/ function(module, exports, __webpack_require__) {
 
-/* eslint-env node, es6 */
-
-var EagerUniversalEmbed = __webpack_require__(7).default;
-
-module.exports = EagerUniversalEmbed;
-
-/***/ },
-/* 11 */
-/***/ function(module, exports, __webpack_require__) {
-
 "use strict";
 /* harmony export */ exports["a"] = polyfillCustomEvent;function polyfillCustomEvent(_ref) {
   var document = _ref.document;
@@ -1497,6 +1487,16 @@ module.exports = EagerUniversalEmbed;
 
   window.CustomEvent = CustomEvent;
 }
+
+/***/ },
+/* 11 */
+/***/ function(module, exports, __webpack_require__) {
+
+/* eslint-env node, es6 */
+
+var EagerUniversalEmbed = __webpack_require__(7).default;
+
+module.exports = EagerUniversalEmbed;
 
 /***/ },
 /* 12 */
