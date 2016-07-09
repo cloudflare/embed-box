@@ -6,7 +6,6 @@ const webpack = require("webpack")
 const eachSeries = require("async").eachSeries
 const del = require("del")
 
-
 const optimizePlugins = [
   new webpack.optimize.OccurrenceOrderPlugin(true),
   new webpack.optimize.UglifyJsPlugin({
@@ -38,6 +37,7 @@ baseConfig.plugins.unshift()
 function buildEntry({optimize}, id, next) {
   const entry = entries[id]
   const entryConfig = Object.assign({}, baseConfig)
+  const filename = optimize ? `${id}.min.js` : `${id}.js`
 
   if (optimize) {
     entry.plugins = optimizePlugins.concat(entry.plugins)
@@ -48,7 +48,7 @@ function buildEntry({optimize}, id, next) {
   }
 
   Object.assign(entryConfig.output, {
-    filename: optimize ? `${id}.min.js` : `${id}.js`,
+    filename,
     sourceMapFilename: optimize ? `${id}.min.map` : `${id}.map`,
     library: entry.name
   })
@@ -61,7 +61,7 @@ function buildEntry({optimize}, id, next) {
       return next(error)
     }
 
-    console.log(`Built: ${entryConfig.output.filename} - ${entry.name}`)
+    console.log(`Built: ${filename} - ${entry.name}`)
 
     next()
   })
