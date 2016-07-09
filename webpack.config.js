@@ -26,7 +26,6 @@ exports.output = {
   umdNamedDefine: true
 }
 
-// TODO: polyfill Object.assign
 exports.plugins = [
   new webpack.NoErrorsPlugin(),
   new webpack.DefinePlugin({
