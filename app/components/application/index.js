@@ -25,7 +25,7 @@ export default class Application extends BaseComponent {
   delgateKeyEvent(nativeEvent) {
     const receiver = this.refs.content.querySelector("[data-event-receiver]")
 
-    if (!receiver || !this.supportsCustomEvents) return
+    if (!receiver) return
 
     const delgated = new CustomEvent(`dispatched-${nativeEvent.type}`, {
       detail: {nativeEvent}

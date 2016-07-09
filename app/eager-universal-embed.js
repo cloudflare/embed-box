@@ -5,6 +5,7 @@ import pagesStylesheet from "./pages.styl"
 import autobind from "autobind-decorator"
 import Application from "./components/application"
 import store from "./store"
+import polyfillCustomEvent from "lib/custom-event"
 
 const {iframe} = store
 
@@ -72,6 +73,8 @@ export default class EagerUniversalEmbed {
 
     this.container.appendChild(iframe.element)
 
+    polyfillCustomEvent(iframe)
+
     this.appendModalStylesheet()
 
     const pageStyle = iframe.document.createElement("style")
@@ -81,9 +84,7 @@ export default class EagerUniversalEmbed {
 
     const application = new Application({
       pages: this.constructor.pages,
-      onClose: this.hide,
-      // TODO: Check IE for custom event constructor support.
-      supportsCustomEvents: true
+      onClose: this.hide
     })
 
     application.mount(iframe.document.body)
