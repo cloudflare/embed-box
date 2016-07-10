@@ -1,7 +1,6 @@
 {
   "name": "universal-embed",
   "version": "0.0.1",
-  "private": true,
   "repository": {
     "type": "git",
     "url": "git://github.com/EagerIO/UniversalEmbed.git"
