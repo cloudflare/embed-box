@@ -1,10 +1,12 @@
 /* eslint-env node */
 
-const baseConfig = require("../webpack.config")
-const resolve = require("path").resolve
-const webpack = require("webpack")
-const eachSeries = require("async").eachSeries
+const baseConfig = require("../webpack.config.base")()
 const del = require("del")
+const {each} = require("async")
+const webpack = require("webpack")
+const {entries, IDs} = require("./distributions")
+
+const {assign} = Object
 
 function logError(error) {
   console.dir(error, {depth: null, colors: true})
@@ -17,85 +19,52 @@ const optimizePlugins = [
   })
 ]
 
-const entries = {
-  "universal-embed": {
-    library: "UniversalEmbed",
-    path: "./universal-embed.js"
-  },
-  "universal-embed-custom": {
-    library: "UniversalEmbedCustom",
-    path: "./custom.js"
-  },
-  "universal-embed-custom-page": {
-    library: "UniversalEmbedCustomPage",
-    path: "./custom-page.js"
-  },
-  "universal-embed-page-drupal": {
-    library: "UniversalEmbedDrupalPage",
-    path: "./pages/drupal.js"
-  },
-  "universal-embed-page-embed": {
-    library: "UniversalEmbedEmbedPage", // TODO: Pick a different name.
-    path: "./pages/embed.js"
-  },
-  "universal-embed-page-joomla": {
-    library: "UniversalEmbedWordpressPage",
-    path: "./pages/joomla.js"
-  },
-  "universal-embed-page-wordpress": {
-    library: "UniversalEmbedWordpressPage",
-    path: "./pages/wordpress.js"
-  }
-}
+del.sync(baseConfig.output.path)
 
-const IDs = Object.keys(entries)
-
-del.sync(resolve(__dirname, "../dist"))
-
-baseConfig.plugins.unshift()
-
-function buildEntry({optimize}, id, next) {
+function buildEntry(id, next) {
   const {library, path} = entries[id]
-  const entryConfig = Object.assign({}, baseConfig)
-  const filename = optimize ? `${id}.min.js` : `${id}.js`
 
-  if (optimize) {
-    console.log("optimizing")
-    entryConfig.plugins = optimizePlugins.concat(entryConfig.plugins)
-  }
+  const configs = [
+    assign({}, baseConfig, { // Default
+      entry: {[id]: path},
+      output: assign({}, baseConfig.output, {
+        filename: `${id}.js`,
+        library,
+        sourceMapFilename: `${id}.map`
+      })
+    }),
 
-  entryConfig.entry = {
-    [id]: path
-  }
+    assign({}, baseConfig, { // Optimized
+      entry: {[id]: path},
+      output: assign({}, baseConfig.output, {
+        filename: `${id}.min.js`,
+        library,
+        sourceMapFilename: `${id}.min.map`
+      }),
+      plugins: optimizePlugins.concat(baseConfig.plugins)
+    })
+  ]
 
-  Object.assign(entryConfig.output, {
-    filename,
-    sourceMapFilename: optimize ? `${id}.min.map` : `${id}.map`,
-    library
-  })
+  each(configs, (config, nextConfig) => {
+    const compiler = webpack(config)
 
-  const compiler = webpack(entryConfig)
+    compiler.run((fatalError, stats) => {
+      if (fatalError) throw fatalError
 
-  compiler.run((fatalError, stats) => {
-    if (fatalError) throw fatalError
+      const {errors, warnings} = stats.toJson()
 
-    const {errors, warnings} = stats.toJson()
+      if (errors.length > 0 || warnings.length > 0) {
+        logError(warnings)
+        logError(errors)
+        process.exit(1)
+      }
 
-    if (errors.length > 0 || warnings.length > 0) {
-      logError(warnings)
-      logError(errors)
-      process.exit(1)
-    }
-
-    console.log(`Built: ${filename} - ${library}`)
-
-    next()
-  })
+      console.log(`- ${config.output.filename}`)
+      nextConfig()
+    })
+  }, next)
 }
 
-console.log("Building pristine bundles...")
-eachSeries(IDs, buildEntry.bind(null, {optimize: false}), () => {
-  console.log("\nBuilding optimized bundles...")
-  eachSeries(IDs, buildEntry.bind(null, {optimize: true}))
-})
+console.log("Building bundles . . .")
+each(IDs, buildEntry)
 

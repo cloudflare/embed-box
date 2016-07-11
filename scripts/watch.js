@@ -1,11 +1,9 @@
 /* eslint-env node */
 
-const {routes} = require("../package.json")
+const {hostname, port, protocol} = require("../package.json").routes.development.views
 const webpack = require("webpack")
 const WebpackDevServer = require("webpack-dev-server")
-const config = require("../webpack.config")
-
-const {hostname, port, protocol} = routes.development.views
+const config = require("../webpack.config.site")
 
 const server = new WebpackDevServer(webpack(config), {
   historyApiFallback: true,
