@@ -1,0 +1,6 @@
+test/
+media/
+scripts/
+examples/
+dist/
+webpack.config.js
