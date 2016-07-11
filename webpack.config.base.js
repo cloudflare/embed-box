@@ -6,33 +6,33 @@ const {resolve} = require("path")
 const routes = require("./package.json").routes[ENVIRONMENT]
 const nib = require("nib")()
 const webpack = require("webpack")
-const merge = require("webpack-merge")
 
 const exclude = /node_modules/
 
 module.exports = function createWebpackConfig(overrides = {}) {
   const buildDirectory = overrides.buildDirectory || "dist"
+  const {entry = {}, output = {}, plugins = []} = overrides
   const $ = {}
 
   $.buildDirectory = buildDirectory
 
   $.devtool = "source-map"
 
-  $.entry = {}
+  $.entry = entry
 
-  $.output = {
+  $.output = Object.assign({
     path: resolve(__dirname, buildDirectory),
     publicPath: "/",
     libraryTarget: "umd",
     umdNamedDefine: true
-  }
+  }, output)
 
   $.plugins = [
     new webpack.NoErrorsPlugin(),
     new webpack.DefinePlugin({
       "process.env.NODE_ENV": JSON.stringify(ENVIRONMENT)
     })
-  ]
+  ].concat(plugins)
 
   $.resolve = {
     extensions: ["", ".js", ".json"],
@@ -58,13 +58,6 @@ module.exports = function createWebpackConfig(overrides = {}) {
   if (ENVIRONMENT === "development") {
     $.devtool = "eval"
 
-    $.entry = ["./app/development.js"]
-
-    Object.assign($.output, {
-      filename: "[name].js",
-      sourceMapFilename: "[name].map"
-    })
-
     $.module.preLoaders = [{
       exclude,
       loader: "eslint-loader",
@@ -74,5 +67,5 @@ module.exports = function createWebpackConfig(overrides = {}) {
     $.entry.unshift(`webpack-dev-server/client?http://0.0.0.0:${routes.views.port}`)
   }
 
-  return merge.smart($, overrides)
+  return $
 }

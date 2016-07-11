@@ -1,6 +1,7 @@
 /* eslint-env node */
 
 const baseConfig = require("../webpack.config.base")()
+const siteConfig = require("../webpack.config.site")
 const del = require("del")
 const {each} = require("async")
 const webpack = require("webpack")
@@ -10,6 +11,18 @@ const {assign} = Object
 
 function logError(error) {
   console.dir(error, {depth: null, colors: true})
+}
+
+function validate(fatalError, stats) {
+  if (fatalError) throw fatalError
+
+  const {errors, warnings} = stats.toJson()
+
+  if (errors.length > 0 || warnings.length > 0) {
+    logError(warnings)
+    logError(errors)
+    process.exit(1)
+  }
 }
 
 const optimizePlugins = [
@@ -49,15 +62,7 @@ function buildEntry(id, next) {
     const compiler = webpack(config)
 
     compiler.run((fatalError, stats) => {
-      if (fatalError) throw fatalError
-
-      const {errors, warnings} = stats.toJson()
-
-      if (errors.length > 0 || warnings.length > 0) {
-        logError(warnings)
-        logError(errors)
-        process.exit(1)
-      }
+      validate(fatalError, stats)
 
       console.log(`- ${config.output.filename}`)
       nextConfig()
@@ -65,6 +70,15 @@ function buildEntry(id, next) {
   }, next)
 }
 
-console.log("Building bundles . . .")
+console.log("Building bundles...")
 each(IDs, buildEntry)
+
+const compiler = webpack(siteConfig)
+
+compiler.run((fatalError, stats) => {
+  validate(fatalError, stats)
+
+  console.log("- Universal Embed Documentation https://universalembed.io")
+})
+
 
