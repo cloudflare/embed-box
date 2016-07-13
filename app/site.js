@@ -1,7 +1,34 @@
+import stylesheet from "./site.styl"
 import UniversalEmbed from "../universal-embed.js"
 import UniversalEmbedCustomPage from "../custom-page.js"
 
+const style = document.createElement("style")
+
+style.innerHTML = stylesheet
+document.head.appendChild(style)
+
+const examples = {
+  basic() {
+    const universalEmbed = new UniversalEmbed()
+
+    universalEmbed.show()
+  }
+}
+
+function handleRunClick(event) {
+  const element = event.target
+
+  const key = element.getAttribute("data-example")
+
+  examples[key]()
+}
 document.addEventListener("DOMContentLoaded", () => {
+  // TODO polyfill me!
+  Array
+    .from(document.querySelectorAll("button.run"))
+    .forEach(element => element.addEventListener("click", handleRunClick))
+
+
   const CustomPage = UniversalEmbedCustomPage.extend({
     id: "custom-test",
     label: "Custom Page",
@@ -19,7 +46,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   UniversalEmbed.pages.push(CustomPage)
 
-  const universalEmbed = new UniversalEmbed()
+  // const universalEmbed = new UniversalEmbed()
 
-  universalEmbed.show()
+  // universalEmbed.show()
 })

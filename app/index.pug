@@ -13,6 +13,26 @@ html.no-js(lang="en")
     meta(name="viewport" content="width=device-width, initial-scale=1, user-scalable=no")
 
   body
+    main(data-column)
+      .thing.hero
+        | Universal Embed!
+        iframe.github-star(
+          src="https://ghbtns.com/github-btn.html?user=eagerio&repo=UniversalEmbed&type=star&count=true&size=large"
+          frameborder="0"
+          scrolling="0"
+          width="160px"
+          height="30px")
+
+      .thing.install(data-column)
+        .code-example
+          button(data-example="basic").run Run
+          :markdown
+            <pre><code>const universalEmbed = new UniversalEmbed()
+
+            universalEmbed.show()</code></pre>
+
+      .thing.configure
+
     noscript.no-js-info
       h1 Eager Universal Embed
       p This website requires JavaScript to retrieve content.
