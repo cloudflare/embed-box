@@ -1,3 +1,5 @@
+import "babel-polyfill"
+
 import stylesheet from "./site.styl"
 import * as examples from "./examples"
 
