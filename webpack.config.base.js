@@ -21,7 +21,7 @@ const renderer = new marked.Renderer()
 
 module.exports = function createWebpackConfig(overrides = {}) {
   const buildDirectory = overrides.buildDirectory || "dist"
-  const {entry = {}, output = {}, plugins = []} = overrides
+  const {entry = {}, loaders = [], output = {}, plugins = []} = overrides
   const $ = {}
 
   $.buildDirectory = buildDirectory
@@ -57,14 +57,14 @@ module.exports = function createWebpackConfig(overrides = {}) {
   }
 
   $.module = {
-    loaders: [
+    loaders: loaders.concat([
       {test: /\.md$/, loader: "html!markdown", exclude},
       {test: /\.pug$/, loader: "jade", exclude},
       {test: /\.png|jpe?g|gif$/i, loader: "url?limit=0", exclude},
       {test: /\.js$/, loader: "babel", exclude},
       {test: /\.svg$/, loader: "svg-inline", exclude},
       {test: /\.styl$/, loader: "css-to-string!css!autoprefixer!stylus-loader?paths=app/resources/"}
-    ],
+    ]),
     noParse: /\.min\.js/
   }
 

@@ -1,13 +1,7 @@
 import "babel-polyfill"
 
-import stylesheet from "./site.styl"
+import "./site.external-styl"
 import * as examples from "./examples"
-
-// TODO: Fix flash of unstyled content
-const style = document.createElement("style")
-
-style.innerHTML = stylesheet
-document.head.appendChild(style)
 
 function handleRunClick({target}) {
   const key = target.getAttribute("data-example")

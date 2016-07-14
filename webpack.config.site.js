@@ -3,11 +3,21 @@
 
 const createWebpackConfig = require("./webpack.config.base")
 const HtmlWebpackPlugin = require("html-webpack-plugin")
+const ExtractTextPlugin = require("extract-text-webpack-plugin")
+
+const extractCSS = new ExtractTextPlugin("site.css")
 
 module.exports = createWebpackConfig({
   buildDirectory: "./",
 
   entry: ["./app/site.js"],
+
+  loaders: [
+    {
+      test: /\.external-styl$/,
+      loader: ExtractTextPlugin.extract("style", "css!autoprefixer!stylus-loader?paths=app/resources/")
+    }
+  ],
 
   output: {
     filename: "site.js",
@@ -15,6 +25,7 @@ module.exports = createWebpackConfig({
   },
 
   plugins: [
+    extractCSS,
     new HtmlWebpackPlugin({
       template: "app/index.pug"
     })
