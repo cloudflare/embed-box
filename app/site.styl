@@ -1,6 +1,10 @@
 @import "~highlight.js/styles/github.css"
 @import "shared"
 
+landingDeepBlue = rgb(13, 0, 33)
+landingBlue = rgb(43, 0, 107)
+landingPurple = rgb(156, 62, 163)
+
 .slide
   align-items center
   justify-content center
@@ -9,15 +13,19 @@
   position relative
 
   &.hero
+    background-image linear-gradient(to top, landingDeepBlue 0%, landingBlue 40%, landingPurple 100%)
     color white
-    background-image linear-gradient(to top, rgb(13, 0, 33) 0%, rgb(43, 0, 107) 41%, rgb(156, 62, 163) 100%)
     font-size 2rem
     z-index -1
 
     .logo-text
-      text-shadow -1px 1px 10px red, 3px -1px 10px green, -4px 3px 10px blue, 0px 2px 0px rgba(255, 255, 255, 0.6)
       font-size 4.5rem
       font-weight bold
+      text-shadow -1px 1px 10px red, 3px -1px 10px green, -4px 3px 10px blue, 0px 2px 0px rgba(255, 255, 255, 0.6)
+
+  &.pitch
+    background-image linear-gradient(landingDeepBlue, lighten(landingDeepBlue, 5%))
+    color white
 
   canvas.stars
     bottom 0
