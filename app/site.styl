@@ -10,13 +10,27 @@
 
   &.hero
     color white
-    background-image linear-gradient(to top, rgb(13, 0, 33) 0%, rgb(43, 0, 107) 55%,  rgb(196, 114, 202) 100%)
+    background-image linear-gradient(to top, rgb(13, 0, 33) 0%, rgb(43, 0, 107) 41%, rgb(156, 62, 163) 100%)
     font-size 2rem
+    z-index -1
 
     .logo-text
       text-shadow -1px 1px 10px red, 3px -1px 10px green, -4px 3px 10px blue, 0px 2px 0px rgba(255, 255, 255, 0.6)
       font-size 4.5rem
       font-weight bold
+
+  canvas.stars
+    bottom 0
+    left 0
+    position absolute
+    right 0
+    top 0
+    opacity 0
+    transition opacity 100ms linear
+    z-index -1
+
+    &[data-rendered]
+      opacity 1
 
 .github-star
   left 0
