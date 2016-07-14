@@ -27,7 +27,7 @@ landingPurple = rgb(156, 62, 163)
     background-image linear-gradient(landingDeepBlue, lighten(landingDeepBlue, 5%))
     color white
 
-  canvas.stars
+  svg.stars
     bottom 0
     left 0
     position absolute
@@ -39,6 +39,9 @@ landingPurple = rgb(156, 62, 163)
 
     &[data-rendered]
       opacity 1
+
+    .star
+      transition opacity 500ms linear
 
 .github-star
   left 0

@@ -11,11 +11,11 @@ function handleRunClick({target}) {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-  const canvas = document.querySelector("canvas.stars")
+  const svg = document.querySelector("svg.stars")
 
-  drawStars(canvas)
+  drawStars(svg)
 
-  window.addEventListener("resize", () => drawStars(canvas))
+  window.addEventListener("resize", () => drawStars(svg))
 
   Array
     .from(document.querySelectorAll("button.run"))
