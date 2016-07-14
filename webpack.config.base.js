@@ -6,8 +6,18 @@ const {resolve} = require("path")
 const routes = require("./package.json").routes[ENVIRONMENT]
 const nib = require("nib")()
 const webpack = require("webpack")
+const marked = require("marked")
+const {highlight} = require("highlight.js")
 
 const exclude = /node_modules/
+
+marked.setOptions({
+  highlight(code, language) {
+    return highlight(language, code).value
+  }
+})
+
+const renderer = new marked.Renderer()
 
 module.exports = function createWebpackConfig(overrides = {}) {
   const buildDirectory = overrides.buildDirectory || "dist"
@@ -19,6 +29,8 @@ module.exports = function createWebpackConfig(overrides = {}) {
   $.devtool = "source-map"
 
   $.entry = entry
+
+  $.markdownLoader = {renderer}
 
   $.output = Object.assign({
     path: resolve(__dirname, buildDirectory),
@@ -46,9 +58,10 @@ module.exports = function createWebpackConfig(overrides = {}) {
 
   $.module = {
     loaders: [
-      {test: /\.pug$/, loader: "jade-loader", exclude},
-      {test: /\.png|jpe?g|gif$/i, loader: "url-loader?limit=0", exclude},
-      {test: /\.js$/, loader: "babel-loader", exclude},
+      {test: /\.md$/, loader: "html!markdown", exclude},
+      {test: /\.pug$/, loader: "jade", exclude},
+      {test: /\.png|jpe?g|gif$/i, loader: "url?limit=0", exclude},
+      {test: /\.js$/, loader: "babel", exclude},
       {test: /\.svg$/, loader: "svg-inline", exclude},
       {test: /\.styl$/, loader: "css-to-string!css!autoprefixer!stylus-loader?paths=app/resources/"}
     ],

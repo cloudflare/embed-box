@@ -26,10 +26,7 @@ html.no-js(lang="en")
       .thing.install(data-column)
         .code-example
           button(data-example="basic").run Run
-          :markdown
-            <pre><code>const universalEmbed = new UniversalEmbed()
-
-            universalEmbed.show()</code></pre>
+          != require("./examples/basic.md")
 
       .thing.configure
 
