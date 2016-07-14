@@ -1,17 +1,22 @@
 @import "~highlight.js/styles/github.css"
 @import "shared"
 
-.thing
+.slide
   align-items center
   justify-content center
-  height 100vh
+  min-height 100vh
+  padding 2em 0
   position relative
 
   &.hero
     color white
     background-image linear-gradient(to bottom, rgb(94, 58, 152) 0%, rgb(75, 18, 72) 100%)
-    font-size 4em
-    font-weight bold
+    font-size 2rem
+
+    .logo-text
+      font-size 4rem
+      font-weight bold
+
 
 .github-star
   left 0
@@ -21,8 +26,13 @@
 
 .code-example
   background-color gray
+  max-width 100%
   padding 1.3em
   position relative
+  width 500px
+
+  & + .code-example
+    margin-top 1em
 
   button.run
     background-color pink

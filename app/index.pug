@@ -14,8 +14,10 @@ html.no-js(lang="en")
 
   body
     main(data-column)
-      .thing.hero
-        | Universal Embed!
+      .slide.hero(data-column)
+        .logo-text Universal Embed
+        em Simple user onboarding
+
         iframe.github-star(
           src="https://ghbtns.com/github-btn.html?user=eagerio&repo=UniversalEmbed&type=star&count=true&size=large"
           frameborder="0"
@@ -23,12 +25,27 @@ html.no-js(lang="en")
           width="160px"
           height="30px")
 
-      .thing.install(data-column)
+      .slide.pitch(data-column)
+        :markdown
+          # How can I get my app on every site in the universe?
+
+          [simplified example here]
+
+
+      .slide.install(data-column)
+        :markdown
+          # How to Use
+
+          First download the <a href="#">latest release</a>, then add this to your page.
+
+        .code-example
+          != require("./examples/install.md")
+
         .code-example
           button(data-example="basic").run Run
           != require("./examples/basic.md")
 
-      .thing.configure
+      .slide.configure
 
     noscript.no-js-info
       h1 Eager Universal Embed

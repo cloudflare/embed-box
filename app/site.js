@@ -3,6 +3,7 @@ import "babel-polyfill"
 import stylesheet from "./site.styl"
 import * as examples from "./examples"
 
+// TODO: Fix flash of unstyled content
 const style = document.createElement("style")
 
 style.innerHTML = stylesheet
