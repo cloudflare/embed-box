@@ -1,5 +1,5 @@
 const randomInt = max => parseInt(Math.random() * max, 10)
-const randomOpacity = () => (randomInt(9) * 0.1).toPrecision(2)
+const randomOpacity = () => (randomInt(5) * 0.1).toPrecision(2)
 
 const xmlns = "http://www.w3.org/2000/svg"
 
