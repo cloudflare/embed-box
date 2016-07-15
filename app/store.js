@@ -5,7 +5,6 @@ export default {
   siteId: "Icc0-PIkXF",
 
   selectedId: "",
-  page: "home",
 
   iframe: {
     element: iframe,

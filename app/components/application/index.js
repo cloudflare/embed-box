@@ -12,6 +12,8 @@ export default class Application extends BaseComponent {
   static template = template;
   static stylesheet = stylesheet;
 
+  page = "home";
+
   constructor(mountPoint, options) {
     super(options)
 
@@ -51,10 +53,6 @@ export default class Application extends BaseComponent {
     this.onClose()
   }
 
-  isHome() {
-    return this.store.page === "home"
-  }
-
   @autobind
   delgateKeyEvent(nativeEvent) {
     const receiver = this.refs.content.querySelector("[data-event-receiver]")
@@ -82,7 +80,7 @@ export default class Application extends BaseComponent {
 
         event.preventDefault()
 
-        if (!this.isHome()) this.navigateToHome()
+        if (this.page !== "home") this.navigateToHome()
         break
 
       default:
@@ -93,7 +91,7 @@ export default class Application extends BaseComponent {
   renderSiteTypeSearch() {
     const {content} = this.refs
     const siteTypeSearch = new SiteTypeSearch({
-      fooTypes: this.pages,
+      pages: this.pages,
       onSelection: this.setNavigationState,
       onSubmit: this.navigateToPage
     })
@@ -105,23 +103,23 @@ export default class Application extends BaseComponent {
 
   @autobind
   navigateToHome() {
-    this.store.page = "home"
+    this.page = "home"
     this.setNavigationState()
     this.renderSiteTypeSearch()
     this.autofocus()
 
-    this.element.setAttribute("data-page", this.store.page)
+    this.element.setAttribute("data-page", this.page)
   }
 
   @autobind
   navigateToPage() {
     const {store} = this
 
-    store.page = store.selectedId
+    this.page = store.selectedId
     store.selectedId = ""
 
     const {content} = this.refs
-    const [Page] = this.pages.filter(page => page.id === store.page)
+    const [Page] = this.pages.filter(page => page.id === this.page)
     const page = new Page()
 
     content.innerHTML = ""
@@ -130,7 +128,7 @@ export default class Application extends BaseComponent {
     this.setNavigationState()
     this.autofocus()
 
-    this.element.setAttribute("data-page", store.page)
+    this.element.setAttribute("data-page", this.page)
   }
 
   @autobind

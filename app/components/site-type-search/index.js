@@ -17,16 +17,16 @@ export default class SiteTypeSearch extends BaseComponent {
   static stylesheet = stylesheet;
 
   get types() {
-    const {query, fooTypes} = this
+    const {query, pages} = this
 
-    if (!query) return fooTypes
+    if (!query) return pages
 
-    return fooTypes.map(type => {
-      const label = type.label.toLowerCase()
+    return pages.map(page => {
+      const label = page.label.toLowerCase()
 
       return {
-        ...type,
-        hidden: label.indexOf(query) === -1 && !type.fallback
+        ...page,
+        hidden: label.indexOf(query) === -1 && !page.fallback
       }
     })
   }
