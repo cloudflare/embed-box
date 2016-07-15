@@ -34,6 +34,8 @@ export default class UniversalEmbed {
     return pages.filter($ => $.id === id)[0]
   }
 
+  application = null;
+
   theme = {
     accentColor: "#2d88f3",
     backgroundColor: "#ffffff",
@@ -45,27 +47,14 @@ export default class UniversalEmbed {
   constructor(spec = {}) {
     const {iframeAttributes, stylesheet} = this.constructor
 
-    switch (typeof spec.container) {
-      case "object": // Element
-        this.container = spec.container
-        break
-
-      case "string": // Selector
-        this.container = document.querySelector(spec.container)
-        break
-
-      default:
-        this.container = document.body
-    }
-
-    if (!this.container) throw new Error("EagerUniversalEmbed: container was not found.")
+    this.container = document.body
 
     if (spec.theme) {
       this.theme = Object.assign(this.theme, spec.theme)
     }
 
     this.style.innerHTML = stylesheet
-    this.container.appendChild(this.style) // TODO: perhaps always the document.head?
+    document.head.appendChild(this.style)
 
     Object
       .keys(iframeAttributes)
@@ -82,12 +71,10 @@ export default class UniversalEmbed {
     pageStyle.innerHTML = pagesStylesheet
     iframe.document.head.appendChild(pageStyle)
 
-    const application = new Application({
+    this.application = new Application(iframe.document.body, {
       pages: this.constructor.pages,
       onClose: this.hide
     })
-
-    application.mount(iframe.document.body)
   }
 
   appendModalStylesheet() {
@@ -126,10 +113,13 @@ export default class UniversalEmbed {
     this.containerPreviousOverflow = ""
   }
 
+  @autobind
   show() {
     iframe.element.setAttribute("data-universal-embed", "visible")
 
     this.containerPreviousOverflow = this.container.style.overflow
     this.container.style.overflow = "hidden"
+
+    this.application.autofocus()
   }
 }

@@ -166,20 +166,6 @@ UniversalEmbed.modalStylesheet += `
 
 Accepts options config.
 
-- `container`: element or string passed to querySelector.
-
-```javascript
-const universalEmbed = new UniversalEmbed({
-  container: document.body // Default
-})
-```
-
-```javascript
-const universalEmbed = new UniversalEmbed({
-  container: "#wrapper"
-})
-```
-
 - `theme`: Object.
 
 ```javascript

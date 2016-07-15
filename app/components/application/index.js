@@ -12,6 +12,40 @@ export default class Application extends BaseComponent {
   static template = template;
   static stylesheet = stylesheet;
 
+  constructor(mountPoint, options) {
+    super(options)
+
+    const element = this.compileTemplate()
+
+    const {window: iframeWindow} = store.iframe
+    const {doneButton, closeModalButton, nextPageButton, previousPageButton} = this.refs
+    const headerButtons = [closeModalButton, previousPageButton]
+
+    headerButtons.forEach(button => {
+      const id = button.getAttribute("data-action")
+      const icon = new icons[id]()
+
+      button.appendChild(icon.render())
+    })
+
+    iframeWindow.addEventListener("keyup", this.delgateKeyEvent)
+    iframeWindow.addEventListener("keydown", this.handleKeyNavigation)
+    iframeWindow.addEventListener("keypress", this.delgateKeyEvent)
+
+    closeModalButton.addEventListener("click", this.closeModal)
+    doneButton.addEventListener("click", this.closeModal)
+    element.addEventListener("click", event => {
+      if (event.target === element) this.closeModal()
+    })
+
+    previousPageButton.addEventListener("click", this.navigateToHome)
+
+    nextPageButton.addEventListener("click", this.navigateToPage)
+
+    this.navigateToHome()
+    mountPoint.appendChild(this.element)
+  }
+
   @autobind
   closeModal() {
     this.onClose()
@@ -54,39 +88,6 @@ export default class Application extends BaseComponent {
       default:
         this.delgateKeyEvent(event)
     }
-  }
-
-  mount(mountPoint) {
-    const element = this.compileTemplate()
-
-    const {window: iframeWindow} = store.iframe
-    const {doneButton, closeModalButton, nextPageButton, previousPageButton} = this.refs
-    const headerButtons = [closeModalButton, previousPageButton]
-
-    headerButtons.forEach(button => {
-      const id = button.getAttribute("data-action")
-      const icon = new icons[id]()
-
-      button.appendChild(icon.render())
-    })
-
-    iframeWindow.addEventListener("keyup", this.delgateKeyEvent)
-    iframeWindow.addEventListener("keydown", this.handleKeyNavigation)
-    iframeWindow.addEventListener("keypress", this.delgateKeyEvent)
-
-    closeModalButton.addEventListener("click", this.closeModal)
-    doneButton.addEventListener("click", this.closeModal)
-    element.addEventListener("click", event => {
-      if (event.target === element) this.closeModal()
-    })
-
-    previousPageButton.addEventListener("click", this.navigateToHome)
-
-    nextPageButton.addEventListener("click", this.navigateToPage)
-
-    this.navigateToHome()
-
-    mountPoint.appendChild(this.element)
   }
 
   renderSiteTypeSearch() {
