@@ -21,10 +21,12 @@ body
     font-size 2rem
     z-index -1
 
+    p
+      color saturate(lighten(landingPurple, 40%), 75%)
+
     .logo-text
       font-size 4.5rem
       font-weight bold
-      text-shadow -1px 1px 10px red, 3px -1px 10px green, -4px 3px 10px blue, 0px 2px 0px rgba(255, 255, 255, 0.6)
 
   &.pitch
     background-image linear-gradient(landingDeepBlue, lighten(landingDeepBlue, 5%))
@@ -38,11 +40,11 @@ body
     top 0
     opacity 0
     pointer-events none
-    transition opacity 100ms linear
+    transition opacity 300ms ease
     z-index -1
 
     &[data-rendered]
-      opacity 1
+      opacity .6
 
     .star
       transition opacity 500ms linear
