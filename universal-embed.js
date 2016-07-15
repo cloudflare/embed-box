@@ -1,6 +1,6 @@
 /* eslint-env node, es6 */
 
-const UniversalEmbed = require("./app/eager-universal-embed").default
+const UniversalEmbed = require("./app/universal-embed").default
 const pages = require("./app/components/pages")
 
 UniversalEmbed.pages = [

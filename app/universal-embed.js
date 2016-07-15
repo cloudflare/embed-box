@@ -1,4 +1,4 @@
-import stylesheet from "./eager-universal-embed.styl"
+import stylesheet from "./universal-embed.styl"
 import modalStylesheet from "./iframe.styl"
 import pagesStylesheet from "./pages.styl"
 
@@ -15,13 +15,13 @@ function unmountElement(element) {
   return element.parentNode.removeChild(element)
 }
 
-export default class EagerUniversalEmbed {
+export default class UniversalEmbed {
   static stylesheet = stylesheet;
   static modalStylesheet = modalStylesheet;
 
   static iframeAttributes = {
     allowTransparency: "",
-    "data-eager-universal-embed": "hidden",
+    "data-universal-embed": "hidden",
     frameBorder: "0",
     seamless: "seamless"
   };
@@ -120,14 +120,14 @@ export default class EagerUniversalEmbed {
 
   @autobind
   hide() {
-    iframe.element.setAttribute("data-eager-universal-embed", "hidden")
+    iframe.element.setAttribute("data-universal-embed", "hidden")
 
     this.container.style.overflow = this.containerPreviousOverflow
     this.containerPreviousOverflow = ""
   }
 
   show() {
-    iframe.element.setAttribute("data-eager-universal-embed", "visible")
+    iframe.element.setAttribute("data-universal-embed", "visible")
 
     this.containerPreviousOverflow = this.container.style.overflow
     this.container.style.overflow = "hidden"
