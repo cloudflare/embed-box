@@ -60,7 +60,15 @@ html.no-js(lang="en")
           != require("./examples/custom-theme.md")
 
         :marked
+          If the `theme` configuration option is too coarse, the modal stylesheet can be altered or replaced.
+
+        .code-example
+          != require("./examples/custom-modal-stylesheet.md")
+
+        :marked
           ## Content slots
+
+          Content be inserted before and after the page instructions.
 
         .code-example.has-run-button
           button.run Run
@@ -69,9 +77,27 @@ html.no-js(lang="en")
         :marked
           ## Custom pages
 
+          If the content slots are too coarse, custom pages can be created with the custom build.
+
+        .code-example
+          != require("./examples/custom-install.md")
+
         .code-example.has-run-button
           button.run Run
           != require("./examples/custom-page.md")
+
+      .slide.dev-install
+        :marked
+          # Contributing
+
+          Please do, we would love for this to become a project of the community.
+          Feel free to open an issue, submit a PR or contribute to the wiki.
+
+      .slide.made-by
+        .label Made by
+
+        a.logo-link(href="https://eager.io")
+          != require("./components/icons/eager-logo.svg")
 
     noscript.no-js-info
       h1 Universal Embed
