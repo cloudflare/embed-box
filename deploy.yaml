@@ -1,5 +1,5 @@
 default:
-  root: 'dest'
+  root: 'site-deploy'
 
 production:
   bucket: 'embedbox.io'

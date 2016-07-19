@@ -10,7 +10,7 @@ dependencies:
     - "cache"
 
   post:
-    - npm run build
+    - npm run build-site
     - curl https://s3.amazonaws.com/stout-builds/install | sh
 
 test:
