@@ -323,7 +323,7 @@ exports.DebugItem = function DebugItem(lineno, filename) {
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_lib_store__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_lib_store__ = __webpack_require__(4);
 
 /* harmony export */ __webpack_require__.d(exports, "a", function() { return BaseComponent; });var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
 
@@ -513,8 +513,11 @@ module.exports = function() {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_components_base_component__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_lib_store__ = __webpack_require__(4);
 
-/* harmony export */ __webpack_require__.d(exports, "a", function() { return BasePage; });var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+/* harmony export */ __webpack_require__.d(exports, "a", function() { return BasePage; });var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _class, _temp;
 
@@ -523,6 +526,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
 
 
 
@@ -542,8 +546,9 @@ var BasePage = (_temp = _class = function (_BaseComponent) {
       var id = _constructor.id;
       var templateVars = _constructor.templateVars;
 
+      var downloadURL = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1_lib_store__["a" /* getStore */])().downloadURLs[this.constructor.id];
 
-      __WEBPACK_IMPORTED_MODULE_0_components_base_component__["a" /* default */].prototype.compileTemplate.call(this, templateVars);
+      __WEBPACK_IMPORTED_MODULE_0_components_base_component__["a" /* default */].prototype.compileTemplate.call(this, _extends({ downloadURL: downloadURL }, templateVars));
 
       this.element.setAttribute("data-component", id + "-page");
       this.element.setAttribute("data-column", "");
@@ -585,6 +590,67 @@ var BasePage = (_temp = _class = function (_BaseComponent) {
 
 /***/ },
 /* 4 */
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+/* harmony export */ exports["b"] = initializeStore;/* harmony export */ exports["a"] = getStore;var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+var store = null;
+
+function initializeStore(instance) {
+  var spec = arguments.length <= 1 || arguments[1] === undefined ? {} : arguments[1];
+
+  var iframe = document.createElement("iframe");
+  var _spec$appName = spec.appName;
+  var appName = _spec$appName === undefined ? "an app" : _spec$appName;
+  var _spec$beforeContent = spec.beforeContent;
+  var beforeContent = _spec$beforeContent === undefined ? "" : _spec$beforeContent;
+  var _spec$afterContent = spec.afterContent;
+  var afterContent = _spec$afterContent === undefined ? "" : _spec$afterContent;
+  var _spec$downloadURLs = spec.downloadURLs;
+  var downloadURLs = _spec$downloadURLs === undefined ? {} : _spec$downloadURLs;
+  var _spec$labels = spec.labels;
+  var labels = _spec$labels === undefined ? {} : _spec$labels;
+
+
+  store = {
+    appName: appName,
+    instance: instance,
+
+    beforeContent: beforeContent,
+    afterContent: afterContent,
+
+    downloadURLs: downloadURLs,
+
+    iframe: {
+      element: iframe,
+      get document() {
+        return iframe.contentDocument;
+      },
+      get window() {
+        return iframe.contentWindow;
+      }
+    },
+
+    labels: _extends({
+      done: "Done",
+      searchPlaceholder: "Select or search the type of website you have...",
+      next: "Next",
+      title: function title(appName) {
+        return "Add " + appName + " to your site";
+      }
+    }, labels)
+  };
+
+  return store;
+}
+
+function getStore() {
+  return store;
+}
+
+/***/ },
+/* 5 */
 /***/ function(module, exports) {
 
 "use strict";
@@ -687,63 +753,6 @@ module.exports = exports['default'];
 
 
 /***/ },
-/* 5 */
-/***/ function(module, exports, __webpack_require__) {
-
-"use strict";
-/* harmony export */ exports["b"] = initializeStore;/* harmony export */ exports["a"] = getStore;var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-var store = null;
-
-function initializeStore(instance) {
-  var spec = arguments.length <= 1 || arguments[1] === undefined ? {} : arguments[1];
-
-  var iframe = document.createElement("iframe");
-  var _spec$appName = spec.appName;
-  var appName = _spec$appName === undefined ? "an app" : _spec$appName;
-  var _spec$beforeContent = spec.beforeContent;
-  var beforeContent = _spec$beforeContent === undefined ? "" : _spec$beforeContent;
-  var _spec$afterContent = spec.afterContent;
-  var afterContent = _spec$afterContent === undefined ? "" : _spec$afterContent;
-  var _spec$labels = spec.labels;
-  var labels = _spec$labels === undefined ? {} : _spec$labels;
-
-
-  store = {
-    appName: appName,
-    instance: instance,
-
-    beforeContent: beforeContent,
-    afterContent: afterContent,
-
-    iframe: {
-      element: iframe,
-      get document() {
-        return iframe.contentDocument;
-      },
-      get window() {
-        return iframe.contentWindow;
-      }
-    },
-
-    labels: _extends({
-      done: "Done",
-      searchPlaceholder: "Select or search the type of website you have...",
-      next: "Next",
-      title: function title(appName) {
-        return "Add " + appName + " to your site";
-      }
-    }, labels)
-  };
-
-  return store;
-}
-
-function getStore() {
-  return store;
-}
-
-/***/ },
 /* 6 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -755,9 +764,9 @@ function getStore() {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__drupal_svg__ = __webpack_require__(36);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__drupal_svg___default = __WEBPACK_IMPORTED_MODULE_2__drupal_svg__ && __WEBPACK_IMPORTED_MODULE_2__drupal_svg__.__esModule ? function() { return __WEBPACK_IMPORTED_MODULE_2__drupal_svg__['default'] } : function() { return __WEBPACK_IMPORTED_MODULE_2__drupal_svg__; };
 /* harmony import */ __webpack_require__.d(__WEBPACK_IMPORTED_MODULE_2__drupal_svg___default, 'a', __WEBPACK_IMPORTED_MODULE_2__drupal_svg___default);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__embed_svg__ = __webpack_require__(37);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__embed_svg___default = __WEBPACK_IMPORTED_MODULE_3__embed_svg__ && __WEBPACK_IMPORTED_MODULE_3__embed_svg__.__esModule ? function() { return __WEBPACK_IMPORTED_MODULE_3__embed_svg__['default'] } : function() { return __WEBPACK_IMPORTED_MODULE_3__embed_svg__; };
-/* harmony import */ __webpack_require__.d(__WEBPACK_IMPORTED_MODULE_3__embed_svg___default, 'a', __WEBPACK_IMPORTED_MODULE_3__embed_svg___default);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__generic_svg__ = __webpack_require__(37);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__generic_svg___default = __WEBPACK_IMPORTED_MODULE_3__generic_svg__ && __WEBPACK_IMPORTED_MODULE_3__generic_svg__.__esModule ? function() { return __WEBPACK_IMPORTED_MODULE_3__generic_svg__['default'] } : function() { return __WEBPACK_IMPORTED_MODULE_3__generic_svg__; };
+/* harmony import */ __webpack_require__.d(__WEBPACK_IMPORTED_MODULE_3__generic_svg___default, 'a', __WEBPACK_IMPORTED_MODULE_3__generic_svg___default);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__joomla_svg__ = __webpack_require__(38);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__joomla_svg___default = __WEBPACK_IMPORTED_MODULE_4__joomla_svg__ && __WEBPACK_IMPORTED_MODULE_4__joomla_svg__.__esModule ? function() { return __WEBPACK_IMPORTED_MODULE_4__joomla_svg__['default'] } : function() { return __WEBPACK_IMPORTED_MODULE_4__joomla_svg__; };
 /* harmony import */ __webpack_require__.d(__WEBPACK_IMPORTED_MODULE_4__joomla_svg___default, 'a', __WEBPACK_IMPORTED_MODULE_4__joomla_svg___default);
@@ -773,7 +782,7 @@ function getStore() {
 
 /* harmony export */ __webpack_require__.d(exports, "close", function() { return close; });
 /* harmony export */ __webpack_require__.d(exports, "drupal", function() { return drupal; });
-/* harmony export */ __webpack_require__.d(exports, "embed", function() { return embed; });
+/* harmony export */ __webpack_require__.d(exports, "generic", function() { return generic; });
 /* harmony export */ __webpack_require__.d(exports, "joomla", function() { return joomla; });
 /* harmony export */ __webpack_require__.d(exports, "previous", function() { return previous; });
 /* harmony export */ __webpack_require__.d(exports, "search", function() { return search; });
@@ -832,7 +841,7 @@ var close = toComponent(__WEBPACK_IMPORTED_MODULE_1__close_svg___default.a);
 var drupal = toComponent(__WEBPACK_IMPORTED_MODULE_2__drupal_svg___default.a);
 
 
-var embed = toComponent(__WEBPACK_IMPORTED_MODULE_3__embed_svg___default.a);
+var generic = toComponent(__WEBPACK_IMPORTED_MODULE_3__generic_svg___default.a);
 
 
 var joomla = toComponent(__WEBPACK_IMPORTED_MODULE_4__joomla_svg___default.a);
@@ -867,14 +876,14 @@ var wordpress = toComponent(__WEBPACK_IMPORTED_MODULE_7__wordpress_svg___default
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__drupal__ = __webpack_require__(12);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__embed__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__generic__ = __webpack_require__(13);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__joomla__ = __webpack_require__(14);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__wordpress__ = __webpack_require__(15);
 
 /* harmony reexport */ if(__webpack_require__.o(__WEBPACK_IMPORTED_MODULE_0__drupal__, "a")) __webpack_require__.d(exports, "drupal", function() { return __WEBPACK_IMPORTED_MODULE_0__drupal__["a"]; });
 
 
-/* harmony reexport */ if(__webpack_require__.o(__WEBPACK_IMPORTED_MODULE_1__embed__, "a")) __webpack_require__.d(exports, "embed", function() { return __WEBPACK_IMPORTED_MODULE_1__embed__["a"]; });
+/* harmony reexport */ if(__webpack_require__.o(__WEBPACK_IMPORTED_MODULE_1__generic__, "a")) __webpack_require__.d(exports, "generic", function() { return __WEBPACK_IMPORTED_MODULE_1__generic__["a"]; });
 
 
 /* harmony reexport */ if(__webpack_require__.o(__WEBPACK_IMPORTED_MODULE_2__joomla__, "a")) __webpack_require__.d(exports, "joomla", function() { return __WEBPACK_IMPORTED_MODULE_2__joomla__["a"]; });
@@ -897,12 +906,12 @@ var wordpress = toComponent(__WEBPACK_IMPORTED_MODULE_7__wordpress_svg___default
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__pages_styl__ = __webpack_require__(26);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__pages_styl___default = __WEBPACK_IMPORTED_MODULE_2__pages_styl__ && __WEBPACK_IMPORTED_MODULE_2__pages_styl__.__esModule ? function() { return __WEBPACK_IMPORTED_MODULE_2__pages_styl__['default'] } : function() { return __WEBPACK_IMPORTED_MODULE_2__pages_styl__; };
 /* harmony import */ __webpack_require__.d(__WEBPACK_IMPORTED_MODULE_2__pages_styl___default, 'a', __WEBPACK_IMPORTED_MODULE_2__pages_styl___default);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_autobind_decorator__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_autobind_decorator__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_autobind_decorator___default = __WEBPACK_IMPORTED_MODULE_3_autobind_decorator__ && __WEBPACK_IMPORTED_MODULE_3_autobind_decorator__.__esModule ? function() { return __WEBPACK_IMPORTED_MODULE_3_autobind_decorator__['default'] } : function() { return __WEBPACK_IMPORTED_MODULE_3_autobind_decorator__; };
 /* harmony import */ __webpack_require__.d(__WEBPACK_IMPORTED_MODULE_3_autobind_decorator___default, 'a', __WEBPACK_IMPORTED_MODULE_3_autobind_decorator___default);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_components_application__ = __webpack_require__(10);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_lib_custom_event__ = __webpack_require__(17);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_lib_store__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_lib_store__ = __webpack_require__(4);
 
 /* harmony export */ __webpack_require__.d(exports, "default", function() { return UniversalEmbed; });var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
@@ -1069,11 +1078,11 @@ var UniversalEmbed = (_class = (_temp = _class2 = function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__application_pug__ = __webpack_require__(28);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__application_pug___default = __WEBPACK_IMPORTED_MODULE_1__application_pug__ && __WEBPACK_IMPORTED_MODULE_1__application_pug__.__esModule ? function() { return __WEBPACK_IMPORTED_MODULE_1__application_pug__['default'] } : function() { return __WEBPACK_IMPORTED_MODULE_1__application_pug__; };
 /* harmony import */ __webpack_require__.d(__WEBPACK_IMPORTED_MODULE_1__application_pug___default, 'a', __WEBPACK_IMPORTED_MODULE_1__application_pug___default);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_autobind_decorator__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_autobind_decorator__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_autobind_decorator___default = __WEBPACK_IMPORTED_MODULE_2_autobind_decorator__ && __WEBPACK_IMPORTED_MODULE_2_autobind_decorator__.__esModule ? function() { return __WEBPACK_IMPORTED_MODULE_2_autobind_decorator__['default'] } : function() { return __WEBPACK_IMPORTED_MODULE_2_autobind_decorator__; };
 /* harmony import */ __webpack_require__.d(__WEBPACK_IMPORTED_MODULE_2_autobind_decorator___default, 'a', __WEBPACK_IMPORTED_MODULE_2_autobind_decorator___default);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_components_base_component__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_lib_store__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_lib_store__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_components_icons__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_lib_key_map__ = __webpack_require__(7);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_components_site_type_search__ = __webpack_require__(16);
@@ -1372,12 +1381,12 @@ var DrupalPage = (_temp = _class = function (_BasePage) {
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__embed_pug__ = __webpack_require__(31);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__embed_pug___default = __WEBPACK_IMPORTED_MODULE_0__embed_pug__ && __WEBPACK_IMPORTED_MODULE_0__embed_pug__.__esModule ? function() { return __WEBPACK_IMPORTED_MODULE_0__embed_pug__['default'] } : function() { return __WEBPACK_IMPORTED_MODULE_0__embed_pug__; };
-/* harmony import */ __webpack_require__.d(__WEBPACK_IMPORTED_MODULE_0__embed_pug___default, 'a', __WEBPACK_IMPORTED_MODULE_0__embed_pug___default);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__generic_pug__ = __webpack_require__(31);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__generic_pug___default = __WEBPACK_IMPORTED_MODULE_0__generic_pug__ && __WEBPACK_IMPORTED_MODULE_0__generic_pug__.__esModule ? function() { return __WEBPACK_IMPORTED_MODULE_0__generic_pug__['default'] } : function() { return __WEBPACK_IMPORTED_MODULE_0__generic_pug__; };
+/* harmony import */ __webpack_require__.d(__WEBPACK_IMPORTED_MODULE_0__generic_pug___default, 'a', __WEBPACK_IMPORTED_MODULE_0__generic_pug___default);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_components_base_page__ = __webpack_require__(3);
 
-/* harmony export */ __webpack_require__.d(exports, "a", function() { return EmbedPage; });var _class, _temp;
+/* harmony export */ __webpack_require__.d(exports, "a", function() { return GenericPage; });var _class, _temp;
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -1389,17 +1398,17 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 
 
-var EmbedPage = (_temp = _class = function (_BasePage) {
-  _inherits(EmbedPage, _BasePage);
+var GenericPage = (_temp = _class = function (_BasePage) {
+  _inherits(GenericPage, _BasePage);
 
-  function EmbedPage() {
-    _classCallCheck(this, EmbedPage);
+  function GenericPage() {
+    _classCallCheck(this, GenericPage);
 
-    return _possibleConstructorReturn(this, Object.getPrototypeOf(EmbedPage).apply(this, arguments));
+    return _possibleConstructorReturn(this, Object.getPrototypeOf(GenericPage).apply(this, arguments));
   }
 
-  return EmbedPage;
-}(__WEBPACK_IMPORTED_MODULE_1_components_base_page__["a" /* default */]), _class.fallback = true, _class.id = "embed", _class.label = "Another CMS", _class.template = __WEBPACK_IMPORTED_MODULE_0__embed_pug___default.a, _temp);
+  return GenericPage;
+}(__WEBPACK_IMPORTED_MODULE_1_components_base_page__["a" /* default */]), _class.fallback = true, _class.id = "generic", _class.label = "Another CMS", _class.template = __WEBPACK_IMPORTED_MODULE_0__generic_pug___default.a, _temp);
 
 
 /***/ },
@@ -1480,7 +1489,7 @@ var WordpressPage = (_temp = _class = function (_BasePage) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__site_type_search_styl__ = __webpack_require__(24);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__site_type_search_styl___default = __WEBPACK_IMPORTED_MODULE_0__site_type_search_styl__ && __WEBPACK_IMPORTED_MODULE_0__site_type_search_styl__.__esModule ? function() { return __WEBPACK_IMPORTED_MODULE_0__site_type_search_styl__['default'] } : function() { return __WEBPACK_IMPORTED_MODULE_0__site_type_search_styl__; };
 /* harmony import */ __webpack_require__.d(__WEBPACK_IMPORTED_MODULE_0__site_type_search_styl___default, 'a', __WEBPACK_IMPORTED_MODULE_0__site_type_search_styl___default);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_autobind_decorator__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_autobind_decorator__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_autobind_decorator___default = __WEBPACK_IMPORTED_MODULE_1_autobind_decorator__ && __WEBPACK_IMPORTED_MODULE_1_autobind_decorator__.__esModule ? function() { return __WEBPACK_IMPORTED_MODULE_1_autobind_decorator__['default'] } : function() { return __WEBPACK_IMPORTED_MODULE_1_autobind_decorator__; };
 /* harmony import */ __webpack_require__.d(__WEBPACK_IMPORTED_MODULE_1_autobind_decorator___default, 'a', __WEBPACK_IMPORTED_MODULE_1_autobind_decorator___default);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_components_base_component__ = __webpack_require__(1);
@@ -1709,7 +1718,7 @@ var SiteTypeSearch = (_class = (_temp2 = _class2 = function (_BaseComponent) {
 
 
       this.types.forEach(function ($) {
-        var Icon = __WEBPACK_IMPORTED_MODULE_4_components_icons__[$.id] || __WEBPACK_IMPORTED_MODULE_4_components_icons__["embed"];
+        var Icon = __WEBPACK_IMPORTED_MODULE_4_components_icons__[$.id] || __WEBPACK_IMPORTED_MODULE_4_components_icons__["generic"];
         var icon = new Icon();
         var typeEl = typesContainer.appendChild(document.createElement("div"));
 
@@ -1981,18 +1990,27 @@ module.exports = function template(locals) {
 var buf = [];
 var jade_mixins = {};
 var jade_interp;
-;var locals_for_with = (locals || {});(function (config) {
+;var locals_for_with = (locals || {});(function (config, downloadURL) {
+var count = 0
 buf.push("<section><h1>Installing " + (jade.escape((jade_interp = config.appName) == null ? '' : jade_interp)) + " onto a Drupal site</h1>");
 if ( config.beforeContent)
 {
 buf.push("<div data-content-slot=\"before\">" + (null == (jade_interp = config.beforeContent) ? "" : jade_interp) + "</div>");
 }
-buf.push("<h2><span class=\"step-number accent-background-color\">1</span><span><a target=\"_blank\"" + (jade.attr("href", "//packager.eager.io/drupal/v2.0.0/plugin.zip?siteId=" + (config.siteId) + "", true, true)) + " class=\"more\">Download the Drupal plugin</a></span></h2><p>After downloading, don’t unzip the file.</p><h2><span class=\"step-number accent-background-color\">2</span><span>Move the contents to <code>/sites/all/modules</code></span></h2><figure><img" + (jade.attr("src", __webpack_require__(43), true, true)) + "></figure><p>Unzip the file and move it into the <strong>sites &gt; all &gt; modules</strong> folder inside your Drupal installation.</p><p>If you don’t have access to these files, please <a href=\"https://eager.io/contact\">contact</a> us for help.</p><h2><span class=\"step-number accent-background-color\">3</span><span>Activate the plugin and view your site</span></h2><figure><img" + (jade.attr("src", __webpack_require__(42), true, true)) + "></figure><p>On the Modules page, scroll down to find the new “Eager” plugin.</p><p>Check the “Enabled” checkbox to activate the plugin, and click “Save configuration”.</p><p>After it activates, visit your site to see a welcome message letting you know the installation was successful!</p>");
+if ( downloadURL)
+{
+count++
+buf.push("<h2><span class=\"step-number accent-background-color\">" + (jade.escape(null == (jade_interp = count) ? "" : jade_interp)) + "</span><span><a target=\"_blank\"" + (jade.attr("href", downloadURL, true, true)) + " class=\"more\">Download the Drupal plugin</a></span></h2><p>After downloading, don’t unzip the file.</p>");
+}
+count++
+buf.push("<h2><span class=\"step-number accent-background-color\">" + (jade.escape(null == (jade_interp = count) ? "" : jade_interp)) + "</span><span>Move the contents to <code>/sites/all/modules</code></span></h2><figure><img" + (jade.attr("src", __webpack_require__(43), true, true)) + "></figure><p>Unzip the file and move it into the <strong>sites &gt; all &gt; modules</strong> folder inside your Drupal installation.</p><p>If you don’t have access to these files, please <a href=\"https://eager.io/contact\">contact</a> us for help.</p>");
+count++
+buf.push("<h2><span class=\"step-number accent-background-color\">" + (jade.escape(null == (jade_interp = count) ? "" : jade_interp)) + "</span><span>Activate the plugin and view your site</span></h2><figure><img" + (jade.attr("src", __webpack_require__(42), true, true)) + "></figure><p>On the Modules page, scroll down to find the new “Eager” plugin.</p><p>Check the “Enabled” checkbox to activate the plugin, and click “Save configuration”.</p><p>After it activates, visit your site to see a welcome message letting you know the installation was successful!</p>");
 if ( config.afterContent)
 {
 buf.push("<div data-content-slot=\"after\">" + (null == (jade_interp = config.afterContent) ? "" : jade_interp) + "</div>");
 }
-buf.push("</section>");}.call(this,"config" in locals_for_with?locals_for_with.config:typeof config!=="undefined"?config:undefined));;return buf.join("");
+buf.push("</section>");}.call(this,"config" in locals_for_with?locals_for_with.config:typeof config!=="undefined"?config:undefined,"downloadURL" in locals_for_with?locals_for_with.downloadURL:typeof downloadURL!=="undefined"?downloadURL:undefined));;return buf.join("");
 }
 
 /***/ },
@@ -2005,18 +2023,32 @@ module.exports = function template(locals) {
 var buf = [];
 var jade_mixins = {};
 var jade_interp;
-;var locals_for_with = (locals || {});(function (config) {
+;var locals_for_with = (locals || {});(function (config, downloadURL) {
+var count = 0
 buf.push("<section><h1>Installing " + (jade.escape((jade_interp = config.appName) == null ? '' : jade_interp)) + " on a CMS</h1>");
 if ( config.beforeContent)
 {
 buf.push("<div data-content-slot=\"before\">" + (null == (jade_interp = config.beforeContent) ? "" : jade_interp) + "</div>");
 }
-buf.push("<h2><span class=\"step-number accent-background-color\">1</span><span>Copy our embed code into the <head> of your page.</span></h2><figure><img" + (jade.attr("src", __webpack_require__(44), true, true)) + "></figure><h2><span class=\"step-number accent-background-color\">2</span><span>Visit your site</span></h2><p>After saving the changes you made, visit your site in the browser.</p><p>You should see a welcome message letting you know the installation worked.</p>");
+if ( downloadURL)
+{
+count++
+buf.push("<h2><span class=\"step-number accent-background-color\">" + (jade.escape(null == (jade_interp = count) ? "" : jade_interp)) + "</span><span><a target=\"_blank\"" + (jade.attr("href", downloadURL, true, true)) + " class=\"more\">Download the plugin</a></span></h2><p>After downloading, don’t unzip the file.</p>");
+}
+count++
+buf.push("<h2><span class=\"step-number accent-background-color\">" + (jade.escape(null == (jade_interp = count) ? "" : jade_interp)) + "</span><span>Copy script tag <head> of your page.</span>");
+if ( downloadURL)
+{
+buf.push("<pre><code class=\"lang-html\"><span class=\"hljs-tag\">&lt;<span class=\"hljs-name\">script</span> <span class=\"hljs-attr\">src</span>=<span class=\"hljs-string\">\"" + (jade.escape((jade_interp = downloadURL) == null ? '' : jade_interp)) + "\"</span>&gt;</span><span class=\"undefined\"></span><span class=\"hljs-tag\">&lt;/<span class=\"hljs-name\">script</span>&gt;</span>\n</code></pre>\n");
+}
+buf.push("</h2><figure><img" + (jade.attr("src", __webpack_require__(44), true, true)) + "></figure>");
+count++
+buf.push("<h2><span class=\"step-number accent-background-color\">" + (jade.escape(null == (jade_interp = count) ? "" : jade_interp)) + "</span><span>Visit your site</span></h2><p>After saving the changes you made, visit your site in the browser.</p><p>You should see a welcome message letting you know the installation worked.</p>");
 if ( config.afterContent)
 {
 buf.push("<div data-content-slot=\"after\">" + (null == (jade_interp = config.afterContent) ? "" : jade_interp) + "</div>");
 }
-buf.push("</section>");}.call(this,"config" in locals_for_with?locals_for_with.config:typeof config!=="undefined"?config:undefined));;return buf.join("");
+buf.push("</section>");}.call(this,"config" in locals_for_with?locals_for_with.config:typeof config!=="undefined"?config:undefined,"downloadURL" in locals_for_with?locals_for_with.downloadURL:typeof downloadURL!=="undefined"?downloadURL:undefined));;return buf.join("");
 }
 
 /***/ },
@@ -2029,18 +2061,27 @@ module.exports = function template(locals) {
 var buf = [];
 var jade_mixins = {};
 var jade_interp;
-;var locals_for_with = (locals || {});(function (config) {
+;var locals_for_with = (locals || {});(function (config, downloadURL) {
+var count = 0
 buf.push("<section><h1>Installing " + (jade.escape((jade_interp = config.appName) == null ? '' : jade_interp)) + " onto a Joomla site</h1>");
 if ( config.beforeContent)
 {
 buf.push("<div data-content-slot=\"before\">" + (null == (jade_interp = config.beforeContent) ? "" : jade_interp) + "</div>");
 }
-buf.push("<h2><span class=\"step-number accent-background-color\">1</span><span><a target=\"_blank\"" + (jade.attr("href", "//packager.eager.io/joomla/v1.0.3/plugin.zip?siteId=" + (config.siteId) + "", true, true)) + " class=\"more\">Download the Joomla plugin</a></span></h2><p>After downloading, don’t unzip the file.</p><h2><span class=\"step-number accent-background-color\">2</span><span>Upload the plugin to your Joomla Admin site</span></h2><figure><img" + (jade.attr("src", __webpack_require__(46), true, true)) + "></figure><p>In your Joomla Admin, navigate to: <strong>Extensions &gt; Install &gt; Upload Package File</strong>.</p><p>Click “Choose File” and select the file you just downloaded.</p></p><h2><span class=\"step-number accent-background-color\">3</span><span>Activate the plugin and view your site</span></h2><figure><img" + (jade.attr("src", __webpack_require__(45), true, true)) + "><p>On the <strong>Extensions &gt; Manage</strong> page, search for “eager”.</p></figure><p>When you’ve found the plugin, click the red “×” to enable the extension.</p><p>After it activates, visit your site to see a welcome message letting you know the installation was successful!</p>");
+if ( downloadURL)
+{
+count++
+buf.push("<h2><span class=\"step-number accent-background-color\">" + (jade.escape(null == (jade_interp = count) ? "" : jade_interp)) + "</span><span><a target=\"_blank\"" + (jade.attr("href", downloadURL, true, true)) + " class=\"more\">Download the Joomla plugin</a></span></h2><p>After downloading, don’t unzip the file.</p>");
+}
+count++
+buf.push("<h2><span class=\"step-number accent-background-color\">" + (jade.escape(null == (jade_interp = count) ? "" : jade_interp)) + "</span><span>Upload the plugin to your Joomla Admin site</span></h2><figure><img" + (jade.attr("src", __webpack_require__(46), true, true)) + "></figure><p>In your Joomla Admin, navigate to: <strong>Extensions &gt; Install &gt; Upload Package File</strong>.</p><p>Click “Choose File” and select the file you just downloaded.</p></p>");
+count++
+buf.push("<h2><span class=\"step-number accent-background-color\">" + (jade.escape(null == (jade_interp = count) ? "" : jade_interp)) + "</span><span>Activate the plugin and view your site</span></h2><figure><img" + (jade.attr("src", __webpack_require__(45), true, true)) + "><p>On the <strong>Extensions &gt; Manage</strong> page, search for “eager”.</p></figure><p>When you’ve found the plugin, click the red “×” to enable the extension.</p><p>After it activates, visit your site to see a welcome message letting you know the installation was successful!</p>");
 if ( config.afterContent)
 {
 buf.push("<div data-content-slot=\"after\">" + (null == (jade_interp = config.afterContent) ? "" : jade_interp) + "</div>");
 }
-buf.push("</section>");}.call(this,"config" in locals_for_with?locals_for_with.config:typeof config!=="undefined"?config:undefined));;return buf.join("");
+buf.push("</section>");}.call(this,"config" in locals_for_with?locals_for_with.config:typeof config!=="undefined"?config:undefined,"downloadURL" in locals_for_with?locals_for_with.downloadURL:typeof downloadURL!=="undefined"?downloadURL:undefined));;return buf.join("");
 }
 
 /***/ },
@@ -2053,18 +2094,27 @@ module.exports = function template(locals) {
 var buf = [];
 var jade_mixins = {};
 var jade_interp;
-;var locals_for_with = (locals || {});(function (config) {
+;var locals_for_with = (locals || {});(function (config, downloadURL) {
+var count = 0
 buf.push("<section><h1>Installing " + (jade.escape((jade_interp = config.appName) == null ? '' : jade_interp)) + " onto a WordPress site</h1>");
 if ( config.beforeContent)
 {
 buf.push("<div data-content-slot=\"before\">" + (null == (jade_interp = config.beforeContent) ? "" : jade_interp) + "</div>");
 }
-buf.push("<h2><span class=\"step-number accent-background-color\">1</span><span><a target=\"_blank\"" + (jade.attr("href", "//packager.eager.io/wordpress/v2.0.2/plugin.zip?siteId=" + (config.siteId) + "", true, true)) + " class=\"more\">Download the WordPress plugin</a></span></h2><p>After downloading, don’t unzip the file.</p><h2><span class=\"step-number accent-background-color\">2</span><span>Upload the plugin to your WordPress Admin site</span></h2><figure><img" + (jade.attr("src", __webpack_require__(48), true, true)) + "></figure><p>In your WordPress Admin, navigate to: <strong>Plugins &gt; Add New &gt; Upload Plugin</strong>.</p><p>Click “Choose File” and select the file you just downloaded.</p></p><h2><span class=\"step-number accent-background-color\">3</span><span>Activate the plugin and view your site</span></h2><figure><img" + (jade.attr("src", __webpack_require__(47), true, true)) + "></figure><p>Click “Activate Plugin”.</p><p>After it activates you’ll see a welcome message letting you know the installation was successful!</p>");
+if ( downloadURL)
+{
+count++
+buf.push("<h2><span class=\"step-number accent-background-color\">" + (jade.escape(null == (jade_interp = count) ? "" : jade_interp)) + "</span><span><a target=\"_blank\"" + (jade.attr("href", downloadURL, true, true)) + " class=\"more\">Download the WordPress plugin</a></span></h2><p>After downloading, don’t unzip the file.</p>");
+}
+count++
+buf.push("<h2><span class=\"step-number accent-background-color\">" + (jade.escape(null == (jade_interp = count) ? "" : jade_interp)) + "</span><span>Upload the plugin to your WordPress Admin site</span></h2><figure><img" + (jade.attr("src", __webpack_require__(48), true, true)) + "></figure><p>In your WordPress Admin, navigate to: <strong>Plugins &gt; Add New &gt; Upload Plugin</strong>.</p><p>Click “Choose File” and select the file you just downloaded.</p></p>");
+count++
+buf.push("<h2><span class=\"step-number accent-background-color\">" + (jade.escape(null == (jade_interp = count) ? "" : jade_interp)) + "</span><span>Activate the plugin and view your site</span></h2><figure><img" + (jade.attr("src", __webpack_require__(47), true, true)) + "></figure><p>Click “Activate Plugin”.</p><p>After it activates you’ll see a welcome message letting you know the installation was successful!</p>");
 if ( config.afterContent)
 {
 buf.push("<div data-content-slot=\"after\">" + (null == (jade_interp = config.afterContent) ? "" : jade_interp) + "</div>");
 }
-buf.push("</section>");}.call(this,"config" in locals_for_with?locals_for_with.config:typeof config!=="undefined"?config:undefined));;return buf.join("");
+buf.push("</section>");}.call(this,"config" in locals_for_with?locals_for_with.config:typeof config!=="undefined"?config:undefined,"downloadURL" in locals_for_with?locals_for_with.downloadURL:typeof downloadURL!=="undefined"?downloadURL:undefined));;return buf.join("");
 }
 
 /***/ },
@@ -2185,7 +2235,7 @@ module.exports = function UniversalEmbed() {
 
   spec.pages = spec.pages || [];
 
-  spec.pages.push([pages.wordpress, pages.drupal, pages.joomla, pages.embed]);
+  spec.pages.push(pages.wordpress, pages.drupal, pages.joomla, pages.generic);
 
   for (var _len = arguments.length, args = Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
     args[_key - 1] = arguments[_key];

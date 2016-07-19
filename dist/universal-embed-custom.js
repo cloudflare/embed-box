@@ -376,6 +376,8 @@ function initializeStore(instance) {
   var beforeContent = _spec$beforeContent === undefined ? "" : _spec$beforeContent;
   var _spec$afterContent = spec.afterContent;
   var afterContent = _spec$afterContent === undefined ? "" : _spec$afterContent;
+  var _spec$downloadURLs = spec.downloadURLs;
+  var downloadURLs = _spec$downloadURLs === undefined ? {} : _spec$downloadURLs;
   var _spec$labels = spec.labels;
   var labels = _spec$labels === undefined ? {} : _spec$labels;
 
@@ -386,6 +388,8 @@ function initializeStore(instance) {
 
     beforeContent: beforeContent,
     afterContent: afterContent,
+
+    downloadURLs: downloadURLs,
 
     iframe: {
       element: iframe,
@@ -679,9 +683,9 @@ exports.DebugItem = function DebugItem(lineno, filename) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__drupal_svg__ = __webpack_require__(26);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__drupal_svg___default = __WEBPACK_IMPORTED_MODULE_2__drupal_svg__ && __WEBPACK_IMPORTED_MODULE_2__drupal_svg__.__esModule ? function() { return __WEBPACK_IMPORTED_MODULE_2__drupal_svg__['default'] } : function() { return __WEBPACK_IMPORTED_MODULE_2__drupal_svg__; };
 /* harmony import */ __webpack_require__.d(__WEBPACK_IMPORTED_MODULE_2__drupal_svg___default, 'a', __WEBPACK_IMPORTED_MODULE_2__drupal_svg___default);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__embed_svg__ = __webpack_require__(27);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__embed_svg___default = __WEBPACK_IMPORTED_MODULE_3__embed_svg__ && __WEBPACK_IMPORTED_MODULE_3__embed_svg__.__esModule ? function() { return __WEBPACK_IMPORTED_MODULE_3__embed_svg__['default'] } : function() { return __WEBPACK_IMPORTED_MODULE_3__embed_svg__; };
-/* harmony import */ __webpack_require__.d(__WEBPACK_IMPORTED_MODULE_3__embed_svg___default, 'a', __WEBPACK_IMPORTED_MODULE_3__embed_svg___default);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__generic_svg__ = __webpack_require__(27);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__generic_svg___default = __WEBPACK_IMPORTED_MODULE_3__generic_svg__ && __WEBPACK_IMPORTED_MODULE_3__generic_svg__.__esModule ? function() { return __WEBPACK_IMPORTED_MODULE_3__generic_svg__['default'] } : function() { return __WEBPACK_IMPORTED_MODULE_3__generic_svg__; };
+/* harmony import */ __webpack_require__.d(__WEBPACK_IMPORTED_MODULE_3__generic_svg___default, 'a', __WEBPACK_IMPORTED_MODULE_3__generic_svg___default);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__joomla_svg__ = __webpack_require__(28);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__joomla_svg___default = __WEBPACK_IMPORTED_MODULE_4__joomla_svg__ && __WEBPACK_IMPORTED_MODULE_4__joomla_svg__.__esModule ? function() { return __WEBPACK_IMPORTED_MODULE_4__joomla_svg__['default'] } : function() { return __WEBPACK_IMPORTED_MODULE_4__joomla_svg__; };
 /* harmony import */ __webpack_require__.d(__WEBPACK_IMPORTED_MODULE_4__joomla_svg___default, 'a', __WEBPACK_IMPORTED_MODULE_4__joomla_svg___default);
@@ -697,7 +701,7 @@ exports.DebugItem = function DebugItem(lineno, filename) {
 
 /* harmony export */ __webpack_require__.d(exports, "close", function() { return close; });
 /* harmony export */ __webpack_require__.d(exports, "drupal", function() { return drupal; });
-/* harmony export */ __webpack_require__.d(exports, "embed", function() { return embed; });
+/* harmony export */ __webpack_require__.d(exports, "generic", function() { return generic; });
 /* harmony export */ __webpack_require__.d(exports, "joomla", function() { return joomla; });
 /* harmony export */ __webpack_require__.d(exports, "previous", function() { return previous; });
 /* harmony export */ __webpack_require__.d(exports, "search", function() { return search; });
@@ -756,7 +760,7 @@ var close = toComponent(__WEBPACK_IMPORTED_MODULE_1__close_svg___default.a);
 var drupal = toComponent(__WEBPACK_IMPORTED_MODULE_2__drupal_svg___default.a);
 
 
-var embed = toComponent(__WEBPACK_IMPORTED_MODULE_3__embed_svg___default.a);
+var generic = toComponent(__WEBPACK_IMPORTED_MODULE_3__generic_svg___default.a);
 
 
 var joomla = toComponent(__WEBPACK_IMPORTED_MODULE_4__joomla_svg___default.a);
@@ -1471,7 +1475,7 @@ var SiteTypeSearch = (_class = (_temp2 = _class2 = function (_BaseComponent) {
 
 
       this.types.forEach(function ($) {
-        var Icon = __WEBPACK_IMPORTED_MODULE_4_components_icons__[$.id] || __WEBPACK_IMPORTED_MODULE_4_components_icons__["embed"];
+        var Icon = __WEBPACK_IMPORTED_MODULE_4_components_icons__[$.id] || __WEBPACK_IMPORTED_MODULE_4_components_icons__["generic"];
         var icon = new Icon();
         var typeEl = typesContainer.appendChild(document.createElement("div"));
 

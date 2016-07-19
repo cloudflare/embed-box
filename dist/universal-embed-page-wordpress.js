@@ -70,10 +70,71 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
+/* unused harmony export initializeStore *//* harmony export */ exports["a"] = getStore;var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+var store = null;
+
+function initializeStore(instance) {
+  var spec = arguments.length <= 1 || arguments[1] === undefined ? {} : arguments[1];
+
+  var iframe = document.createElement("iframe");
+  var _spec$appName = spec.appName;
+  var appName = _spec$appName === undefined ? "an app" : _spec$appName;
+  var _spec$beforeContent = spec.beforeContent;
+  var beforeContent = _spec$beforeContent === undefined ? "" : _spec$beforeContent;
+  var _spec$afterContent = spec.afterContent;
+  var afterContent = _spec$afterContent === undefined ? "" : _spec$afterContent;
+  var _spec$downloadURLs = spec.downloadURLs;
+  var downloadURLs = _spec$downloadURLs === undefined ? {} : _spec$downloadURLs;
+  var _spec$labels = spec.labels;
+  var labels = _spec$labels === undefined ? {} : _spec$labels;
+
+
+  store = {
+    appName: appName,
+    instance: instance,
+
+    beforeContent: beforeContent,
+    afterContent: afterContent,
+
+    downloadURLs: downloadURLs,
+
+    iframe: {
+      element: iframe,
+      get document() {
+        return iframe.contentDocument;
+      },
+      get window() {
+        return iframe.contentWindow;
+      }
+    },
+
+    labels: _extends({
+      done: "Done",
+      searchPlaceholder: "Select or search the type of website you have...",
+      next: "Next",
+      title: function title(appName) {
+        return "Add " + appName + " to your site";
+      }
+    }, labels)
+  };
+
+  return store;
+}
+
+function getStore() {
+  return store;
+}
+
+/***/ },
+/* 1 */
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__wordpress_pug__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__wordpress_pug___default = __WEBPACK_IMPORTED_MODULE_0__wordpress_pug__ && __WEBPACK_IMPORTED_MODULE_0__wordpress_pug__.__esModule ? function() { return __WEBPACK_IMPORTED_MODULE_0__wordpress_pug__['default'] } : function() { return __WEBPACK_IMPORTED_MODULE_0__wordpress_pug__; };
 /* harmony import */ __webpack_require__.d(__WEBPACK_IMPORTED_MODULE_0__wordpress_pug___default, 'a', __WEBPACK_IMPORTED_MODULE_0__wordpress_pug___default);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_components_base_page__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_components_base_page__ = __webpack_require__(3);
 
 /* harmony export */ __webpack_require__.d(exports, "default", function() { return WordpressPage; });var _class, _temp;
 
@@ -101,11 +162,11 @@ var WordpressPage = (_temp = _class = function (_BasePage) {
 
 
 /***/ },
-/* 1 */
+/* 2 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_lib_store__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_lib_store__ = __webpack_require__(0);
 
 /* harmony export */ __webpack_require__.d(exports, "a", function() { return BaseComponent; });var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
 
@@ -234,13 +295,16 @@ var BaseComponent = (_temp = _class = function () {
 
 
 /***/ },
-/* 2 */
+/* 3 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_components_base_component__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_components_base_component__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_lib_store__ = __webpack_require__(0);
 
-/* harmony export */ __webpack_require__.d(exports, "a", function() { return BasePage; });var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+/* harmony export */ __webpack_require__.d(exports, "a", function() { return BasePage; });var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _class, _temp;
 
@@ -249,6 +313,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
 
 
 
@@ -268,8 +333,9 @@ var BasePage = (_temp = _class = function (_BaseComponent) {
       var id = _constructor.id;
       var templateVars = _constructor.templateVars;
 
+      var downloadURL = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1_lib_store__["a" /* getStore */])().downloadURLs[this.constructor.id];
 
-      __WEBPACK_IMPORTED_MODULE_0_components_base_component__["a" /* default */].prototype.compileTemplate.call(this, templateVars);
+      __WEBPACK_IMPORTED_MODULE_0_components_base_component__["a" /* default */].prototype.compileTemplate.call(this, _extends({ downloadURL: downloadURL }, templateVars));
 
       this.element.setAttribute("data-component", id + "-page");
       this.element.setAttribute("data-column", "");
@@ -310,63 +376,6 @@ var BasePage = (_temp = _class = function (_BaseComponent) {
 
 
 /***/ },
-/* 3 */
-/***/ function(module, exports, __webpack_require__) {
-
-"use strict";
-/* unused harmony export initializeStore *//* harmony export */ exports["a"] = getStore;var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-var store = null;
-
-function initializeStore(instance) {
-  var spec = arguments.length <= 1 || arguments[1] === undefined ? {} : arguments[1];
-
-  var iframe = document.createElement("iframe");
-  var _spec$appName = spec.appName;
-  var appName = _spec$appName === undefined ? "an app" : _spec$appName;
-  var _spec$beforeContent = spec.beforeContent;
-  var beforeContent = _spec$beforeContent === undefined ? "" : _spec$beforeContent;
-  var _spec$afterContent = spec.afterContent;
-  var afterContent = _spec$afterContent === undefined ? "" : _spec$afterContent;
-  var _spec$labels = spec.labels;
-  var labels = _spec$labels === undefined ? {} : _spec$labels;
-
-
-  store = {
-    appName: appName,
-    instance: instance,
-
-    beforeContent: beforeContent,
-    afterContent: afterContent,
-
-    iframe: {
-      element: iframe,
-      get document() {
-        return iframe.contentDocument;
-      },
-      get window() {
-        return iframe.contentWindow;
-      }
-    },
-
-    labels: _extends({
-      done: "Done",
-      searchPlaceholder: "Select or search the type of website you have...",
-      next: "Next",
-      title: function title(appName) {
-        return "Add " + appName + " to your site";
-      }
-    }, labels)
-  };
-
-  return store;
-}
-
-function getStore() {
-  return store;
-}
-
-/***/ },
 /* 4 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -376,18 +385,27 @@ module.exports = function template(locals) {
 var buf = [];
 var jade_mixins = {};
 var jade_interp;
-;var locals_for_with = (locals || {});(function (config) {
+;var locals_for_with = (locals || {});(function (config, downloadURL) {
+var count = 0
 buf.push("<section><h1>Installing " + (jade.escape((jade_interp = config.appName) == null ? '' : jade_interp)) + " onto a WordPress site</h1>");
 if ( config.beforeContent)
 {
 buf.push("<div data-content-slot=\"before\">" + (null == (jade_interp = config.beforeContent) ? "" : jade_interp) + "</div>");
 }
-buf.push("<h2><span class=\"step-number accent-background-color\">1</span><span><a target=\"_blank\"" + (jade.attr("href", "//packager.eager.io/wordpress/v2.0.2/plugin.zip?siteId=" + (config.siteId) + "", true, true)) + " class=\"more\">Download the WordPress plugin</a></span></h2><p>After downloading, don’t unzip the file.</p><h2><span class=\"step-number accent-background-color\">2</span><span>Upload the plugin to your WordPress Admin site</span></h2><figure><img" + (jade.attr("src", __webpack_require__(7), true, true)) + "></figure><p>In your WordPress Admin, navigate to: <strong>Plugins &gt; Add New &gt; Upload Plugin</strong>.</p><p>Click “Choose File” and select the file you just downloaded.</p></p><h2><span class=\"step-number accent-background-color\">3</span><span>Activate the plugin and view your site</span></h2><figure><img" + (jade.attr("src", __webpack_require__(6), true, true)) + "></figure><p>Click “Activate Plugin”.</p><p>After it activates you’ll see a welcome message letting you know the installation was successful!</p>");
+if ( downloadURL)
+{
+count++
+buf.push("<h2><span class=\"step-number accent-background-color\">" + (jade.escape(null == (jade_interp = count) ? "" : jade_interp)) + "</span><span><a target=\"_blank\"" + (jade.attr("href", downloadURL, true, true)) + " class=\"more\">Download the WordPress plugin</a></span></h2><p>After downloading, don’t unzip the file.</p>");
+}
+count++
+buf.push("<h2><span class=\"step-number accent-background-color\">" + (jade.escape(null == (jade_interp = count) ? "" : jade_interp)) + "</span><span>Upload the plugin to your WordPress Admin site</span></h2><figure><img" + (jade.attr("src", __webpack_require__(7), true, true)) + "></figure><p>In your WordPress Admin, navigate to: <strong>Plugins &gt; Add New &gt; Upload Plugin</strong>.</p><p>Click “Choose File” and select the file you just downloaded.</p></p>");
+count++
+buf.push("<h2><span class=\"step-number accent-background-color\">" + (jade.escape(null == (jade_interp = count) ? "" : jade_interp)) + "</span><span>Activate the plugin and view your site</span></h2><figure><img" + (jade.attr("src", __webpack_require__(6), true, true)) + "></figure><p>Click “Activate Plugin”.</p><p>After it activates you’ll see a welcome message letting you know the installation was successful!</p>");
 if ( config.afterContent)
 {
 buf.push("<div data-content-slot=\"after\">" + (null == (jade_interp = config.afterContent) ? "" : jade_interp) + "</div>");
 }
-buf.push("</section>");}.call(this,"config" in locals_for_with?locals_for_with.config:typeof config!=="undefined"?config:undefined));;return buf.join("");
+buf.push("</section>");}.call(this,"config" in locals_for_with?locals_for_with.config:typeof config!=="undefined"?config:undefined,"downloadURL" in locals_for_with?locals_for_with.downloadURL:typeof downloadURL!=="undefined"?downloadURL:undefined));;return buf.join("");
 }
 
 /***/ },
@@ -667,7 +685,7 @@ module.exports = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAABD8AAAIWCAYAAABQ
 
 /* eslint-env node, es6 */
 
-var WordpressPage = __webpack_require__(0).default;
+var WordpressPage = __webpack_require__(1).default;
 
 if (!window) {
   module.exports = WordpressPage;

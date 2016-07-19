@@ -6,7 +6,15 @@ document.documentElement.classList.remove("no-js");
 <p>First download the <a href="#">latest release</a>, then add this to your page.</p>
 <div class="code-example"><pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"universal-embed.js"</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
 </code></pre>
-</div><div class="code-example has-run-button"><button class="run">Run</button><pre><code class="lang-javascript"><span class="hljs-keyword">const</span> universalEmbed = <span class="hljs-keyword">new</span> UniversalEmbed({appName: <span class="hljs-string">"Example App"</span>})
+</div><div class="code-example has-run-button"><button class="run">Run</button><pre><code class="lang-javascript"><span class="hljs-keyword">const</span> universalEmbed = <span class="hljs-keyword">new</span> UniversalEmbed({
+  appName: <span class="hljs-string">"Example App"</span>,
+  downloadURLs: {
+    wordpress: <span class="hljs-string">"http://example.com/wordpress-plugin.zip"</span>,
+    joomla: <span class="hljs-string">"http://example.com/joomla-plugin.zip"</span>,
+    drupal: <span class="hljs-string">"http://example.com/drupal-plugin.zip"</span>,
+    generic: <span class="hljs-string">"http://example.com/generic-plugin.zip"</span>
+  }
+})
 
 universalEmbed.show()
 </code></pre>
@@ -23,7 +31,15 @@ universalEmbed.show()
 
 universalEmbed.show()
 </code></pre>
+</div><p>If the <code>theme</code> configuration option is too coarse, the modal stylesheet can be altered or replaced.</p>
+<div class="code-example"><pre><code class="lang-javascript">UniversalEmbed.modalStylesheet += <span class="hljs-string">`
+  header {
+    font-weight: bold;
+  }
+`</span>
+</code></pre>
 </div><h2 id="content-slots">Content slots</h2>
+<p>Content be inserted before and after the page instructions.</p>
 <div class="code-example has-run-button"><button class="run">Run</button><pre><code class="lang-javascript"><span class="hljs-keyword">const</span> universalEmbed = <span class="hljs-keyword">new</span> UniversalEmbed({
   beforeContent: <span class="hljs-string">"Having some trouble? Call us at &lt;strong&gt;(555)-123-4567&lt;/strong&gt;"</span>,
   afterContent: <span class="hljs-string">"Congrats on installing the app!"</span>
@@ -32,7 +48,11 @@ universalEmbed.show()
 universalEmbed.show()
 </code></pre>
 </div><h2 id="custom-pages">Custom pages</h2>
-<div class="code-example has-run-button"><button class="run">Run</button><pre><code class="lang-javascript"><span class="hljs-keyword">const</span> CustomPage = UniversalEmbedCustomPage.extend({
+<p>If the content slots are too coarse, custom pages can be created with the custom build.</p>
+<div class="code-example"><pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"universal-embed-custom.js"</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"universal-embed-custom-page.js"</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+</code></pre>
+</div><div class="code-example has-run-button"><button class="run">Run</button><pre><code class="lang-javascript"><span class="hljs-keyword">const</span> CustomPage = UniversalEmbedCustomPage.extend({
   id: <span class="hljs-string">"custom-test"</span>,
   label: <span class="hljs-string">"Custom Page"</span>,
   templateVars: {
@@ -54,4 +74,7 @@ universalEmbed.show()
 
 universalEmbed.show()
 </code></pre>
-</div></div></main><noscript class="no-js-info"><h1>Universal Embed</h1><p>This website requires JavaScript to retrieve content.</p><p><a href="http://enable-javascript.com" target="_blank">How to enable JavaScript.</a></p></noscript><script type="text/javascript" src="/site.js"></script></body></html>
+</div></div><div class="slide dev-install"><h1 id="contributing">Contributing</h1>
+<p>Please do, we would love for this to become a project of the community.
+Feel free to open an issue, submit a PR or contribute to the wiki.</p>
+</div><div class="slide made-by"><div class="label">Made by</div><a href="https://eager.io" class="logo-link"><svg class="logo" viewBox="0 0 1030 454" version="1.1" role="img" aria-label="Eager logo"><title>Eager logo</title><desc>The logo for Eager, the Eager App Store, and Eager Platform Co.</desc><defs><linearGradient id="eager-logo-gradient-ffffff-f6f6f6-id-52283032" x1="0%" y1="0%" x2="100%" y2="100%"><stop stop-color="#ffffff" offset="0%"></stop><stop stop-color="#f6f6f6" offset="100%"></stop></linearGradient></defs><g fill-rule="evenodd"><path fill="url(#eager-logo-gradient-ffffff-f6f6f6-id-52283032)" d="M935.924851,64.5881693 C958.756923,64.5881693 975.334624,82.6874243 973.450007,105.557504 L969.278062,156.184622 C967.393445,179.054701 947.832793,197.153956 925.000721,197.153956 L899.35713,197.153956 L910.215184,64.5881693 L935.924851,64.5881693 Z M991.760496,232.94505 C993.527047,235.279778 995.177021,237.693546 996.70563,240.179084 C1006.66689,256.37622 1011.47433,275.621077 1009.8031,295.901602 L997.496701,445.241434 L940.458235,445.241434 L952.764636,295.901602 C954.649253,273.031523 938.071552,254.932268 915.23948,254.932268 L889.565119,254.894675 L873.879528,445.241434 L816.841063,445.241434 L851.816707,20.8072627 L852.863882,8.09965276 L865.550374,8.09965276 L935.579807,8.09965276 C989.475635,8.09965276 1029.88403,52.2168559 1025.43533,106.202401 L1021.26338,156.829519 C1019.62364,176.728065 1011.88678,195.815296 999.763718,211.772766 C998.516961,213.41386 997.223813,215.021853 995.886136,216.594223 C995.346073,217.229038 994.798752,217.858047 994.244295,218.481084 C992.625343,220.278446 991.519314,221.451616 990.387704,222.60112 C988.746579,224.268194 987.129644,225.762971 986.547653,226.294975 C988.547018,228.78049 988.52292,228.824386 990.486586,231.300604 C990.917711,231.84426 991.342369,232.392441 991.760496,232.94505 Z M818.587426,8.09965276 L805.900934,8.09965276 L674.367391,8.09965276 L661.6809,8.09965276 L660.633725,20.8072627 L626.705255,432.533824 L625.65808,445.241434 L638.344572,445.241434 L774.749727,445.241434 L787.436219,445.241434 L788.483394,432.533824 L791.097143,400.81563 L792.144318,388.10802 L779.457826,388.10802 L687.332903,388.057189 L698.252844,255.542233 L759.325425,255.542233 L772.011916,255.542233 L773.059091,242.834623 L775.723104,210.506464 L776.770279,197.798854 L764.083788,197.798854 L703.094642,197.707782 L714.04116,65.233067 L801.192835,65.233067 L813.879327,65.233067 L814.926502,52.5254571 L817.540251,20.8072627 L818.587426,8.09965276 Z M611.635208,213.962934 L507.098519,213.962934 L502.39042,271.096348 L549.893181,271.041281 L542.587218,359.700138 C540.878702,378.702398 524.01229,394.207635 504.931855,394.207673 C485.753517,394.207673 471.410565,378.548279 472.993596,359.337991 L494.858609,94.0030958 C496.44164,74.7928081 513.365427,59.1334142 532.54379,59.1334142 C551.722153,59.1334142 566.065105,74.7928081 564.482074,94.0030958 L558.984385,160.718295 L616.566093,154.125978 L621.52054,94.0030958 C625.717915,43.0673768 588.102959,2 537.251889,2 C486.400819,2 442.017519,43.0673768 437.820144,94.0030958 L415.95513,359.337991 C411.757755,410.27371 449.372711,451.341087 500.223781,451.341087 C551.082892,451.335249 595.459841,410.269652 599.656886,359.337939 L611.635208,213.962934 Z M320.334075,137.138937 L330.279236,282.584027 L286.140818,282.584027 C286.140818,282.584027 286.095024,282.705582 287.575221,276.412555 L320.334075,137.138937 Z M186.575854,445.241434 L243.932867,445.241434 L268.481926,339.717441 L330.111325,339.799569 L337.851248,445.241434 L395.146032,445.241434 L364.575109,8.09965276 L289.192416,8.09965276 L186.575854,445.241434 Z M195.701062,8.09965276 L183.01457,8.09965276 L51.481027,8.09965276 L38.7945356,8.09965276 L37.7473606,20.8072627 L3.8188912,432.533824 L2.77171622,445.241434 L15.4582076,445.241434 L151.863363,445.241434 L164.549855,445.241434 L165.59703,432.533824 L168.210779,400.81563 L169.257954,388.10802 L156.571462,388.10802 L64.446539,388.057189 L75.3664797,255.542233 L136.439061,255.542233 L149.125552,255.542233 L150.172727,242.834623 L152.83674,210.506464 L153.883915,197.798854 L141.197424,197.798854 L80.2082777,197.707782 L91.1547962,65.233067 L178.306471,65.233067 L190.992963,65.233067 L192.040138,52.5254571 L194.653887,20.8072627 L195.701062,8.09965276 Z"></path></g></svg></a></div></main><noscript class="no-js-info"><h1>Universal Embed</h1><p>This website requires JavaScript to retrieve content.</p><p><a href="http://enable-javascript.com" target="_blank">How to enable JavaScript.</a></p></noscript><script type="text/javascript" src="/site.js"></script></body></html>

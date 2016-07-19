@@ -70,9 +70,73 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_components_base_component__ = __webpack_require__(1);
+/* unused harmony export initializeStore *//* harmony export */ exports["a"] = getStore;var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
-/* harmony export */ __webpack_require__.d(exports, "default", function() { return BasePage; });var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+var store = null;
+
+function initializeStore(instance) {
+  var spec = arguments.length <= 1 || arguments[1] === undefined ? {} : arguments[1];
+
+  var iframe = document.createElement("iframe");
+  var _spec$appName = spec.appName;
+  var appName = _spec$appName === undefined ? "an app" : _spec$appName;
+  var _spec$beforeContent = spec.beforeContent;
+  var beforeContent = _spec$beforeContent === undefined ? "" : _spec$beforeContent;
+  var _spec$afterContent = spec.afterContent;
+  var afterContent = _spec$afterContent === undefined ? "" : _spec$afterContent;
+  var _spec$downloadURLs = spec.downloadURLs;
+  var downloadURLs = _spec$downloadURLs === undefined ? {} : _spec$downloadURLs;
+  var _spec$labels = spec.labels;
+  var labels = _spec$labels === undefined ? {} : _spec$labels;
+
+
+  store = {
+    appName: appName,
+    instance: instance,
+
+    beforeContent: beforeContent,
+    afterContent: afterContent,
+
+    downloadURLs: downloadURLs,
+
+    iframe: {
+      element: iframe,
+      get document() {
+        return iframe.contentDocument;
+      },
+      get window() {
+        return iframe.contentWindow;
+      }
+    },
+
+    labels: _extends({
+      done: "Done",
+      searchPlaceholder: "Select or search the type of website you have...",
+      next: "Next",
+      title: function title(appName) {
+        return "Add " + appName + " to your site";
+      }
+    }, labels)
+  };
+
+  return store;
+}
+
+function getStore() {
+  return store;
+}
+
+/***/ },
+/* 1 */
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_components_base_component__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_lib_store__ = __webpack_require__(0);
+
+/* harmony export */ __webpack_require__.d(exports, "default", function() { return BasePage; });var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _class, _temp;
 
@@ -81,6 +145,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
 
 
 
@@ -100,8 +165,9 @@ var BasePage = (_temp = _class = function (_BaseComponent) {
       var id = _constructor.id;
       var templateVars = _constructor.templateVars;
 
+      var downloadURL = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1_lib_store__["a" /* getStore */])().downloadURLs[this.constructor.id];
 
-      __WEBPACK_IMPORTED_MODULE_0_components_base_component__["a" /* default */].prototype.compileTemplate.call(this, templateVars);
+      __WEBPACK_IMPORTED_MODULE_0_components_base_component__["a" /* default */].prototype.compileTemplate.call(this, _extends({ downloadURL: downloadURL }, templateVars));
 
       this.element.setAttribute("data-component", id + "-page");
       this.element.setAttribute("data-column", "");
@@ -142,11 +208,11 @@ var BasePage = (_temp = _class = function (_BaseComponent) {
 
 
 /***/ },
-/* 1 */
+/* 2 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_lib_store__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_lib_store__ = __webpack_require__(0);
 
 /* harmony export */ __webpack_require__.d(exports, "a", function() { return BaseComponent; });var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
 
@@ -275,68 +341,11 @@ var BaseComponent = (_temp = _class = function () {
 
 
 /***/ },
-/* 2 */
-/***/ function(module, exports, __webpack_require__) {
-
-"use strict";
-/* unused harmony export initializeStore *//* harmony export */ exports["a"] = getStore;var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-var store = null;
-
-function initializeStore(instance) {
-  var spec = arguments.length <= 1 || arguments[1] === undefined ? {} : arguments[1];
-
-  var iframe = document.createElement("iframe");
-  var _spec$appName = spec.appName;
-  var appName = _spec$appName === undefined ? "an app" : _spec$appName;
-  var _spec$beforeContent = spec.beforeContent;
-  var beforeContent = _spec$beforeContent === undefined ? "" : _spec$beforeContent;
-  var _spec$afterContent = spec.afterContent;
-  var afterContent = _spec$afterContent === undefined ? "" : _spec$afterContent;
-  var _spec$labels = spec.labels;
-  var labels = _spec$labels === undefined ? {} : _spec$labels;
-
-
-  store = {
-    appName: appName,
-    instance: instance,
-
-    beforeContent: beforeContent,
-    afterContent: afterContent,
-
-    iframe: {
-      element: iframe,
-      get document() {
-        return iframe.contentDocument;
-      },
-      get window() {
-        return iframe.contentWindow;
-      }
-    },
-
-    labels: _extends({
-      done: "Done",
-      searchPlaceholder: "Select or search the type of website you have...",
-      next: "Next",
-      title: function title(appName) {
-        return "Add " + appName + " to your site";
-      }
-    }, labels)
-  };
-
-  return store;
-}
-
-function getStore() {
-  return store;
-}
-
-/***/ },
 /* 3 */
 /***/ function(module, exports, __webpack_require__) {
 
 /* eslint-env node, es6 */
-var BasePage = __webpack_require__(0).default;
+var BasePage = __webpack_require__(1).default;
 
 module.exports = BasePage;
 
