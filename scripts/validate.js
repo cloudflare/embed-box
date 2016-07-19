@@ -1,3 +1,5 @@
+/* eslint-env node */
+
 function logError(error) {
   console.dir(error, {depth: null, colors: true})
 }
