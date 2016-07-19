@@ -1,91 +1,92 @@
 @import colors
 @import code-colors
 
-pre.cm-s-default
+pre.cm-s-default, code[class*="lang-"]
 
   > span
     color inherit
 
-  .cm-string
+  .cm-string, .hljs-string
     color darkGray
 
-  .cm-comment
+  .cm-comment, .hljs-comment
     color codeLightPink
 
-  .cm-atom, .cm-number
+  .cm-atom, .hljs-atom, .cm-number, .hljs-number
     color codeBlue
 
   &.lang-css
 
-    .cm-builtin
+    .cm-builtin, .hljs-builtin
       color codeBlue
 
-    .cm-property
+    .cm-property, .hljs-property
       color codePurple
 
-    .cm-tag
+    .cm-tag, .hljs-tag
       color codeTeal
 
-    .cm-qualifier
+    .cm-qualifier, .hljs-qualifier
       color codeRed
 
-    .cm-def
+    .cm-def, .hljs-def
       color codePink
 
-    .cm-keyword
+    .cm-keyword, .hljs-keyword
       color codeGold
 
     &.lang-stylus
 
-      .cm-qualifier
+      .cm-qualifier, .hljs-qualifier
         color codeTeal
 
-      .cm-tag
+      .cm-tag, .hljs-tag
         color codePurple
 
   &.lang-html
 
-    .cm-tag
+    .cm-tag, .hljs-tag
       color codePurple
 
-    .cm-attribute
+    .cm-attribute, .hljs-attribute
       color codeBlue
 
-    .cm-string
+    .cm-string, .hljs-string
       color codePink
 
   &.lang-coffeescript
 
-    .cm-tag
+    .cm-tag, .hljs-tag
       color codePurple
 
-    .cm-attribute
+    .cm-attribute, .hljs-attribute
       color codeBlue
 
-    .cm-string-2
+    .cm-string, .hljs-string-2
       color codeTeal
 
-    .cm-keyword
+    .cm-keyword, .hljs-keyword
       color codePink
 
-    .cm-operator
+    .cm-operator, .hljs-operator
       color codeRed
 
-    .cm-variable:first-child + .cm-variable, :not(.cm-variable) + .cm-variable + .cm-variable
+    .cm-variable:first-child + .cm-variable, :not(.cm-variable) + .cm-variable + .cm-variable,
+    .hljs-variable:first-child + .hljs-variable, :not(.hljs-variable) + .hljs-variable + .hljs-variable
       color codeBlue
 
   &.lang-javascript
 
-    .cm-keyword
+    .cm-keyword, .hljs-keyword
       color codePurple
 
-    .cm-def
+    .cm-def, .hljs-def
       color codeBlue
 
-    .cm-variable-2
+    .cm-variable-2, .hljs-variable-2
       color codeTeal
 
   &.lang-go
 
-    .cm-keyword
+    .cm-keyword, .hljs-keyword
       color codePurple
