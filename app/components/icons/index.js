@@ -28,8 +28,8 @@ export const close = toComponent(closeSVG)
 import drupalSVG from "./drupal.svg"
 export const drupal = toComponent(drupalSVG)
 
-import embedSVG from "./embed.svg"
-export const embed = toComponent(embedSVG)
+import genericSVG from "./generic.svg"
+export const generic = toComponent(genericSVG)
 
 import joomlaSVG from "./joomla.svg"
 export const joomla = toComponent(joomlaSVG)

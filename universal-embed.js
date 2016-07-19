@@ -10,7 +10,7 @@ module.exports = function UniversalEmbed(spec = {}, ...args) {
     pages.wordpress,
     pages.drupal,
     pages.joomla,
-    pages.embed)
+    pages.generic)
 
   return new UniversalEmbedBase(spec, ...args)
 }

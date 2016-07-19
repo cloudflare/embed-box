@@ -1,10 +1,10 @@
-import template from "./embed.pug"
+import template from "./generic.pug"
 
 import BasePage from "components/base-page"
 
-export default class EmbedPage extends BasePage {
+export default class GenericPage extends BasePage {
   static fallback = true;
-  static id = "embed";
+  static id = "generic";
   static label = "Another CMS";
   static template = template;
 }

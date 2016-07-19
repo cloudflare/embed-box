@@ -17,9 +17,9 @@ exports.entries = {
     library: "UniversalEmbedDrupalPage",
     path: "./pages/drupal.js"
   },
-  "universal-embed-page-embed": {
-    library: "UniversalEmbedEmbedPage", // TODO: Pick a different name.
-    path: "./pages/embed.js"
+  "universal-embed-page-generic": {
+    library: "UniversalEmbedGenericPage",
+    path: "./pages/generic.js"
   },
   "universal-embed-page-joomla": {
     library: "UniversalEmbedWordpressPage",

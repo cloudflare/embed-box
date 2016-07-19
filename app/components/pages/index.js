@@ -1,4 +1,4 @@
 export drupal from "./drupal"
-export embed from "./embed"
+export generic from "./generic"
 export joomla from "./joomla"
 export wordpress from "./wordpress"
