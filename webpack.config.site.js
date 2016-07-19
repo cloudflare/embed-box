@@ -8,7 +8,7 @@ const ExtractTextPlugin = require("extract-text-webpack-plugin")
 const extractCSS = new ExtractTextPlugin("site.css")
 
 module.exports = createWebpackConfig({
-  buildDirectory: "./",
+  buildDirectory: "site",
 
   entry: ["./app/site.js"],
 

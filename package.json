@@ -9,7 +9,8 @@
   },
   "scripts": {
     "start": "babel-node scripts/watch.js",
-    "build": "NODE_ENV=production babel-node scripts/build.js",
+    "build-distributions": "NODE_ENV=production babel-node scripts/build-distributions.js",
+    "build-site": "NODE_ENV=production babel-node scripts/build-site.js",
     "lint": "eslint ./app",
     "lint:fix": "eslint --fix ./app"
   },
@@ -56,18 +57,14 @@
   },
   "routes": {
     "development": {
-      "views": {
-        "hostname": "localhost",
-        "port": 9000,
-        "protocol": "http"
-      }
+      "hostname": "localhost",
+      "port": 9000,
+      "protocol": "http"
     },
     "production": {
-      "views": {
-        "hostname": "universal-embed.io",
-        "port": "",
-        "protocol": "https"
-      }
+      "hostname": "embedbox.io",
+      "port": "",
+      "protocol": "https"
     }
   }
 }

@@ -3,7 +3,7 @@
 
 const ENVIRONMENT = process.env.NODE_ENV || "development"
 const {resolve} = require("path")
-const routes = require("./package.json").routes[ENVIRONMENT]
+const route = require("./package.json").routes[ENVIRONMENT]
 const nib = require("nib")()
 const webpack = require("webpack")
 const marked = require("marked")
@@ -77,7 +77,7 @@ module.exports = function createWebpackConfig(overrides = {}) {
       test: /\.js$/
     }]
 
-    $.entry.unshift(`webpack-dev-server/client?http://0.0.0.0:${routes.views.port}`)
+    $.entry.unshift(`webpack-dev-server/client?http://0.0.0.0:${route.port}`)
   }
 
   return $

@@ -1,29 +1,13 @@
 /* eslint-env node */
 
 const baseConfig = require("../webpack.config.base")()
-const siteConfig = require("../webpack.config.site")
 const del = require("del")
 const {each} = require("async")
 const webpack = require("webpack")
 const {entries, IDs} = require("./distributions")
+const validate = require("./validate")
 
 const {assign} = Object
-
-function logError(error) {
-  console.dir(error, {depth: null, colors: true})
-}
-
-function validate(fatalError, stats) {
-  if (fatalError) throw fatalError
-
-  const {errors, warnings} = stats.toJson()
-
-  if (errors.length > 0 || warnings.length > 0) {
-    logError(warnings)
-    logError(errors)
-    process.exit(1)
-  }
-}
 
 const optimizePlugins = [
   new webpack.optimize.OccurrenceOrderPlugin(true),
@@ -72,13 +56,3 @@ function buildEntry(id, next) {
 
 console.log("Building bundles...")
 each(IDs, buildEntry)
-
-const compiler = webpack(siteConfig)
-
-compiler.run((fatalError, stats) => {
-  validate(fatalError, stats)
-
-  console.log("- Universal Embed Documentation https://universalembed.io")
-})
-
-
