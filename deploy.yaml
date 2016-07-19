@@ -1,0 +1,5 @@
+default:
+  root: 'dest'
+
+production:
+  bucket: 'embedbox.io'
