@@ -1,0 +1,29 @@
+machine:
+  node:
+    version: v5.4.0
+
+dependencies:
+  cache_directories:
+    - "~/nvm/v5.4.0/lib/node_modules"
+    - "~/nvm/v5.4.0/lib/bin"
+    - "~/.npm"
+    - "cache"
+
+  post:
+    - npm run build
+    - curl https://s3.amazonaws.com/stout-builds/install | sh
+
+test:
+  override:
+    - echo "No tests!"
+
+deployment:
+  development:
+    branch: dev
+    commands:
+      - stout deploy --env development
+
+  production:
+    branch: master
+    commands:
+      - stout deploy --env production
