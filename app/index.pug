@@ -53,7 +53,14 @@ html.no-js(lang="en")
           # Customization
 
         :marked
-          ## Custom content slots
+          ## Themes
+
+        .code-example.has-run-button
+          button.run Run
+          != require("./examples/custom-theme.md")
+
+        :marked
+          ## Content slots
 
         .code-example.has-run-button
           button.run Run

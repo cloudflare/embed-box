@@ -77,18 +77,19 @@ export default class UniversalEmbed {
     const style = this.iframe.document.createElement("style")
 
     style.innerHTML = modalStylesheet + `
-      body {
-        color: ${theme.textColor};
+      [data-component="application"] .modal {
+        background-color: ${theme.backgroundColor} !important;
+        color: ${theme.textColor} !important;
       }
 
       a, .accent-color {
-        color: ${theme.accentColor};
+        color: ${theme.accentColor} !important;
       }
 
       .button.primary, button.primary,
       [data-component="site-type-search"] .types .type[data-selected],
       .accent-background-color {
-        background: ${theme.accentColor};
+        background: ${theme.accentColor} !important;
       }
     `
 
