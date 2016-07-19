@@ -24,15 +24,11 @@ export default class UniversalEmbed {
     seamless: "seamless"
   };
 
-  static pages = [];
-
-  static getPage(id = "") {
-    const {pages} = this.constructor
-
-    return pages.filter($ => $.id === id)[0]
-  }
-
   application = null;
+
+  pages = [];
+
+  style = document.createElement("style");
 
   theme = {
     accentColor: "#2d88f3",
@@ -40,10 +36,9 @@ export default class UniversalEmbed {
     textColor: "#000000"
   };
 
-  style = document.createElement("style");
-
   constructor(spec = {}) {
-    const store = initializeStore(this)
+    const store = initializeStore(this, spec)
+
     const {iframe} = store
     const {iframeAttributes, stylesheet} = this.constructor
 
@@ -63,8 +58,8 @@ export default class UniversalEmbed {
 
     this.iframe = iframe
 
+    if (spec.pages) this.pages = spec.pages
     if (spec.theme) Object.assign(this.theme, spec.theme)
-    if (spec.labels) Object.assign(store, spec.labels)
 
     this.style.innerHTML = stylesheet
     document.head.appendChild(this.style)
@@ -72,7 +67,7 @@ export default class UniversalEmbed {
     this.appendModalStylesheet()
 
     this.application = new Application(this.iframe.document.body, {
-      pages: this.constructor.pages,
+      pages: this.pages,
       onClose: this.hide
     })
   }

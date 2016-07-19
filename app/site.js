@@ -1,18 +1,22 @@
 import "babel-polyfill"
 import "./site.external-styl"
 
-import * as examples from "./examples"
 import drawStars from "lib/draw-stars"
 import {getStore} from "lib/store"
 
+import UniversalEmbed from "../universal-embed"
+import UniversalEmbedCustom from "../custom"
+import UniversalEmbedCustomPage from "../custom-page"
+
+Object.assign(window, {UniversalEmbed, UniversalEmbedCustom, UniversalEmbedCustomPage})
+
 function handleRunClick({target}) {
   const {instance} = getStore() || {}
+  const {innerText: example} = target.parentElement.querySelector("code")
 
   if (instance) instance.destroy()
 
-  const key = target.getAttribute("data-example")
-
-  examples[key]()
+  eval(example) // eslint-disable-line no-eval
 }
 
 document.addEventListener("DOMContentLoaded", () => {

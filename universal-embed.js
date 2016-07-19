@@ -1,13 +1,17 @@
 /* eslint-env node, es6 */
 
-const UniversalEmbed = require("./app/universal-embed").default
+const UniversalEmbedBase = require("./app/universal-embed").default
 const pages = require("./app/components/pages")
 
-UniversalEmbed.pages = [
-  pages.wordpress,
-  pages.drupal,
-  pages.joomla,
-  pages.embed
-]
+module.exports = function UniversalEmbed(spec = {}, ...args) {
+  if (!spec.pages) {
+    spec.pages = [
+      pages.wordpress,
+      pages.drupal,
+      pages.joomla,
+      pages.embed
+    ]
+  }
 
-module.exports = UniversalEmbed
+  return new UniversalEmbedBase(spec, ...args)
+}

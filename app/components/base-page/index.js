@@ -1,7 +1,7 @@
 import BaseComponent from "components/base-component"
 
 export default class BasePage extends BaseComponent {
-  static createPage = function createPage({fallback, id, label, template, templateVars}) {
+  static extend = function extend({fallback, id, label, template, templateVars} = {}) {
     if (!id) throw new Error("UniversalEmbed: Page must have `id`")
     if (!label) throw new Error("UniversalEmbed: Page must have `label`")
 

@@ -14,7 +14,7 @@ html.no-js(lang="en")
 
   body
     main(data-column)
-      .slide.hero(data-column)
+      .slide.hero
         svg.stars
 
         .logo-text Universal Embed
@@ -28,14 +28,14 @@ html.no-js(lang="en")
           width="160px"
           height="30px")
 
-      .slide.pitch(data-column)
+      .slide.pitch
         :marked
           # How can I get my app on every site in the universe?
 
           [simplified example here]
 
 
-      .slide.install(data-column)
+      .slide.install
         :marked
           # How to Use
 
@@ -45,10 +45,26 @@ html.no-js(lang="en")
           != require("./examples/install.md")
 
         .code-example.has-run-button
-          button(data-example="basic").run Run
+          button.run Run
           != require("./examples/basic.md")
 
-      .slide.configure
+      .slide.customization
+        :marked
+          # Customization
+
+        :marked
+          ## Custom content slots
+
+        .code-example.has-run-button
+          button.run Run
+          != require("./examples/content-slots.md")
+
+        :marked
+          ## Custom pages
+
+        .code-example.has-run-button
+          button.run Run
+          != require("./examples/custom-page.md")
 
     noscript.no-js-info
       h1 Universal Embed

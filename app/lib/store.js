@@ -1,13 +1,15 @@
 let store = null
 
-export function initializeStore(instance) {
+export function initializeStore(instance, spec = {}) {
   const iframe = document.createElement("iframe")
+  const {appName = "an app", beforeContent = "", afterContent = "", labels = {}} = spec
 
   store = {
-    appName: "Drift Chat",
-    siteId: "Icc0-PIkXF",
-
+    appName,
     instance,
+
+    beforeContent,
+    afterContent,
 
     iframe: {
       element: iframe,
@@ -23,7 +25,8 @@ export function initializeStore(instance) {
       done: "Done",
       searchPlaceholder: "Select or search the type of website you have...",
       next: "Next",
-      title: appName => `Add ${appName} to your site`
+      title: appName => `Add ${appName} to your site`,
+      ...labels
     }
   }
 
