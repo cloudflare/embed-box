@@ -1,6 +1,6 @@
 import template from "./embed.pug"
 
-import BasePage from "components/page"
+import BasePage from "components/base-page"
 
 export default class EmbedPage extends BasePage {
   static fallback = true;

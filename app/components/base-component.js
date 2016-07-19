@@ -1,4 +1,4 @@
-import store from "../store"
+import {getStore} from "lib/store"
 
 // Ends with brackets e.g. [data-ref="foo[]"]
 const ARRAY_REF_PATTERN = /([a-zA-Z\d]*)(\[?\]?)/
@@ -10,16 +10,15 @@ export default class BaseComponent {
   element = null;
   refs = {};
   serializer = document.createElement("div");
-  store = store;
 
   constructor(spec = {}) {
-    const {stylesheet} = this.constructor
-
-    const {document: iframeDocument} = store.iframe
-
     Object.assign(this, spec)
 
-    if (stylesheet && !this.constructor.style) {
+    const {stylesheet} = this.constructor
+    const {document: iframeDocument} = getStore().iframe
+
+    if (stylesheet && !iframeDocument.head.contains(this.constructor.style)) {
+      // Common style tag has yet to be inserted in iframe.
       const style = this.constructor.style = iframeDocument.createElement("style")
 
       style.innerHTML = stylesheet
@@ -63,7 +62,7 @@ export default class BaseComponent {
     const {template} = this.constructor
 
     if (typeof template === "function") {
-      this.serializer.innerHTML = template({config: store, ...options})
+      this.serializer.innerHTML = template({config: getStore(), ...options})
     }
     else {
       this.serializer.innerHTML = template

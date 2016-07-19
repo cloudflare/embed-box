@@ -3,11 +3,9 @@ import modalStylesheet from "./iframe.styl"
 import pagesStylesheet from "./pages.styl"
 
 import autobind from "autobind-decorator"
-import Application from "./components/application"
-import store from "./store"
+import Application from "components/application"
 import polyfillCustomEvent from "lib/custom-event"
-
-const {iframe} = store
+import {initializeStore} from "lib/store"
 
 function unmountElement(element) {
   if (!element || !element.parentNode) return null
@@ -45,33 +43,35 @@ export default class UniversalEmbed {
   style = document.createElement("style");
 
   constructor(spec = {}) {
+    const store = initializeStore(this)
+    const {iframe} = store
     const {iframeAttributes, stylesheet} = this.constructor
-
-    this.container = document.body
-
-    if (spec.theme) {
-      this.theme = Object.assign(this.theme, spec.theme)
-    }
-
-    this.style.innerHTML = stylesheet
-    document.head.appendChild(this.style)
 
     Object
       .keys(iframeAttributes)
       .forEach(key => iframe.element.setAttribute(key, iframeAttributes[key]))
 
+    this.container = document.body
     this.container.appendChild(iframe.element)
 
     polyfillCustomEvent(iframe)
-
-    this.appendModalStylesheet()
 
     const pageStyle = iframe.document.createElement("style")
 
     pageStyle.innerHTML = pagesStylesheet
     iframe.document.head.appendChild(pageStyle)
 
-    this.application = new Application(iframe.document.body, {
+    this.iframe = iframe
+
+    if (spec.theme) Object.assign(this.theme, spec.theme)
+    if (spec.labels) Object.assign(store, spec.labels)
+
+    this.style.innerHTML = stylesheet
+    document.head.appendChild(this.style)
+
+    this.appendModalStylesheet()
+
+    this.application = new Application(this.iframe.document.body, {
       pages: this.constructor.pages,
       onClose: this.hide
     })
@@ -79,7 +79,7 @@ export default class UniversalEmbed {
 
   appendModalStylesheet() {
     const {theme, constructor: {modalStylesheet}} = this
-    const style = document.createElement("style")
+    const style = this.iframe.document.createElement("style")
 
     style.innerHTML = modalStylesheet + `
       body {
@@ -97,17 +97,17 @@ export default class UniversalEmbed {
       }
     `
 
-    iframe.document.head.appendChild(style)
+    this.iframe.document.head.appendChild(style)
   }
 
   destroy() {
-    unmountElement(iframe.element)
+    unmountElement(this.iframe.element)
     unmountElement(this.style)
   }
 
   @autobind
   hide() {
-    iframe.element.setAttribute("data-universal-embed", "hidden")
+    this.iframe.element.setAttribute("data-universal-embed", "hidden")
 
     this.container.style.overflow = this.containerPreviousOverflow
     this.containerPreviousOverflow = ""
@@ -115,7 +115,7 @@ export default class UniversalEmbed {
 
   @autobind
   show() {
-    iframe.element.setAttribute("data-universal-embed", "visible")
+    this.iframe.element.setAttribute("data-universal-embed", "visible")
 
     this.containerPreviousOverflow = this.container.style.overflow
     this.container.style.overflow = "hidden"

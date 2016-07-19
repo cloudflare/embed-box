@@ -1,6 +1,6 @@
 import template from "./joomla.pug"
 
-import BasePage from "components/page"
+import BasePage from "components/base-page"
 
 export default class JoomlaPage extends BasePage {
   static fallback = false;

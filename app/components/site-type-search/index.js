@@ -16,6 +16,8 @@ export default class SiteTypeSearch extends BaseComponent {
   static template = template;
   static stylesheet = stylesheet;
 
+  selectedId = null;
+
   get types() {
     const {query, pages} = this
 
@@ -58,7 +60,7 @@ export default class SiteTypeSearch extends BaseComponent {
 
     nativeEvent.preventDefault()
 
-    let {selectedId} = this.store
+    let {selectedId} = this
     const types = this.types.filter(type => !type.hidden)
 
     if (!types.length) return
@@ -76,17 +78,23 @@ export default class SiteTypeSearch extends BaseComponent {
 
   @autobind
   handleDelgatedKeypress({detail: {nativeEvent}}) {
-    if (nativeEvent.keyCode !== KM.enter || !this.store.selectedId) return
+    if (nativeEvent.keyCode !== KM.enter) return
 
     nativeEvent.preventDefault()
+    this.submit()
+  }
 
-    this.onSubmit()
+  @autobind
+  submit() {
+    if (!this.selectedId) return
+
+    this.onSubmit(this.selectedId)
   }
 
   selectType(selectedId, options = {}) {
     const {types, typesContainer} = this.refs
 
-    this.store.selectedId = selectedId
+    this.selectedId = selectedId
 
     types.forEach(this.setTypeStyle)
 
@@ -96,13 +104,19 @@ export default class SiteTypeSearch extends BaseComponent {
         .scrollIntoView(true)
     }
 
-    this.onSelection()
+    this.setNavigationState()
+  }
+
+  setNavigationState() {
+    const {nextPageButton} = this.refs
+
+    nextPageButton.disabled = !this.selectedId
   }
 
   render() {
     this.compileTemplate()
 
-    const {search} = this.refs
+    const {nextPageButton, search} = this.refs
     const searchIcon = new SearchIcon()
 
     this.insertBefore(searchIcon.render(), search)
@@ -110,9 +124,11 @@ export default class SiteTypeSearch extends BaseComponent {
     search.addEventListener("input", this.handleSearchInput)
 
     this.renderTypes()
+    this.setNavigationState()
 
     this.element.addEventListener("dispatched-keydown", this.handleDelgatedKeydown)
     this.element.addEventListener("dispatched-keypress", this.handleDelgatedKeypress)
+    nextPageButton.addEventListener("click", this.submit)
 
     return this.element
   }
@@ -137,13 +153,13 @@ export default class SiteTypeSearch extends BaseComponent {
 
       this.setTypeStyle(typeEl)
 
-      typeEl.addEventListener("click", () => this.selectType($.id))
+      typeEl.addEventListener("click", () => this.selectType($.id, {focus: true}))
     })
   }
 
   @autobind
   setTypeStyle(element) {
-    if (element.getAttribute("data-id") === this.store.selectedId) {
+    if (element.getAttribute("data-id") === this.selectedId) {
       element.setAttribute("data-selected", "")
     }
     else {

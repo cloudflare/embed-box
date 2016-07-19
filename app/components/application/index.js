@@ -1,12 +1,13 @@
 import stylesheet from "./application.styl"
+import template from "./application.pug"
 
 import autobind from "autobind-decorator"
 import BaseComponent from "components/base-component"
-import store from "../../store"
+import {getStore} from "lib/store"
 import * as icons from "components/icons"
-import SiteTypeSearch from "components/site-type-search"
-import template from "./application.pug"
 import KM from "lib/key-map"
+import SiteTypeSearch from "components/site-type-search"
+import PageWrapper from "components/page-wrapper"
 
 export default class Application extends BaseComponent {
   static template = template;
@@ -19,8 +20,8 @@ export default class Application extends BaseComponent {
 
     const element = this.compileTemplate()
 
-    const {window: iframeWindow} = store.iframe
-    const {doneButton, closeModalButton, nextPageButton, previousPageButton} = this.refs
+    const {window: iframeWindow} = getStore().iframe
+    const {closeModalButton, previousPageButton} = this.refs
     const headerButtons = [closeModalButton, previousPageButton]
 
     headerButtons.forEach(button => {
@@ -35,14 +36,11 @@ export default class Application extends BaseComponent {
     iframeWindow.addEventListener("keypress", this.delgateKeyEvent)
 
     closeModalButton.addEventListener("click", this.closeModal)
-    doneButton.addEventListener("click", this.closeModal)
     element.addEventListener("click", event => {
       if (event.target === element) this.closeModal()
     })
 
     previousPageButton.addEventListener("click", this.navigateToHome)
-
-    nextPageButton.addEventListener("click", this.navigateToPage)
 
     this.navigateToHome()
     mountPoint.appendChild(this.element)
@@ -93,7 +91,10 @@ export default class Application extends BaseComponent {
     const siteTypeSearch = new SiteTypeSearch({
       pages: this.pages,
       onSelection: this.setNavigationState,
-      onSubmit: this.navigateToPage
+      onSubmit: selectedId => {
+        this.page = selectedId
+        this.navigateToPage()
+      }
     })
 
     content.innerHTML = ""
@@ -104,7 +105,6 @@ export default class Application extends BaseComponent {
   @autobind
   navigateToHome() {
     this.page = "home"
-    this.setNavigationState()
     this.renderSiteTypeSearch()
     this.autofocus()
 
@@ -113,29 +113,19 @@ export default class Application extends BaseComponent {
 
   @autobind
   navigateToPage() {
-    const {store} = this
-
-    this.page = store.selectedId
-    store.selectedId = ""
-
     const {content} = this.refs
     const [Page] = this.pages.filter(page => page.id === this.page)
-    const page = new Page()
+    const pageWrapper = new PageWrapper({
+      onDone: this.closeModal,
+      page: new Page()
+    })
 
     content.innerHTML = ""
-    content.appendChild(page.render())
+    content.appendChild(pageWrapper.render())
 
-    this.setNavigationState()
     this.autofocus()
 
     this.element.setAttribute("data-page", this.page)
-  }
-
-  @autobind
-  setNavigationState() {
-    const {nextPageButton} = this.refs
-
-    nextPageButton.disabled = !this.store.selectedId
   }
 }
 

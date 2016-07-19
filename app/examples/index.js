@@ -1,9 +1,10 @@
 import UniversalEmbed from "../../universal-embed.js"
 import UniversalEmbedCustomPage from "../../custom-page.js"
 
-const universalEmbed = new UniversalEmbed()
 
 export function basic() {
+  const universalEmbed = new UniversalEmbed()
+
   universalEmbed.show()
 }
 

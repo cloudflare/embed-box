@@ -1,4 +1,4 @@
 /* eslint-env node, es6 */
-const Page = require("./app/components/page").default
+const BasePage = require("./app/components/base-page").default
 
-module.exports = Page
+module.exports = BasePage
