@@ -1,3 +1,57 @@
-<!DOCTYPE html><html lang="en" class="no-js"><head><title>Eager Universal Embed</title><script src="//use.typekit.net/xsm8rqv.js"></script><script>try{Typekit.load();}catch(e){};
+<!DOCTYPE html><html lang="en" class="no-js"><head><title>Universal Embed - Eager</title><script src="//use.typekit.net/xsm8rqv.js"></script><script>try{Typekit.load();}catch(e){};
 document.documentElement.classList.remove("no-js");
-</script><link rel="shortcut icon" href="data:image/x-icon;," type="image/x-icon"><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"></head><body><noscript class="no-js-info"><h1>Eager Universal Embed</h1><p>This website requires JavaScript to retrieve content.</p><p><a href="http://enable-javascript.com" target="_blank">How to enable JavaScript.</a></p></noscript><script type="text/javascript" src="/site.js"></script></body></html>
+</script><link rel="shortcut icon" href="data:image/x-icon;," type="image/x-icon"><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"><link href="/site.css" rel="stylesheet"></head><body><main data-column><div class="slide hero"><svg class="stars"></svg><div class="logo-text">Universal Embed</div><p>Build one plugin, ship it to <strong>one hundred million</strong> websites.</p><iframe src="https://ghbtns.com/github-btn.html?user=eagerio&amp;repo=UniversalEmbed&amp;type=star&amp;count=true&amp;size=large" frameborder="0" scrolling="0" width="160px" height="30px" class="github-star"></iframe></div><div class="slide pitch"><h1 id="how-can-i-get-my-app-on-every-site-in-the-universe-">How can I get my app on every site in the universe?</h1>
+<p>[simplified example here]</p>
+</div><div class="slide install"><h1 id="how-to-use">How to Use</h1>
+<p>First download the <a href="#">latest release</a>, then add this to your page.</p>
+<div class="code-example"><pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"universal-embed.js"</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+</code></pre>
+</div><div class="code-example has-run-button"><button class="run">Run</button><pre><code class="lang-javascript"><span class="hljs-keyword">const</span> universalEmbed = <span class="hljs-keyword">new</span> UniversalEmbed({appName: <span class="hljs-string">"Example App"</span>})
+
+universalEmbed.show()
+</code></pre>
+</div></div><div class="slide customization"><h1 id="customization">Customization</h1>
+<h2 id="themes">Themes</h2>
+<div class="code-example has-run-button"><button class="run">Run</button><pre><code class="lang-javascript"><span class="hljs-keyword">const</span> universalEmbed = <span class="hljs-keyword">new</span> UniversalEmbed({
+  appName: <span class="hljs-string">"Example Theme App"</span>,
+  theme: {
+    accentColor: <span class="hljs-string">"#e90f92"</span>,
+    backgroundColor: <span class="hljs-string">"#ffe2ff"</span>,
+    textColor: <span class="hljs-string">"#000000"</span>
+  }
+})
+
+universalEmbed.show()
+</code></pre>
+</div><h2 id="content-slots">Content slots</h2>
+<div class="code-example has-run-button"><button class="run">Run</button><pre><code class="lang-javascript"><span class="hljs-keyword">const</span> universalEmbed = <span class="hljs-keyword">new</span> UniversalEmbed({
+  beforeContent: <span class="hljs-string">"Having some trouble? Call us at &lt;strong&gt;(555)-123-4567&lt;/strong&gt;"</span>,
+  afterContent: <span class="hljs-string">"Congrats on installing the app!"</span>
+})
+
+universalEmbed.show()
+</code></pre>
+</div><h2 id="custom-pages">Custom pages</h2>
+<div class="code-example has-run-button"><button class="run">Run</button><pre><code class="lang-javascript"><span class="hljs-keyword">const</span> CustomPage = UniversalEmbedCustomPage.extend({
+  id: <span class="hljs-string">"custom-test"</span>,
+  label: <span class="hljs-string">"Custom Page"</span>,
+  templateVars: {
+    registerURL: <span class="hljs-string">"http://example.com/register"</span>
+  },
+  template: vars =&gt; <span class="hljs-string">`&lt;section&gt;
+    &lt;h1&gt;Installing <span class="hljs-subst">${vars.config.appName}</span>&lt;/h1&gt;
+
+    &lt;p&gt;
+      &lt;a href="<span class="hljs-subst">${vars.registerURL}</span>"&gt;Register an account&lt;/a&gt; before installing.
+    &lt;/p&gt;
+  &lt;/section&gt;`</span>
+})
+
+<span class="hljs-keyword">const</span> universalEmbed = <span class="hljs-keyword">new</span> UniversalEmbedCustom({
+  appName: <span class="hljs-string">"Custom Page Example"</span>,
+  pages: [CustomPage]
+})
+
+universalEmbed.show()
+</code></pre>
+</div></div></main><noscript class="no-js-info"><h1>Universal Embed</h1><p>This website requires JavaScript to retrieve content.</p><p><a href="http://enable-javascript.com" target="_blank">How to enable JavaScript.</a></p></noscript><script type="text/javascript" src="/site.js"></script></body></html>

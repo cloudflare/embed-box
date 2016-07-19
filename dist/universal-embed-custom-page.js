@@ -105,24 +105,27 @@ var BasePage = (_temp = _class = function (_BaseComponent) {
 
       this.element.setAttribute("data-component", id + "-page");
       this.element.setAttribute("data-column", "");
-      this.element.className = "markdown instructions" + this.element.className;
+      this.element.setAttribute("autofocus", "");
+      this.element.className = "markdown instructions " + (this.element.className || "");
 
       return this.element;
     }
   }]);
 
   return BasePage;
-}(__WEBPACK_IMPORTED_MODULE_0_components_base_component__["a" /* default */]), _class.extend = function extend(_ref) {
+}(__WEBPACK_IMPORTED_MODULE_0_components_base_component__["a" /* default */]), _class.extend = function extend() {
   var _class2, _temp2;
 
-  var _ref$fallback = _ref.fallback;
-  var fallback = _ref$fallback === undefined ? false : _ref$fallback;
+  var _ref = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
+
+  var fallback = _ref.fallback;
   var id = _ref.id;
   var label = _ref.label;
-  var _ref$template = _ref.template;
-  var template = _ref$template === undefined ? "" : _ref$template;
-  var _ref$templateVars = _ref.templateVars;
-  var templateVars = _ref$templateVars === undefined ? {} : _ref$templateVars;
+  var template = _ref.template;
+  var templateVars = _ref.templateVars;
+
+  if (!id) throw new Error("UniversalEmbed: Page must have `id`");
+  if (!label) throw new Error("UniversalEmbed: Page must have `label`");
 
   return _temp2 = _class2 = function (_BasePage) {
     _inherits(CustomPage, _BasePage);
@@ -134,7 +137,7 @@ var BasePage = (_temp = _class = function (_BaseComponent) {
     }
 
     return CustomPage;
-  }(BasePage), _class2.fallback = fallback, _class2.id = id, _class2.label = label, _class2.template = template, _class2.templateVars = templateVars, _temp2;
+  }(BasePage), _class2.fallback = fallback || false, _class2.id = id, _class2.label = label, _class2.template = template || "", _class2.templateVars = templateVars || {}, _temp2;
 }, _temp);
 
 
@@ -143,7 +146,7 @@ var BasePage = (_temp = _class = function (_BaseComponent) {
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__store__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_lib_store__ = __webpack_require__(2);
 
 /* harmony export */ __webpack_require__.d(exports, "a", function() { return BaseComponent; });var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
 
@@ -169,14 +172,15 @@ var BaseComponent = (_temp = _class = function () {
     this.element = null;
     this.refs = {};
     this.serializer = document.createElement("div");
-    this.store = __WEBPACK_IMPORTED_MODULE_0__store__["a" /* default */];
-    var stylesheet = this.constructor.stylesheet;
-    var iframeDocument = __WEBPACK_IMPORTED_MODULE_0__store__["a" /* default */].iframe.document;
-
 
     _extends(this, spec);
 
-    if (stylesheet && !this.constructor.style) {
+    var stylesheet = this.constructor.stylesheet;
+    var iframeDocument = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_lib_store__["a" /* getStore */])().iframe.document;
+
+
+    if (stylesheet && !iframeDocument.head.contains(this.constructor.style)) {
+      // Common style tag has yet to be inserted in iframe.
       var style = this.constructor.style = iframeDocument.createElement("style");
 
       style.innerHTML = stylesheet;
@@ -233,7 +237,7 @@ var BaseComponent = (_temp = _class = function () {
 
 
       if (typeof template === "function") {
-        this.serializer.innerHTML = template(_extends({ config: __WEBPACK_IMPORTED_MODULE_0__store__["a" /* default */] }, options));
+        this.serializer.innerHTML = template(_extends({ config: __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_lib_store__["a" /* getStore */])() }, options));
       } else {
         this.serializer.innerHTML = template;
       }
@@ -275,43 +279,66 @@ var BaseComponent = (_temp = _class = function () {
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
-var iframe = document.createElement("iframe");
+/* unused harmony export initializeStore *//* harmony export */ exports["a"] = getStore;var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
-/* harmony default export */ exports["a"] = {
-  appName: "Drift Chat",
-  siteId: "Icc0-PIkXF",
+var store = null;
 
-  selectedId: "",
-  page: "home",
+function initializeStore(instance) {
+  var spec = arguments.length <= 1 || arguments[1] === undefined ? {} : arguments[1];
 
-  iframe: {
-    element: iframe,
-    get document() {
-      return iframe.contentDocument;
+  var iframe = document.createElement("iframe");
+  var _spec$appName = spec.appName;
+  var appName = _spec$appName === undefined ? "an app" : _spec$appName;
+  var _spec$beforeContent = spec.beforeContent;
+  var beforeContent = _spec$beforeContent === undefined ? "" : _spec$beforeContent;
+  var _spec$afterContent = spec.afterContent;
+  var afterContent = _spec$afterContent === undefined ? "" : _spec$afterContent;
+  var _spec$labels = spec.labels;
+  var labels = _spec$labels === undefined ? {} : _spec$labels;
+
+
+  store = {
+    appName: appName,
+    instance: instance,
+
+    beforeContent: beforeContent,
+    afterContent: afterContent,
+
+    iframe: {
+      element: iframe,
+      get document() {
+        return iframe.contentDocument;
+      },
+      get window() {
+        return iframe.contentWindow;
+      }
     },
-    get window() {
-      return iframe.contentWindow;
-    }
-  },
 
-  labels: {
-    done: "Done",
-    searchPlaceholder: "Select or search the type of website you have...",
-    next: "Next",
-    title: function title(appName) {
-      return "Add " + appName + " to your site";
-    }
-  }
-};
+    labels: _extends({
+      done: "Done",
+      searchPlaceholder: "Select or search the type of website you have...",
+      next: "Next",
+      title: function title(appName) {
+        return "Add " + appName + " to your site";
+      }
+    }, labels)
+  };
+
+  return store;
+}
+
+function getStore() {
+  return store;
+}
 
 /***/ },
 /* 3 */
 /***/ function(module, exports, __webpack_require__) {
 
 /* eslint-env node, es6 */
-var Page = __webpack_require__(0).default;
+var BasePage = __webpack_require__(0).default;
 
-module.exports = Page;
+module.exports = BasePage;
 
 /***/ }
 /******/ ])
