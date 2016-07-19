@@ -1,5 +1,10 @@
 section
   h1 Installing #{config.appName} on a CMS
+
+  if config.beforeContent
+    div(data-content-slot="before")
+      != config.beforeContent
+
   h2
     span.step-number.accent-background-color 1
     span
@@ -14,3 +19,7 @@ section
 
   p After saving the changes you made, visit your site in the browser.
   p You should see a welcome message letting you know the installation worked.
+
+  if config.afterContent
+    div(data-content-slot="after")
+      != config.afterContent

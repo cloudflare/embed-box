@@ -1,5 +1,10 @@
 section
   h1 Installing #{config.appName} onto a Drupal site
+
+  if config.beforeContent
+    div(data-content-slot="before")
+      != config.beforeContent
+
   h2
     span.step-number.accent-background-color 1
     span
@@ -32,3 +37,7 @@ section
   p Check the “Enabled” checkbox to activate the plugin, and click “Save configuration”.
 
   p After it activates, visit your site to see a welcome message letting you know the installation was successful!
+
+  if config.afterContent
+    div(data-content-slot="after")
+      != config.afterContent

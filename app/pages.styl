@@ -1,6 +1,7 @@
 @import "~styl/colors"
 
 [data-component$="-page"]
+  flex 1 1 auto
   overflow auto
 
 .instructions.markdown
@@ -8,6 +9,15 @@
   display block
   padding 3em 2em 3em 4em
   user-select text
+
+  [data-content-slot]
+    background lightGrayRGBA
+    padding 1em
+    border-radius 3px
+    margin-left -2em
+
+  div, footer, header, section
+    display block
 
   figure > img
     max-width 100%
