@@ -50,20 +50,12 @@ Page content can be customized by adding content in slots.
 ```javascript
 import UniversalEmbed from "universal-embed"
 
-UniversalEmbed.beforeContent = "Contact <strong>ACME Inc.</strong> for an account ID."
-UniversalEmbed.afterContent = "Thanks you for installing ACME Inc. embed!"
-
-const universalEmbed = new UniversalEmbed()
+const universalEmbed = new UniversalEmbed({
+  beforeContent: "Contact <strong>ACME Inc.</strong> for an account ID.",
+  afterContent: "Thanks you for installing ACME Inc. embed!"
+})
 
 universalEmbed.show()
-```
-
-Slot content can be limited to single pages as well.
-
-```javascript
-const wordPressPage = UniversalEmbed.getPage("wordpress")
-
-wordPressPage.beforeContent = "ACME recommends WordPress <strong>4.5</strong> or higher"
 ```
 
 #### Custom Pages
@@ -78,9 +70,9 @@ const CustomPage = UniversalEmbedCustomPage.extend({
   template: "<section>Hello from a custom page!</section>"
 })
 
-UniversalEmbed.pages.push(CustomPage)
-
-const universalEmbed = new UniversalEmbed()
+const universalEmbed = new UniversalEmbed({
+  pages: [CustomPage]
+})
 
 universalEmbed.show()
 ```
@@ -120,9 +112,9 @@ A custom bundle can be made to include specific pages.
 
 <body>
   <script>
-    console.log(UniversalEmbed.pages) // [WordPressPage, JoomlaPage]
+    const universalEmbed = new UniversalEmbedCustom()
 
-    const universalEmbed = new UniversalEmbed()
+    console.log(universalEmbed.pages) // [WordPressPage, JoomlaPage]
 
     universalEmbed.show()
   </script>
@@ -132,16 +124,16 @@ A custom bundle can be made to include specific pages.
 ##### With builder
 
 ```javascript
-import UniversalEmbed from "universal-embed/custom"
+import UniversalEmbedCustom from "universal-embed/custom"
 import WordPressPage from "universal-embed/pages/wordpress"
 import JoomlaPage from "universal-embed/pages/joomla"
 
-UniversalEmbed.pages = [
-  WordPressPage,
-  JoomlaPage
-]
-
-const universalEmbed = new UniversalEmbed()
+const universalEmbed = new UniversalEmbedCustom({
+  pages: [
+    WordPressPage,
+    JoomlaPage
+  ]
+})
 
 universalEmbed.show()
 ```
@@ -155,7 +147,7 @@ import UniversalEmbed from "universal-embed"
 
 UniversalEmbed.modalStylesheet += `
   header {
-    font-weight: bold
+    font-weight: bold;
   }
 `
 ```
