@@ -1,3 +1,5 @@
+- var count = 0
+
 section
   h1 Installing #{config.appName} on a CMS
 
@@ -5,16 +7,34 @@ section
     div(data-content-slot="before")
       != config.beforeContent
 
+  if downloadURL
+    - count++
+    h2
+      span.step-number.accent-background-color=count
+      span
+        a.more(target="_blank" href=downloadURL)
+          | Download the plugin
+
+    p After downloading, don’t unzip the file.
+
+  - count++
   h2
-    span.step-number.accent-background-color 1
+    span.step-number.accent-background-color=count
     span
-      | Copy our embed code into the <head> of your page.
+      | Copy script tag <head> of your page.
+
+    if downloadURL
+      :marked
+        ```html
+        <script src="#{downloadURL}"></script>
+        ```
 
   figure
     img(src=require("./installing-eager.gif"))
 
+  - count++
   h2
-    span.step-number.accent-background-color 2
+    span.step-number.accent-background-color=count
     span Visit your site
 
   p After saving the changes you made, visit your site in the browser.

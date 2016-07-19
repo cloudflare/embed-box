@@ -6,12 +6,11 @@ const pages = require("./app/components/pages")
 module.exports = function UniversalEmbed(spec = {}, ...args) {
   spec.pages = spec.pages || []
 
-  spec.pages.push([
+  spec.pages.push(
     pages.wordpress,
     pages.drupal,
     pages.joomla,
-    pages.embed
-  ])
+    pages.embed)
 
   return new UniversalEmbedBase(spec, ...args)
 }

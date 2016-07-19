@@ -1,3 +1,5 @@
+- var count = 0
+
 section
   h1 Installing #{config.appName} onto a WordPress site
 
@@ -5,16 +7,20 @@ section
     div(data-content-slot="before")
       != config.beforeContent
 
-  h2
-    span.step-number.accent-background-color 1
-    span
-      a.more(target="_blank" href="//packager.eager.io/wordpress/v2.0.2/plugin.zip?siteId=#{config.siteId}")
-        | Download the WordPress plugin
+  if downloadURL
+    - count++
+    h2
+      span.step-number.accent-background-color= count
 
-  p After downloading, don’t unzip the file.
+      span
+        a.more(target="_blank" href=downloadURL)
+          | Download the WordPress plugin
 
+    p After downloading, don’t unzip the file.
+
+  - count++
   h2
-    span.step-number.accent-background-color 2
+    span.step-number.accent-background-color= count
     span Upload the plugin to your WordPress Admin site
 
   figure
@@ -24,8 +30,9 @@ section
 
   p Click “Choose File” and select the file you just downloaded.</p>
 
+  - count++
   h2
-    span.step-number.accent-background-color 3
+    span.step-number.accent-background-color= count
     span Activate the plugin and view your site
 
   figure

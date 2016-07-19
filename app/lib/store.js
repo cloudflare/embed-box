@@ -2,7 +2,7 @@ let store = null
 
 export function initializeStore(instance, spec = {}) {
   const iframe = document.createElement("iframe")
-  const {appName = "an app", beforeContent = "", afterContent = "", labels = {}} = spec
+  const {appName = "an app", beforeContent = "", afterContent = "", downloadURLs = {}, labels = {}} = spec
 
   store = {
     appName,
@@ -10,6 +10,8 @@ export function initializeStore(instance, spec = {}) {
 
     beforeContent,
     afterContent,
+
+    downloadURLs,
 
     iframe: {
       element: iframe,

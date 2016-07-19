@@ -1,5 +1,13 @@
 ```javascript
-const universalEmbed = new UniversalEmbed({appName: "Example App"})
+const universalEmbed = new UniversalEmbed({
+  appName: "Example App",
+  downloadURLs: {
+    wordpress: "http://example.com/wordpress-plugin.zip",
+    joomla: "http://example.com/joomla-plugin.zip",
+    drupal: "http://example.com/drupal-plugin.zip",
+    generic: "http://example.com/generic-plugin.zip"
+  }
+})
 
 universalEmbed.show()
 ```

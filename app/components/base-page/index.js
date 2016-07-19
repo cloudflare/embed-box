@@ -1,4 +1,5 @@
 import BaseComponent from "components/base-component"
+import {getStore} from "lib/store"
 
 export default class BasePage extends BaseComponent {
   static extend = function extend({fallback, id, label, template, templateVars} = {}) {
@@ -16,8 +17,9 @@ export default class BasePage extends BaseComponent {
 
   compileTemplate() {
     const {id, templateVars} = this.constructor
+    const downloadURL = getStore().downloadURLs[this.constructor.id]
 
-    BaseComponent.prototype.compileTemplate.call(this, templateVars)
+    BaseComponent.prototype.compileTemplate.call(this, {downloadURL, ...templateVars})
 
     this.element.setAttribute("data-component", `${id}-page`)
     this.element.setAttribute("data-column", "")
