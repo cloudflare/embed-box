@@ -15,7 +15,10 @@ module.exports = createWebpackConfig({
   loaders: [
     {
       test: /\.external-styl$/,
-      loader: ExtractTextPlugin.extract("style", "css!autoprefixer!stylus-loader?paths=app/resources/")
+      loader: ExtractTextPlugin.extract({
+        notExtractLoader: "style",
+        loader: "css!autoprefixer!stylus-loader?paths=app/resources/"
+      })
     }
   ],
 
