@@ -1,8 +1,29 @@
 @import "~styl/colors"
+@import "~styl/fonts"
 
 [data-component$="-page"]
   flex 1 1 auto
   overflow auto
+
+  .copy-container
+    background lightGrayRGBA
+    position relative
+
+    > textarea
+      background-color transparent
+      border none
+      display block
+      font-family monospaceFonts
+      margin 0
+      padding 1.3em
+      padding-top 4.3em
+      resize none
+      white-space pre-wrap
+      width 100%
+      word-wrap break-word
+
+      &:focus
+        outline none
 
 .instructions.markdown
   cursor auto

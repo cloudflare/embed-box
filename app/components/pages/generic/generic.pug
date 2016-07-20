@@ -15,19 +15,19 @@ section
         a.more(target="_blank" href=downloadURL)
           | Download the plugin
 
-    p After downloading, don’t unzip the file.
+    - count++
+    h2
+      span.step-number.accent-background-color=count
+      span
+        | Copy script tag <head> of your page.
 
-  - count++
-  h2
-    span.step-number.accent-background-color=count
-    span
-      | Copy script tag <head> of your page.
+      if downloadURL
+        .copy-container
+          button.run(data-ref="copyButtons[]")
+            | Copy
 
-    if downloadURL
-      :marked
-        ```html
-        <script src="#{downloadURL}"></script>
-        ```
+          textarea.copyable(readonly)
+            | <script src="#{downloadURL}"></script>
 
   figure
     img(src=require("./installing-eager.gif"))
