@@ -1,5 +1,7 @@
 # Embed Box
 
+[![CircleCI](https://circleci.com/gh/EagerIO/EmbedBox/tree/master.svg?style=svg)](https://circleci.com/gh/EagerIO/EmbedBox/tree/master)
+
 An open-source UI which makes it easy for your users to install your embed code.
 
 ## Installation
