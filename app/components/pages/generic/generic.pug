@@ -22,13 +22,13 @@ section
       span
         | Copy script tag <head> of your page.
 
-      if downloadURL
+      if this.downloadURL
         .copy-container
           button.run(data-ref="copyButtons[]")
             | Copy
 
           textarea.copyable(readonly)
-            | <script src="#{downloadURL}"></script>
+            | <script src="#{this.downloadURL}"></script>
 
   figure
     img(src=require("./installing-eager.gif"))
