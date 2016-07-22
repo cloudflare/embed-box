@@ -193,9 +193,14 @@ const embedBox = new EmbedBox({
 
 ## Contributing
 
+Please do, we would love for this to become a project of the community.
+Feel free to open an issue, submit a PR or contribute to the wiki.
+
+### Development
+
 ```shell
 npm install
 npm start
 ```
 
-Then navigate to http://localhost:9000
+Then navigate to <a href="http://localhost:9000" target="_blank">http://localhost:9000</a>
