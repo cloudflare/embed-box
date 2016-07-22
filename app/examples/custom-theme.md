@@ -2,9 +2,9 @@
 const universalEmbed = new UniversalEmbed({
   appName: "Example Theme App",
   theme: {
-    accentColor: "#e90f92",
-    backgroundColor: "#ffe2ff",
-    textColor: "#000000"
+    accentColor: "#665292",
+    backgroundColor: "#e0e0e0",
+    textColor: "#444444"
   }
 })
 
