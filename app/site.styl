@@ -196,21 +196,23 @@ body
       linkUnderlines #1e1e1e, #e6db74
 
     > .figure.floating-figure
-      position fixed
       background #fff
       border-radius .5em
-      right calc((100vw - 70rem) / 2)
-      width 30em
-      height 30em
-      top 0
       bottom 0
+      height 30em
       margin auto 0
+      overflow hidden
+      position fixed
+      right calc((100vw - 70rem) / 2)
+      top 0
+      width 30em
 
       iframe
+        background #232323
         border 0
+        height 100%
         margin 0
         width 100%
-        height 100%
 
   &.made-by
     .label

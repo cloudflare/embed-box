@@ -33,7 +33,7 @@ export default class EmbedBoxBase {
   };
 
   constructor(spec = {}) {
-    const {autoShow = true} = spec
+    const {autoShow = true, parentDocument = window.document} = spec
     const {iframeAttributes, stylesheet, theme} = this.constructor
     const store = initializeStore(this, spec)
     const {iframe} = store
@@ -42,7 +42,7 @@ export default class EmbedBoxBase {
       .keys(iframeAttributes)
       .forEach(key => iframe.element.setAttribute(key, iframeAttributes[key]))
 
-    this.container = document.body
+    this.container = parentDocument.body
     this.container.appendChild(iframe.element)
 
     polyfillCustomEvent(iframe)
@@ -54,10 +54,10 @@ export default class EmbedBoxBase {
 
     this.iframe = iframe
     this.theme = Object.assign(theme, spec.theme || {})
-    this.style = document.createElement("style")
+    this.style = parentDocument.createElement("style")
 
     this.style.innerHTML = stylesheet
-    document.head.appendChild(this.style)
+    parentDocument.head.appendChild(this.style)
 
     this.appendModalStylesheet()
 
