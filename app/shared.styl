@@ -21,14 +21,22 @@ div, footer, header, main, section
   // TODO: IE9 polyfill with https://github.com/7rulnik/postcss-flexibility
   display flex
 
-  button.run
-    background-color rgba(#000, .3)
-    color white
-    margin 0
-    padding .3em 1em
-    position absolute
-    left 1.3em
-    top 1.3em
+button.run
+  background #e6db74
+  color #171717
+  font-weight 500
+  margin 0
+  padding .3em 1em
+  position absolute
+  left 1.5em
+  top 1.5em
+
+.embed-box-download-iframe
+  position fixed
+  visibility hidden
+  width 1px
+  height 1px
+  z-index -99999
 
 [data-column]
   flex-flow column nowrap

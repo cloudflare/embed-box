@@ -1,7 +1,6 @@
 import "babel-polyfill"
 import "./site.external-styl"
 
-import drawStars from "lib/draw-stars"
 import {getStore} from "lib/store"
 
 import UniversalEmbed from "../universal-embed"
@@ -16,16 +15,16 @@ function handleRunClick({target}) {
 
   if (instance) instance.destroy()
 
-  eval(example) // eslint-disable-line no-eval
+  const figure = document.querySelector(".floating-figure")
+  const iframe = document.createElement("iframe")
+  const script = document.createElement("script")
+
+  figure.appendChild(iframe)
+  iframe.contentWindow.UniversalEmbed = UniversalEmbed // TODO - make this work
+  iframe.contentWindow.eval(example) // eslint-disable-line no-eval
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-  const svg = document.querySelector("svg.stars")
-
-  drawStars(svg)
-
-  window.addEventListener("resize", () => drawStars(svg))
-
   Array
     .from(document.querySelectorAll("button.run"))
     .forEach(element => element.addEventListener("click", handleRunClick))

@@ -15,27 +15,57 @@ html.no-js(lang="en")
   body
     main(data-column)
       .slide.hero
-        svg.stars
+        .content
+          h1.logo-text EmbedBox
+          p An open-source UI which makes it easy for your users to install your embed code.
 
-        .logo-text Universal Embed
+        .figure
 
-        p Build one plugin, ship it to <strong>one hundred million</strong> websites.
+      .slide.features
+        ul.features-list
+          li.roomy-feature
+            .content
+              h3 Clean customizable UI
+              p EmbedBox tries to remain as neutral as possible, allowing it to blend into any existin site by just picking a few colors. Need full CSS control? No problem, just include a stylesheet when instantiating.
+            .image
+              img(src="https://eager.io/images/home/feature-webhooks.png" style="width: 440px")
 
-        iframe.github-star(
-          src="https://ghbtns.com/github-btn.html?user=eagerio&repo=UniversalEmbed&type=star&count=true&size=large"
-          frameborder="0"
-          scrolling="0"
-          width="160px"
-          height="30px")
+          li.roomy-feature
+            .content
+              h3 Built-in documentation.
+              p EmbedBox includes installation instructions for every major CMS platform.
+            .image
+              img(src="https://eager.io/images/home/feature-webhooks.png" style="width: 440px")
 
-      .slide.pitch
-        :marked
-          # How can I get my app on every site in the universe?
+          li.roomy-feature
+            .content
+              h3 Got plugins?
+              p EmbedBox painlessly showcases your existing CMS plugins, all inside an interface which ie easy to integrate into your site.
+            .image
+              img(src="https://eager.io/images/home/feature-webhooks.png" style="width: 440px")
 
-          [simplified example here]
+          li.roomy-feature
+            .content
+              h3 Built-in documentation.
+              p EmbedBox includes installation instructions for every major CMS platform.
+            .image
+              img(src="https://eager.io/images/home/feature-webhooks.png" style="width: 440px")
 
+          li.roomy-feature
+            .content
+              h3 Built-in documentation.
+              p EmbedBox includes installation instructions for every major CMS platform.
+            .image
+              img(src="https://eager.io/images/home/feature-webhooks.png" style="width: 440px")
 
-      .slide.install
+          li.roomy-feature
+            .content
+              h3 Built-in documentation.
+              p EmbedBox includes installation instructions for every major CMS platform.
+            .image
+              img(src="https://eager.io/images/home/feature-webhooks.png" style="width: 440px")
+
+      .slide.docs.full.install
         :marked
           # How to Use
 
@@ -48,7 +78,6 @@ html.no-js(lang="en")
           button.run Run
           != require("./examples/basic.md")
 
-      .slide.customization
         :marked
           # Customization
 
@@ -86,17 +115,18 @@ html.no-js(lang="en")
           button.run Run
           != require("./examples/custom-page.md")
 
-      .slide.dev-install
         :marked
           # Contributing
 
           Please do, we would love for this to become a project of the community.
           Feel free to open an issue, submit a PR or contribute to the wiki.
 
-      .slide.made-by
+        .figure.floating-figure
+
+      .slide.docs.made-by
         .label Made by
 
-        a.logo-link(href="https://eager.io")
+        a.logo-link.without-underline(href="https://eager.io")
           != require("./components/icons/eager-logo.svg")
 
     noscript.no-js-info
