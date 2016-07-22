@@ -61,12 +61,11 @@
       label: "Custom Page"
     })
 
-    window.EmbedBoxCustom.pages.push(CustomPage)
 
     document.addEventListener("DOMContentLoaded", () => {
-      const embedBox = new window.EmbedBoxCustom()
-
-      embedBox.show()
+      const embedBox = new window.EmbedBoxCustom({
+        pages: [CustomPage]
+      })
 
       document
         .querySelector("[data-embed-box-action='modal-open']")

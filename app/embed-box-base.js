@@ -5,7 +5,7 @@ import pagesStylesheet from "./pages.styl"
 import autobind from "autobind-decorator"
 import Application from "components/application"
 import polyfillCustomEvent from "lib/custom-event"
-import {initializeStore} from "lib/store"
+import {destroyStore, initializeStore} from "lib/store"
 
 const STATE_ATTRIBUTE = "data-embed-box"
 
@@ -96,6 +96,7 @@ export default class EmbedBoxBase {
   destroy() {
     unmountElement(this.iframe.element)
     unmountElement(this.style)
+    destroyStore()
   }
 
   @autobind

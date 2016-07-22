@@ -1,10 +1,8 @@
-let store = null
-
 export function initializeStore(instance, spec = {}) {
   const iframe = document.createElement("iframe")
   const {autoDownload = true, labels = {}} = spec
 
-  store = {
+  window.EmbedBoxStore = {
     appName: spec.appName || "an app",
     instance,
 
@@ -34,10 +32,13 @@ export function initializeStore(instance, spec = {}) {
     }
   }
 
-  return store
+  return window.EmbedBoxStore
 }
 
 export function getStore() {
-  return store
+  return window.EmbedBoxStore
 }
 
+export function destroyStore() {
+  delete window.EmbedBoxStore
+}
