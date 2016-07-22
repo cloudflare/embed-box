@@ -32,28 +32,21 @@ body
     font-size 1.25em
 
   &.hero
+    flex-flow row
     position relative
-    text-align center
 
     .figure
-      display block
-      width 32em
-      height 32em
       background #ccc
       border-radius .5em
-      margin-left 30em
+      flex 0 1 auto
+      height 32em
+      margin-left 10em
+      width 32em
 
     .content
-      position absolute
-      display block
-      text-align left
+      flex 0 1 auto
       height 12em
       width 20em
-      top 0
-      right 37em
-      bottom 0
-      left 0
-      margin auto
 
     h1.logo-text
       font-size 3.2em

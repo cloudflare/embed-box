@@ -21,7 +21,7 @@ document.addEventListener("DOMContentLoaded", () => {
   Object.assign(exampleFrame.contentWindow, {
     EmbedBox: wrap(EmbedBox),
     EmbedBoxCustom: wrap(EmbedBoxCustom),
-    EmbedBoxCustomPage: wrap(EmbedBoxCustomPage)
+    EmbedBoxCustomPage
   })
 
 
