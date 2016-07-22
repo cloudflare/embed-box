@@ -10,6 +10,10 @@ landingDeepBlue = rgb(13, 0, 33)
 landingBlue = rgb(43, 0, 107)
 landingPurple = rgb(156, 62, 163)
 
+heroDesktopMinWidth = 1000px
+heroDesktopMinWidthQuery = "(min-width: " + heroDesktopMinWidth + ")"
+heroMobileMaxWidthQuery = "(max-width: " + (heroDesktopMinWidth - 1px) + ")"
+
 body
   user-select initial
 
@@ -17,13 +21,19 @@ body
   align-items center
   flex-flow column nowrap
   justify-content center
-  padding 8em 0
+  padding-top 8em
+  padding-bottom 8em
   position relative
   line-height 1.5
   z-index 5
 
   @media mobileMaxWidthQuery
-    padding 4em 0
+    padding-top 4em
+    padding-bottom 4em
+
+  &.padded
+    padding-left 1em
+    padding-right 1em
 
   &.full
     min-height 100vh
@@ -35,18 +45,41 @@ body
     flex-flow row
     position relative
 
+    @media heroMobileMaxWidthQuery
+      display block
+
     .figure
       background #ccc
       border-radius .5em
-      flex 0 1 auto
-      height 32em
-      margin-left 10em
       width 32em
+      max-width 100%
+
+      @media heroMobileMaxWidthQuery
+        display block
+        height calc(100vh - 10em)
+        max-height 30em
+        margin 0 auto
+
+      @media heroDesktopMinWidthQuery
+        flex 0 1 auto
+        height 32em
+        margin 0 0 0 4em
+
+      @media largeDesktopMinWidthQuery
+        margin-right -2em
 
     .content
-      flex 0 1 auto
-      height 12em
       width 20em
+      max-width 100%
+
+      @media heroMobileMaxWidthQuery
+        display block
+        margin 0 auto 2em
+        text-align center
+
+      @media heroDesktopMinWidthQuery
+        flex 0 1 auto
+        height 12em
 
     h1.logo-text
       font-size 3.2em
