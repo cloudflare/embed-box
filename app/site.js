@@ -19,8 +19,6 @@ function handleRunClick({target}) {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-  const svg = document.querySelector("svg.stars")
-
   Array
     .from(document.querySelectorAll("button.run"))
     .forEach(element => element.addEventListener("click", handleRunClick))
