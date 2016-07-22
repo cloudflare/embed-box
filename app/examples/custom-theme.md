@@ -1,5 +1,5 @@
 ```javascript
-const universalEmbed = new UniversalEmbed({
+new EmbedBox({
   appName: "Example Theme App",
   theme: {
     accentColor: "#665292",
@@ -7,6 +7,4 @@ const universalEmbed = new UniversalEmbed({
     textColor: "#444444"
   }
 })
-
-universalEmbed.show()
 ```

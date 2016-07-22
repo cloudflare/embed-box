@@ -7,8 +7,8 @@ const AUTO_DOWNLOAD_DELAY = 3000
 
 export default class BasePage extends BaseComponent {
   static extend = function extend({fallback, id, label, template, templateVars} = {}) {
-    if (!id) throw new Error("UniversalEmbed: Page must have `id`")
-    if (!label) throw new Error("UniversalEmbed: Page must have `label`")
+    if (!id) throw new Error("EmbedBox: Page must have `id`")
+    if (!label) throw new Error("EmbedBox: Page must have `label`")
 
     return class CustomPage extends BasePage {
       static fallback = fallback || false;

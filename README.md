@@ -1,26 +1,32 @@
-# Universal Embed
+# Embed Box
 
-Give your users a way to embed your plugin onto any type of website.
+An open-source UI which makes it easy for your users to install your embed code.
 
 ## Installation
 
-The universal embed supports the latest Chrome, Safari Firefox, and IE9+
+EmbedBox supports the latest Chrome, Safari Firefox, and IE9+
 
 ### Standalone
 
 Download and include with a script tag.
-`UniversalEmbed` will be registered as a global variable.
+`EmbedBox` will be registered as a global variable.
 
 ```html
 <head>
-  <script src="universal-embed.js"></script>
+  <script src="embed-box.js"></script>
 </head>
 
 <body>
   <script>
-    const universalEmbed = new UniversalEmbed()
-
-    universalEmbed.show()
+    new EmbedBox({
+      appName: "Example App",
+      downloadURLs: {
+        wordpress: "http://example.com/wordpress-plugin.zip",
+        joomla: "http://example.com/joomla-plugin.zip",
+        drupal: "http://example.com/drupal-plugin.zip",
+        generic: "http://example.com/generic-plugin.js"
+      }
+    })
   </script>
 </body>
 ```
@@ -30,15 +36,15 @@ Download and include with a script tag.
 NPM is the recommended install method when your application uses a build process.
 
 ```shell
-$ npm install --save universal-embed
+$ npm install --save embed-box
 ```
 
 ```javascript
-import UniversalEmbed from "universal-embed"
+import EmbedBox from "embed-box"
 
-const universalEmbed = new UniversalEmbed()
+const embedBox = new EmbedBox()
 
-universalEmbed.show()
+embedBox.show()
 ```
 
 ### Customization
@@ -48,40 +54,36 @@ universalEmbed.show()
 Page content can be customized by adding content in slots.
 
 ```javascript
-import UniversalEmbed from "universal-embed"
+import EmbedBox from "embed-box"
 
-const universalEmbed = new UniversalEmbed({
+const embedBox = new EmbedBox({
   beforeContent: "Contact <strong>ACME Inc.</strong> for an account ID.",
   afterContent: "Thanks you for installing ACME Inc. embed!"
 })
-
-universalEmbed.show()
 ```
 
 #### Custom Pages
 
 ```javascript
-import UniversalEmbed from "universal-embed"
-import CustomPage from "universal-embed/custom-page"
+import EmbedBox from "embed-box"
+import CustomPage from "embed-box/custom-page"
 
-const CustomPage = UniversalEmbedCustomPage.extend({
+const CustomPage = EmbedBoxCustomPage.extend({
   id: "custom-test",
   label: "Custom Page",
   template: "<section>Hello from a custom page!</section>"
 })
 
-const universalEmbed = new UniversalEmbed({
+const embedBox = new EmbedBox({
   pages: [CustomPage]
 })
-
-universalEmbed.show()
 ```
 
 Templates can be passed as function as well to pass varibles.
-The UniversalEmbed configuration is available under `vars.config`.
+The EmbedBox configuration is available under `vars.config`.
 
 ```javascript
-const CustomPage = UniversalEmbedCustomPage.extend({
+const CustomPage = EmbedBoxCustomPage.extend({
   id: "custom-test",
   label: "Custom Page",
   templateVars: {
@@ -105,18 +107,18 @@ A custom bundle can be made to include specific pages.
 
 ```html
 <head>
-  <script src="universal-embed-custom.js"></script>
-  <script src="universal-embed-page-wordpress.js"></script>
-  <script src="universal-embed-page-joomla.js"></script>
+  <script src="embed-box-custom.js"></script>
+  <script src="embed-box-page-wordpress.js"></script>
+  <script src="embed-box-page-joomla.js"></script>
 </head>
 
 <body>
   <script>
-    const universalEmbed = new UniversalEmbedCustom()
+    console.log(EmbedBox.fetchedPages) // [WordPressPage, JoomlaPage]
 
-    console.log(universalEmbed.pages) // [WordPressPage, JoomlaPage]
+    const embedBox = new EmbedBoxCustom()
 
-    universalEmbed.show()
+    embedBox.show()
   </script>
 </body>
 ```
@@ -124,18 +126,16 @@ A custom bundle can be made to include specific pages.
 ##### With builder
 
 ```javascript
-import UniversalEmbedCustom from "universal-embed/custom"
-import WordPressPage from "universal-embed/pages/wordpress"
-import JoomlaPage from "universal-embed/pages/joomla"
+import EmbedBoxCustom from "embed-box/custom"
+import WordPressPage from "embed-box/pages/wordpress"
+import JoomlaPage from "embed-box/pages/joomla"
 
-const universalEmbed = new UniversalEmbedCustom({
+const embedBox = new EmbedBoxCustom({
   pages: [
     WordPressPage,
     JoomlaPage
   ]
 })
-
-universalEmbed.show()
 ```
 
 #### Style
@@ -143,9 +143,9 @@ universalEmbed.show()
 If the `theme` configuration option is too coarse, the modal stylesheet can be altered or replaced.
 
 ```javascript
-import UniversalEmbed from "universal-embed"
+import EmbedBox from "embed-box"
 
-UniversalEmbed.modalStylesheet += `
+EmbedBox.modalStylesheet += `
   header {
     font-weight: bold;
   }
@@ -154,14 +154,12 @@ UniversalEmbed.modalStylesheet += `
 
 ## Usage
 
-#### Constructor - `new UniversalEmbed(options)`,
+#### Constructor - `new EmbedBox(options)`,
 
-Accepts options config.
-
-- `theme`: Object.
+- `theme`
 
 ```javascript
-const universalEmbed = new UniversalEmbed({
+const embedBox = new EmbedBox({
   theme: {
     accentColor: "#2d88f3",
     backgroundColor: "#ffffff",
@@ -170,10 +168,10 @@ const universalEmbed = new UniversalEmbed({
 })
 ```
 
-- `downloadURLs`: Object of strings
+- `downloadURLs`
 
 ```javascript
-const universalEmbed = new UniversalEmbed({
+const embedBox = new EmbedBox({
   downloadURLs: {
     wordpress: "http://example.com/wordpress-plugin.zip",
     joomla: "http://example.com/joomla-plugin.zip"
@@ -181,11 +179,15 @@ const universalEmbed = new UniversalEmbed({
 })
 ```
 
-#### `UniversalEmbed#show` - Show modal
+- `autoDownload`: defaults to `true`
 
-#### `UniversalEmbed#hide` - Hide modal
+- `autoShow`: defaults to `true`
 
-#### `UniversalEmbed#destroy` - Destroy modal
+#### `EmbedBox#show` - Show modal
+
+#### `EmbedBox#hide` - Hide modal
+
+#### `EmbedBox#destroy` - Destroy modal
 
 ## Contributing
 

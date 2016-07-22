@@ -1,5 +1,5 @@
 ```javascript
-const universalEmbed = new UniversalEmbed({
+new EmbedBox({
   appName: "Example App",
   downloadURLs: {
     wordpress: "http://example.com/wordpress-plugin.zip",
@@ -8,6 +8,4 @@ const universalEmbed = new UniversalEmbed({
     generic: "http://example.com/generic-plugin.js"
   }
 })
-
-universalEmbed.show()
 ```

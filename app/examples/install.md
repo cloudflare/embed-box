@@ -1,3 +1,3 @@
 ```html
-<script src="universal-embed.js"></script>
+<script src="embed-box.js"></script>
 ```

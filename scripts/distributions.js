@@ -1,32 +1,32 @@
 /* eslint-env node */
 
 exports.entries = {
-  "universal-embed": {
-    library: "UniversalEmbed",
-    path: "./universal-embed.js"
+  "embed-box": {
+    library: "EmbedBox",
+    path: "./embed-box.js"
   },
-  "universal-embed-custom": {
-    library: "UniversalEmbedCustom",
+  "embed-box-custom": {
+    library: "EmbedBoxCustom",
     path: "./custom.js"
   },
-  "universal-embed-custom-page": {
-    library: "UniversalEmbedCustomPage",
+  "embed-box-custom-page": {
+    library: "EmbedBoxCustomPage",
     path: "./custom-page.js"
   },
-  "universal-embed-page-drupal": {
-    library: "UniversalEmbedDrupalPage",
+  "embed-box-page-drupal": {
+    library: "EmbedBoxDrupalPage",
     path: "./pages/drupal.js"
   },
-  "universal-embed-page-generic": {
-    library: "UniversalEmbedGenericPage",
+  "embed-box-page-generic": {
+    library: "EmbedBoxGenericPage",
     path: "./pages/generic.js"
   },
-  "universal-embed-page-joomla": {
-    library: "UniversalEmbedWordpressPage",
+  "embed-box-page-joomla": {
+    library: "EmbedBoxWordpressPage",
     path: "./pages/joomla.js"
   },
-  "universal-embed-page-wordpress": {
-    library: "UniversalEmbedWordpressPage",
+  "embed-box-page-wordpress": {
+    library: "EmbedBoxWordpressPage",
     path: "./pages/wordpress.js"
   }
 }

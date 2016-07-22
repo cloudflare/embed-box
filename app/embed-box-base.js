@@ -1,4 +1,4 @@
-import stylesheet from "./universal-embed.styl"
+import stylesheet from "./embed-box.styl"
 import modalStylesheet from "./iframe.styl"
 import pagesStylesheet from "./pages.styl"
 
@@ -7,19 +7,21 @@ import Application from "components/application"
 import polyfillCustomEvent from "lib/custom-event"
 import {initializeStore} from "lib/store"
 
+const STATE_ATTRIBUTE = "data-embed-box"
+
 function unmountElement(element) {
   if (!element || !element.parentNode) return null
 
   return element.parentNode.removeChild(element)
 }
 
-export default class UniversalEmbed {
+export default class EmbedBoxBase {
   static stylesheet = stylesheet;
   static modalStylesheet = modalStylesheet;
 
   static iframeAttributes = {
     allowTransparency: "",
-    "data-universal-embed": "hidden",
+    [STATE_ATTRIBUTE]: "hidden",
     frameBorder: "0",
     seamless: "seamless"
   };
@@ -31,6 +33,7 @@ export default class UniversalEmbed {
   };
 
   constructor(spec = {}) {
+    const {autoShow = true} = spec
     const {iframeAttributes, stylesheet, theme} = this.constructor
     const store = initializeStore(this, spec)
     const {iframe} = store
@@ -62,6 +65,8 @@ export default class UniversalEmbed {
       onClose: this.hide,
       pages: spec.pages || []
     })
+
+    if (autoShow) this.show()
   }
 
   appendModalStylesheet() {
@@ -95,7 +100,7 @@ export default class UniversalEmbed {
 
   @autobind
   hide() {
-    this.iframe.element.setAttribute("data-universal-embed", "hidden")
+    this.iframe.element.setAttribute(STATE_ATTRIBUTE, "hidden")
 
     this.container.style.overflow = this.containerPreviousOverflow
     this.containerPreviousOverflow = ""
@@ -103,7 +108,7 @@ export default class UniversalEmbed {
 
   @autobind
   show() {
-    this.iframe.element.setAttribute("data-universal-embed", "visible")
+    this.iframe.element.setAttribute(STATE_ATTRIBUTE, "visible")
 
     this.containerPreviousOverflow = this.container.style.overflow
     this.container.style.overflow = "hidden"

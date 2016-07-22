@@ -45,32 +45,32 @@
       cursor: pointer;
     }
 
-    .button[data-universal-embed-brand-color="#2d88f3"] {
+    .button[data-embed-box-brand-color="#2d88f3"] {
       background: #2d88f3;
       color: #fff;
     }
   </style>
 
-  <script src="../../dist/universal-embed-custom.js"></script>
-  <script src="../../dist/universal-embed-page-wordpress.js"></script>
-  <script src="../../dist/universal-embed-custom-page.js"></script>
+  <script src="../../dist/embed-box-custom.js"></script>
+  <script src="../../dist/embed-box-page-wordpress.js"></script>
+  <script src="../../dist/embed-box-custom-page.js"></script>
   <script type="text/javascript">
-    const CustomPage = window.UniversalEmbedCustomPage.extend({
+    const CustomPage = window.EmbedBoxCustomPage.extend({
       template: "<div>Hello from a custom page!</div>",
       id: "custom-test",
       label: "Custom Page"
     })
 
-    window.UniversalEmbedCustom.pages.push(CustomPage)
+    window.EmbedBoxCustom.pages.push(CustomPage)
 
     document.addEventListener("DOMContentLoaded", () => {
-      const universalEmbed = new window.UniversalEmbedCustom()
+      const embedBox = new window.EmbedBoxCustom()
 
-      universalEmbed.show()
+      embedBox.show()
 
       document
-        .querySelector("[data-universal-embed-action='modal-open']")
-        .addEventListener("click", () => universalEmbed.show())
+        .querySelector("[data-embed-box-action='modal-open']")
+        .addEventListener("click", () => embedBox.show())
     })
   </script>
 </head>
@@ -82,8 +82,8 @@
       domain in examples without prior coordination or asking for permission.</p>
       <p class="link-paragraph"><a href="http://www.iana.org/domains/example">More information...</a></p>
       <p>
-        <a class="button" data-universal-embed-action="modal-open" data-universal-embed-brand-color="#2d88f3">Embed Drift</a>
-        &lt;--- Click me to get a demo of UniversalEmbed
+        <a class="button" data-embed-box-action="modal-open" data-embed-box-brand-color="#2d88f3">Embed Drift</a>
+        &lt;--- Click me to get a demo of EmbedBox
       </p>
     </div>
   </body>

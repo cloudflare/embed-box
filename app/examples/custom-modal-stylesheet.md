@@ -1,5 +1,5 @@
 ```javascript
-UniversalEmbed.modalStylesheet += `
+EmbedBox.modalStylesheet += `
   header {
     font-weight: bold;
   }

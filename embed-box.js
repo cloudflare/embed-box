@@ -1,9 +1,9 @@
 /* eslint-env node, es6 */
 
-const UniversalEmbedBase = require("./app/universal-embed").default
+const EmbedBoxBase = require("./app/embed-box-base").default
 const pages = require("./app/components/pages")
 
-module.exports = function UniversalEmbed(spec = {}, ...args) {
+module.exports = function EmbedBox(spec = {}, ...args) {
   spec.pages = spec.pages || []
 
   spec.pages.push(
@@ -12,5 +12,5 @@ module.exports = function UniversalEmbed(spec = {}, ...args) {
     pages.joomla,
     pages.generic)
 
-  return new UniversalEmbedBase(spec, ...args)
+  return new EmbedBoxBase(spec, ...args)
 }

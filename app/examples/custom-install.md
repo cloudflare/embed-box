@@ -1,4 +1,4 @@
 ```html
-<script src="universal-embed-custom.js"></script>
-<script src="universal-embed-custom-page.js"></script>
+<script src="embed-box-custom.js"></script>
+<script src="embed-box-custom-page.js"></script>
 ```

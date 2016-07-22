@@ -1,5 +1,15 @@
 /* eslint-env node, es6 */
 
-const EagerUniversalEmbed = require("./app/universal-embed").default
+const EmbedBoxBase = require("./app/embed-box-base").default
 
-module.exports = EagerUniversalEmbed
+function EmbedBoxCustom(spec = {}, ...args) {
+  const {fetchedPages} = this.constructor
+
+  spec.pages = fetchedPages.concat(spec.pages || [])
+
+  return new EmbedBoxBase(spec, ...args)
+}
+
+EmbedBoxCustom.fetchedPages = []
+
+module.exports = EmbedBoxCustom

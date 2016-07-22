@@ -1,5 +1,5 @@
 ```javascript
-const CustomPage = UniversalEmbedCustomPage.extend({
+const CustomPage = EmbedBoxCustomPage.extend({
   id: "custom-test",
   label: "Custom Page",
   templateVars: {
@@ -14,10 +14,8 @@ const CustomPage = UniversalEmbedCustomPage.extend({
   </section>`
 })
 
-const universalEmbed = new UniversalEmbedCustom({
+new EmbedBoxCustom({
   appName: "Custom Page Example",
   pages: [CustomPage]
 })
-
-universalEmbed.show()
 ```
