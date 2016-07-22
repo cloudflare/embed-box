@@ -1,7 +1,6 @@
 import "babel-polyfill"
 import "./site.external-styl"
 
-import drawStars from "lib/draw-stars"
 import {getStore} from "lib/store"
 
 import UniversalEmbed from "../universal-embed"
@@ -21,10 +20,6 @@ function handleRunClick({target}) {
 
 document.addEventListener("DOMContentLoaded", () => {
   const svg = document.querySelector("svg.stars")
-
-  drawStars(svg)
-
-  window.addEventListener("resize", () => drawStars(svg))
 
   Array
     .from(document.querySelectorAll("button.run"))
