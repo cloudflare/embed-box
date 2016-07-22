@@ -1,5 +1,9 @@
 import BaseComponent from "components/base-component"
+import Clipboard from "clipboard"
 import {getStore} from "lib/store"
+import autobind from "autobind-decorator"
+
+const AUTO_DOWNLOAD_DELAY = 3000
 
 export default class BasePage extends BaseComponent {
   static extend = function extend({fallback, id, label, template, templateVars} = {}) {
@@ -16,8 +20,7 @@ export default class BasePage extends BaseComponent {
   };
 
   compileTemplate() {
-    const {id, templateVars} = this.constructor
-    const downloadURL = getStore().downloadURLs[this.constructor.id]
+    const {downloadURL, constructor: {id, templateVars}} = this
 
     BaseComponent.prototype.compileTemplate.call(this, {downloadURL, ...templateVars})
 
@@ -27,5 +30,39 @@ export default class BasePage extends BaseComponent {
     this.element.className = `markdown instructions ${this.element.className || ""}`
 
     return this.element
+  }
+
+  get downloadURL() {
+    return getStore().downloadURLs[this.constructor.id] || ""
+  }
+
+  render() {
+    this.compileTemplate()
+
+    const {autoDownload} = getStore()
+    const {copyButtons = []} = this.refs
+
+    copyButtons.forEach(copyButton => {
+      const target = copyButton.parentNode.querySelector("textarea.copyable")
+
+      target.addEventListener("click", () => target.select())
+
+      new Clipboard(copyButton, {text: () => target.value}) // eslint-disable-line no-new
+    })
+
+    if (autoDownload && this.downloadURL) {
+      setTimeout(this.startDownload, AUTO_DOWNLOAD_DELAY)
+    }
+
+    return this.element
+  }
+
+  @autobind
+  startDownload() {
+    const downloadIframe = document.createElement("iframe")
+
+    downloadIframe.className = "embed-box-download-iframe"
+    downloadIframe.src = this.downloadURL
+    document.body.appendChild(downloadIframe)
   }
 }
