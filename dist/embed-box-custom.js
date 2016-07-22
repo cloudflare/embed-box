@@ -2,11 +2,11 @@
 	if(typeof exports === 'object' && typeof module === 'object')
 		module.exports = factory();
 	else if(typeof define === 'function' && define.amd)
-		define("UniversalEmbedCustom", [], factory);
+		define("EmbedBoxCustom", [], factory);
 	else if(typeof exports === 'object')
-		exports["UniversalEmbedCustom"] = factory();
+		exports["EmbedBoxCustom"] = factory();
 	else
-		root["UniversalEmbedCustom"] = factory();
+		root["EmbedBoxCustom"] = factory();
 })(this, function() {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
@@ -212,12 +212,12 @@ var BaseComponent = (_temp = _class = function () {
   }, {
     key: "compileTemplate",
     value: function compileTemplate() {
-      var options = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
+      var templateVars = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
       var template = this.constructor.template;
 
 
       if (typeof template === "function") {
-        this.serializer.innerHTML = template(_extends({ config: __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_lib_store__["a" /* getStore */])() }, options));
+        this.serializer.innerHTML = template.call(this, _extends({ config: __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_lib_store__["a" /* getStore */])() }, templateVars));
       } else {
         this.serializer.innerHTML = template;
       }
@@ -370,26 +370,22 @@ function initializeStore(instance) {
   var spec = arguments.length <= 1 || arguments[1] === undefined ? {} : arguments[1];
 
   var iframe = document.createElement("iframe");
-  var _spec$appName = spec.appName;
-  var appName = _spec$appName === undefined ? "an app" : _spec$appName;
-  var _spec$beforeContent = spec.beforeContent;
-  var beforeContent = _spec$beforeContent === undefined ? "" : _spec$beforeContent;
-  var _spec$afterContent = spec.afterContent;
-  var afterContent = _spec$afterContent === undefined ? "" : _spec$afterContent;
-  var _spec$downloadURLs = spec.downloadURLs;
-  var downloadURLs = _spec$downloadURLs === undefined ? {} : _spec$downloadURLs;
+  var _spec$autoDownload = spec.autoDownload;
+  var autoDownload = _spec$autoDownload === undefined ? true : _spec$autoDownload;
   var _spec$labels = spec.labels;
   var labels = _spec$labels === undefined ? {} : _spec$labels;
 
 
   store = {
-    appName: appName,
+    appName: spec.appName || "an app",
     instance: instance,
 
-    beforeContent: beforeContent,
-    afterContent: afterContent,
+    autoDownload: autoDownload,
 
-    downloadURLs: downloadURLs,
+    beforeContent: spec.beforeContent || "",
+    afterContent: spec.afterContent || "",
+
+    downloadURLs: spec.downloadURLs || {},
 
     iframe: {
       element: iframe,
@@ -794,13 +790,13 @@ var wordpress = toComponent(__WEBPACK_IMPORTED_MODULE_7__wordpress_svg___default
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__universal_embed_styl__ = __webpack_require__(21);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__universal_embed_styl___default = __WEBPACK_IMPORTED_MODULE_0__universal_embed_styl__ && __WEBPACK_IMPORTED_MODULE_0__universal_embed_styl__.__esModule ? function() { return __WEBPACK_IMPORTED_MODULE_0__universal_embed_styl__['default'] } : function() { return __WEBPACK_IMPORTED_MODULE_0__universal_embed_styl__; };
-/* harmony import */ __webpack_require__.d(__WEBPACK_IMPORTED_MODULE_0__universal_embed_styl___default, 'a', __WEBPACK_IMPORTED_MODULE_0__universal_embed_styl___default);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__iframe_styl__ = __webpack_require__(19);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__embed_box_styl__ = __webpack_require__(19);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__embed_box_styl___default = __WEBPACK_IMPORTED_MODULE_0__embed_box_styl__ && __WEBPACK_IMPORTED_MODULE_0__embed_box_styl__.__esModule ? function() { return __WEBPACK_IMPORTED_MODULE_0__embed_box_styl__['default'] } : function() { return __WEBPACK_IMPORTED_MODULE_0__embed_box_styl__; };
+/* harmony import */ __webpack_require__.d(__WEBPACK_IMPORTED_MODULE_0__embed_box_styl___default, 'a', __WEBPACK_IMPORTED_MODULE_0__embed_box_styl___default);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__iframe_styl__ = __webpack_require__(20);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__iframe_styl___default = __WEBPACK_IMPORTED_MODULE_1__iframe_styl__ && __WEBPACK_IMPORTED_MODULE_1__iframe_styl__.__esModule ? function() { return __WEBPACK_IMPORTED_MODULE_1__iframe_styl__['default'] } : function() { return __WEBPACK_IMPORTED_MODULE_1__iframe_styl__; };
 /* harmony import */ __webpack_require__.d(__WEBPACK_IMPORTED_MODULE_1__iframe_styl___default, 'a', __WEBPACK_IMPORTED_MODULE_1__iframe_styl___default);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__pages_styl__ = __webpack_require__(20);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__pages_styl__ = __webpack_require__(21);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__pages_styl___default = __WEBPACK_IMPORTED_MODULE_2__pages_styl__ && __WEBPACK_IMPORTED_MODULE_2__pages_styl__.__esModule ? function() { return __WEBPACK_IMPORTED_MODULE_2__pages_styl__['default'] } : function() { return __WEBPACK_IMPORTED_MODULE_2__pages_styl__; };
 /* harmony import */ __webpack_require__.d(__WEBPACK_IMPORTED_MODULE_2__pages_styl___default, 'a', __WEBPACK_IMPORTED_MODULE_2__pages_styl___default);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_autobind_decorator__ = __webpack_require__(2);
@@ -810,11 +806,13 @@ var wordpress = toComponent(__WEBPACK_IMPORTED_MODULE_7__wordpress_svg___default
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_lib_custom_event__ = __webpack_require__(11);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_lib_store__ = __webpack_require__(3);
 
-/* harmony export */ __webpack_require__.d(exports, "default", function() { return UniversalEmbed; });var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+/* harmony export */ __webpack_require__.d(exports, "default", function() { return EmbedBoxBase; });var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _desc, _value, _class, _class2, _temp, _initialiseProps;
+var _desc, _value, _class, _class2, _temp, _class2$iframeAttribu;
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -856,26 +854,29 @@ function _applyDecoratedDescriptor(target, property, decorators, descriptor, con
 
 
 
+var STATE_ATTRIBUTE = "data-embed-box";
+
 function unmountElement(element) {
   if (!element || !element.parentNode) return null;
 
   return element.parentNode.removeChild(element);
 }
 
-var UniversalEmbed = (_class = (_temp = _class2 = function () {
-  function UniversalEmbed() {
+var EmbedBoxBase = (_class = (_temp = _class2 = function () {
+  function EmbedBoxBase() {
     var spec = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
 
-    _classCallCheck(this, UniversalEmbed);
+    _classCallCheck(this, EmbedBoxBase);
 
-    _initialiseProps.call(this);
-
-    var store = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_6_lib_store__["b" /* initializeStore */])(this, spec);
-
-    var iframe = store.iframe;
+    var _spec$autoshow = spec.autoshow;
+    var autoshow = _spec$autoshow === undefined ? true : _spec$autoshow;
     var _constructor = this.constructor;
     var iframeAttributes = _constructor.iframeAttributes;
     var stylesheet = _constructor.stylesheet;
+    var theme = _constructor.theme;
+
+    var store = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_6_lib_store__["b" /* initializeStore */])(this, spec);
+    var iframe = store.iframe;
 
 
     Object.keys(iframeAttributes).forEach(function (key) {
@@ -893,9 +894,8 @@ var UniversalEmbed = (_class = (_temp = _class2 = function () {
     iframe.document.head.appendChild(pageStyle);
 
     this.iframe = iframe;
-
-    if (spec.pages) this.pages = spec.pages;
-    if (spec.theme) _extends(this.theme, spec.theme);
+    this.theme = _extends(theme, spec.theme || {});
+    this.style = document.createElement("style");
 
     this.style.innerHTML = stylesheet;
     document.head.appendChild(this.style);
@@ -903,12 +903,14 @@ var UniversalEmbed = (_class = (_temp = _class2 = function () {
     this.appendModalStylesheet();
 
     this.application = new __WEBPACK_IMPORTED_MODULE_4_components_application__["a" /* default */](this.iframe.document.body, {
-      pages: this.pages,
-      onClose: this.hide
+      onClose: this.hide,
+      pages: spec.pages || []
     });
+
+    if (autoshow) this.show();
   }
 
-  _createClass(UniversalEmbed, [{
+  _createClass(EmbedBoxBase, [{
     key: "appendModalStylesheet",
     value: function appendModalStylesheet() {
       var theme = this.theme;
@@ -929,7 +931,7 @@ var UniversalEmbed = (_class = (_temp = _class2 = function () {
   }, {
     key: "hide",
     value: function hide() {
-      this.iframe.element.setAttribute("data-universal-embed", "hidden");
+      this.iframe.element.setAttribute(STATE_ATTRIBUTE, "hidden");
 
       this.container.style.overflow = this.containerPreviousOverflow;
       this.containerPreviousOverflow = "";
@@ -937,7 +939,7 @@ var UniversalEmbed = (_class = (_temp = _class2 = function () {
   }, {
     key: "show",
     value: function show() {
-      this.iframe.element.setAttribute("data-universal-embed", "visible");
+      this.iframe.element.setAttribute(STATE_ATTRIBUTE, "visible");
 
       this.containerPreviousOverflow = this.container.style.overflow;
       this.container.style.overflow = "hidden";
@@ -946,21 +948,13 @@ var UniversalEmbed = (_class = (_temp = _class2 = function () {
     }
   }]);
 
-  return UniversalEmbed;
-}(), _class2.stylesheet = __WEBPACK_IMPORTED_MODULE_0__universal_embed_styl___default.a, _class2.modalStylesheet = __WEBPACK_IMPORTED_MODULE_1__iframe_styl___default.a, _class2.iframeAttributes = {
-  allowTransparency: "",
-  "data-universal-embed": "hidden",
-  frameBorder: "0",
-  seamless: "seamless"
-}, _initialiseProps = function _initialiseProps() {
-  this.application = null;
-  this.pages = [];
-  this.style = document.createElement("style");
-  this.theme = {
-    accentColor: "#2d88f3",
-    backgroundColor: "#ffffff",
-    textColor: "#000000"
-  };
+  return EmbedBoxBase;
+}(), _class2.stylesheet = __WEBPACK_IMPORTED_MODULE_0__embed_box_styl___default.a, _class2.modalStylesheet = __WEBPACK_IMPORTED_MODULE_1__iframe_styl___default.a, _class2.iframeAttributes = (_class2$iframeAttribu = {
+  allowTransparency: ""
+}, _defineProperty(_class2$iframeAttribu, STATE_ATTRIBUTE, "hidden"), _defineProperty(_class2$iframeAttribu, "frameBorder", "0"), _defineProperty(_class2$iframeAttribu, "seamless", "seamless"), _class2$iframeAttribu), _class2.theme = {
+  accentColor: "#2d88f3",
+  backgroundColor: "#ffffff",
+  textColor: "#000000"
 }, _temp), (_applyDecoratedDescriptor(_class.prototype, "hide", [__WEBPACK_IMPORTED_MODULE_3_autobind_decorator___default.a], Object.getOwnPropertyDescriptor(_class.prototype, "hide"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "show", [__WEBPACK_IMPORTED_MODULE_3_autobind_decorator___default.a], Object.getOwnPropertyDescriptor(_class.prototype, "show"), _class.prototype)), _class);
 
 
@@ -1563,7 +1557,7 @@ exports = module.exports = __webpack_require__(0)();
 
 
 // module
-exports.push([module.i, "[data-component=\"application\"] {\n  -webkit-box-align: center;\n  -o-box-align: center;\n  -ms-flex-align: center;\n  -ms-grid-row-align: center;\n      align-items: center;\n  -webkit-box-pack: center;\n  -o-box-pack: center;\n  -ms-flex-pack: center;\n  justify-content: center;\n  max-height: 100%;\n  min-height: 100%;\n}\n[data-component=\"application\"][data-page=\"home\"] .modal-footer [data-action=\"close\"] {\n  display: none;\n}\n[data-component=\"application\"][data-page=\"home\"] .modal-header [data-action=\"previous\"] {\n  visibility: hidden;\n}\n[data-component=\"application\"]:not([data-page=\"home\"]) .modal-footer [data-action=\"next\"] {\n  display: none;\n}\n@media (max-height: 24em) {\n  [data-component=\"application\"] {\n    -webkit-box-pack: start;\n    -o-box-pack: start;\n    -ms-flex-pack: start;\n    justify-content: flex-start;\n  }\n}\n[data-component=\"application\"] .modal {\n  position: relative;\n  z-index: 1;\n  -webkit-box-flex: 1;\n  -o-box-flex: 1;\n  box-flex: 1;\n  -ms-flex: 1 1 auto;\n  flex: 1 1 auto;\n  min-height: 18em;\n  max-height: 38em;\n  overflow: hidden;\n  width: 35em;\n  max-width: 100%;\n  background: #fff;\n  border-radius: 0.3125em;\n}\n[data-component=\"application\"] .modal .content {\n  -webkit-box-flex: 1;\n  -o-box-flex: 1;\n  box-flex: 1;\n  -ms-flex: 1 1 auto;\n  flex: 1 1 auto;\n}\n[data-component=\"application\"] .modal .content > [data-component] {\n  width: 100%;\n}\n[data-component=\"application\"] .modal-header {\n  -webkit-box-align: center;\n  -o-box-align: center;\n  -ms-flex-align: center;\n  -ms-grid-row-align: center;\n      align-items: center;\n  box-shadow: 0 1px rgba(0,0,0,0.21);\n  -webkit-box-flex: 1;\n  -o-box-flex: 1;\n  box-flex: 1;\n  -ms-flex: 0 0 auto;\n  flex: 0 0 auto;\n  -webkit-box-pack: justify;\n  -o-box-pack: justify;\n  -ms-flex-pack: justify;\n  justify-content: space-between;\n  width: 100%;\n  z-index: 1;\n}\n[data-component=\"application\"] .modal-header .title {\n  text-align: center;\n  line-height: 1.4;\n  padding: 0.8em 0;\n}\n[data-component=\"application\"] .modal-header button[data-action] {\n  -webkit-appearance: none;\n  -moz-appearance: none;\n  appearance: none;\n  background: inherit;\n  border-radius: 0;\n  color: inherit;\n  -webkit-box-flex: 1;\n  -o-box-flex: 1;\n  box-flex: 1;\n  -ms-flex: 0 0 auto;\n  flex: 0 0 auto;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: box;\n  display: flex;\n  height: 4em;\n  -webkit-box-pack: center;\n  -o-box-pack: center;\n  -ms-flex-pack: center;\n  justify-content: center;\n  padding: 0;\n  margin: 0;\n  opacity: 0.85;\n  -ms-filter: \"progid:DXImageTransform.Microsoft.Alpha(Opacity=85)\";\n  filter: alpha(opacity=85);\n  width: 4em;\n}\n[data-component=\"application\"] .modal-header button[data-action]:hover {\n  background: #f3f3f3;\n  box-shadow: none;\n  opacity: 1;\n  -ms-filter: none;\n  -webkit-filter: none;\n          filter: none;\n}\n[data-component=\"application\"] .modal-header button[data-action]:not(:hover) {\n  color: #888;\n}\n[data-component=\"application\"] .modal-header button[data-action] > .icon {\n  -webkit-box-flex: 1;\n  -o-box-flex: 1;\n  box-flex: 1;\n  -ms-flex: 1 0 auto;\n  flex: 1 0 auto;\n  width: 1em;\n  height: 1em;\n  stroke: currentColor;\n}\n[data-component=\"application\"] .modal-footer {\n  box-shadow: 0 -1px rgba(0,0,0,0.21);\n  -webkit-box-flex: 1;\n  -o-box-flex: 1;\n  box-flex: 1;\n  -ms-flex: 0 0 auto;\n  flex: 0 0 auto;\n  -webkit-box-pack: end;\n  -o-box-pack: end;\n  -ms-flex-pack: end;\n  justify-content: flex-end;\n  padding: 1.5em;\n  position: relative;\n  z-index: 1;\n}\n[data-component=\"application\"] .modal-footer button[disabled],\n[data-component=\"application\"] .modal-footer .button[disabled] {\n  background: #e0e0e0;\n}\n@media (min-width: 769px) {\n  [data-component=\"application\"] .modal {\n    margin: 1.5em 0;\n  }\n}\n@media (max-width: 768px) {\n  [data-component=\"application\"] .modal {\n    border-radius: 0;\n    max-height: 100vh;\n    width: 100%;\n  }\n}\n", ""]);
+exports.push([module.i, "[data-component=\"application\"] {\n  -webkit-box-align: center;\n  -o-box-align: center;\n  -ms-flex-align: center;\n  -ms-grid-row-align: center;\n      align-items: center;\n  -webkit-box-pack: center;\n  -o-box-pack: center;\n  -ms-flex-pack: center;\n  justify-content: center;\n  max-height: 100%;\n  min-height: 100%;\n}\n[data-component=\"application\"][data-page=\"home\"] .modal-footer [data-action=\"close\"] {\n  display: none;\n}\n[data-component=\"application\"][data-page=\"home\"] .modal-header [data-action=\"previous\"] {\n  visibility: hidden;\n}\n[data-component=\"application\"]:not([data-page=\"home\"]) .modal-footer [data-action=\"next\"] {\n  display: none;\n}\n@media (max-height: 24em) {\n  [data-component=\"application\"] {\n    -webkit-box-pack: start;\n    -o-box-pack: start;\n    -ms-flex-pack: start;\n    justify-content: flex-start;\n  }\n}\n[data-component=\"application\"] .modal {\n  position: relative;\n  z-index: 1;\n  -webkit-box-flex: 1;\n  -o-box-flex: 1;\n  box-flex: 1;\n  -ms-flex: 1 1 auto;\n  flex: 1 1 auto;\n  min-height: 18em;\n  max-height: 38em;\n  overflow: hidden;\n  width: 35em;\n  max-width: 100%;\n  background: #fff;\n  border-radius: 0.3125em;\n}\n[data-component=\"application\"] .modal .content {\n  -webkit-box-flex: 1;\n  -o-box-flex: 1;\n  box-flex: 1;\n  -ms-flex: 1 1 auto;\n  flex: 1 1 auto;\n}\n[data-component=\"application\"] .modal .content > [data-component] {\n  width: 100%;\n}\n[data-component=\"application\"] .modal-header {\n  -webkit-box-align: center;\n  -o-box-align: center;\n  -ms-flex-align: center;\n  -ms-grid-row-align: center;\n      align-items: center;\n  box-shadow: 0 1px rgba(0,0,0,0.21);\n  -webkit-box-flex: 1;\n  -o-box-flex: 1;\n  box-flex: 1;\n  -ms-flex: 0 0 auto;\n  flex: 0 0 auto;\n  -webkit-box-pack: justify;\n  -o-box-pack: justify;\n  -ms-flex-pack: justify;\n  justify-content: space-between;\n  width: 100%;\n  z-index: 1;\n}\n[data-component=\"application\"] .modal-header .title {\n  text-align: center;\n  line-height: 1.4;\n  padding: 0.8em 0;\n}\n[data-component=\"application\"] .modal-header button[data-action] {\n  -webkit-appearance: none;\n  -moz-appearance: none;\n  appearance: none;\n  background: inherit;\n  border-radius: 0;\n  color: inherit;\n  -webkit-box-flex: 1;\n  -o-box-flex: 1;\n  box-flex: 1;\n  -ms-flex: 0 0 auto;\n  flex: 0 0 auto;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: box;\n  display: flex;\n  height: 4em;\n  -webkit-box-pack: center;\n  -o-box-pack: center;\n  -ms-flex-pack: center;\n  justify-content: center;\n  padding: 0;\n  margin: 0;\n  opacity: 0.85;\n  -ms-filter: \"progid:DXImageTransform.Microsoft.Alpha(Opacity=85)\";\n  filter: alpha(opacity=85);\n  width: 4em;\n}\n[data-component=\"application\"] .modal-header button[data-action]:hover {\n  background: rgba(0,0,0,0.045);\n  box-shadow: none;\n  opacity: 1;\n  -ms-filter: none;\n  -webkit-filter: none;\n          filter: none;\n}\n[data-component=\"application\"] .modal-header button[data-action]:not(:hover) {\n  color: rgba(0,0,0,0.43);\n}\n[data-component=\"application\"] .modal-header button[data-action] > .icon {\n  -webkit-box-flex: 1;\n  -o-box-flex: 1;\n  box-flex: 1;\n  -ms-flex: 1 0 auto;\n  flex: 1 0 auto;\n  width: 1em;\n  height: 1em;\n  stroke: currentColor;\n}\n[data-component=\"application\"] .modal-footer {\n  box-shadow: 0 -1px rgba(0,0,0,0.21);\n  -webkit-box-flex: 1;\n  -o-box-flex: 1;\n  box-flex: 1;\n  -ms-flex: 0 0 auto;\n  flex: 0 0 auto;\n  -webkit-box-pack: end;\n  -o-box-pack: end;\n  -ms-flex-pack: end;\n  justify-content: flex-end;\n  padding: 1.5em;\n  position: relative;\n  z-index: 1;\n}\n[data-component=\"application\"] .modal-footer button[disabled],\n[data-component=\"application\"] .modal-footer .button[disabled] {\n  background: #e0e0e0;\n}\n@media (min-width: 769px) {\n  [data-component=\"application\"] .modal {\n    margin: 1.5em 0;\n  }\n}\n@media (max-width: 768px) {\n  [data-component=\"application\"] .modal {\n    border-radius: 0;\n    max-height: 100vh;\n    width: 100%;\n  }\n}\n", ""]);
 
 // exports
 
@@ -1577,7 +1571,7 @@ exports = module.exports = __webpack_require__(0)();
 
 
 // module
-exports.push([module.i, "[data-component=\"site-type-search\"] .header {\n  -webkit-box-align: center;\n  -o-box-align: center;\n  -ms-flex-align: center;\n  -ms-grid-row-align: center;\n      align-items: center;\n  box-shadow: 0 1px rgba(0,0,0,0.21);\n  -webkit-box-flex: 1;\n  -o-box-flex: 1;\n  box-flex: 1;\n  -ms-flex: 0 0 auto;\n  flex: 0 0 auto;\n  width: 100%;\n  z-index: 2;\n}\n[data-component=\"site-type-search\"] .header .icon {\n  stroke: #888;\n  width: 1em;\n  margin-left: 1.5em;\n}\n[data-component=\"site-type-search\"] .header .search {\n  background: transparent;\n  border: none;\n  -webkit-box-flex: 1;\n  -o-box-flex: 1;\n  box-flex: 1;\n  -ms-flex: 1 0 auto;\n  flex: 1 0 auto;\n  padding: 1.5em;\n}\n[data-component=\"site-type-search\"] .header .search:focus {\n  outline: none;\n}\n[data-component=\"site-type-search\"] .types {\n  -webkit-box-flex: 1;\n  -o-box-flex: 1;\n  box-flex: 1;\n  -ms-flex: 1 1 auto;\n  flex: 1 1 auto;\n  overflow: auto;\n  z-index: 1;\n}\n[data-component=\"site-type-search\"] .types .type {\n  position: relative;\n  cursor: pointer;\n  -webkit-box-align: center;\n  -o-box-align: center;\n  -ms-flex-align: center;\n  -ms-grid-row-align: center;\n      align-items: center;\n  -webkit-box-flex: 1;\n  -o-box-flex: 1;\n  box-flex: 1;\n  -ms-flex: 0 0 auto;\n  flex: 0 0 auto;\n  padding: 1em;\n  white-space: nowrap;\n  overflow: hidden;\n  text-overflow: ellipsis;\n}\n[data-component=\"site-type-search\"] .types .type:not(:first-child) {\n  margin-top: -1px;\n}\n[data-component=\"site-type-search\"] .types .type:not(:last-child):not(:hover) {\n  box-shadow: inset 0 -1px #e0e0e0;\n}\n[data-component=\"site-type-search\"] .types .type:not([data-selected]) {\n  z-index: 1;\n  background: transparent;\n  color: inherit;\n}\n[data-component=\"site-type-search\"] .types .type:not([data-selected]):hover {\n  z-index: 1;\n  box-shadow: none;\n  background: #f3f3f3;\n}\n[data-component=\"site-type-search\"] .types .type:not([data-selected]):first-child:hover {\n  box-shadow: inset 0 -1px rgba(0,0,0,0.125);\n}\n[data-component=\"site-type-search\"] .types .type:not([data-selected]):last-child:hover {\n  box-shadow: inset 0 1px rgba(0,0,0,0.125);\n}\n[data-component=\"site-type-search\"] .types .type:not([data-selected]):not(:first-child):not(:last-child):hover {\n  box-shadow: inset 0 -1px rgba(0,0,0,0.125), inset 0 1px rgba(0,0,0,0.125);\n}\n[data-component=\"site-type-search\"] .types .type[data-selected],\n[data-component=\"site-type-search\"] .types .type[data-selected]:hover {\n  z-index: 2;\n  color: #fff;\n  box-shadow: none !important;\n}\n[data-component=\"site-type-search\"] .types .type .icon {\n  fill: currentColor;\n  height: 2em;\n  margin-right: 1em;\n  width: 2em;\n}\n", ""]);
+exports.push([module.i, "[data-component=\"site-type-search\"] .header {\n  -webkit-box-align: center;\n  -o-box-align: center;\n  -ms-flex-align: center;\n  -ms-grid-row-align: center;\n      align-items: center;\n  box-shadow: 0 1px rgba(0,0,0,0.21);\n  -webkit-box-flex: 1;\n  -o-box-flex: 1;\n  box-flex: 1;\n  -ms-flex: 0 0 auto;\n  flex: 0 0 auto;\n  width: 100%;\n  z-index: 2;\n}\n[data-component=\"site-type-search\"] .header .icon {\n  stroke: rgba(0,0,0,0.43);\n  width: 1em;\n  margin-left: 1.5em;\n}\n[data-component=\"site-type-search\"] .header .search {\n  background: transparent;\n  border: none;\n  -webkit-box-flex: 1;\n  -o-box-flex: 1;\n  box-flex: 1;\n  -ms-flex: 1 0 auto;\n  flex: 1 0 auto;\n  padding: 1.5em;\n}\n[data-component=\"site-type-search\"] .header .search::-webkit-input-placeholder {\n  color: rgba(0,0,0,0.3);\n  font-family: inherit;\n  font-size: 1em;\n}\n[data-component=\"site-type-search\"] .header .search:-moz-placeholder {\n  color: rgba(0,0,0,0.3);\n  font-family: inherit;\n  font-size: 1em;\n}\n[data-component=\"site-type-search\"] .header .search::-moz-placeholder {\n  color: rgba(0,0,0,0.3);\n  font-family: inherit;\n  font-size: 1em;\n}\n[data-component=\"site-type-search\"] .header .search:-ms-input-placeholder {\n  color: rgba(0,0,0,0.3);\n  font-family: inherit;\n  font-size: 1em;\n}\n[data-component=\"site-type-search\"] .header .search:focus {\n  outline: none;\n}\n[data-component=\"site-type-search\"] .types {\n  -webkit-box-flex: 1;\n  -o-box-flex: 1;\n  box-flex: 1;\n  -ms-flex: 1 1 auto;\n  flex: 1 1 auto;\n  overflow: auto;\n  z-index: 1;\n}\n[data-component=\"site-type-search\"] .types .type {\n  position: relative;\n  cursor: pointer;\n  -webkit-box-align: center;\n  -o-box-align: center;\n  -ms-flex-align: center;\n  -ms-grid-row-align: center;\n      align-items: center;\n  -webkit-box-flex: 1;\n  -o-box-flex: 1;\n  box-flex: 1;\n  -ms-flex: 0 0 auto;\n  flex: 0 0 auto;\n  padding: 1em;\n  white-space: nowrap;\n  overflow: hidden;\n  text-overflow: ellipsis;\n  border: 1px solid rgba(0,0,0,0.063);\n  border-left: 0;\n  border-right: 0;\n}\n[data-component=\"site-type-search\"] .types .type:first-child {\n  border-top: 0;\n}\n[data-component=\"site-type-search\"] .types .type:last-child {\n  border-bottom: 0;\n}\n[data-component=\"site-type-search\"] .types .type:not(:last-child) {\n  margin-bottom: -1px;\n}\n[data-component=\"site-type-search\"] .types .type:not([data-selected]) {\n  z-index: 1;\n  background: transparent;\n  color: inherit;\n}\n[data-component=\"site-type-search\"] .types .type:not([data-selected]):hover {\n  z-index: 1;\n  box-shadow: none;\n  background: rgba(0,0,0,0.045);\n}\n[data-component=\"site-type-search\"] .types .type[data-selected] {\n  border-color: transparent;\n}\n[data-component=\"site-type-search\"] .types .type[data-selected],\n[data-component=\"site-type-search\"] .types .type[data-selected]:hover {\n  z-index: 2;\n  color: #fff;\n  box-shadow: none !important;\n}\n[data-component=\"site-type-search\"] .types .type .icon {\n  fill: currentColor;\n  height: 2em;\n  margin-right: 1em;\n  width: 2em;\n}\n", ""]);
 
 // exports
 
@@ -1591,7 +1585,7 @@ exports = module.exports = __webpack_require__(0)();
 
 
 // module
-exports.push([module.i, "article,\naside,\ndetails,\nfigcaption,\nfigure,\nfooter,\nheader,\nhgroup,\nnav,\nsection,\nsummary {\n  display: block;\n}\naudio,\ncanvas,\nvideo {\n  display: inline;\n  zoom: 1;\n}\naudio:not([controls]) {\n  display: none;\n  height: 0;\n}\n[hidden] {\n  display: none;\n}\nhtml {\n  font-size: 100%;\n  -webkit-text-size-adjust: 100%;\n  -ms-text-size-adjust: 100%;\n  text-size-adjust: 100%;\n}\nbody {\n  margin: 0;\n  text-rendering: optimizeLegibility;\n}\nbutton,\ninput,\nselect,\ntextarea {\n  font-family: inherit;\n  font-size: inherit;\n  margin: 0;\n}\nbutton,\ninput {\n  line-height: normal;\n}\nbutton,\ninput[type=\"button\"],\ninput[type=\"reset\"],\ninput[type=\"submit\"] {\n  cursor: pointer;\n}\nbutton[disabled],\ninput[type=\"button\"][disabled],\ninput[type=\"reset\"][disabled],\ninput[type=\"submit\"][disabled] {\n  cursor: not-allowed;\n}\nbutton::-moz-focus-inner,\ninput::-moz-focus-inner {\n  border: 0;\n  padding: 0;\n}\na:focus {\n  outline: thin dotted;\n}\na:active,\na:hover {\n  outline: 0;\n}\nabbr[title] {\n  border-bottom: thin dotted;\n}\nb,\nstrong {\n  font-weight: 700;\n}\ndfn {\n  font-style: italic;\n}\npre {\n  white-space: pre-wrap;\n  word-wrap: break-word;\n}\nimg {\n  border: 0;\n  -ms-interpolation-mode: bicubic;\n}\nsvg:not(:root) {\n  overflow: hidden;\n}\ntextarea {\n  overflow: auto;\n  vertical-align: top;\n  resize: vertical;\n}\ntable {\n  border-collapse: collapse;\n  border-spacing: 0;\n}\nfigure,\nform {\n  margin: 0;\n}\np,\npre,\ndl,\nmenu,\nol,\nul {\n  margin: 1em 0;\n}\n*,\n*:after,\n*:before {\n  box-sizing: border-box;\n}\nhtml {\n  font-size: 16px;\n}\nbody {\n  font-family: \"Avenir New\", Avenir, \"Helvetica Neue\", sans-serif;\n}\nbutton,\n.button {\n  -webkit-font-smoothing: subpixel-antialiased;\n  -moz-osx-font-smoothing: auto;\n  position: relative;\n  text-rendering: optimizeLegibility;\n  -webkit-tap-highlight-color: transparent;\n  -webkit-user-select: none;\n  -moz-user-select: none;\n  -ms-user-select: none;\n  user-select: none;\n  -webkit-appearance: none;\n  -moz-appearance: none;\n  appearance: none;\n  display: inline-block;\n  cursor: pointer;\n  border: 0;\n  border-radius: 0.1875em;\n  font-size: 1em;\n  padding: 0.6em 2em;\n  margin: 0;\n  text-align: center;\n  font-family: \"Avenir New\", Avenir, \"Helvetica Neue\", sans-serif;\n  font-weight: 300;\n  letter-spacing: 0.04em;\n  text-indent: 0.04em;\n  text-decoration: none;\n}\nbutton.slim,\n.button.slim {\n  padding-left: 1em;\n  padding-right: 1em;\n}\nbutton.nowrap,\n.button.nowrap {\n  white-space: nowrap;\n  max-width: 100%;\n}\n@media screen and (-webkit-min-device-pixel-ratio: 0) {\n  button,\n  .button {\n    font-weight: 400;\n  }\n}\n@media all and (-webkit-min-device-pixel-ratio: 0) and (-webkit-min-device-pixel-ratio: 0.001), all and (-webkit-min-device-pixel-ratio: 0) and (min-resolution: 0.001dppx) {\n  button,\n  .button {\n    font-weight: 300;\n  }\n}\nbutton:hover,\n.button:hover {\n  text-decoration: none;\n}\nbutton[disabled],\n.button[disabled] {\n  opacity: 0.7;\n  -ms-filter: \"progid:DXImageTransform.Microsoft.Alpha(Opacity=70)\";\n  filter: alpha(opacity=70);\n}\nbutton[disabled]:hover,\n.button[disabled]:hover,\nbutton[disabled]:focus,\n.button[disabled]:focus,\nbutton[disabled]:focus:hover,\n.button[disabled]:focus:hover {\n  box-shadow: none !important;\n}\nbutton:hover,\n.button:hover {\n  box-shadow: 0 0.1875em 0.375em -0.1875em rgba(0,0,0,0.325);\n}\nbutton:hover:active,\n.button:hover:active,\nbutton.active,\n.button.active {\n  box-shadow: inset 0 0.125em 0.375em rgba(0,0,0,0.325);\n}\nbutton:focus,\n.button:focus {\n  outline: none;\n}\nbutton:focus:before,\n.button:focus:before {\n  content: \"\";\n  position: absolute;\n  z-index: 1;\n  top: 2px;\n  right: 2px;\n  bottom: 2px;\n  left: 2px;\n  border-radius: 0.1em;\n  box-shadow: inset 0 0 0 1px #fff;\n  pointer-events: none;\n  -webkit-transition: opacity 0.3s ease-in-out;\n  transition: opacity 0.3s ease-in-out;\n}\nbutton:focus:active:before,\n.button:focus:active:before {\n  opacity: 0;\n  -ms-filter: \"progid:DXImageTransform.Microsoft.Alpha(Opacity=0)\";\n  filter: alpha(opacity=0);\n}\nbutton.primary,\n.button.primary {\n  background: #000;\n  color: #fff;\n}\nbutton.transparent,\n.button.transparent {\n  font-weight: 400;\n}\nbutton.transparent:not(:hover):not(:active):not(.active):not(:focus),\n.button.transparent:not(:hover):not(:active):not(.active):not(:focus) {\n  background: transparent;\n  box-shadow: inset 0 0 0 1px rgba(0,0,0,0.21);\n  color: rgba(0,0,0,0.55);\n}\nbutton.small,\n.button.small {\n  font-size: 0.9em;\n  border-radius: 0.2083em;\n  letter-spacing: 0.06em;\n  text-indent: 0.06em;\n}\nbutton.large,\n.button.large {\n  font-size: 1.25em;\n}\nbutton.with-spinner-icon,\n.button.with-spinner-icon {\n  position: relative;\n}\nbutton.with-spinner-icon .icon.spinner-icon,\n.button.with-spinner-icon .icon.spinner-icon {\n  display: none;\n}\nbutton.with-spinner-icon.showing-spinner-icon .button-content,\n.button.with-spinner-icon.showing-spinner-icon .button-content {\n  opacity: 0;\n  -ms-filter: \"progid:DXImageTransform.Microsoft.Alpha(Opacity=0)\";\n  filter: alpha(opacity=0);\n  pointer-events: none;\n}\nbutton.with-spinner-icon.showing-spinner-icon .icon.spinner-icon,\n.button.with-spinner-icon.showing-spinner-icon .icon.spinner-icon {\n  position: absolute;\n  display: block;\n  margin: auto;\n  top: 0;\n  right: 0;\n  bottom: 0;\n  left: 0;\n}\nbutton.with-spinner-icon.showing-spinner-icon.more:after,\n.button.with-spinner-icon.showing-spinner-icon.more:after {\n  opacity: 0;\n  -ms-filter: \"progid:DXImageTransform.Microsoft.Alpha(Opacity=0)\";\n  filter: alpha(opacity=0);\n  pointer-events: none;\n}\n.buttons-group span.buttons-group-message {\n  display: inline-block;\n  padding: 0.6em 0;\n}\n.buttons-group span.buttons-group-message.small {\n  font-size: 0.9em;\n}\n.buttons-group span.buttons-group-message.large {\n  font-size: 1.25em;\n}\n@media (min-width: 569px) {\n  .buttons-group button,\n  .buttons-group .button,\n  .buttons-group span.buttons-group-message {\n    margin-right: 1em;\n  }\n  .buttons-group button:last-child,\n  .buttons-group .button:last-child,\n  .buttons-group span.buttons-group-message:last-child {\n    margin-right: 0;\n  }\n}\n@media (max-width: 568px) {\n  .buttons-group button,\n  .buttons-group .button,\n  .buttons-group span.buttons-group-message {\n    display: block;\n    margin-bottom: 1em;\n  }\n  .buttons-group button:last-child,\n  .buttons-group .button:last-child,\n  .buttons-group span.buttons-group-message:last-child {\n    margin-bottom: 0;\n  }\n}\n@media (max-width: 568px) {\n  .buttons-group button {\n    width: 100%;\n  }\n}\n\n@font-face {\n  font-family: \"universal-embed-icons\";\n  font-style: normal;\n  font-weight: normal;\n  src: url(data:application/x-font-woff;charset=utf-8;base64,d09GRk9UVE8AAAQQAAoAAAAABewAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAABDRkYgAAAA9AAAARQAAAEw7LPuDUZGVE0AAAIIAAAAGgAAABx04jsnT1MvMgAAAiQAAABLAAAAYGFpBYRjbWFwAAACcAAAAEcAAAFOP7UHcGhlYWQAAAK4AAAALwAAADYGoUQqaGhlYQAAAugAAAAfAAAAJAe/AetobXR4AAADCAAAABAAAAAQCwoAAG1heHAAAAMYAAAABgAAAAYABFAAbmFtZQAAAyAAAADaAAABsE3GDFBwb3N0AAAD/AAAABMAAAAg/50AZnicTY69S8NQFMXvbV5aLI/4GXEIzSJYAh0dXPwXLNpgVymvH6AtpMHJsWglk06CuPXvEPyg9E9wt2SVt/huk2exWUo5HPgdONx7EBgDROTioiWCSqfR6/YBc4BwTKUcuQbtsTo3JGelIrBh2Y2iJfBCFM5GydB04GXdAdhwYLTpwJqDB1tgZjfysA0ueHAYdq5EP+i02mGl0RbXQa97KZpLXvm9OgMA73CI98AQ90+aN+onkgmXKCVpacjd2ST5+pvk5TywE056zgsW+XRrq281rX2m0zROYxXXTtU0zRS/n6lFVhl9mBY90sDW5/RUrZOnhV547JvWLw0Y+fp5/KbLJMgjUX1dlB92Zkd2xIv/gw+CN3icY2BgYGQAggsF9tdA9CWLvytgNABOBQe1AAB4nGNgZopgnMDAysDBasw6k4GBUQ5CM19nSGMSYgACVgYIaGBgYGJAAgFprikMDgzXFazY0v6lMexg/sIgDhRmhCtQAEJGABgTC0oAeJxjYGBgZoBgGQZGBhDwAPIYwXwWBh0gzQakGRmYGK4rWP3/D+RfV7D8//+/FpAFUsUC1s0E5LAxQA0YnoCZibAaAF3eCGYAeJxjYGRgYADisx3H/eL5bb4ycHMwgMAli78rEPT/l8wCzF+AXA4GJpAoAFzJDHkAeJxjYGRgYP7y/yXDDmYBBoZ/b4EkUAQFsAAAloYFrwAEAAAAAf0AAAH9AAADEAAAAABQAAAEAAB4nI2PvQ3CMBCFXyCJxI8oEaULJCpHTiRSMEBKSvoIWVGaWHKYgREYgzEYgDEYgJoXc0UKCizZ/u7euzsbwBI3RBhWhAU2whMkMMJT7HAVjul5CCfkl3CKRbSiM4pnzKxD1cATzLEVnuKIUjim5y6ckJ/CKfkNixoNTw+NFmc4dOgBWzfW6/bsOgajvGSqEF/C7UO9QoGM/1A4cP/u+tVK5nI6NSsMac92rrtUzjdWFZlRBzWazqjUudGFyWn857WnoPfUB1VxwvAunKzvW9epPDN/9fkAFF9DNgAAeJxjYGYAg/+zGNIYsAAALpkCAwA=) format(\"woff\");\n}\na.more:after,\nbutton.more:after,\n.with-more-icon-after:after {\n  font-family: \"universal-embed-icons\";\n  position: relative;\n  display: inline-block;\n  vertical-align: baseline;\n  color: inherit;\n  font-style: normal;\n  font-weight: inherit;\n  font-size: 1em;\n  line-height: 1;\n  text-decoration: none;\n  content: \"\\203A\";\n  padding-left: 0.3em;\n}\na.before:before,\n.with-before-icon-before:before {\n  font-family: \"universal-embed-icons\";\n  position: relative;\n  display: inline-block;\n  vertical-align: baseline;\n  color: inherit;\n  font-style: normal;\n  font-weight: inherit;\n  font-size: 1em;\n  line-height: 1;\n  text-decoration: none;\n  content: \"\\2039\";\n  padding-right: 0.3em;\n}\nhtml,\nbody {\n  width: 100%;\n  height: 100%;\n}\nbody {\n  cursor: default;\n  margin: 0;\n  -webkit-user-select: none;\n  -moz-user-select: none;\n  -ms-user-select: none;\n  user-select: none;\n}\ndiv,\nfooter,\nheader,\nmain,\nsection {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: box;\n  display: flex;\n}\n[data-column] {\n  -webkit-box-orient: vertical;\n  -moz-box-orient: vertical;\n  -o-box-orient: vertical;\n  -webkit-box-lines: single;\n  -moz-box-lines: single;\n  -o-box-lines: single;\n  -ms-flex-flow: column nowrap;\n  flex-flow: column nowrap;\n}\n[data-action] {\n  cursor: pointer;\n}\n[data-visibility=\"hidden\"] {\n  visibility: hidden;\n}\n[data-selectable],\n[contenteditable] {\n  cursor: text;\n  -webkit-user-select: text;\n  -moz-user-select: text;\n  -ms-user-select: text;\n  user-select: text;\n}\nhtml,\nbody {\n  overflow: hidden;\n}\nhtml {\n  background: transparent;\n}\nmain {\n  width: 100%;\n  height: 100%;\n  overflow: hidden;\n}\nbody {\n  background: rgba(0,0,0,0.4);\n}\n", ""]);
+exports.push([module.i, "[data-embed-box] {\n  bottom: 0 !important;\n  display: none !important;\n  height: 100vh !important;\n  left: 0 !important;\n  position: fixed !important;\n  right: 0 !important;\n  top: 0 !important;\n  width: 100vw !important;\n  z-index: 10000 !important;\n}\n[data-embed-box=\"visible\"] {\n  display: block !important;\n}\n", ""]);
 
 // exports
 
@@ -1605,7 +1599,7 @@ exports = module.exports = __webpack_require__(0)();
 
 
 // module
-exports.push([module.i, "[data-component$=\"-page\"] {\n  -webkit-box-flex: 1;\n  -o-box-flex: 1;\n  box-flex: 1;\n  -ms-flex: 1 1 auto;\n  flex: 1 1 auto;\n  overflow: auto;\n}\n.instructions.markdown {\n  cursor: auto;\n  display: block;\n  padding: 3em 2em 3em 4em;\n  -webkit-user-select: text;\n  -moz-user-select: text;\n  -ms-user-select: text;\n  user-select: text;\n}\n.instructions.markdown [data-content-slot] {\n  background: rgba(0,0,0,0.045);\n  padding: 1em;\n  border-radius: 3px;\n  margin-left: -2em;\n}\n.instructions.markdown div,\n.instructions.markdown footer,\n.instructions.markdown header,\n.instructions.markdown section {\n  display: block;\n}\n.instructions.markdown figure > img {\n  max-width: 100%;\n}\n.instructions.markdown h1 {\n  font-size: 1.25em;\n  font-weight: 300;\n  margin-top: 2em;\n  margin-bottom: 2em;\n  text-align: center;\n  padding-right: 2em;\n}\n.instructions.markdown h2 {\n  font-size: 1em;\n  font-weight: 500;\n  margin-top: 3em;\n}\n.instructions.markdown h2 .step-number {\n  display: inline-block;\n  width: 2em;\n  height: 2em;\n  margin-right: 1em;\n  margin-left: -3em;\n  line-height: 2em;\n  text-align: center;\n  vertical-align: baseline;\n  border-radius: 999em;\n}\n.instructions.markdown h2 .step-number:not(.accent-background-color) {\n  background: rgba(0,0,0,0.045);\n}\n.instructions.markdown h2 .step-number.accent-background-color {\n  color: #fff;\n}\n.instructions.markdown p {\n  color: #888;\n}\n.instructions.markdown > *:first-child {\n  margin-top: 0;\n}\n.instructions.markdown > *:last-child {\n  margin-bottom: 0;\n}\n", ""]);
+exports.push([module.i, "article,\naside,\ndetails,\nfigcaption,\nfigure,\nfooter,\nheader,\nhgroup,\nnav,\nsection,\nsummary {\n  display: block;\n}\naudio,\ncanvas,\nvideo {\n  display: inline;\n  zoom: 1;\n}\naudio:not([controls]) {\n  display: none;\n  height: 0;\n}\n[hidden] {\n  display: none;\n}\nhtml {\n  font-size: 100%;\n  -webkit-text-size-adjust: 100%;\n  -ms-text-size-adjust: 100%;\n  text-size-adjust: 100%;\n}\nbody {\n  margin: 0;\n  text-rendering: optimizeLegibility;\n}\nbutton,\ninput,\nselect,\ntextarea {\n  font-family: inherit;\n  font-size: inherit;\n  margin: 0;\n}\nbutton,\ninput {\n  line-height: normal;\n}\nbutton,\ninput[type=\"button\"],\ninput[type=\"reset\"],\ninput[type=\"submit\"] {\n  cursor: pointer;\n}\nbutton[disabled],\ninput[type=\"button\"][disabled],\ninput[type=\"reset\"][disabled],\ninput[type=\"submit\"][disabled] {\n  cursor: not-allowed;\n}\nbutton::-moz-focus-inner,\ninput::-moz-focus-inner {\n  border: 0;\n  padding: 0;\n}\na:focus {\n  outline: thin dotted;\n}\na:active,\na:hover {\n  outline: 0;\n}\nabbr[title] {\n  border-bottom: thin dotted;\n}\nb,\nstrong {\n  font-weight: 700;\n}\ndfn {\n  font-style: italic;\n}\npre {\n  white-space: pre-wrap;\n  word-wrap: break-word;\n}\nimg {\n  border: 0;\n  -ms-interpolation-mode: bicubic;\n}\nsvg:not(:root) {\n  overflow: hidden;\n}\ntextarea {\n  overflow: auto;\n  vertical-align: top;\n  resize: vertical;\n}\ntable {\n  border-collapse: collapse;\n  border-spacing: 0;\n}\nfigure,\nform {\n  margin: 0;\n}\np,\npre,\ndl,\nmenu,\nol,\nul {\n  margin: 1em 0;\n}\n*,\n*:after,\n*:before {\n  box-sizing: border-box;\n}\nhtml {\n  font-size: 16px;\n}\nbody {\n  font-family: \"Avenir New\", Avenir, \"Helvetica Neue\", sans-serif;\n}\nbutton,\n.button {\n  -webkit-font-smoothing: subpixel-antialiased;\n  -moz-osx-font-smoothing: auto;\n  position: relative;\n  text-rendering: optimizeLegibility;\n  -webkit-tap-highlight-color: transparent;\n  -webkit-user-select: none;\n  -moz-user-select: none;\n  -ms-user-select: none;\n  user-select: none;\n  -webkit-appearance: none;\n  -moz-appearance: none;\n  appearance: none;\n  display: inline-block;\n  cursor: pointer;\n  border: 0;\n  border-radius: 0.1875em;\n  font-size: 1em;\n  padding: 0.6em 2em;\n  margin: 0;\n  text-align: center;\n  font-family: \"Avenir New\", Avenir, \"Helvetica Neue\", sans-serif;\n  font-weight: 300;\n  letter-spacing: 0.04em;\n  text-indent: 0.04em;\n  text-decoration: none;\n}\nbutton.slim,\n.button.slim {\n  padding-left: 1em;\n  padding-right: 1em;\n}\nbutton.nowrap,\n.button.nowrap {\n  white-space: nowrap;\n  max-width: 100%;\n}\n@media screen and (-webkit-min-device-pixel-ratio: 0) {\n  button,\n  .button {\n    font-weight: 400;\n  }\n}\n@media all and (-webkit-min-device-pixel-ratio: 0) and (-webkit-min-device-pixel-ratio: 0.001), all and (-webkit-min-device-pixel-ratio: 0) and (min-resolution: 0.001dppx) {\n  button,\n  .button {\n    font-weight: 300;\n  }\n}\nbutton:hover,\n.button:hover {\n  text-decoration: none;\n}\nbutton[disabled],\n.button[disabled] {\n  opacity: 0.7;\n  -ms-filter: \"progid:DXImageTransform.Microsoft.Alpha(Opacity=70)\";\n  filter: alpha(opacity=70);\n}\nbutton[disabled]:hover,\n.button[disabled]:hover,\nbutton[disabled]:focus,\n.button[disabled]:focus,\nbutton[disabled]:focus:hover,\n.button[disabled]:focus:hover {\n  box-shadow: none !important;\n}\nbutton:hover,\n.button:hover {\n  box-shadow: 0 0.1875em 0.375em -0.1875em rgba(0,0,0,0.325);\n}\nbutton:hover:active,\n.button:hover:active,\nbutton.active,\n.button.active {\n  box-shadow: inset 0 0.125em 0.375em rgba(0,0,0,0.325);\n}\nbutton:focus,\n.button:focus {\n  outline: none;\n}\nbutton:focus:before,\n.button:focus:before {\n  content: \"\";\n  position: absolute;\n  z-index: 1;\n  top: 2px;\n  right: 2px;\n  bottom: 2px;\n  left: 2px;\n  border-radius: 0.1em;\n  box-shadow: inset 0 0 0 1px #fff;\n  pointer-events: none;\n  -webkit-transition: opacity 0.3s ease-in-out;\n  transition: opacity 0.3s ease-in-out;\n}\nbutton:focus:active:before,\n.button:focus:active:before {\n  opacity: 0;\n  -ms-filter: \"progid:DXImageTransform.Microsoft.Alpha(Opacity=0)\";\n  filter: alpha(opacity=0);\n}\nbutton.primary,\n.button.primary {\n  background: #000;\n  color: #fff;\n}\nbutton.transparent,\n.button.transparent {\n  font-weight: 400;\n}\nbutton.transparent:not(:hover):not(:active):not(.active):not(:focus),\n.button.transparent:not(:hover):not(:active):not(.active):not(:focus) {\n  background: transparent;\n  box-shadow: inset 0 0 0 1px rgba(0,0,0,0.21);\n  color: rgba(0,0,0,0.55);\n}\nbutton.small,\n.button.small {\n  font-size: 0.9em;\n  border-radius: 0.2083em;\n  letter-spacing: 0.06em;\n  text-indent: 0.06em;\n}\nbutton.large,\n.button.large {\n  font-size: 1.25em;\n}\nbutton.with-spinner-icon,\n.button.with-spinner-icon {\n  position: relative;\n}\nbutton.with-spinner-icon .icon.spinner-icon,\n.button.with-spinner-icon .icon.spinner-icon {\n  display: none;\n}\nbutton.with-spinner-icon.showing-spinner-icon .button-content,\n.button.with-spinner-icon.showing-spinner-icon .button-content {\n  opacity: 0;\n  -ms-filter: \"progid:DXImageTransform.Microsoft.Alpha(Opacity=0)\";\n  filter: alpha(opacity=0);\n  pointer-events: none;\n}\nbutton.with-spinner-icon.showing-spinner-icon .icon.spinner-icon,\n.button.with-spinner-icon.showing-spinner-icon .icon.spinner-icon {\n  position: absolute;\n  display: block;\n  margin: auto;\n  top: 0;\n  right: 0;\n  bottom: 0;\n  left: 0;\n}\nbutton.with-spinner-icon.showing-spinner-icon.more:after,\n.button.with-spinner-icon.showing-spinner-icon.more:after {\n  opacity: 0;\n  -ms-filter: \"progid:DXImageTransform.Microsoft.Alpha(Opacity=0)\";\n  filter: alpha(opacity=0);\n  pointer-events: none;\n}\n.buttons-group span.buttons-group-message {\n  display: inline-block;\n  padding: 0.6em 0;\n}\n.buttons-group span.buttons-group-message.small {\n  font-size: 0.9em;\n}\n.buttons-group span.buttons-group-message.large {\n  font-size: 1.25em;\n}\n@media (min-width: 569px) {\n  .buttons-group button,\n  .buttons-group .button,\n  .buttons-group span.buttons-group-message {\n    margin-right: 1em;\n  }\n  .buttons-group button:last-child,\n  .buttons-group .button:last-child,\n  .buttons-group span.buttons-group-message:last-child {\n    margin-right: 0;\n  }\n}\n@media (max-width: 568px) {\n  .buttons-group button,\n  .buttons-group .button,\n  .buttons-group span.buttons-group-message {\n    display: block;\n    margin-bottom: 1em;\n  }\n  .buttons-group button:last-child,\n  .buttons-group .button:last-child,\n  .buttons-group span.buttons-group-message:last-child {\n    margin-bottom: 0;\n  }\n}\n@media (max-width: 568px) {\n  .buttons-group button {\n    width: 100%;\n  }\n}\n\n@font-face {\n  font-family: \"embed-box-icons\";\n  font-style: normal;\n  font-weight: normal;\n  src: url(data:application/x-font-woff;charset=utf-8;base64,d09GRk9UVE8AAAQQAAoAAAAABewAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAABDRkYgAAAA9AAAARQAAAEw7LPuDUZGVE0AAAIIAAAAGgAAABx04jsnT1MvMgAAAiQAAABLAAAAYGFpBYRjbWFwAAACcAAAAEcAAAFOP7UHcGhlYWQAAAK4AAAALwAAADYGoUQqaGhlYQAAAugAAAAfAAAAJAe/AetobXR4AAADCAAAABAAAAAQCwoAAG1heHAAAAMYAAAABgAAAAYABFAAbmFtZQAAAyAAAADaAAABsE3GDFBwb3N0AAAD/AAAABMAAAAg/50AZnicTY69S8NQFMXvbV5aLI/4GXEIzSJYAh0dXPwXLNpgVymvH6AtpMHJsWglk06CuPXvEPyg9E9wt2SVt/huk2exWUo5HPgdONx7EBgDROTioiWCSqfR6/YBc4BwTKUcuQbtsTo3JGelIrBh2Y2iJfBCFM5GydB04GXdAdhwYLTpwJqDB1tgZjfysA0ueHAYdq5EP+i02mGl0RbXQa97KZpLXvm9OgMA73CI98AQ90+aN+onkgmXKCVpacjd2ST5+pvk5TywE056zgsW+XRrq281rX2m0zROYxXXTtU0zRS/n6lFVhl9mBY90sDW5/RUrZOnhV547JvWLw0Y+fp5/KbLJMgjUX1dlB92Zkd2xIv/gw+CN3icY2BgYGQAggsF9tdA9CWLvytgNABOBQe1AAB4nGNgZopgnMDAysDBasw6k4GBUQ5CM19nSGMSYgACVgYIaGBgYGJAAgFprikMDgzXFazY0v6lMexg/sIgDhRmhCtQAEJGABgTC0oAeJxjYGBgZoBgGQZGBhDwAPIYwXwWBh0gzQakGRmYGK4rWP3/D+RfV7D8//+/FpAFUsUC1s0E5LAxQA0YnoCZibAaAF3eCGYAeJxjYGRgYADisx3H/eL5bb4ycHMwgMAli78rEPT/l8wCzF+AXA4GJpAoAFzJDHkAeJxjYGRgYP7y/yXDDmYBBoZ/b4EkUAQFsAAAloYFrwAEAAAAAf0AAAH9AAADEAAAAABQAAAEAAB4nI2PvQ3CMBCFXyCJxI8oEaULJCpHTiRSMEBKSvoIWVGaWHKYgREYgzEYgDEYgJoXc0UKCizZ/u7euzsbwBI3RBhWhAU2whMkMMJT7HAVjul5CCfkl3CKRbSiM4pnzKxD1cATzLEVnuKIUjim5y6ckJ/CKfkNixoNTw+NFmc4dOgBWzfW6/bsOgajvGSqEF/C7UO9QoGM/1A4cP/u+tVK5nI6NSsMac92rrtUzjdWFZlRBzWazqjUudGFyWn857WnoPfUB1VxwvAunKzvW9epPDN/9fkAFF9DNgAAeJxjYGYAg/+zGNIYsAAALpkCAwA=) format(\"woff\");\n}\na.more:after,\nbutton.more:after,\n.with-more-icon-after:after {\n  font-family: \"embed-box-icons\";\n  position: relative;\n  display: inline-block;\n  vertical-align: baseline;\n  color: inherit;\n  font-style: normal;\n  font-weight: inherit;\n  font-size: 1em;\n  line-height: 1;\n  text-decoration: none;\n  content: \"\\203A\";\n  padding-left: 0.3em;\n}\na.before:before,\n.with-before-icon-before:before {\n  font-family: \"embed-box-icons\";\n  position: relative;\n  display: inline-block;\n  vertical-align: baseline;\n  color: inherit;\n  font-style: normal;\n  font-weight: inherit;\n  font-size: 1em;\n  line-height: 1;\n  text-decoration: none;\n  content: \"\\2039\";\n  padding-right: 0.3em;\n}\nhtml,\nbody {\n  width: 100%;\n  height: 100%;\n}\nbody {\n  cursor: default;\n  margin: 0;\n  -webkit-user-select: none;\n  -moz-user-select: none;\n  -ms-user-select: none;\n  user-select: none;\n}\ndiv,\nfooter,\nheader,\nmain,\nsection {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: box;\n  display: flex;\n}\nbutton.run {\n  background: #e6db74;\n  color: #171717;\n  font-weight: 500;\n  margin: 0;\n  padding: 0.3em 1em;\n  position: absolute;\n  left: 1.5em;\n  top: 1.5em;\n}\n.embed-box-download-iframe {\n  position: fixed;\n  visibility: hidden;\n  width: 1px;\n  height: 1px;\n  z-index: -99999;\n}\n[data-column] {\n  -webkit-box-orient: vertical;\n  -moz-box-orient: vertical;\n  -o-box-orient: vertical;\n  -webkit-box-lines: single;\n  -moz-box-lines: single;\n  -o-box-lines: single;\n  -ms-flex-flow: column nowrap;\n  flex-flow: column nowrap;\n}\n[data-action] {\n  cursor: pointer;\n}\n[data-visibility=\"hidden\"] {\n  visibility: hidden;\n}\n[data-selectable],\n[contenteditable] {\n  cursor: text;\n  -webkit-user-select: text;\n  -moz-user-select: text;\n  -ms-user-select: text;\n  user-select: text;\n}\nhtml,\nbody {\n  overflow: hidden;\n}\nhtml {\n  background: transparent;\n}\nmain {\n  width: 100%;\n  height: 100%;\n  overflow: hidden;\n}\nbody {\n  background: rgba(0,0,0,0.4);\n}\n", ""]);
 
 // exports
 
@@ -1619,7 +1613,7 @@ exports = module.exports = __webpack_require__(0)();
 
 
 // module
-exports.push([module.i, "[data-universal-embed] {\n  bottom: 0 !important;\n  display: none !important;\n  height: 100vh !important;\n  left: 0 !important;\n  position: fixed !important;\n  right: 0 !important;\n  top: 0 !important;\n  width: 100vw !important;\n  z-index: 10000 !important;\n}\n[data-universal-embed=\"visible\"] {\n  display: block !important;\n}\n", ""]);
+exports.push([module.i, "[data-component$=\"-page\"] {\n  -webkit-box-flex: 1;\n  -o-box-flex: 1;\n  box-flex: 1;\n  -ms-flex: 1 1 auto;\n  flex: 1 1 auto;\n  overflow: auto;\n}\n[data-component$=\"-page\"] .copy-container {\n  background: rgba(0,0,0,0.045);\n  position: relative;\n}\n[data-component$=\"-page\"] .copy-container > textarea {\n  background-color: transparent;\n  border: none;\n  display: block;\n  font-family: Monaco, \"Bitstream Vera Sans Mono\", \"Lucida Console\", Terminal, monospace;\n  margin: 0;\n  padding: 1.3em;\n  padding-top: 4.3em;\n  resize: none;\n  white-space: pre-wrap;\n  width: 100%;\n  word-wrap: break-word;\n}\n[data-component$=\"-page\"] .copy-container > textarea:focus {\n  outline: none;\n}\n.instructions.markdown {\n  cursor: auto;\n  display: block;\n  padding: 3em 2em 3em 4em;\n  -webkit-user-select: text;\n  -moz-user-select: text;\n  -ms-user-select: text;\n  user-select: text;\n}\n.instructions.markdown [data-content-slot] {\n  background: rgba(0,0,0,0.045);\n  padding: 1em;\n  border-radius: 3px;\n  margin-left: -2em;\n}\n.instructions.markdown div,\n.instructions.markdown footer,\n.instructions.markdown header,\n.instructions.markdown section {\n  display: block;\n}\n.instructions.markdown figure > img {\n  max-width: 100%;\n}\n.instructions.markdown h1 {\n  font-size: 1.25em;\n  font-weight: 300;\n  margin-top: 2em;\n  margin-bottom: 2em;\n  text-align: center;\n  padding-right: 2em;\n}\n.instructions.markdown h2 {\n  font-size: 1em;\n  font-weight: 500;\n  margin-top: 3em;\n}\n.instructions.markdown h2 .step-number {\n  display: inline-block;\n  width: 2em;\n  height: 2em;\n  margin-right: 1em;\n  margin-left: -3em;\n  line-height: 2em;\n  text-align: center;\n  vertical-align: baseline;\n  border-radius: 999em;\n}\n.instructions.markdown h2 .step-number:not(.accent-background-color) {\n  background: rgba(0,0,0,0.045);\n}\n.instructions.markdown h2 .step-number.accent-background-color {\n  color: #fff;\n}\n.instructions.markdown p {\n  color: #888;\n}\n.instructions.markdown > *:first-child {\n  margin-top: 0;\n}\n.instructions.markdown > *:last-child {\n  margin-bottom: 0;\n}\n", ""]);
 
 // exports
 
@@ -1805,12 +1799,28 @@ module.exports = "<svg viewBox=\"0 0 123 123\" version=\"1.1\"><path d=\"M61.262
 
 /* eslint-env node, es6 */
 
-var EagerUniversalEmbed = __webpack_require__(7).default;
+var EmbedBoxBase = __webpack_require__(7).default;
 
-module.exports = EagerUniversalEmbed;
+function EmbedBoxCustom() {
+  var spec = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
+  var fetchedPages = this.constructor.fetchedPages;
+
+
+  spec.pages = fetchedPages.concat(spec.pages || []);
+
+  for (var _len = arguments.length, args = Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
+    args[_key - 1] = arguments[_key];
+  }
+
+  return new (Function.prototype.bind.apply(EmbedBoxBase, [null].concat([spec], args)))();
+}
+
+EmbedBoxCustom.fetchedPages = [];
+
+module.exports = EmbedBoxCustom;
 
 /***/ }
 /******/ ])
 });
 ;
-//# sourceMappingURL=universal-embed-custom.map
+//# sourceMappingURL=embed-box-custom.map
