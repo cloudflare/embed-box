@@ -1,5 +1,10 @@
 @import "shared"
+
 @import "styl/code-syntax-highlighting"
+@import "styl/fonts"
+@import "styl/font-smoothing"
+@import "styl/media-query-variables"
+@import "styl/link-underlines"
 
 landingDeepBlue = rgb(13, 0, 33)
 landingBlue = rgb(43, 0, 107)
@@ -12,92 +17,265 @@ body
   align-items center
   flex-flow column nowrap
   justify-content center
-  min-height 100vh
-  padding 2em 0
+  padding 8em 0
   position relative
+  line-height 1.5
+  z-index 5
+
+  @media mobileMaxWidthQuery
+    padding 4em 0
+
+  &.full
+    min-height 100vh
+
+  p
+    font-size 1.25em
 
   &.hero
-    background-image linear-gradient(to top, landingDeepBlue 0%, landingBlue 40%, landingPurple 100%)
-    color white
-    font-size 2rem
-    z-index -1
+    position relative
+    text-align center
+
+    .figure
+      display block
+      width 32em
+      height 32em
+      background #ccc
+      border-radius .5em
+      margin-left 30em
+
+    .content
+      position absolute
+      display block
+      text-align left
+      height 12em
+      width 20em
+      top 0
+      right 37em
+      bottom 0
+      left 0
+      margin auto
+
+    h1.logo-text
+      font-size 3.2em
+      font-weight bold
+      margin 0 auto .25em
 
     p
-      color saturate(lighten(landingPurple, 40%), 75%)
+      font-size 1.3em
+      max-width 100%
+      margin 0 auto
 
-    .logo-text
-      font-size 4.5rem
-      font-weight bold
+  &.features
 
-  &.pitch
-    background-image linear-gradient(landingDeepBlue, lighten(landingDeepBlue, 5%))
-    color white
+    div
+      display block
+
+    ul.features-list
+      antialiasedFonts()
+      font-family sansSerifFonts
+      list-style none
+      padding 0
+      margin 0 auto
+
+      width centeredPageWidth
+      padding-left 1em
+      padding-right 1em
+      max-width 100%
+      margin-left auto
+      margin-right auto
+
+      > li
+        clearfix()
+        display block
+        position relative
+
+        &:not(:last-child)
+          margin-bottom 4em
+
+        .content
+
+          p
+            color #808080
+            letter-spacing .0125em
+
+            &:last-child
+              margin-bottom 0
+
+        .image img
+          display block
+          margin-left auto
+          margin-right auto
+          max-width 100%
+
+        @media desktopMinWidthQuery
+          padding-top 4em
+          padding-bottom 4em
+
+          &:not(:last-child)
+            margin-bottom 8em
+
+          .content
+
+            h3
+              margin-top 0
+              font-size 1.7em
+              margin-bottom .5em
+              font-weight 600
+
+            p
+              font-size 1.125em
+              margin 0 0 .7em
+
+          .content, .image
+            width 44%
+
+          .image
+            position absolute
+            top 0
+            bottom 0
+
+            img
+              position absolute
+              top 0
+              right 0
+              bottom 0
+              left 0
+              margin auto
+
+          &:nth-child(odd) .content
+            float left
+
+          &:nth-child(even) .content
+            float right
+
+          &:nth-child(even) .image
+            left 0
+
+          &:nth-child(odd) .image
+            right 0
+
+        @media mobileMaxWidthQuery
+          &:not(:last-child)
+            margin-bottom 4em
+
+            &:before
+              content ""
+              pointer-events none
+              position absolute
+              display block
+              background lighterLineGray
+              height .0625em
+              top 100%
+              width 100%
+              margin-top 2em
+
+          .content, .image
+            width auto
+            float none
+
+          .content
+            margin-bottom 2em
+
+  &.docs
+    antialiasedFonts()
+    background #1e1e1e
+    color #f8f8f2
+    display block
+    padding-left calc((100vw - 70rem) / 2)
+    padding-right @padding-left
+    overflow hidden
+    z-index 3
+
+    > *
+      width 36rem
+
+    .code-example
+      margin-bottom 6em
+
+    a[href]:not(.without-underline)
+      linkUnderlines #1e1e1e, #e6db74
+
+    > .figure.floating-figure
+      position fixed
+      background #fff
+      border-radius .5em
+      right calc((100vw - 70rem) / 2)
+      width 30em
+      height 30em
+      top 0
+      bottom 0
+      margin auto 0
 
   &.made-by
     .label
-      font-size 0.7em
-      letter-spacing 0.1em
+      font-size .7em
+      letter-spacing .1em
       margin-bottom 1em
-      text-indent 0.1em
+      text-indent .1em
       text-transform uppercase
+      opacity .5
 
     .logo-link
       display block
       width 11em
       height 5.3em
+      color #e6db74
 
       > svg
         height 100%
         width 100%
 
         path
-          fill landingDeepBlue
-
-  svg.stars
-    bottom 0
-    left 0
-    position absolute
-    right 0
-    top 0
-    opacity 0
-    pointer-events none
-    transition opacity 300ms ease
-    z-index -1
-
-    &[data-rendered]
-      opacity 1
-
-    .star
-      transition opacity 500ms linear
-
-.github-star
-  left 0
-  margin .35em
-  position absolute
-  top 0
+          fill currentColor
 
 .code-example
-  background-color gray
-  max-width 100%
-  padding 1.3em
+  antialiasedFonts()
   position relative
+  display block
+  max-width 100%
   width 700px
 
-  &.has-run-button
-    padding-top 1.3em + 3em
+  &.has-run-button pre
+    padding-top 1.333em + 3em
+
+  code, pre
+    display block
+    font-family monospaceFonts
 
   pre
+    background-color #232323
+    color #f6f7ee
+    padding 1.5em
+    overflow-x auto
+    -webkit-overflow-scrolling touch
+    line-height 1.4
+    white-space pre
+    word-wrap normal
     margin 0
     width 100%
+
+  code
+    font-size .9em
+    padding .15625em .3125em
+    background lightGray
+    white-space nowrap
+    font-style normal
+
+  pre > code
+    font-size .9em
+    background transparent
+    padding 0
+    white-space inherit
 
   & + .code-example
     margin-top 1em
 
   button.run
-    background-color rgba(#000, .3)
-    color white
+    background #e6db74
+    color #171717
+    font-weight 500
     margin 0
     padding .3em 1em
     position absolute
-    left 1.3em
-    top 1.3em
+    left 1.5em
+    top 1.5em
