@@ -21,4 +21,4 @@ deployment:
   production:
     branch: master
     commands:
-      - stout deploy --env production --key ACCESS_KEY_ID --secret ACCESS_KEY_SECRET
+      - stout deploy --env production --key $ACCESS_KEY_ID --secret $ACCESS_KEY_SECRET
