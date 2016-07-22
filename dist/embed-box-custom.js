@@ -364,8 +364,6 @@ module.exports = exports['default'];
 "use strict";
 /* harmony export */ exports["b"] = initializeStore;/* harmony export */ exports["a"] = getStore;var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
-var store = null;
-
 function initializeStore(instance) {
   var spec = arguments.length <= 1 || arguments[1] === undefined ? {} : arguments[1];
 
@@ -376,7 +374,7 @@ function initializeStore(instance) {
   var labels = _spec$labels === undefined ? {} : _spec$labels;
 
 
-  store = {
+  window.EmbedBoxStore = {
     appName: spec.appName || "an app",
     instance: instance,
 
@@ -407,11 +405,11 @@ function initializeStore(instance) {
     }, labels)
   };
 
-  return store;
+  return window.EmbedBoxStore;
 }
 
 function getStore() {
-  return store;
+  return window.EmbedBoxStore;
 }
 
 /***/ },
@@ -868,8 +866,8 @@ var EmbedBoxBase = (_class = (_temp = _class2 = function () {
 
     _classCallCheck(this, EmbedBoxBase);
 
-    var _spec$autoshow = spec.autoshow;
-    var autoshow = _spec$autoshow === undefined ? true : _spec$autoshow;
+    var _spec$autoShow = spec.autoShow;
+    var autoShow = _spec$autoShow === undefined ? true : _spec$autoShow;
     var _constructor = this.constructor;
     var iframeAttributes = _constructor.iframeAttributes;
     var stylesheet = _constructor.stylesheet;
@@ -907,7 +905,7 @@ var EmbedBoxBase = (_class = (_temp = _class2 = function () {
       pages: spec.pages || []
     });
 
-    if (autoshow) this.show();
+    if (autoShow) this.show();
   }
 
   _createClass(EmbedBoxBase, [{

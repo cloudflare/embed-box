@@ -72,8 +72,6 @@ return /******/ (function(modules) { // webpackBootstrap
 "use strict";
 /* unused harmony export initializeStore *//* harmony export */ exports["a"] = getStore;var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
-var store = null;
-
 function initializeStore(instance) {
   var spec = arguments.length <= 1 || arguments[1] === undefined ? {} : arguments[1];
 
@@ -84,7 +82,7 @@ function initializeStore(instance) {
   var labels = _spec$labels === undefined ? {} : _spec$labels;
 
 
-  store = {
+  window.EmbedBoxStore = {
     appName: spec.appName || "an app",
     instance: instance,
 
@@ -115,11 +113,11 @@ function initializeStore(instance) {
     }, labels)
   };
 
-  return store;
+  return window.EmbedBoxStore;
 }
 
 function getStore() {
-  return store;
+  return window.EmbedBoxStore;
 }
 
 /***/ },
