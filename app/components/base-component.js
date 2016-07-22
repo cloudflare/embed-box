@@ -58,11 +58,11 @@ export default class BaseComponent {
       })
   }
 
-  compileTemplate(options = {}) {
+  compileTemplate(templateVars = {}) {
     const {template} = this.constructor
 
     if (typeof template === "function") {
-      this.serializer.innerHTML = template({config: getStore(), ...options})
+      this.serializer.innerHTML = template.call(this, {config: getStore(), ...templateVars})
     }
     else {
       this.serializer.innerHTML = template

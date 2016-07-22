@@ -2,16 +2,18 @@ let store = null
 
 export function initializeStore(instance, spec = {}) {
   const iframe = document.createElement("iframe")
-  const {appName = "an app", beforeContent = "", afterContent = "", downloadURLs = {}, labels = {}} = spec
+  const {autoDownload = true, labels = {}} = spec
 
   store = {
-    appName,
+    appName: spec.appName || "an app",
     instance,
 
-    beforeContent,
-    afterContent,
+    autoDownload,
 
-    downloadURLs,
+    beforeContent: spec.beforeContent || "",
+    afterContent: spec.afterContent || "",
+
+    downloadURLs: spec.downloadURLs || {},
 
     iframe: {
       element: iframe,

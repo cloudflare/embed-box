@@ -7,17 +7,18 @@ section
     div(data-content-slot="before")
       != config.beforeContent
 
-  if downloadURL
+  if this.downloadURL
     - count++
     h2
-      span.step-number.accent-background-color=count
+      span.step-number.accent-background-color= count
+
       span
-        a.more(target="_blank" href=downloadURL)
-          | Download the plugin
+        a.more(target="_blank" href=this.downloadURL)= this.downloadLabel
+        div= this.autoDownloadLabel
 
     - count++
     h2
-      span.step-number.accent-background-color=count
+      span.step-number.accent-background-color= count
       span
         | Copy script tag <head> of your page.
 
@@ -34,7 +35,7 @@ section
 
   - count++
   h2
-    span.step-number.accent-background-color=count
+    span.step-number.accent-background-color= count
     span Visit your site
 
   p After saving the changes you made, visit your site in the browser.

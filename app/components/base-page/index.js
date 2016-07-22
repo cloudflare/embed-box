@@ -20,9 +20,9 @@ export default class BasePage extends BaseComponent {
   };
 
   compileTemplate() {
-    const {downloadURL, constructor: {id, templateVars}} = this
+    const {id, templateVars} = this.constructor
 
-    BaseComponent.prototype.compileTemplate.call(this, {downloadURL, ...templateVars})
+    BaseComponent.prototype.compileTemplate.call(this, templateVars)
 
     this.element.setAttribute("data-component", `${id}-page`)
     this.element.setAttribute("data-column", "")
@@ -30,6 +30,14 @@ export default class BasePage extends BaseComponent {
     this.element.className = `markdown instructions ${this.element.className || ""}`
 
     return this.element
+  }
+
+  get autoDownloadLabel() {
+    return getStore().autoDownload ? "(Your download should begin automatically.)" : ""
+  }
+
+  get downloadLabel() {
+    return `Download the ${this.constructor.label} plugin`
   }
 
   get downloadURL() {

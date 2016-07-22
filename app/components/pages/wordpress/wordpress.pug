@@ -7,14 +7,14 @@ section
     div(data-content-slot="before")
       != config.beforeContent
 
-  if downloadURL
+  if this.downloadURL
     - count++
     h2
       span.step-number.accent-background-color= count
 
       span
-        a.more(target="_blank" href=downloadURL)
-          | Download the WordPress plugin
+        a.more(target="_blank" href=this.downloadURL)= this.downloadLabel
+        div= this.autoDownloadLabel
 
     p After downloading, don’t unzip the file.
 

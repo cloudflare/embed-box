@@ -7,4 +7,8 @@ export default class GenericPage extends BasePage {
   static id = "generic";
   static label = "Another CMS";
   static template = template;
+
+  get downloadLabel() {
+    return "Download the plugin"
+  }
 }
