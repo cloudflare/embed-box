@@ -15,7 +15,13 @@ function handleRunClick({target}) {
 
   if (instance) instance.destroy()
 
-  eval(example) // eslint-disable-line no-eval
+  const figure = document.querySelector(".floating-figure")
+  const iframe = document.createElement("iframe")
+  const script = document.createElement("script")
+
+  figure.appendChild(iframe)
+  iframe.contentWindow.UniversalEmbed = UniversalEmbed // TODO - make this work
+  iframe.contentWindow.eval(example) // eslint-disable-line no-eval
 }
 
 document.addEventListener("DOMContentLoaded", () => {
