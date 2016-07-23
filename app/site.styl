@@ -1,3 +1,5 @@
+@import nib
+
 @import "shared"
 
 @import "styl/code-syntax-highlighting"
@@ -10,9 +12,12 @@ landingDeepBlue = rgb(13, 0, 33)
 landingBlue = rgb(43, 0, 107)
 landingPurple = rgb(156, 62, 163)
 
-heroDesktopMinWidth = 1000px
-heroDesktopMinWidthQuery = "(min-width: " + heroDesktopMinWidth + ")"
-heroMobileMaxWidthQuery = "(max-width: " + (heroDesktopMinWidth - 1px) + ")"
+embedBoxDesktopMinWidth = 1000px
+embedBoxDesktopMinWidthQuery = "(min-width: " + embedBoxDesktopMinWidth + ")"
+embedBoxMobileMaxWidthQuery = "(max-width: " + (embedBoxDesktopMinWidth - 1px) + ")"
+
+html
+  background #1e1e1e
 
 body
   user-select initial
@@ -22,21 +27,32 @@ body
   flex-flow column nowrap
   justify-content center
   padding-top 8em
-  padding-bottom 8em
+  padding-bottom @padding-top
   position relative
   line-height 1.5
-  z-index 5
+  background #fff
 
   @media mobileMaxWidthQuery
     padding-top 4em
-    padding-bottom 4em
+    padding-bottom @padding-top
 
   &.padded
-    padding-left 1em
-    padding-right 1em
+    padding-left 4em
+    padding-right @padding-left
+
+    @media mobileMaxWidthQuery
+      padding-left 2em
+      padding-right @padding-left
+
+    @media iPhoneMaxWidthQuery
+      padding-left 1.5em
+      padding-right @padding-left
 
   p
     font-size 1.25em
+
+    @media mobileMaxWidthQuery
+      font-size 1em
 
   .figure.frame-container
     border-radius .5em
@@ -44,8 +60,8 @@ body
 
     iframe
       border 0
-      height 100%
       margin 0
+      height 100%
       width 100%
 
   &.full
@@ -54,23 +70,41 @@ body
   &.hero
     flex-flow row
     position relative
+    padding-bottom 0 !important
+    z-index 1
 
-    @media heroMobileMaxWidthQuery
+    @media mobileMaxWidthQuery
+      + .slide
+        margin-top -1px
+
+    @media embedBoxMobileMaxWidthQuery
       display block
 
     .figure
-      background #ccc
       border-radius .5em
       width 32em
       max-width 100%
+      position relative
 
-      @media heroMobileMaxWidthQuery
+      &:after
+        pointer-events none
+        display block
+        content ""
+        position absolute
+        top 0
+        right 0
+        bottom 0
+        left 0
+        border 1px solid lightLineGrayRGBA
+        border-radius .5em
+
+      @media embedBoxMobileMaxWidthQuery
         display block
         height calc(100vh - 10em)
         max-height 30em
         margin 0 auto
 
-      @media heroDesktopMinWidthQuery
+      @media embedBoxDesktopMinWidthQuery
         flex 0 1 auto
         height 32em
         margin 0 0 0 4em
@@ -82,12 +116,12 @@ body
       width 20em
       max-width 100%
 
-      @media heroMobileMaxWidthQuery
+      @media embedBoxMobileMaxWidthQuery
         display block
         margin 0 auto 2em
         text-align center
 
-      @media heroDesktopMinWidthQuery
+      @media embedBoxDesktopMinWidthQuery
         flex 0 1 auto
         height 12em
 
@@ -95,6 +129,9 @@ body
       font-size 3.2em
       font-weight bold
       margin 0 0 .25em
+
+      @media iPhoneMaxWidthQuery
+        font-size 2em
 
     p
       font-size 1.3em
@@ -115,7 +152,7 @@ body
 
       width centeredPageWidth
       padding-left 1em
-      padding-right 1em
+      padding-right @padding-left
       max-width 100%
       margin-left auto
       margin-right auto
@@ -129,6 +166,9 @@ body
           margin-bottom 4em
 
         .content
+
+          h3
+            font-size 1.17em
 
           p
             color #808080
@@ -145,7 +185,7 @@ body
 
         @media desktopMinWidthQuery
           padding-top 4em
-          padding-bottom 4em
+          padding-bottom @padding-top
 
           &:not(:last-child)
             margin-bottom 8em
@@ -214,49 +254,86 @@ body
 
   &.docs
     antialiasedFonts()
+    position relative
     background #1e1e1e
     color #f8f8f2
     display block
-    padding-left calc((100vw - 70rem) / 2)
-    padding-right @padding-left
+    width 74em
+    max-width 100%
+    margin-left auto
+    margin-right auto
     overflow hidden
-    z-index 3
 
-    > *
-      width 36rem
+    > h1
+      text-align center
+      font-size 1em
+      text-transform uppercase
+      letter-spacing .045em
+      text-indent @letter-spacing
+      line-height 1
+      margin-bottom 3em
+      color #e6db74
+
+      @media embedBoxDesktopMinWidthQuery
+        display none
+
+    > *:not(.embedbox-figure):not(h1)
+      width 50%
+
+      @media embedBoxMobileMaxWidthQuery
+        width 100%
+
+    @media embedBoxDesktopMinWidthQuery
+      h2
+        font-size 1.6em
+
+      h3
+        font-size 1.25em
 
     .code-example
-      margin-bottom 6em
+      margin-bottom 4em
+
+      @media mobileMaxWidthQuery
+        margin-bottom 2em
 
     a[href]:not(.without-underline)
       linkUnderlines #1e1e1e, #e6db74
 
     > .figure.floating-figure
+      position absolute
       background #fff
+      top 27em
       bottom 0
       height 30em
-      margin auto 0
-      position fixed
-      right calc((100vw - 70rem) / 2)
-      top 0
-      width 30em
+      margin 0
+      right 4em
+      left 55%
+
+      @media embedBoxMobileMaxWidthQuery
+        display none
 
       iframe
         background #232323
 
   &.made-by
+    antialiasedFonts()
+    background #1e1e1e
+    color #f8f8f2
+    padding-top 0 !important
+
     .label
-      font-size .7em
-      letter-spacing .1em
-      margin-bottom 1em
-      text-indent .1em
+      font-size .9em
+      font-weight 100
       text-transform uppercase
+      letter-spacing .1em
+      text-indent @letter-spacing
+      margin-bottom 1em
       opacity .5
 
     .logo-link
       display block
-      width 11em
-      height 5.3em
+      width 9em
+      height 4em
       color #e6db74
 
       > svg
@@ -273,8 +350,17 @@ body
   max-width 100%
   width 700px
 
-  &.has-run-button pre
-    padding-top 1.333em + 3em
+  &.has-run-button
+
+    pre
+      padding-top 1.333em + 3em
+
+    @media mobileMaxWidthQuery
+      pre
+        padding-top 1.333em
+
+      button.run
+        display none
 
   code, pre
     display block

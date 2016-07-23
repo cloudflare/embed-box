@@ -9,7 +9,10 @@ const CustomPage = EmbedBoxCustomPage.extend({
     <h1>Installing ${vars.config.appName}</h1>
 
     <p>
-      <a href="${vars.registerURL}">Register an account</a> before installing.
+      <a href="${vars.registerURL}">
+        Register anaccount
+      </a>
+      before installing.
     </p>
   </section>`
 })
