@@ -264,7 +264,13 @@ body
     margin-right auto
     overflow hidden
 
-    > h1
+    > *:first-child
+      margin-top 0
+
+    > *:last-child
+      margin-bottom 0
+
+    > h1:first-child
       text-align center
       font-size 1em
       text-transform uppercase
@@ -273,6 +279,9 @@ body
       line-height 1
       margin-bottom 3em
       color #e6db74
+
+      + h2
+        margin-top 0
 
       @media embedBoxDesktopMinWidthQuery
         display none
