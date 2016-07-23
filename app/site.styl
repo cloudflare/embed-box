@@ -299,11 +299,11 @@ body
       h3
         font-size 1.25em
 
-    .code-example
-      margin-bottom 4em
+    .code-example + *:not(.code-example)
+      margin-top 4rem
 
       @media mobileMaxWidthQuery
-        margin-bottom 2em
+        margin-top 2rem
 
     a[href]:not(.without-underline)
       linkUnderlines #1e1e1e, #e6db74
