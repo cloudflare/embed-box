@@ -22,6 +22,8 @@ function runAutomatedDemo({contentWindow}) {
 document.addEventListener("DOMContentLoaded", () => {
   const automatedFrame = document.getElementById("automated-frame")
   const exampleFrame = document.getElementById("example-frame")
+  const docs = document.querySelector(".slide.docs")
+  const docsFloatingFigure = docs.querySelector(".floating-figure")
 
   loadDemoScript(exampleFrame)
   loadDemoScript(automatedFrame, () => {
@@ -40,4 +42,14 @@ document.addEventListener("DOMContentLoaded", () => {
   Array
     .from(document.querySelectorAll("button.run"))
     .forEach(element => element.addEventListener("click", handleRunClick))
+
+  const floatingFigurePadding = 100
+  window.addEventListener("scroll", function(){
+    const offset = window.scrollY - (docs.offsetTop + floatingFigurePadding)
+    if (offset > 0) {
+      docsFloatingFigure.style.top = offset + (floatingFigurePadding * 2) + 'px'
+    } else {
+      docsFloatingFigure.style.cssText = ''
+    }
+  })
 })
