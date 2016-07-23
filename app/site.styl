@@ -25,11 +25,21 @@ body
   @media mobileMaxWidthQuery
     padding 4em 0
 
-  &.full
-    min-height 100vh
-
   p
     font-size 1.25em
+
+  .figure.frame-container
+    border-radius .5em
+    overflow hidden
+
+    iframe
+      border 0
+      height 100%
+      margin 0
+      width 100%
+
+  &.full
+    min-height 100vh
 
   &.hero
     flex-flow row
@@ -190,11 +200,9 @@ body
 
     > .figure.floating-figure
       background #fff
-      border-radius .5em
       bottom 0
       height 30em
       margin auto 0
-      overflow hidden
       position fixed
       right calc((100vw - 70rem) / 2)
       top 0
@@ -202,10 +210,6 @@ body
 
       iframe
         background #232323
-        border 0
-        height 100%
-        margin 0
-        width 100%
 
   &.made-by
     .label

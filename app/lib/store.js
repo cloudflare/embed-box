@@ -35,10 +35,10 @@ export function initializeStore(instance, spec = {}) {
   return window.EmbedBoxStore
 }
 
-export function getStore() {
-  return window.EmbedBoxStore
+export function getStore(parent = window) {
+  return parent.EmbedBoxStore
 }
 
-export function destroyStore() {
-  delete window.EmbedBoxStore
+export function destroyStore(parent = window) {
+  delete parent.EmbedBoxStore
 }

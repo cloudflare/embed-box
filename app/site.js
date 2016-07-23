@@ -3,30 +3,33 @@ import "./site.external-styl"
 
 import {getStore} from "lib/store"
 
-import EmbedBox from "../embed-box"
-import EmbedBoxCustom from "../custom"
-import EmbedBoxCustomPage from "../custom-page"
+const DEMO_FRAME_PATH = "/site-demo-frame.js"
+
+function loadDemoScript({contentDocument}, onLoad = () => {}) {
+  const demoScript = contentDocument.createElement("script")
+
+  demoScript.onload = onLoad
+  demoScript.src = DEMO_FRAME_PATH
+  contentDocument.head.appendChild(demoScript)
+}
+
+function runAutomatedDemo({contentWindow}) {
+  // TODO flesh out
+
+  return new contentWindow.EmbedBox()
+}
 
 document.addEventListener("DOMContentLoaded", () => {
-  const exampleFrame = document.querySelector(".floating-figure > .example-frame")
+  const automatedFrame = document.getElementById("automated-frame")
+  const exampleFrame = document.getElementById("example-frame")
 
-  function wrap(Constructor) {
-    return function WrappedConstructor(spec = {}) {
-      spec.parentDocument = exampleFrame.contentDocument
-
-      return new Constructor(spec)
-    }
-  }
-
-  Object.assign(exampleFrame.contentWindow, {
-    EmbedBox: wrap(EmbedBox),
-    EmbedBoxCustom: wrap(EmbedBoxCustom),
-    EmbedBoxCustomPage
+  loadDemoScript(exampleFrame)
+  loadDemoScript(automatedFrame, () => {
+    runAutomatedDemo(automatedFrame)
   })
 
-
   function handleRunClick({target}) {
-    const {instance} = getStore() || {}
+    const {instance} = getStore(exampleFrame.contentWindow) || {}
     const {innerText: example} = target.parentElement.querySelector("code")
 
     if (instance) instance.destroy()

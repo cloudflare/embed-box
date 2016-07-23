@@ -19,14 +19,18 @@ html.no-js(lang="en")
           h1.logo-text EmbedBox
           p An open-source UI which makes it easy for your users to install your embed code.
 
-        .figure
+        .figure.frame-container
+          iframe#automated-frame(allowTransparency frameBorder="0" seamless)
 
       .slide.features
         ul.features-list
           li.roomy-feature
             .content
               h3 Clean customizable UI
-              p EmbedBox tries to remain as neutral as possible, allowing it to blend into any existin site by just picking a few colors. Need full CSS control? No problem, just include a stylesheet when instantiating.
+              p
+                | EmbedBox tries to remain as neutral as possible, allowing it to blend into any existin site by just picking a few colors.
+                | Need full CSS control? No problem, just include a stylesheet when instantiating.
+
             .image
               img(src="https://eager.io/images/home/feature-webhooks.png" style="width: 440px")
 
@@ -121,8 +125,8 @@ html.no-js(lang="en")
           Please do, we would love for this to become a project of the community.
           Feel free to open an issue, submit a PR or contribute to the wiki.
 
-        .figure.floating-figure
-          iframe.example-frame(allowTransparency frameBorder="0" seamless)
+        .figure.floating-figure.frame-container
+          iframe#example-frame(allowTransparency frameBorder="0" seamless)
 
       .slide.docs.made-by
         .label Made by

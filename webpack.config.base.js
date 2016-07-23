@@ -77,7 +77,14 @@ module.exports = function createWebpackConfig(overrides = {}) {
       test: /\.js$/
     }]
 
-    $.entry.unshift(`webpack-dev-server/client?http://0.0.0.0:${route.port}`)
+    const devServerClient = `webpack-dev-server/client?http://0.0.0.0:${route.port}`
+
+    if (Array.isArray($.entry)) {
+      $.entry.unshift(devServerClient)
+    }
+    else {
+      Object.assign($.entry, {devServerClient})
+    }
   }
 
   return $

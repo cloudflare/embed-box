@@ -11,7 +11,10 @@ module.exports = createWebpackConfig({
   // TODO: It'd be nice if this was fetched from deploy.yaml
   buildDirectory: "site-deploy",
 
-  entry: ["./app/site.js"],
+  entry: {
+    site: "./app/site.js",
+    "site-demo-frame": "./app/site-demo-frame.js"
+  },
 
   loaders: [
     {
@@ -24,8 +27,8 @@ module.exports = createWebpackConfig({
   ],
 
   output: {
-    filename: "site.js",
-    sourceMapFilename: "site.map"
+    filename: "[name].js",
+    sourceMapFilename: "[name].map"
   },
 
   plugins: [
