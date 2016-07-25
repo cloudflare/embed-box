@@ -78,6 +78,12 @@ export default class BaseComponent {
     element.parentNode.insertBefore(sibling, element)
   }
 
+  removeElement(element) {
+    if (!element || !element.parentNode) return null
+
+    return element.parentNode.removeChild(element)
+  }
+
   render() {
     return this.compileTemplate()
   }

@@ -88,6 +88,7 @@ export default class Application extends BaseComponent {
 
   renderSiteTypeSearch() {
     const {content} = this.refs
+    const {firstChild} = content
     const siteTypeSearch = new SiteTypeSearch({
       pages: this.pages,
       onSelection: this.setNavigationState,
@@ -95,11 +96,19 @@ export default class Application extends BaseComponent {
         this.page = selectedId
         this.navigateToPage()
       }
-    })
+    }).render()
 
-    content.innerHTML = ""
+    if (!firstChild) {
+      content.appendChild(siteTypeSearch)
+      return
+    }
 
-    content.appendChild(siteTypeSearch.render())
+    content.insertBefore(siteTypeSearch, firstChild)
+
+    siteTypeSearch.setAttribute("data-transition", "hidden-left")
+    siteTypeSearch.addEventListener("transitionend", () => this.removeElement(firstChild))
+
+    requestAnimationFrame(() => siteTypeSearch.setAttribute("data-transition", "visible"))
   }
 
   @autobind
@@ -114,18 +123,22 @@ export default class Application extends BaseComponent {
   @autobind
   navigateToPage() {
     const {content} = this.refs
+    const {firstChild} = content
     const [Page] = this.pages.filter(page => page.id === this.page)
     const pageWrapper = new PageWrapper({
       onDone: this.closeModal,
       page: new Page()
     })
 
-    content.innerHTML = ""
     content.appendChild(pageWrapper.render())
 
-    this.autofocus()
+    firstChild.addEventListener("transitionend", () => {
+      this.removeElement(firstChild)
+      this.autofocus()
+      this.element.setAttribute("data-page", this.page)
+    })
 
-    this.element.setAttribute("data-page", this.page)
+    firstChild.setAttribute("data-transition", "hidden-left")
   }
 }
 

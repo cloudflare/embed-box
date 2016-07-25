@@ -9,7 +9,7 @@ import {destroyStore, initializeStore} from "lib/store"
 
 const STATE_ATTRIBUTE = "data-embed-box"
 
-function unmountElement(element) {
+function removeElement(element) {
   if (!element || !element.parentNode) return null
 
   return element.parentNode.removeChild(element)
@@ -94,8 +94,8 @@ export default class EmbedBoxBase {
   }
 
   destroy() {
-    unmountElement(this.iframe.element)
-    unmountElement(this.style)
+    removeElement(this.iframe.element)
+    removeElement(this.style)
     destroyStore()
   }
 
