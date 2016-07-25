@@ -88,7 +88,6 @@ export default class BaseComponent {
     return this.compileTemplate()
   }
 
-  // TODO: Check if this used after the app is fleshed out.
   replaceElement(current, next) {
     current.parentNode.insertBefore(next, current)
     current.parentNode.removeChild(current)

@@ -47,15 +47,22 @@ export default class BasePage extends BaseComponent {
   render() {
     this.compileTemplate()
 
-    const {autoDownload} = getStore()
+    const {autoDownload, iframe} = getStore()
     const {copyButtons = []} = this.refs
 
     copyButtons.forEach(copyButton => {
-      const target = copyButton.parentNode.querySelector("textarea.copyable")
+      const copyableContent = copyButton.parentNode.querySelector(".copyable")
 
-      target.addEventListener("click", () => target.select())
+      copyableContent.addEventListener("click", () => {
+        const range = iframe.document.createRange()
+        const selection = iframe.window.getSelection()
 
-      new Clipboard(copyButton, {text: () => target.value}) // eslint-disable-line no-new
+        range.selectNodeContents(copyableContent)
+        selection.removeAllRanges()
+        selection.addRange(range)
+      })
+
+      new Clipboard(copyButton, {text: () => copyableContent.textContent}) // eslint-disable-line no-new
     })
 
     if (autoDownload && this.downloadURL) {

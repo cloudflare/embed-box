@@ -27,8 +27,8 @@ section
           button.run(data-ref="copyButtons[]")
             | Copy
 
-          textarea.copyable(readonly)
-            | <script src="#{this.downloadURL}"></script>
+          div.copyable(contenteditable)
+            | &lt;script src="#{this.downloadURL}"&gt;&lt;/script&gt;
 
   figure
     img(src=require("./installing-eager.gif"))
