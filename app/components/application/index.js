@@ -128,17 +128,19 @@ export default class Application extends BaseComponent {
     const pageWrapper = new PageWrapper({
       onDone: this.closeModal,
       page: new Page()
-    })
+    }).render()
 
-    content.appendChild(pageWrapper.render())
+    content.appendChild(pageWrapper)
 
     firstChild.addEventListener("transitionend", () => {
       this.removeElement(firstChild)
       this.autofocus()
       this.element.setAttribute("data-page", this.page)
+
+      pageWrapper.firstChild.focus()
     })
 
-    firstChild.setAttribute("data-transition", "hidden-left")
+    requestAnimationFrame(() => firstChild.setAttribute("data-transition", "hidden-left"))
   }
 }
 

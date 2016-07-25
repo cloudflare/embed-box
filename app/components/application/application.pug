@@ -1,11 +1,19 @@
 main(data-column data-component="application" role="main")
   .modal(data-column)
     header.modal-header(role="menubar")
-      button(role="menuitem" data-action="previous" data-ref="previousPageButton")
+      button(
+        data-action="previous"
+        data-ref="previousPageButton"
+        tabindex="1"
+        role="menuitem")
 
       span.title #{config.labels.title(config.appName)}
 
-      button(role="menuitem" data-action="close" data-ref="closeModalButton")
+      button(
+        data-action="close"
+        data-ref="closeModalButton"
+        tabindex="2"
+        role="menuitem")
 
     .content(data-ref="content")
 
