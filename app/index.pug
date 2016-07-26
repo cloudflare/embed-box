@@ -1,7 +1,7 @@
 doctype html
-html.no-js(lang="en")
+html.no-js(lang="en" xmlns:og="http://ogp.me/ns#" xmlns:fb="http://www.facebook.com/2008/fbml")
   head
-    title EmbedBox - Eager
+    title= htmlWebpackPlugin.options.title
     script(src="//use.typekit.net/xsm8rqv.js")
     script.
       try{Typekit.load();}catch(e){};
@@ -11,16 +11,28 @@ html.no-js(lang="en")
 
     meta(charset="utf-8")
     meta(name="viewport" content="width=device-width, initial-scale=1, user-scalable=no")
+    meta(property="og:title" content=htmlWebpackPlugin.options.title)
+    meta(property="og:type" content="website")
+    meta(property="og:url" content="http://embedbox.io")
+    meta(property="og:description" content=htmlWebpackPlugin.options.description)
+    mete(name="description" content=htmlWebpackPlugin.options.description)
 
   body
     main(data-column)
       .slide.padded.hero
         .content(data-column)
           h1.logo-text EmbedBox
-          p An open-source UI which makes it easy for your users to install your embed code.
+
+          p= htmlWebpackPlugin.options.description
 
         .figure.frame-container
           iframe#automated-frame(allowTransparency frameBorder="0" seamless)
+
+      noscript.slide.no-js-info
+        p This website requires JavaScript to retrieve content.
+        p
+          a(href="http://enable-javascript.com", target="_blank")
+            | How to enable JavaScript.
 
       .slide.padded.features
         ul.features-list
@@ -114,9 +126,3 @@ html.no-js(lang="en")
         a.logo-link.without-underline(href="https://eager.io")
           != require("./components/icons/eager-logo.svg")
 
-    noscript.no-js-info
-      h1 EmbedBox
-      p This website requires JavaScript to retrieve content.
-      p
-        a(href="http://enable-javascript.com", target="_blank")
-          | How to enable JavaScript.

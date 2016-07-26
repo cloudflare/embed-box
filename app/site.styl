@@ -3,6 +3,7 @@
 @import "shared"
 
 @import "styl/code-syntax-highlighting"
+@import "styl/colors"
 @import "styl/fonts"
 @import "styl/font-smoothing"
 @import "styl/media-query-variables"
@@ -21,6 +22,11 @@ html
 
 body
   user-select initial
+
+.slide.no-js-info
+  background-color warnBackgroundColor
+  color warnColor
+  display flex
 
 .slide
   align-items center

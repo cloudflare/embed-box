@@ -65,7 +65,7 @@
     "production": {
       "hostname": "embedbox.io",
       "port": "",
-      "protocol": "https"
+      "protocol": "http"
     }
   }
 }
