@@ -68,9 +68,11 @@ searchInputPlaceholder()
         color inherit
 
         &:hover
-          z-index 1
-          box-shadow none
           background lightGrayRGBA
+
+      &:focus
+        outline none
+        background lightGrayRGBA
 
       &[data-selected]
         border-color transparent

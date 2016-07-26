@@ -5,6 +5,7 @@ import BaseComponent from "components/base-component"
 import template from "./site-type-search.pug"
 import * as icons from "components/icons"
 import KM from "lib/key-map"
+import {getStore} from "lib/store"
 
 const {search: SearchIcon} = icons
 
@@ -95,16 +96,20 @@ export default class SiteTypeSearch extends BaseComponent {
   }
 
   selectType(selectedId, options = {}) {
-    const {types, typesContainer} = this.refs
+    const {types, typesContainer, search} = this.refs
+    const {document: iframeDocument} = getStore().iframe
+    const selectedType = typesContainer.querySelector(`.type[data-id="${selectedId}"]`)
 
     this.selectedId = selectedId
 
     types.forEach(this.setTypeStyle)
 
+    if (search !== iframeDocument.activeElement) {
+      selectedType.focus()
+    }
+
     if (options.focus) {
-      typesContainer
-        .querySelector(`.type[data-id="${selectedId}"]`)
-        .scrollIntoView(true)
+      selectedType.scrollIntoView(true)
     }
 
     this.setNavigationState()
@@ -146,6 +151,7 @@ export default class SiteTypeSearch extends BaseComponent {
       const typeEl = typesContainer.appendChild(document.createElement("div"))
 
       typeEl.className = "type"
+      typeEl.setAttribute("tabindex", "4")
       typeEl.setAttribute("data-action", "")
       typeEl.setAttribute("data-ref", "types[]")
       typeEl.setAttribute("data-id", $.id)
@@ -158,6 +164,12 @@ export default class SiteTypeSearch extends BaseComponent {
       this.setTypeStyle(typeEl)
 
       typeEl.addEventListener("click", () => this.selectType($.id, {focus: true}))
+      typeEl.addEventListener("keydown", (event) => {
+        if ([KM.enter, KM.spacebar].includes(event.keyCode)) {
+          event.preventDefault()
+          this.selectType($.id, {focus: true})
+        }
+      })
     })
   }
 
