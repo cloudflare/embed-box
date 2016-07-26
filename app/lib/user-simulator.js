@@ -9,15 +9,18 @@ const PAGE_ENTRIES = [
 
 let sequence = []
 
-const toKeyDown = () => ({entity: keyMap.down, eventType: "dispatched-keydown"})
+const toKeyDown = () => ({entity: keyMap.down, eventType: "keydown"})
 
 PAGE_ENTRIES.forEach(phrase => {
   const subSet = [...phrase, keyMap.backspace]
 
-  sequence = sequence.concat(subSet.map(entity => ({entity, eventType: "dispatched-input"})))
+  sequence = sequence.concat(subSet.map(entity => ({entity, eventType: "input"})))
 })
 
-sequence = sequence.concat(PAGE_ENTRIES.map(toKeyDown))
+sequence = sequence.concat(
+  PAGE_ENTRIES.map(toKeyDown),
+  {entity: keyMap.enter, eventType: "keypress"}
+)
 
 export function runDemo({contentWindow}) {
   const embedBox = new contentWindow.EmbedBox()
@@ -34,7 +37,7 @@ export function runDemo({contentWindow}) {
     if (entity === keyMap.backspace) {
       input.value = ""
     }
-    else if (entity === keyMap.down) {
+    else if (["keypress", "keydown"].includes(eventType)) {
       meta.detail = {keyCode: entity}
       delay = 200
     }
@@ -46,7 +49,7 @@ export function runDemo({contentWindow}) {
       if (next && next.entity === keyMap.backspace) delay = 1100
     }
 
-    searchComponent.dispatchEvent(new CustomEvent(eventType, meta))
+    searchComponent.dispatchEvent(new CustomEvent(`dispatched-${eventType}`, meta))
 
     if (index < sequence.length - 1) {
       index++

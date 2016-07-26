@@ -78,10 +78,12 @@ export default class SiteTypeSearch extends BaseComponent {
   }
 
   @autobind
-  handleDelgatedKeypress({detail: {nativeEvent}}) {
-    if (nativeEvent.keyCode !== KM.enter) return
+  handleDelgatedKeypress({detail: {keyCode, nativeEvent}}) {
+    keyCode = keyCode || nativeEvent.keyCode
 
-    nativeEvent.preventDefault()
+    if (keyCode !== KM.enter) return
+    if (nativeEvent) nativeEvent.preventDefault()
+
     this.submit()
   }
 
