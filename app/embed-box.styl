@@ -1,16 +1,27 @@
 [data-embed-box]
   bottom 0 !important
-  display none !important
   height 100vh !important
   left 0 !important
+  opacity 0 !important
   position fixed !important
   right 0 !important
   top 0 !important
+  // Use linear timing to maintain smooth transition across visibility states.
+  transition opacity .1s linear !important
   width 100vw !important
   z-index 10000 !important
 
-[data-embed-box="visible"]
-  display block !important
+[data-embed-box="hiding"]
+  opacity 0 !important
+
+[data-embed-box="hidden"]
+  opacity 0 !important
+
+[data-embed-box="showing"]
+  opacity .5 !important
+
+[data-embed-box="shown"]
+  opacity 1 !important
 
 .embed-box-download-iframe
   position fixed

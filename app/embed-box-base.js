@@ -52,6 +52,8 @@ export default class EmbedBoxBase {
     pageStyle.innerHTML = pagesStylesheet
     iframe.document.head.appendChild(pageStyle)
 
+    iframe.element.addEventListener("transitionend", this.handleTransitionEnd)
+
     this.iframe = iframe
     this.theme = {...theme, ...(spec.theme || {})}
     this.style = document.createElement("style")
@@ -67,6 +69,24 @@ export default class EmbedBoxBase {
     })
 
     if (autoShow) this.show()
+  }
+
+  get visibility () {
+    return this.iframe.element.getAttribute(STATE_ATTRIBUTE)
+  }
+
+  set visibility (value) {
+    const {element} = this.iframe
+
+    element.style.display = value === "hidden" ? "none" : ""
+
+    return this.iframe.element.setAttribute(STATE_ATTRIBUTE, value)
+  }
+
+  @autobind
+  handleTransitionEnd() {
+    if (this.visibility === "hiding") this.visibility = "hidden"
+    else if (this.visibility === "showing") this.visibility = "shown"
   }
 
   appendModalStylesheet() {
@@ -99,21 +119,33 @@ export default class EmbedBoxBase {
     destroyStore()
   }
 
+  // Forces browser to compute transitions on elements inserted in current frame.
+  forceLayout(attribute) {
+    return getComputedStyle(this.iframe.element)[attribute]
+  }
+
   @autobind
   hide() {
-    this.iframe.element.setAttribute(STATE_ATTRIBUTE, "hidden")
+    requestAnimationFrame(() => {
+      this.forceLayout("opacity")
+      this.visibility = "hiding"
 
-    this.container.style.overflow = this.containerPreviousOverflow
-    this.containerPreviousOverflow = ""
+      this.container.style.overflow = this.containerPreviousOverflow
+      this.containerPreviousOverflow = ""
+    })
   }
 
   @autobind
   show() {
-    this.iframe.element.setAttribute(STATE_ATTRIBUTE, "visible")
+    requestAnimationFrame(() => {
+      this.forceLayout("opacity")
 
-    this.containerPreviousOverflow = this.container.style.overflow
-    this.container.style.overflow = "hidden"
+      this.visibility = "showing"
 
-    this.application.autofocus()
+      this.containerPreviousOverflow = this.container.style.overflow
+      this.container.style.overflow = "hidden"
+
+      this.application.autofocus()
+    })
   }
 }

@@ -19,6 +19,10 @@ function runAutomatedDemo({contentWindow}) {
   return new contentWindow.EmbedBox()
 }
 
+function alignWithElement(element, referenceElement) {
+  element.style.top = `${referenceElement.offsetTop}px`
+}
+
 document.addEventListener("DOMContentLoaded", () => {
   const automatedFrame = document.getElementById("automated-frame")
   const exampleFrame = document.getElementById("example-frame")
@@ -30,15 +34,17 @@ document.addEventListener("DOMContentLoaded", () => {
     runAutomatedDemo(automatedFrame)
   })
 
-  function handleRunClick({target}) {
+  function handleRunClick({target: {parentElement}}) {
     const {instance} = getStore(exampleFrame.contentWindow) || {}
-    const {innerText: example} = target.parentElement.querySelector("code")
+    const {innerText: example} = parentElement.querySelector("code")
 
     if (instance) instance.destroy()
 
-    exampleFrame.contentWindow.eval(example) // eslint-disable-line no-eval
-    docsFloatingFigure.style.top = target.parentElement.offsetTop + 'px'
+    exampleFrame.contentWindow.eval(example)
+    alignWithElement(docsFloatingFigure, parentElement)
   }
+
+  alignWithElement(docsFloatingFigure, docs.querySelector(".code-example.has-run-button"))
 
   Array
     .from(document.querySelectorAll("button.run"))
