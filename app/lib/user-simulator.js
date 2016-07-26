@@ -58,6 +58,5 @@ export function runDemo({contentWindow}) {
     }
   }
 
-
   simulate(0)
 }
