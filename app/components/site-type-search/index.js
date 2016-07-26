@@ -43,11 +43,14 @@ export default class SiteTypeSearch extends BaseComponent {
     this.types.forEach(({id, hidden}) => {
       const type = typesContainer.querySelector(`.type[data-id=${id}]`)
 
+      type.removeAttribute("data-first-visible")
       setVisibility(type, hidden)
     })
 
     const [firstVisible] = this.types.filter(({hidden}) => !hidden)
+    const firstVisibleEl = typesContainer.querySelector(`.type[data-id=${firstVisible.id}]`)
 
+    firstVisibleEl.setAttribute("data-first-visible", "")
     this.selectType(firstVisible.id, {focus: true})
   }
 
@@ -183,4 +186,3 @@ export default class SiteTypeSearch extends BaseComponent {
     }
   }
 }
-
