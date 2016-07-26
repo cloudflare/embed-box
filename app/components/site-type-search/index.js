@@ -34,9 +34,10 @@ export default class SiteTypeSearch extends BaseComponent {
   }
 
   @autobind
-  handleSearchInput({target: {value}}) {
-    this.query = value.toLowerCase()
-    const {typesContainer} = this.refs
+  handleSearchInput() {
+    const {search, typesContainer} = this.refs
+
+    this.query = search.value.toLowerCase()
 
     this.types.forEach(({id, hidden}) => {
       const type = typesContainer.querySelector(`.type[data-id=${id}]`)
@@ -50,15 +51,15 @@ export default class SiteTypeSearch extends BaseComponent {
   }
 
   @autobind
-  handleDelgatedKeydown({detail: {nativeEvent}}) {
+  handleDelgatedKeydown({detail: {keyCode, nativeEvent}}) {
     const delta = {
       [KM.up]: -1,
       [KM.down]: 1
-    }[nativeEvent.keyCode]
+    }[keyCode || nativeEvent.keyCode]
 
     if (!delta) return
 
-    nativeEvent.preventDefault()
+    if (nativeEvent) nativeEvent.preventDefault()
 
     let {selectedId} = this
     const types = this.types.filter(type => !type.hidden)
@@ -128,6 +129,7 @@ export default class SiteTypeSearch extends BaseComponent {
 
     this.element.addEventListener("dispatched-keydown", this.handleDelgatedKeydown)
     this.element.addEventListener("dispatched-keypress", this.handleDelgatedKeypress)
+    this.element.addEventListener("dispatched-input", this.handleSearchInput)
     nextPageButton.addEventListener("click", this.submit)
 
     return this.element

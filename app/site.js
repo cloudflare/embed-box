@@ -2,6 +2,7 @@ import "babel-polyfill"
 import "./site.external-styl"
 
 import {getStore} from "lib/store"
+import {runDemo} from "lib/user-simulator"
 
 const DEMO_FRAME_PATH = "/site-demo-frame.js"
 
@@ -11,12 +12,6 @@ function loadDemoScript({contentDocument}, onLoad = () => {}) {
   demoScript.onload = onLoad
   demoScript.src = DEMO_FRAME_PATH
   contentDocument.head.appendChild(demoScript)
-}
-
-function runAutomatedDemo({contentWindow}) {
-  // TODO flesh out
-
-  return new contentWindow.EmbedBox()
 }
 
 function alignWithElement(element, referenceElement) {
@@ -30,9 +25,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const docsFloatingFigure = docs.querySelector(".floating-figure")
 
   loadDemoScript(exampleFrame)
-  loadDemoScript(automatedFrame, () => {
-    runAutomatedDemo(automatedFrame)
-  })
+  loadDemoScript(automatedFrame, () => runDemo(automatedFrame))
 
   function handleRunClick({target: {parentElement}}) {
     const {instance} = getStore(exampleFrame.contentWindow) || {}
@@ -49,5 +42,4 @@ document.addEventListener("DOMContentLoaded", () => {
   Array
     .from(document.querySelectorAll("button.run"))
     .forEach(element => element.addEventListener("click", handleRunClick))
-
 })
