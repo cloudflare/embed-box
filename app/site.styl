@@ -146,7 +146,7 @@ html
       list-style none
       margin 0 auto
       max-width 100%
-      padding 0 1em 0 @padding-left
+      padding 0
       width centeredPageWidth
 
       > li
@@ -205,7 +205,7 @@ html
             margin-bottom 4em
 
             &:before
-              background lighterLineGray
+              background lighterLineGrayRGBA
               content ""
               display block
               height .0625em
@@ -331,6 +331,16 @@ html
         path
           fill currentColor
 
+button.run
+  background #e6db74
+  color #171717
+  font-weight 500
+  margin 0
+  padding .3em 1em
+  position absolute
+  left 1.5em
+  top 1.5em
+
 .code-example
   antialiasedFonts()
   position relative
@@ -369,7 +379,7 @@ html
   code
     font-size .9em
     padding .15625em .3125em
-    background lightGray
+    background lightGrayRGBA
     white-space nowrap
     font-style normal
 

@@ -42,6 +42,7 @@ searchInputPlaceholder()
   .types
     flex 1 1 auto
     overflow auto
+    overflow-scrolling touch
     z-index 1 // Fix box-shadow translucent stacking artifacts
 
     .type
@@ -55,11 +56,11 @@ searchInputPlaceholder()
       border-left 0
       border-right 0
 
-      &:first-child
-        border-top 0
+      &:first-child, &[data-first-visible]
+        border-top-color transparent
 
       &:last-child
-        border-bottom 0
+        border-bottom-color transparent
 
       &:not(:last-child)
         margin-bottom -1px
@@ -70,9 +71,11 @@ searchInputPlaceholder()
         color inherit
 
         &:hover
-          z-index 1
-          box-shadow none
           background lightGrayRGBA
+
+      &:focus
+        outline none
+        background lightGrayRGBA
 
       &[data-selected]
         border-color transparent

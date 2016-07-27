@@ -69,7 +69,10 @@
       opacity .85
       width 4em
 
-      &:hover
+      &:focus:before
+        display none
+
+      &:hover, &:focus
         background lightGrayRGBA
         box-shadow none
         opacity 1

@@ -1,7 +1,5 @@
 @import nib
 
-@import colors
-
 .loading-dots
   opacity 0
   animation loading-dots-fadein .5s linear forwards
@@ -11,7 +9,7 @@
     height .5em
     display inline-block
     vertical-align middle
-    background gray
+    background currentColor
     border-radius 50%
     margin 0 .25em
     animation loading-dots-middle-dots .5s linear infinite
@@ -23,18 +21,6 @@
 
     &:last-child
       animation loading-dots-last-dot .5s linear infinite
-
-  &.primary i
-    background brandPink
-
-  &.secondary i
-    background secondaryButtonColor
-
-  &.dark-gray i
-    background darkGray
-
-  &.white i
-    background #fff
 
 @keyframes loading-dots-fadein
   100%

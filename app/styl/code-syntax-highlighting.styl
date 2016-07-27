@@ -1,92 +1,74 @@
 @import colors
 @import code-colors
 
-pre.cm-s-default, code[class*="lang-"]
+code[class*="lang-"]
 
   > span
-    color #f6f7ee
+    color codeWhite
 
-  .cm-string, .hljs-string
-    color #e6db74
+  .hljs-string
+    color codeGold
 
-  .cm-comment, .hljs-comment
-    color codeLightPink
+  .hljs-comment
+    color codeGray
 
-  .cm-atom, .hljs-atom, .cm-number, .hljs-number
-    color #a6e22e
+  .hljs-atom, .hljs-number
+    color codeGreen
 
   &.lang-css
 
-    .cm-builtin, .hljs-builtin
-      color #a6e22e
-
-    .cm-property, .hljs-property
-      color codePurple
-
-    .cm-tag, .hljs-tag
-      color codeTeal
-
-    .cm-qualifier, .hljs-qualifier
+    .hljs-selector-tag, .hljs-meta
       color codeRed
 
-    .cm-def, .hljs-def
-      color codePink
+    .hljs-attribute
+      color codeBlue
 
-    .cm-keyword, .hljs-keyword
-      color #f92672
+    .hljs-builtin, .hljs-selector-class, .hljs-selector-pseudo, .hljs-selector-attr, .hljs-selector-id
+      color codeGreen
+
+    .hljs-built_in
+      color codeBlue
+
+    .hljs-property, .hljs-number
+      color codePurple
+
+    .hljs-tag
+      color codeGreen
+
+    .hljs-qualifier, .hljs-def, .hljs-keyword
+      color codeRed
 
     &.lang-stylus
 
-      .cm-qualifier, .hljs-qualifier
-        color codeTeal
+      .hljs-qualifier
+        color codeGreen
 
-      .cm-tag, .hljs-tag
-        color #f92672
+      .hljs-tag
+        color codeRed
 
   &.lang-html
 
-    .cm-tag, .hljs-tag
-      color #f92672
-
-    .cm-attribute, .hljs-attribute, .hljs-attr
-      color #a6e22e
-
-    .cm-string, .hljs-string
-      color #e6db74
-
-  &.lang-coffeescript
-
-    .cm-tag, .hljs-tag
-      color #f92672
-
-    .cm-attribute, .hljs-attribute
-      color #a6e22e
-
-    .cm-string, .hljs-string-2
-      color codeTeal
-
-    .cm-keyword, .hljs-keyword
-      color #f92672
-
-    .cm-operator, .hljs-operator
+    .hljs-tag .hljs-name
       color codeRed
 
-    .cm-variable:first-child + .cm-variable, :not(.cm-variable) + .cm-variable + .cm-variable,
-    .hljs-variable:first-child + .hljs-variable, :not(.hljs-variable) + .hljs-variable + .hljs-variable
-      color #a6e22e
+    .hljs-attribute, .hljs-attr
+      color codeGreen
+
+    .hljs-string
+      color codeGold
+
+    .css
+
+      .hljs-selector-tag
+        color codeRed
+
+      .hljs-attribute
+        color codeBlue
 
   &.lang-javascript
 
-    .cm-keyword, .hljs-keyword
-      color #f92672
+    .hljs-keyword
+      color codeRed
 
-    .cm-def, .hljs-def
-      color #a6e22e
-
-    .cm-variable-2, .hljs-variable-2
-      color codeTeal
-
-  &.lang-go
-
-    .cm-keyword, .hljs-keyword
-      color #f92672
+    .hljs-def, .hljs-variable-2
+      color codeGreen
