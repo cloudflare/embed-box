@@ -1,5 +1,5 @@
 import keyMap from "lib/key-map"
-
+import smoothScroll from "smooth-scroll"
 const PAGE_ENTRIES = [
   "WordPress",
   "Drupal",
@@ -22,7 +22,9 @@ sequence = sequence.concat(
   {entity: keyMap.enter, eventType: "keypress"}
 )
 
-export function runDemo({contentWindow}) {
+sequence.push({eventType: "scroll"})
+
+export function runDemo({contentWindow}, onComplete = () => {}) {
   const embedBox = new contentWindow.EmbedBox({
     downloadURLs: {
       wordpress: "about:blank",
@@ -41,7 +43,24 @@ export function runDemo({contentWindow}) {
 
     const {entity, eventType} = sequence[index]
     const meta = {}
+    const lastIndex = sequence.length - 1
     let delay = 150
+
+    function onStep() {
+      if (index < lastIndex) {
+        index++
+
+        simulate(index)
+        return
+      }
+
+      setTimeout(onComplete, 2000)
+    }
+
+    let runStep = () => {
+      searchComponent.dispatchEvent(new CustomEvent(`dispatched-${eventType}`, meta))
+      onStep()
+    }
 
     if (entity === keyMap.backspace) {
       input.value = ""
@@ -49,6 +68,12 @@ export function runDemo({contentWindow}) {
     else if (["keypress", "keydown"].includes(eventType)) {
       meta.detail = {keyCode: entity}
       delay = 200
+    }
+    else if (eventType === "scroll") {
+      const container = iframeDocument.querySelector("[data-component='page-wrapper'] .instructions")
+      const bottom = container.scrollHeight - container.getBoundingClientRect().height
+
+      runStep = () => smoothScroll(container, bottom, {duration: 3000, onScrolled: onStep})
     }
     else {
       const next = sequence[index + 1]
@@ -58,13 +83,7 @@ export function runDemo({contentWindow}) {
       if (next && next.entity === keyMap.backspace) delay = 1100
     }
 
-    searchComponent.dispatchEvent(new CustomEvent(`dispatched-${eventType}`, meta))
-
-    if (index < sequence.length - 1) {
-      index++
-
-      setTimeout(simulate.bind(null, index), delay)
-    }
+    setTimeout(runStep, delay)
   }
 
   setTimeout(simulate, 1000)

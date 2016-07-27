@@ -24,8 +24,11 @@ document.addEventListener("DOMContentLoaded", () => {
   const docs = document.querySelector(".slide.docs")
   const docsFloatingFigure = docs.querySelector(".floating-figure")
 
+  function loopRunDemo() {
+    runDemo(automatedFrame, loopRunDemo)
+  }
   loadDemoScript(exampleFrame)
-  loadDemoScript(automatedFrame, () => runDemo(automatedFrame))
+  loadDemoScript(automatedFrame, loopRunDemo)
 
   function handleRunClick({target: {parentElement}}) {
     const {instance} = getStore(exampleFrame.contentWindow) || {}
