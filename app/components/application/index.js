@@ -13,10 +13,11 @@ export default class Application extends BaseComponent {
   static template = template;
   static stylesheet = stylesheet;
 
-  page = "home";
-
   constructor(mountPoint, options) {
     super(options)
+
+    this.transitioning = false
+    this.page = "home"
 
     const element = this.compileTemplate()
 
@@ -55,7 +56,7 @@ export default class Application extends BaseComponent {
   delgateKeyEvent(nativeEvent) {
     const receiver = this.refs.content.querySelector("[data-event-receiver]")
 
-    if (!receiver) return
+    if (this.transitioning || !receiver) return
 
     const delgated = new CustomEvent(`dispatched-${nativeEvent.type}`, {
       detail: {nativeEvent}
@@ -66,6 +67,8 @@ export default class Application extends BaseComponent {
 
   @autobind
   handleKeyNavigation(event) {
+    if (this.transitioning) return
+
     switch (event.keyCode) {
       case KM.esc:
         event.preventDefault()
@@ -106,13 +109,17 @@ export default class Application extends BaseComponent {
     content.insertBefore(siteTypeSearch, firstChild)
 
     siteTypeSearch.setAttribute("data-transition", "hidden-left")
-    siteTypeSearch.addEventListener("transitionend", () => this.removeElement(firstChild))
+    siteTypeSearch.addEventListener("transitionend", () => {
+      this.removeElement(firstChild)
+      this.transitioning = false
+    })
 
     requestAnimationFrame(() => siteTypeSearch.setAttribute("data-transition", "visible"))
   }
 
   @autobind
   navigateToHome() {
+    this.transitioning = false
     this.page = "home"
     this.renderSiteTypeSearch()
     this.autofocus()
@@ -122,6 +129,8 @@ export default class Application extends BaseComponent {
 
   @autobind
   navigateToPage() {
+    this.transitioning = true
+
     const {content} = this.refs
     const {firstChild} = content
     const [Page] = this.pages.filter(page => page.id === this.page)
@@ -136,6 +145,7 @@ export default class Application extends BaseComponent {
       this.removeElement(firstChild)
       this.autofocus()
       this.element.setAttribute("data-page", this.page)
+      this.transitioning = false
 
       pageWrapper.firstChild.focus()
     })

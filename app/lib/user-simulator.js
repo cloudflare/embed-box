@@ -36,7 +36,9 @@ export function runDemo({contentWindow}) {
   const searchComponent = iframeDocument.querySelector("[data-component='site-type-search']")
   const input = searchComponent.querySelector(".search")
 
-  function simulate(index) {
+  function simulate(index = 0) {
+    if (["hiding", "hidden"].includes(embedBox.visibility)) return
+
     const {entity, eventType} = sequence[index]
     const meta = {}
     let delay = 150
@@ -65,5 +67,5 @@ export function runDemo({contentWindow}) {
     }
   }
 
-  simulate(0)
+  setTimeout(simulate, 1000)
 }

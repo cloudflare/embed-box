@@ -126,26 +126,22 @@ export default class EmbedBoxBase {
 
   @autobind
   hide() {
-    requestAnimationFrame(() => {
-      this.forceLayout("opacity")
-      this.visibility = "hiding"
+    this.forceLayout("opacity")
+    this.visibility = "hiding"
 
-      this.container.style.overflow = this.containerPreviousOverflow
-      this.containerPreviousOverflow = ""
-    })
+    this.container.style.overflow = this.containerPreviousOverflow
+    this.containerPreviousOverflow = ""
   }
 
   @autobind
   show() {
-    requestAnimationFrame(() => {
-      this.forceLayout("opacity")
+    this.forceLayout("opacity")
 
-      this.visibility = "showing"
+    this.visibility = "showing"
 
-      this.containerPreviousOverflow = this.container.style.overflow
-      this.container.style.overflow = "hidden"
+    this.containerPreviousOverflow = this.container.style.overflow
+    this.container.style.overflow = "hidden"
 
-      this.application.autofocus()
-    })
+    this.application.autofocus()
   }
 }
