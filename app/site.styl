@@ -9,10 +9,6 @@
 @import "styl/media-query-variables"
 @import "styl/link-underlines"
 
-landingDeepBlue = rgb(13, 0, 33)
-landingBlue = rgb(43, 0, 107)
-landingPurple = rgb(156, 62, 163)
-
 embedBoxDesktopMinWidth = 1000px
 embedBoxDesktopMinWidthQuery = "(min-width: " + embedBoxDesktopMinWidth + ")"
 embedBoxMobileMaxWidthQuery = "(max-width: " + (embedBoxDesktopMinWidth - 1px) + ")"
@@ -144,7 +140,6 @@ body
       margin 0 auto
 
   &.features
-
     div
       display block
 
@@ -152,25 +147,22 @@ body
       antialiasedFonts()
       font-family sansSerifFonts
       list-style none
-      padding 0
       margin 0 auto
-
-      width centeredPageWidth
-      padding-left 1em
-      padding-right @padding-left
       max-width 100%
-      margin-left auto
-      margin-right auto
+      padding 0 1em 0 @padding-left
+      width centeredPageWidth
 
       > li
-        clearfix()
-        display block
+        align-items center
+        justify-content space-between
+        display flex
         position relative
 
         &:not(:last-child)
           margin-bottom 4em
 
         .content
+          flex 0 1 auto
 
           h3
             font-size 1.17em
@@ -182,21 +174,17 @@ body
             &:last-child
               margin-bottom 0
 
-        .image img
+        .image
           display block
-          margin-left auto
-          margin-right auto
+          flex 0 1 auto
           max-width 100%
+          width 300px
 
         @media desktopMinWidthQuery
-          padding-top 4em
-          padding-bottom @padding-top
-
           &:not(:last-child)
             margin-bottom 8em
 
           .content
-
             h3
               margin-top 0
               font-size 1.7em
@@ -210,49 +198,28 @@ body
           .content, .image
             width 44%
 
-          .image
-            position absolute
-            top 0
-            bottom 0
-
-            img
-              position absolute
-              top 0
-              right 0
-              bottom 0
-              left 0
-              margin auto
-
-          &:nth-child(odd) .content
-            float left
-
-          &:nth-child(even) .content
-            float right
-
-          &:nth-child(even) .image
-            left 0
-
-          &:nth-child(odd) .image
-            right 0
+          &:nth-child(even)
+            flex-direction row-reverse
 
         @media mobileMaxWidthQuery
+          flex-flow column
+
           &:not(:last-child)
             margin-bottom 4em
 
             &:before
+              background lighterLineGray
               content ""
+              display block
+              height .0625em
+              margin-top 2em
               pointer-events none
               position absolute
-              display block
-              background lighterLineGray
-              height .0625em
               top 100%
               width 100%
-              margin-top 2em
 
           .content, .image
             width auto
-            float none
 
           .content
             margin-bottom 2em
