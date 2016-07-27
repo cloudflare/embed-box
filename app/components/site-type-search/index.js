@@ -162,13 +162,14 @@ export default class SiteTypeSearch extends BaseComponent {
 
       typeEl.appendChild(icon.render())
       typeEl.appendChild(document.createTextNode($.label))
-      this.updateRefs()
 
+      this.updateRefs()
       this.setTypeStyle(typeEl)
 
       typeEl.addEventListener("click", () => this.selectType($.id, {focus: true}))
-      typeEl.addEventListener("keydown", (event) => {
-        if ([KM.enter, KM.spacebar].includes(event.keyCode)) {
+
+      typeEl.addEventListener("keydown", event => {
+        if (event.keyCode === KM.enter || event.keyCode === KM.spacebar) {
           event.preventDefault()
           this.selectType($.id, {focus: true})
         }
