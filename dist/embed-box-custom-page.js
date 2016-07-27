@@ -70,7 +70,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
-/* unused harmony export initializeStore *//* harmony export */ exports["a"] = getStore;var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+/* unused harmony export initializeStore *//* harmony export */ exports["a"] = getStore;/* unused harmony export destroyStore */var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 function initializeStore(instance) {
   var spec = arguments.length <= 1 || arguments[1] === undefined ? {} : arguments[1];
@@ -117,7 +117,15 @@ function initializeStore(instance) {
 }
 
 function getStore() {
-  return window.EmbedBoxStore;
+  var parent = arguments.length <= 0 || arguments[0] === undefined ? window : arguments[0];
+
+  return parent.EmbedBoxStore;
+}
+
+function destroyStore() {
+  var parent = arguments.length <= 0 || arguments[0] === undefined ? window : arguments[0];
+
+  delete parent.EmbedBoxStore;
 }
 
 /***/ },
@@ -214,19 +222,25 @@ var BasePage = (_class = (_temp = _class2 = function (_BaseComponent) {
       var _getStore = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2_lib_store__["a" /* getStore */])();
 
       var autoDownload = _getStore.autoDownload;
+      var iframe = _getStore.iframe;
       var _refs$copyButtons = this.refs.copyButtons;
       var copyButtons = _refs$copyButtons === undefined ? [] : _refs$copyButtons;
 
 
       copyButtons.forEach(function (copyButton) {
-        var target = copyButton.parentNode.querySelector("textarea.copyable");
+        var copyableContent = copyButton.parentNode.querySelector(".copyable");
 
-        target.addEventListener("click", function () {
-          return target.select();
+        copyableContent.addEventListener("click", function () {
+          var range = iframe.document.createRange();
+          var selection = iframe.window.getSelection();
+
+          range.selectNodeContents(copyableContent);
+          selection.removeAllRanges();
+          selection.addRange(range);
         });
 
         new __WEBPACK_IMPORTED_MODULE_1_clipboard___default.a(copyButton, { text: function text() {
-            return target.value;
+            return copyableContent.textContent;
           } }); // eslint-disable-line no-new
       });
 
@@ -506,18 +520,24 @@ var BaseComponent = (_temp = _class = function () {
       element.parentNode.insertBefore(sibling, element);
     }
   }, {
+    key: "removeElement",
+    value: function removeElement(element) {
+      if (!element || !element.parentNode) return null;
+
+      return element.parentNode.removeChild(element);
+    }
+  }, {
     key: "render",
     value: function render() {
       return this.compileTemplate();
     }
-
-    // TODO: Check if this used after the app is fleshed out.
-
   }, {
     key: "replaceElement",
     value: function replaceElement(current, next) {
       current.parentNode.insertBefore(next, current);
       current.parentNode.removeChild(current);
+
+      next.tabIndex = current.tabIndex;
 
       this.updateRefs();
     }

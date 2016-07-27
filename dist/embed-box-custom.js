@@ -126,7 +126,7 @@ module.exports = function() {
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_lib_store__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_lib_store__ = __webpack_require__(2);
 
 /* harmony export */ __webpack_require__.d(exports, "a", function() { return BaseComponent; });var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
 
@@ -233,18 +233,24 @@ var BaseComponent = (_temp = _class = function () {
       element.parentNode.insertBefore(sibling, element);
     }
   }, {
+    key: "removeElement",
+    value: function removeElement(element) {
+      if (!element || !element.parentNode) return null;
+
+      return element.parentNode.removeChild(element);
+    }
+  }, {
     key: "render",
     value: function render() {
       return this.compileTemplate();
     }
-
-    // TODO: Check if this used after the app is fleshed out.
-
   }, {
     key: "replaceElement",
     value: function replaceElement(current, next) {
       current.parentNode.insertBefore(next, current);
       current.parentNode.removeChild(current);
+
+      next.tabIndex = current.tabIndex;
 
       this.updateRefs();
     }
@@ -256,6 +262,69 @@ var BaseComponent = (_temp = _class = function () {
 
 /***/ },
 /* 2 */
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+/* harmony export */ exports["b"] = initializeStore;/* harmony export */ exports["a"] = getStore;/* harmony export */ exports["c"] = destroyStore;var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+function initializeStore(instance) {
+  var spec = arguments.length <= 1 || arguments[1] === undefined ? {} : arguments[1];
+
+  var iframe = document.createElement("iframe");
+  var _spec$autoDownload = spec.autoDownload;
+  var autoDownload = _spec$autoDownload === undefined ? true : _spec$autoDownload;
+  var _spec$labels = spec.labels;
+  var labels = _spec$labels === undefined ? {} : _spec$labels;
+
+
+  window.EmbedBoxStore = {
+    appName: spec.appName || "an app",
+    instance: instance,
+
+    autoDownload: autoDownload,
+
+    beforeContent: spec.beforeContent || "",
+    afterContent: spec.afterContent || "",
+
+    downloadURLs: spec.downloadURLs || {},
+
+    iframe: {
+      element: iframe,
+      get document() {
+        return iframe.contentDocument;
+      },
+      get window() {
+        return iframe.contentWindow;
+      }
+    },
+
+    labels: _extends({
+      done: "Done",
+      searchPlaceholder: "Select or search the type of website you have...",
+      next: "Next",
+      title: function title(appName) {
+        return "Add " + appName + " to your site";
+      }
+    }, labels)
+  };
+
+  return window.EmbedBoxStore;
+}
+
+function getStore() {
+  var parent = arguments.length <= 0 || arguments[0] === undefined ? window : arguments[0];
+
+  return parent.EmbedBoxStore;
+}
+
+function destroyStore() {
+  var parent = arguments.length <= 0 || arguments[0] === undefined ? window : arguments[0];
+
+  delete parent.EmbedBoxStore;
+}
+
+/***/ },
+/* 3 */
 /***/ function(module, exports) {
 
 "use strict";
@@ -356,61 +425,6 @@ function boundMethod(target, key, descriptor) {
 }
 module.exports = exports['default'];
 
-
-/***/ },
-/* 3 */
-/***/ function(module, exports, __webpack_require__) {
-
-"use strict";
-/* harmony export */ exports["b"] = initializeStore;/* harmony export */ exports["a"] = getStore;var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-function initializeStore(instance) {
-  var spec = arguments.length <= 1 || arguments[1] === undefined ? {} : arguments[1];
-
-  var iframe = document.createElement("iframe");
-  var _spec$autoDownload = spec.autoDownload;
-  var autoDownload = _spec$autoDownload === undefined ? true : _spec$autoDownload;
-  var _spec$labels = spec.labels;
-  var labels = _spec$labels === undefined ? {} : _spec$labels;
-
-
-  window.EmbedBoxStore = {
-    appName: spec.appName || "an app",
-    instance: instance,
-
-    autoDownload: autoDownload,
-
-    beforeContent: spec.beforeContent || "",
-    afterContent: spec.afterContent || "",
-
-    downloadURLs: spec.downloadURLs || {},
-
-    iframe: {
-      element: iframe,
-      get document() {
-        return iframe.contentDocument;
-      },
-      get window() {
-        return iframe.contentWindow;
-      }
-    },
-
-    labels: _extends({
-      done: "Done",
-      searchPlaceholder: "Select or search the type of website you have...",
-      next: "Next",
-      title: function title(appName) {
-        return "Add " + appName + " to your site";
-      }
-    }, labels)
-  };
-
-  return window.EmbedBoxStore;
-}
-
-function getStore() {
-  return window.EmbedBoxStore;
-}
 
 /***/ },
 /* 4 */
@@ -777,6 +791,7 @@ var wordpress = toComponent(__WEBPACK_IMPORTED_MODULE_7__wordpress_svg___default
   backspace: 8,
   enter: 13,
   esc: 27,
+  spacebar: 32,
   left: 37,
   up: 38,
   right: 39,
@@ -797,12 +812,12 @@ var wordpress = toComponent(__WEBPACK_IMPORTED_MODULE_7__wordpress_svg___default
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__pages_styl__ = __webpack_require__(21);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__pages_styl___default = __WEBPACK_IMPORTED_MODULE_2__pages_styl__ && __WEBPACK_IMPORTED_MODULE_2__pages_styl__.__esModule ? function() { return __WEBPACK_IMPORTED_MODULE_2__pages_styl__['default'] } : function() { return __WEBPACK_IMPORTED_MODULE_2__pages_styl__; };
 /* harmony import */ __webpack_require__.d(__WEBPACK_IMPORTED_MODULE_2__pages_styl___default, 'a', __WEBPACK_IMPORTED_MODULE_2__pages_styl___default);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_autobind_decorator__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_autobind_decorator__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_autobind_decorator___default = __WEBPACK_IMPORTED_MODULE_3_autobind_decorator__ && __WEBPACK_IMPORTED_MODULE_3_autobind_decorator__.__esModule ? function() { return __WEBPACK_IMPORTED_MODULE_3_autobind_decorator__['default'] } : function() { return __WEBPACK_IMPORTED_MODULE_3_autobind_decorator__; };
 /* harmony import */ __webpack_require__.d(__WEBPACK_IMPORTED_MODULE_3_autobind_decorator___default, 'a', __WEBPACK_IMPORTED_MODULE_3_autobind_decorator___default);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_components_application__ = __webpack_require__(8);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_lib_custom_event__ = __webpack_require__(11);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_lib_store__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_lib_store__ = __webpack_require__(2);
 
 /* harmony export */ __webpack_require__.d(exports, "default", function() { return EmbedBoxBase; });var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
@@ -854,7 +869,7 @@ function _applyDecoratedDescriptor(target, property, decorators, descriptor, con
 
 var STATE_ATTRIBUTE = "data-embed-box";
 
-function unmountElement(element) {
+function removeElement(element) {
   if (!element || !element.parentNode) return null;
 
   return element.parentNode.removeChild(element);
@@ -891,8 +906,10 @@ var EmbedBoxBase = (_class = (_temp = _class2 = function () {
     pageStyle.innerHTML = __WEBPACK_IMPORTED_MODULE_2__pages_styl___default.a;
     iframe.document.head.appendChild(pageStyle);
 
+    iframe.element.addEventListener("transitionend", this.handleTransitionEnd);
+
     this.iframe = iframe;
-    this.theme = _extends(theme, spec.theme || {});
+    this.theme = _extends({}, theme, spec.theme || {});
     this.style = document.createElement("style");
 
     this.style.innerHTML = stylesheet;
@@ -909,6 +926,11 @@ var EmbedBoxBase = (_class = (_temp = _class2 = function () {
   }
 
   _createClass(EmbedBoxBase, [{
+    key: "handleTransitionEnd",
+    value: function handleTransitionEnd() {
+      if (this.visibility === "hiding") this.visibility = "hidden";else if (this.visibility === "showing") this.visibility = "shown";
+    }
+  }, {
     key: "appendModalStylesheet",
     value: function appendModalStylesheet() {
       var theme = this.theme;
@@ -923,13 +945,23 @@ var EmbedBoxBase = (_class = (_temp = _class2 = function () {
   }, {
     key: "destroy",
     value: function destroy() {
-      unmountElement(this.iframe.element);
-      unmountElement(this.style);
+      removeElement(this.iframe.element);
+      removeElement(this.style);
+      __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_6_lib_store__["c" /* destroyStore */])();
+    }
+
+    // Forces browser to compute transitions on elements inserted in current frame.
+
+  }, {
+    key: "forceLayout",
+    value: function forceLayout(attribute) {
+      return getComputedStyle(this.iframe.element)[attribute];
     }
   }, {
     key: "hide",
     value: function hide() {
-      this.iframe.element.setAttribute(STATE_ATTRIBUTE, "hidden");
+      this.forceLayout("opacity");
+      this.visibility = "hiding";
 
       this.container.style.overflow = this.containerPreviousOverflow;
       this.containerPreviousOverflow = "";
@@ -937,12 +969,27 @@ var EmbedBoxBase = (_class = (_temp = _class2 = function () {
   }, {
     key: "show",
     value: function show() {
-      this.iframe.element.setAttribute(STATE_ATTRIBUTE, "visible");
+      this.forceLayout("opacity");
+
+      this.visibility = "showing";
 
       this.containerPreviousOverflow = this.container.style.overflow;
       this.container.style.overflow = "hidden";
 
       this.application.autofocus();
+    }
+  }, {
+    key: "visibility",
+    get: function get() {
+      return this.iframe.element.getAttribute(STATE_ATTRIBUTE);
+    },
+    set: function set(value) {
+      var element = this.iframe.element;
+
+
+      element.style.display = value === "hidden" ? "none" : "";
+
+      return this.iframe.element.setAttribute(STATE_ATTRIBUTE, value);
     }
   }]);
 
@@ -953,7 +1000,7 @@ var EmbedBoxBase = (_class = (_temp = _class2 = function () {
   accentColor: "#2d88f3",
   backgroundColor: "#ffffff",
   textColor: "#000000"
-}, _temp), (_applyDecoratedDescriptor(_class.prototype, "hide", [__WEBPACK_IMPORTED_MODULE_3_autobind_decorator___default.a], Object.getOwnPropertyDescriptor(_class.prototype, "hide"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "show", [__WEBPACK_IMPORTED_MODULE_3_autobind_decorator___default.a], Object.getOwnPropertyDescriptor(_class.prototype, "show"), _class.prototype)), _class);
+}, _temp), (_applyDecoratedDescriptor(_class.prototype, "handleTransitionEnd", [__WEBPACK_IMPORTED_MODULE_3_autobind_decorator___default.a], Object.getOwnPropertyDescriptor(_class.prototype, "handleTransitionEnd"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "hide", [__WEBPACK_IMPORTED_MODULE_3_autobind_decorator___default.a], Object.getOwnPropertyDescriptor(_class.prototype, "hide"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "show", [__WEBPACK_IMPORTED_MODULE_3_autobind_decorator___default.a], Object.getOwnPropertyDescriptor(_class.prototype, "show"), _class.prototype)), _class);
 
 
 /***/ },
@@ -967,11 +1014,11 @@ var EmbedBoxBase = (_class = (_temp = _class2 = function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__application_pug__ = __webpack_require__(22);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__application_pug___default = __WEBPACK_IMPORTED_MODULE_1__application_pug__ && __WEBPACK_IMPORTED_MODULE_1__application_pug__.__esModule ? function() { return __WEBPACK_IMPORTED_MODULE_1__application_pug__['default'] } : function() { return __WEBPACK_IMPORTED_MODULE_1__application_pug__; };
 /* harmony import */ __webpack_require__.d(__WEBPACK_IMPORTED_MODULE_1__application_pug___default, 'a', __WEBPACK_IMPORTED_MODULE_1__application_pug___default);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_autobind_decorator__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_autobind_decorator__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_autobind_decorator___default = __WEBPACK_IMPORTED_MODULE_2_autobind_decorator__ && __WEBPACK_IMPORTED_MODULE_2_autobind_decorator__.__esModule ? function() { return __WEBPACK_IMPORTED_MODULE_2_autobind_decorator__['default'] } : function() { return __WEBPACK_IMPORTED_MODULE_2_autobind_decorator__; };
 /* harmony import */ __webpack_require__.d(__WEBPACK_IMPORTED_MODULE_2_autobind_decorator___default, 'a', __WEBPACK_IMPORTED_MODULE_2_autobind_decorator___default);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_components_base_component__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_lib_store__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_lib_store__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_components_icons__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_lib_key_map__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_components_site_type_search__ = __webpack_require__(10);
@@ -1037,8 +1084,8 @@ var Application = (_class = (_temp = _class2 = function (_BaseComponent) {
 
     var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Application).call(this, options));
 
+    _this.transitioning = false;
     _this.page = "home";
-
 
     var element = _this.compileTemplate();
 
@@ -1082,7 +1129,7 @@ var Application = (_class = (_temp = _class2 = function (_BaseComponent) {
     value: function delgateKeyEvent(nativeEvent) {
       var receiver = this.refs.content.querySelector("[data-event-receiver]");
 
-      if (!receiver) return;
+      if (this.transitioning || !receiver) return;
 
       var delgated = new CustomEvent("dispatched-" + nativeEvent.type, {
         detail: { nativeEvent: nativeEvent }
@@ -1093,6 +1140,8 @@ var Application = (_class = (_temp = _class2 = function (_BaseComponent) {
   }, {
     key: "handleKeyNavigation",
     value: function handleKeyNavigation(event) {
+      if (this.transitioning) return;
+
       switch (event.keyCode) {
         case __WEBPACK_IMPORTED_MODULE_6_lib_key_map__["a" /* default */].esc:
           event.preventDefault();
@@ -1118,6 +1167,7 @@ var Application = (_class = (_temp = _class2 = function (_BaseComponent) {
       var _this2 = this;
 
       var content = this.refs.content;
+      var firstChild = content.firstChild;
 
       var siteTypeSearch = new __WEBPACK_IMPORTED_MODULE_7_components_site_type_search__["a" /* default */]({
         pages: this.pages,
@@ -1126,15 +1176,29 @@ var Application = (_class = (_temp = _class2 = function (_BaseComponent) {
           _this2.page = selectedId;
           _this2.navigateToPage();
         }
+      }).render();
+
+      if (!firstChild) {
+        content.appendChild(siteTypeSearch);
+        return;
+      }
+
+      content.insertBefore(siteTypeSearch, firstChild);
+
+      siteTypeSearch.setAttribute("data-transition", "hidden-left");
+      siteTypeSearch.addEventListener("transitionend", function () {
+        _this2.removeElement(firstChild);
+        _this2.transitioning = false;
       });
 
-      content.innerHTML = "";
-
-      content.appendChild(siteTypeSearch.render());
+      requestAnimationFrame(function () {
+        return siteTypeSearch.setAttribute("data-transition", "visible");
+      });
     }
   }, {
     key: "navigateToHome",
     value: function navigateToHome() {
+      this.transitioning = false;
       this.page = "home";
       this.renderSiteTypeSearch();
       this.autofocus();
@@ -1146,7 +1210,10 @@ var Application = (_class = (_temp = _class2 = function (_BaseComponent) {
     value: function navigateToPage() {
       var _this3 = this;
 
+      this.transitioning = true;
+
       var content = this.refs.content;
+      var firstChild = content.firstChild;
 
       var _pages$filter = this.pages.filter(function (page) {
         return page.id === _this3.page;
@@ -1159,14 +1226,22 @@ var Application = (_class = (_temp = _class2 = function (_BaseComponent) {
       var pageWrapper = new __WEBPACK_IMPORTED_MODULE_8_components_page_wrapper__["a" /* default */]({
         onDone: this.closeModal,
         page: new Page()
+      }).render();
+
+      content.appendChild(pageWrapper);
+
+      firstChild.addEventListener("transitionend", function () {
+        _this3.removeElement(firstChild);
+        _this3.autofocus();
+        _this3.element.setAttribute("data-page", _this3.page);
+        _this3.transitioning = false;
+
+        pageWrapper.firstChild.focus();
       });
 
-      content.innerHTML = "";
-      content.appendChild(pageWrapper.render());
-
-      this.autofocus();
-
-      this.element.setAttribute("data-page", this.page);
+      requestAnimationFrame(function () {
+        return firstChild.setAttribute("data-transition", "hidden-left");
+      });
     }
   }]);
 
@@ -1238,7 +1313,7 @@ var PageWrapper = (_temp = _class = function (_BaseComponent) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__site_type_search_styl__ = __webpack_require__(18);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__site_type_search_styl___default = __WEBPACK_IMPORTED_MODULE_0__site_type_search_styl__ && __WEBPACK_IMPORTED_MODULE_0__site_type_search_styl__.__esModule ? function() { return __WEBPACK_IMPORTED_MODULE_0__site_type_search_styl__['default'] } : function() { return __WEBPACK_IMPORTED_MODULE_0__site_type_search_styl__; };
 /* harmony import */ __webpack_require__.d(__WEBPACK_IMPORTED_MODULE_0__site_type_search_styl___default, 'a', __WEBPACK_IMPORTED_MODULE_0__site_type_search_styl___default);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_autobind_decorator__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_autobind_decorator__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_autobind_decorator___default = __WEBPACK_IMPORTED_MODULE_1_autobind_decorator__ && __WEBPACK_IMPORTED_MODULE_1_autobind_decorator__.__esModule ? function() { return __WEBPACK_IMPORTED_MODULE_1_autobind_decorator__['default'] } : function() { return __WEBPACK_IMPORTED_MODULE_1_autobind_decorator__; };
 /* harmony import */ __webpack_require__.d(__WEBPACK_IMPORTED_MODULE_1_autobind_decorator___default, 'a', __WEBPACK_IMPORTED_MODULE_1_autobind_decorator___default);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_components_base_component__ = __webpack_require__(1);
@@ -1247,6 +1322,7 @@ var PageWrapper = (_temp = _class = function (_BaseComponent) {
 /* harmony import */ __webpack_require__.d(__WEBPACK_IMPORTED_MODULE_3__site_type_search_pug___default, 'a', __WEBPACK_IMPORTED_MODULE_3__site_type_search_pug___default);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_components_icons__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_lib_key_map__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_lib_store__ = __webpack_require__(2);
 
 /* harmony export */ __webpack_require__.d(exports, "a", function() { return SiteTypeSearch; });var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
@@ -1301,6 +1377,7 @@ function _applyDecoratedDescriptor(target, property, decorators, descriptor, con
 
 
 
+
 var SearchIcon = __WEBPACK_IMPORTED_MODULE_4_components_icons__["search"];
 
 
@@ -1327,24 +1404,26 @@ var SiteTypeSearch = (_class = (_temp2 = _class2 = function (_BaseComponent) {
 
   _createClass(SiteTypeSearch, [{
     key: "handleSearchInput",
-    value: function handleSearchInput(_ref) {
-      var value = _ref.target.value;
+    value: function handleSearchInput() {
+      var _refs = this.refs;
+      var search = _refs.search;
+      var typesContainer = _refs.typesContainer;
 
-      this.query = value.toLowerCase();
-      var typesContainer = this.refs.typesContainer;
 
+      this.query = search.value.toLowerCase();
 
-      this.types.forEach(function (_ref2) {
-        var id = _ref2.id;
-        var hidden = _ref2.hidden;
+      this.types.forEach(function (_ref) {
+        var id = _ref.id;
+        var hidden = _ref.hidden;
 
         var type = typesContainer.querySelector(".type[data-id=" + id + "]");
 
+        type.removeAttribute("data-first-visible");
         setVisibility(type, hidden);
       });
 
-      var _types$filter = this.types.filter(function (_ref3) {
-        var hidden = _ref3.hidden;
+      var _types$filter = this.types.filter(function (_ref2) {
+        var hidden = _ref2.hidden;
         return !hidden;
       });
 
@@ -1352,21 +1431,25 @@ var SiteTypeSearch = (_class = (_temp2 = _class2 = function (_BaseComponent) {
 
       var firstVisible = _types$filter2[0];
 
+      var firstVisibleEl = typesContainer.querySelector(".type[data-id=" + firstVisible.id + "]");
 
+      firstVisibleEl.setAttribute("data-first-visible", "");
       this.selectType(firstVisible.id, { focus: true });
     }
   }, {
     key: "handleDelgatedKeydown",
-    value: function handleDelgatedKeydown(_ref4) {
-      var _KM$up$KM$down$native;
+    value: function handleDelgatedKeydown(_ref3) {
+      var _KM$up$KM$down;
 
-      var nativeEvent = _ref4.detail.nativeEvent;
+      var _ref3$detail = _ref3.detail;
+      var keyCode = _ref3$detail.keyCode;
+      var nativeEvent = _ref3$detail.nativeEvent;
 
-      var delta = (_KM$up$KM$down$native = {}, _defineProperty(_KM$up$KM$down$native, __WEBPACK_IMPORTED_MODULE_5_lib_key_map__["a" /* default */].up, -1), _defineProperty(_KM$up$KM$down$native, __WEBPACK_IMPORTED_MODULE_5_lib_key_map__["a" /* default */].down, 1), _KM$up$KM$down$native)[nativeEvent.keyCode];
+      var delta = (_KM$up$KM$down = {}, _defineProperty(_KM$up$KM$down, __WEBPACK_IMPORTED_MODULE_5_lib_key_map__["a" /* default */].up, -1), _defineProperty(_KM$up$KM$down, __WEBPACK_IMPORTED_MODULE_5_lib_key_map__["a" /* default */].down, 1), _KM$up$KM$down)[keyCode || nativeEvent.keyCode];
 
       if (!delta) return;
 
-      nativeEvent.preventDefault();
+      if (nativeEvent) nativeEvent.preventDefault();
 
       var selectedId = this.selectedId;
 
@@ -1378,8 +1461,8 @@ var SiteTypeSearch = (_class = (_temp2 = _class2 = function (_BaseComponent) {
 
       var length = types.length;
 
-      var currentIndex = types.findIndex(function (_ref5) {
-        var id = _ref5.id;
+      var currentIndex = types.findIndex(function (_ref4) {
+        var id = _ref4.id;
         return id === selectedId;
       }) || 0;
 
@@ -1392,12 +1475,16 @@ var SiteTypeSearch = (_class = (_temp2 = _class2 = function (_BaseComponent) {
     }
   }, {
     key: "handleDelgatedKeypress",
-    value: function handleDelgatedKeypress(_ref6) {
-      var nativeEvent = _ref6.detail.nativeEvent;
+    value: function handleDelgatedKeypress(_ref5) {
+      var _ref5$detail = _ref5.detail;
+      var keyCode = _ref5$detail.keyCode;
+      var nativeEvent = _ref5$detail.nativeEvent;
 
-      if (nativeEvent.keyCode !== __WEBPACK_IMPORTED_MODULE_5_lib_key_map__["a" /* default */].enter) return;
+      keyCode = keyCode || nativeEvent.keyCode;
 
-      nativeEvent.preventDefault();
+      if (keyCode !== __WEBPACK_IMPORTED_MODULE_5_lib_key_map__["a" /* default */].enter) return;
+      if (nativeEvent) nativeEvent.preventDefault();
+
       this.submit();
     }
   }, {
@@ -1411,17 +1498,24 @@ var SiteTypeSearch = (_class = (_temp2 = _class2 = function (_BaseComponent) {
     key: "selectType",
     value: function selectType(selectedId) {
       var options = arguments.length <= 1 || arguments[1] === undefined ? {} : arguments[1];
-      var _refs = this.refs;
-      var types = _refs.types;
-      var typesContainer = _refs.typesContainer;
+      var _refs2 = this.refs;
+      var types = _refs2.types;
+      var typesContainer = _refs2.typesContainer;
+      var search = _refs2.search;
+      var iframeDocument = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_6_lib_store__["a" /* getStore */])().iframe.document;
 
+      var selectedType = typesContainer.querySelector(".type[data-id=\"" + selectedId + "\"]");
 
       this.selectedId = selectedId;
 
       types.forEach(this.setTypeStyle);
 
+      if (search !== iframeDocument.activeElement) {
+        selectedType.focus();
+      }
+
       if (options.focus) {
-        typesContainer.querySelector(".type[data-id=\"" + selectedId + "\"]").scrollIntoView(true);
+        selectedType.scrollIntoView(true);
       }
 
       this.setNavigationState();
@@ -1439,9 +1533,9 @@ var SiteTypeSearch = (_class = (_temp2 = _class2 = function (_BaseComponent) {
     value: function render() {
       this.compileTemplate();
 
-      var _refs2 = this.refs;
-      var nextPageButton = _refs2.nextPageButton;
-      var search = _refs2.search;
+      var _refs3 = this.refs;
+      var nextPageButton = _refs3.nextPageButton;
+      var search = _refs3.search;
 
       var searchIcon = new SearchIcon();
 
@@ -1454,6 +1548,7 @@ var SiteTypeSearch = (_class = (_temp2 = _class2 = function (_BaseComponent) {
 
       this.element.addEventListener("dispatched-keydown", this.handleDelgatedKeydown);
       this.element.addEventListener("dispatched-keypress", this.handleDelgatedKeypress);
+      this.element.addEventListener("dispatched-input", this.handleSearchInput);
       nextPageButton.addEventListener("click", this.submit);
 
       return this.element;
@@ -1472,6 +1567,7 @@ var SiteTypeSearch = (_class = (_temp2 = _class2 = function (_BaseComponent) {
         var typeEl = typesContainer.appendChild(document.createElement("div"));
 
         typeEl.className = "type";
+        typeEl.setAttribute("tabindex", "4");
         typeEl.setAttribute("data-action", "");
         typeEl.setAttribute("data-ref", "types[]");
         typeEl.setAttribute("data-id", $.id);
@@ -1479,12 +1575,19 @@ var SiteTypeSearch = (_class = (_temp2 = _class2 = function (_BaseComponent) {
 
         typeEl.appendChild(icon.render());
         typeEl.appendChild(document.createTextNode($.label));
-        _this2.updateRefs();
 
+        _this2.updateRefs();
         _this2.setTypeStyle(typeEl);
 
         typeEl.addEventListener("click", function () {
           return _this2.selectType($.id, { focus: true });
+        });
+
+        typeEl.addEventListener("keydown", function (event) {
+          if (event.keyCode === __WEBPACK_IMPORTED_MODULE_5_lib_key_map__["a" /* default */].enter || event.keyCode === __WEBPACK_IMPORTED_MODULE_5_lib_key_map__["a" /* default */].spacebar) {
+            event.preventDefault();
+            _this2.selectType($.id, { focus: true });
+          }
         });
       });
     }
@@ -1555,7 +1658,7 @@ exports = module.exports = __webpack_require__(0)();
 
 
 // module
-exports.push([module.i, "[data-component=\"application\"] {\n  -webkit-box-align: center;\n  -o-box-align: center;\n  -ms-flex-align: center;\n  -ms-grid-row-align: center;\n      align-items: center;\n  -webkit-box-pack: center;\n  -o-box-pack: center;\n  -ms-flex-pack: center;\n  justify-content: center;\n  max-height: 100%;\n  min-height: 100%;\n}\n[data-component=\"application\"][data-page=\"home\"] .modal-footer [data-action=\"close\"] {\n  display: none;\n}\n[data-component=\"application\"][data-page=\"home\"] .modal-header [data-action=\"previous\"] {\n  visibility: hidden;\n}\n[data-component=\"application\"]:not([data-page=\"home\"]) .modal-footer [data-action=\"next\"] {\n  display: none;\n}\n@media (max-height: 24em) {\n  [data-component=\"application\"] {\n    -webkit-box-pack: start;\n    -o-box-pack: start;\n    -ms-flex-pack: start;\n    justify-content: flex-start;\n  }\n}\n[data-component=\"application\"] .modal {\n  position: relative;\n  z-index: 1;\n  -webkit-box-flex: 1;\n  -o-box-flex: 1;\n  box-flex: 1;\n  -ms-flex: 1 1 auto;\n  flex: 1 1 auto;\n  min-height: 18em;\n  max-height: 38em;\n  overflow: hidden;\n  width: 35em;\n  max-width: 100%;\n  background: #fff;\n  border-radius: 0.3125em;\n}\n[data-component=\"application\"] .modal .content {\n  -webkit-box-flex: 1;\n  -o-box-flex: 1;\n  box-flex: 1;\n  -ms-flex: 1 1 auto;\n  flex: 1 1 auto;\n}\n[data-component=\"application\"] .modal .content > [data-component] {\n  width: 100%;\n}\n[data-component=\"application\"] .modal-header {\n  -webkit-box-align: center;\n  -o-box-align: center;\n  -ms-flex-align: center;\n  -ms-grid-row-align: center;\n      align-items: center;\n  box-shadow: 0 1px rgba(0,0,0,0.21);\n  -webkit-box-flex: 1;\n  -o-box-flex: 1;\n  box-flex: 1;\n  -ms-flex: 0 0 auto;\n  flex: 0 0 auto;\n  -webkit-box-pack: justify;\n  -o-box-pack: justify;\n  -ms-flex-pack: justify;\n  justify-content: space-between;\n  width: 100%;\n  z-index: 1;\n}\n[data-component=\"application\"] .modal-header .title {\n  text-align: center;\n  line-height: 1.4;\n  padding: 0.8em 0;\n}\n[data-component=\"application\"] .modal-header button[data-action] {\n  -webkit-appearance: none;\n  -moz-appearance: none;\n  appearance: none;\n  background: inherit;\n  border-radius: 0;\n  color: inherit;\n  -webkit-box-flex: 1;\n  -o-box-flex: 1;\n  box-flex: 1;\n  -ms-flex: 0 0 auto;\n  flex: 0 0 auto;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: box;\n  display: flex;\n  height: 4em;\n  -webkit-box-pack: center;\n  -o-box-pack: center;\n  -ms-flex-pack: center;\n  justify-content: center;\n  padding: 0;\n  margin: 0;\n  opacity: 0.85;\n  -ms-filter: \"progid:DXImageTransform.Microsoft.Alpha(Opacity=85)\";\n  filter: alpha(opacity=85);\n  width: 4em;\n}\n[data-component=\"application\"] .modal-header button[data-action]:hover {\n  background: rgba(0,0,0,0.045);\n  box-shadow: none;\n  opacity: 1;\n  -ms-filter: none;\n  -webkit-filter: none;\n          filter: none;\n}\n[data-component=\"application\"] .modal-header button[data-action]:not(:hover) {\n  color: rgba(0,0,0,0.43);\n}\n[data-component=\"application\"] .modal-header button[data-action] > .icon {\n  -webkit-box-flex: 1;\n  -o-box-flex: 1;\n  box-flex: 1;\n  -ms-flex: 1 0 auto;\n  flex: 1 0 auto;\n  width: 1em;\n  height: 1em;\n  stroke: currentColor;\n}\n[data-component=\"application\"] .modal-footer {\n  box-shadow: 0 -1px rgba(0,0,0,0.21);\n  -webkit-box-flex: 1;\n  -o-box-flex: 1;\n  box-flex: 1;\n  -ms-flex: 0 0 auto;\n  flex: 0 0 auto;\n  -webkit-box-pack: end;\n  -o-box-pack: end;\n  -ms-flex-pack: end;\n  justify-content: flex-end;\n  padding: 1.5em;\n  position: relative;\n  z-index: 1;\n}\n[data-component=\"application\"] .modal-footer button[disabled],\n[data-component=\"application\"] .modal-footer .button[disabled] {\n  background: #e0e0e0;\n}\n@media (min-width: 769px) {\n  [data-component=\"application\"] .modal {\n    margin: 1.5em 0;\n  }\n}\n@media (max-width: 768px) {\n  [data-component=\"application\"] .modal {\n    border-radius: 0;\n    max-height: 100vh;\n    width: 100%;\n  }\n}\n", ""]);
+exports.push([module.i, "[data-component=\"application\"] {\n  -webkit-box-align: center;\n  -o-box-align: center;\n  -ms-flex-align: center;\n  -ms-grid-row-align: center;\n      align-items: center;\n  -webkit-box-pack: center;\n  -o-box-pack: center;\n  -ms-flex-pack: center;\n  justify-content: center;\n  max-height: 100%;\n  min-height: 100%;\n}\n[data-component=\"application\"][data-page=\"home\"] .modal-header [data-action=\"previous\"] {\n  visibility: hidden;\n}\n[data-component=\"application\"]:not([data-page=\"home\"]) .modal-footer [data-action=\"next\"] {\n  display: none;\n}\n@media (max-height: 24em) {\n  [data-component=\"application\"] {\n    -webkit-box-pack: start;\n    -o-box-pack: start;\n    -ms-flex-pack: start;\n    justify-content: flex-start;\n  }\n}\n[data-component=\"application\"] .modal {\n  position: relative;\n  z-index: 1;\n  -webkit-box-flex: 1;\n  -o-box-flex: 1;\n  box-flex: 1;\n  -ms-flex: 1 1 auto;\n  flex: 1 1 auto;\n  min-height: 18em;\n  max-height: 38em;\n  overflow: hidden;\n  width: 35em;\n  max-width: 100%;\n  background: #fff;\n  border-radius: 0.3125em;\n}\n[data-component=\"application\"] .modal .content {\n  -webkit-box-flex: 1;\n  -o-box-flex: 1;\n  box-flex: 1;\n  -ms-flex: 1 1 auto;\n  flex: 1 1 auto;\n}\n[data-component=\"application\"] .modal .content > * {\n  margin: 0;\n  -webkit-box-flex: 1;\n  -o-box-flex: 1;\n  box-flex: 1;\n  -ms-flex: 1 0 auto;\n  flex: 1 0 auto;\n  -webkit-transition: margin 0.2s ease-in-out;\n  transition: margin 0.2s ease-in-out;\n  width: 100%;\n}\n[data-component=\"application\"] .modal .content [data-component=\"site-type-search\"][data-transition=\"hidden-left\"] {\n  margin-left: -100%;\n}\n[data-component=\"application\"] .modal-header {\n  -webkit-box-align: center;\n  -o-box-align: center;\n  -ms-flex-align: center;\n  -ms-grid-row-align: center;\n      align-items: center;\n  box-shadow: 0 1px rgba(0,0,0,0.21);\n  -webkit-box-flex: 1;\n  -o-box-flex: 1;\n  box-flex: 1;\n  -ms-flex: 0 0 auto;\n  flex: 0 0 auto;\n  -webkit-box-pack: justify;\n  -o-box-pack: justify;\n  -ms-flex-pack: justify;\n  justify-content: space-between;\n  width: 100%;\n  z-index: 1;\n}\n[data-component=\"application\"] .modal-header .title {\n  text-align: center;\n  line-height: 1.4;\n  padding: 0.8em 0;\n}\n[data-component=\"application\"] .modal-header button[data-action] {\n  -webkit-appearance: none;\n  -moz-appearance: none;\n  appearance: none;\n  background: inherit;\n  border-radius: 0;\n  color: inherit;\n  -webkit-box-flex: 1;\n  -o-box-flex: 1;\n  box-flex: 1;\n  -ms-flex: 0 0 auto;\n  flex: 0 0 auto;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: box;\n  display: flex;\n  height: 4em;\n  -webkit-box-pack: center;\n  -o-box-pack: center;\n  -ms-flex-pack: center;\n  justify-content: center;\n  padding: 0;\n  margin: 0;\n  opacity: 0.85;\n  -ms-filter: \"progid:DXImageTransform.Microsoft.Alpha(Opacity=85)\";\n  filter: alpha(opacity=85);\n  width: 4em;\n}\n[data-component=\"application\"] .modal-header button[data-action]:focus:before {\n  display: none;\n}\n[data-component=\"application\"] .modal-header button[data-action]:hover,\n[data-component=\"application\"] .modal-header button[data-action]:focus {\n  background: rgba(0,0,0,0.045);\n  box-shadow: none;\n  opacity: 1;\n  -ms-filter: none;\n  -webkit-filter: none;\n          filter: none;\n}\n[data-component=\"application\"] .modal-header button[data-action]:not(:hover) {\n  color: rgba(0,0,0,0.43);\n}\n[data-component=\"application\"] .modal-header button[data-action] > .icon {\n  -webkit-box-flex: 1;\n  -o-box-flex: 1;\n  box-flex: 1;\n  -ms-flex: 1 0 auto;\n  flex: 1 0 auto;\n  width: 1em;\n  height: 1em;\n  stroke: currentColor;\n}\n[data-component=\"application\"] .modal-footer {\n  box-shadow: 0 -1px rgba(0,0,0,0.21);\n  -webkit-box-flex: 1;\n  -o-box-flex: 1;\n  box-flex: 1;\n  -ms-flex: 0 0 auto;\n  flex: 0 0 auto;\n  -webkit-box-pack: end;\n  -o-box-pack: end;\n  -ms-flex-pack: end;\n  justify-content: flex-end;\n  padding: 1.5em;\n  position: relative;\n  z-index: 1;\n}\n[data-component=\"application\"] .modal-footer button[disabled],\n[data-component=\"application\"] .modal-footer .button[disabled] {\n  background: #e0e0e0;\n}\n@media (min-width: 769px) {\n  [data-component=\"application\"] .modal {\n    box-shadow: 0 2px 8px rgba(0,0,0,0.4);\n    margin: 1.5em 0;\n  }\n}\n@media (max-width: 768px) {\n  [data-component=\"application\"] .modal {\n    border-radius: 0;\n    max-height: 100vh;\n    width: 100%;\n  }\n}\n", ""]);
 
 // exports
 
@@ -1569,7 +1672,7 @@ exports = module.exports = __webpack_require__(0)();
 
 
 // module
-exports.push([module.i, "[data-component=\"site-type-search\"] .header {\n  -webkit-box-align: center;\n  -o-box-align: center;\n  -ms-flex-align: center;\n  -ms-grid-row-align: center;\n      align-items: center;\n  box-shadow: 0 1px rgba(0,0,0,0.21);\n  -webkit-box-flex: 1;\n  -o-box-flex: 1;\n  box-flex: 1;\n  -ms-flex: 0 0 auto;\n  flex: 0 0 auto;\n  width: 100%;\n  z-index: 2;\n}\n[data-component=\"site-type-search\"] .header .icon {\n  stroke: rgba(0,0,0,0.43);\n  width: 1em;\n  margin-left: 1.5em;\n}\n[data-component=\"site-type-search\"] .header .search {\n  background: transparent;\n  border: none;\n  -webkit-box-flex: 1;\n  -o-box-flex: 1;\n  box-flex: 1;\n  -ms-flex: 1 0 auto;\n  flex: 1 0 auto;\n  padding: 1.5em;\n}\n[data-component=\"site-type-search\"] .header .search::-webkit-input-placeholder {\n  color: rgba(0,0,0,0.3);\n  font-family: inherit;\n  font-size: 1em;\n}\n[data-component=\"site-type-search\"] .header .search:-moz-placeholder {\n  color: rgba(0,0,0,0.3);\n  font-family: inherit;\n  font-size: 1em;\n}\n[data-component=\"site-type-search\"] .header .search::-moz-placeholder {\n  color: rgba(0,0,0,0.3);\n  font-family: inherit;\n  font-size: 1em;\n}\n[data-component=\"site-type-search\"] .header .search:-ms-input-placeholder {\n  color: rgba(0,0,0,0.3);\n  font-family: inherit;\n  font-size: 1em;\n}\n[data-component=\"site-type-search\"] .header .search:focus {\n  outline: none;\n}\n[data-component=\"site-type-search\"] .types {\n  -webkit-box-flex: 1;\n  -o-box-flex: 1;\n  box-flex: 1;\n  -ms-flex: 1 1 auto;\n  flex: 1 1 auto;\n  overflow: auto;\n  z-index: 1;\n}\n[data-component=\"site-type-search\"] .types .type {\n  position: relative;\n  cursor: pointer;\n  -webkit-box-align: center;\n  -o-box-align: center;\n  -ms-flex-align: center;\n  -ms-grid-row-align: center;\n      align-items: center;\n  -webkit-box-flex: 1;\n  -o-box-flex: 1;\n  box-flex: 1;\n  -ms-flex: 0 0 auto;\n  flex: 0 0 auto;\n  padding: 1em;\n  white-space: nowrap;\n  overflow: hidden;\n  text-overflow: ellipsis;\n  border: 1px solid rgba(0,0,0,0.063);\n  border-left: 0;\n  border-right: 0;\n}\n[data-component=\"site-type-search\"] .types .type:first-child {\n  border-top: 0;\n}\n[data-component=\"site-type-search\"] .types .type:last-child {\n  border-bottom: 0;\n}\n[data-component=\"site-type-search\"] .types .type:not(:last-child) {\n  margin-bottom: -1px;\n}\n[data-component=\"site-type-search\"] .types .type:not([data-selected]) {\n  z-index: 1;\n  background: transparent;\n  color: inherit;\n}\n[data-component=\"site-type-search\"] .types .type:not([data-selected]):hover {\n  z-index: 1;\n  box-shadow: none;\n  background: rgba(0,0,0,0.045);\n}\n[data-component=\"site-type-search\"] .types .type[data-selected] {\n  border-color: transparent;\n}\n[data-component=\"site-type-search\"] .types .type[data-selected],\n[data-component=\"site-type-search\"] .types .type[data-selected]:hover {\n  z-index: 2;\n  color: #fff;\n  box-shadow: none !important;\n}\n[data-component=\"site-type-search\"] .types .type .icon {\n  fill: currentColor;\n  height: 2em;\n  margin-right: 1em;\n  width: 2em;\n}\n", ""]);
+exports.push([module.i, "[data-component=\"site-type-search\"] .header {\n  -webkit-box-align: center;\n  -o-box-align: center;\n  -ms-flex-align: center;\n  -ms-grid-row-align: center;\n      align-items: center;\n  box-shadow: 0 1px rgba(0,0,0,0.21);\n  -webkit-box-flex: 1;\n  -o-box-flex: 1;\n  box-flex: 1;\n  -ms-flex: 0 0 auto;\n  flex: 0 0 auto;\n  width: 100%;\n  z-index: 2;\n}\n[data-component=\"site-type-search\"] .header .icon {\n  stroke: rgba(0,0,0,0.43);\n  width: 1em;\n  margin-left: 1.5em;\n}\n[data-component=\"site-type-search\"] .header .search {\n  background: transparent;\n  border: none;\n  -webkit-box-flex: 1;\n  -o-box-flex: 1;\n  box-flex: 1;\n  -ms-flex: 1 0 auto;\n  flex: 1 0 auto;\n  padding: 1.5em;\n}\n[data-component=\"site-type-search\"] .header .search::-webkit-input-placeholder {\n  color: rgba(0,0,0,0.3);\n  font-family: inherit;\n  font-size: 1em;\n}\n[data-component=\"site-type-search\"] .header .search:-moz-placeholder {\n  color: rgba(0,0,0,0.3);\n  font-family: inherit;\n  font-size: 1em;\n}\n[data-component=\"site-type-search\"] .header .search::-moz-placeholder {\n  color: rgba(0,0,0,0.3);\n  font-family: inherit;\n  font-size: 1em;\n}\n[data-component=\"site-type-search\"] .header .search:-ms-input-placeholder {\n  color: rgba(0,0,0,0.3);\n  font-family: inherit;\n  font-size: 1em;\n}\n[data-component=\"site-type-search\"] .header .search:focus {\n  outline: none;\n}\n[data-component=\"site-type-search\"] .types {\n  -webkit-box-flex: 1;\n  -o-box-flex: 1;\n  box-flex: 1;\n  -ms-flex: 1 1 auto;\n  flex: 1 1 auto;\n  overflow: auto;\n  -webkit-overflow-scrolling: touch;\n  overflow-scrolling: touch;\n  z-index: 1;\n}\n[data-component=\"site-type-search\"] .types .type {\n  position: relative;\n  cursor: pointer;\n  -webkit-box-align: center;\n  -o-box-align: center;\n  -ms-flex-align: center;\n  -ms-grid-row-align: center;\n      align-items: center;\n  -webkit-box-flex: 1;\n  -o-box-flex: 1;\n  box-flex: 1;\n  -ms-flex: 0 0 auto;\n  flex: 0 0 auto;\n  padding: 1em;\n  white-space: nowrap;\n  overflow: hidden;\n  text-overflow: ellipsis;\n  border: 1px solid rgba(0,0,0,0.063);\n  border-left: 0;\n  border-right: 0;\n}\n[data-component=\"site-type-search\"] .types .type:first-child,\n[data-component=\"site-type-search\"] .types .type[data-first-visible] {\n  border-top-color: transparent;\n}\n[data-component=\"site-type-search\"] .types .type:last-child {\n  border-bottom-color: transparent;\n}\n[data-component=\"site-type-search\"] .types .type:not(:last-child) {\n  margin-bottom: -1px;\n}\n[data-component=\"site-type-search\"] .types .type:not([data-selected]) {\n  z-index: 1;\n  background: transparent;\n  color: inherit;\n}\n[data-component=\"site-type-search\"] .types .type:not([data-selected]):hover {\n  background: rgba(0,0,0,0.045);\n}\n[data-component=\"site-type-search\"] .types .type:focus {\n  outline: none;\n  background: rgba(0,0,0,0.045);\n}\n[data-component=\"site-type-search\"] .types .type[data-selected] {\n  border-color: transparent;\n}\n[data-component=\"site-type-search\"] .types .type[data-selected],\n[data-component=\"site-type-search\"] .types .type[data-selected]:hover {\n  z-index: 2;\n  color: #fff;\n  box-shadow: none !important;\n}\n[data-component=\"site-type-search\"] .types .type .icon {\n  fill: currentColor;\n  height: 2em;\n  margin-right: 1em;\n  width: 2em;\n}\n", ""]);
 
 // exports
 
@@ -1583,7 +1686,7 @@ exports = module.exports = __webpack_require__(0)();
 
 
 // module
-exports.push([module.i, "[data-embed-box] {\n  bottom: 0 !important;\n  display: none !important;\n  height: 100vh !important;\n  left: 0 !important;\n  position: fixed !important;\n  right: 0 !important;\n  top: 0 !important;\n  width: 100vw !important;\n  z-index: 10000 !important;\n}\n[data-embed-box=\"visible\"] {\n  display: block !important;\n}\n", ""]);
+exports.push([module.i, "[data-embed-box] {\n  bottom: 0 !important;\n  height: 100vh !important;\n  left: 0 !important;\n  opacity: 0 !important;\n  -ms-filter: \"progid:DXImageTransform.Microsoft.Alpha(Opacity=0)\" !important;\n  filter: alpha(opacity=0) !important;\n  position: fixed !important;\n  right: 0 !important;\n  top: 0 !important;\n  -webkit-transition: opacity 0.1s linear !important;\n  transition: opacity 0.1s linear !important;\n  width: 100vw !important;\n  z-index: 10000 !important;\n}\n[data-embed-box=\"hiding\"] {\n  opacity: 0 !important;\n  -ms-filter: \"progid:DXImageTransform.Microsoft.Alpha(Opacity=0)\" !important;\n  filter: alpha(opacity=0) !important;\n}\n[data-embed-box=\"hidden\"] {\n  opacity: 0 !important;\n  -ms-filter: \"progid:DXImageTransform.Microsoft.Alpha(Opacity=0)\" !important;\n  filter: alpha(opacity=0) !important;\n}\n[data-embed-box=\"showing\"] {\n  opacity: 0.5 !important;\n  -ms-filter: \"progid:DXImageTransform.Microsoft.Alpha(Opacity=50)\" !important;\n  filter: alpha(opacity=50) !important;\n}\n[data-embed-box=\"shown\"] {\n  opacity: 1 !important;\n  -ms-filter: none !important;\n  -webkit-filter: none !important;\n          filter: none !important;\n}\n.embed-box-download-iframe {\n  position: fixed;\n  visibility: hidden;\n  width: 1px;\n  height: 1px;\n  z-index: -99999;\n}\n", ""]);
 
 // exports
 
@@ -1597,7 +1700,7 @@ exports = module.exports = __webpack_require__(0)();
 
 
 // module
-exports.push([module.i, "article,\naside,\ndetails,\nfigcaption,\nfigure,\nfooter,\nheader,\nhgroup,\nnav,\nsection,\nsummary {\n  display: block;\n}\naudio,\ncanvas,\nvideo {\n  display: inline;\n  zoom: 1;\n}\naudio:not([controls]) {\n  display: none;\n  height: 0;\n}\n[hidden] {\n  display: none;\n}\nhtml {\n  font-size: 100%;\n  -webkit-text-size-adjust: 100%;\n  -ms-text-size-adjust: 100%;\n  text-size-adjust: 100%;\n}\nbody {\n  margin: 0;\n  text-rendering: optimizeLegibility;\n}\nbutton,\ninput,\nselect,\ntextarea {\n  font-family: inherit;\n  font-size: inherit;\n  margin: 0;\n}\nbutton,\ninput {\n  line-height: normal;\n}\nbutton,\ninput[type=\"button\"],\ninput[type=\"reset\"],\ninput[type=\"submit\"] {\n  cursor: pointer;\n}\nbutton[disabled],\ninput[type=\"button\"][disabled],\ninput[type=\"reset\"][disabled],\ninput[type=\"submit\"][disabled] {\n  cursor: not-allowed;\n}\nbutton::-moz-focus-inner,\ninput::-moz-focus-inner {\n  border: 0;\n  padding: 0;\n}\na:focus {\n  outline: thin dotted;\n}\na:active,\na:hover {\n  outline: 0;\n}\nabbr[title] {\n  border-bottom: thin dotted;\n}\nb,\nstrong {\n  font-weight: 700;\n}\ndfn {\n  font-style: italic;\n}\npre {\n  white-space: pre-wrap;\n  word-wrap: break-word;\n}\nimg {\n  border: 0;\n  -ms-interpolation-mode: bicubic;\n}\nsvg:not(:root) {\n  overflow: hidden;\n}\ntextarea {\n  overflow: auto;\n  vertical-align: top;\n  resize: vertical;\n}\ntable {\n  border-collapse: collapse;\n  border-spacing: 0;\n}\nfigure,\nform {\n  margin: 0;\n}\np,\npre,\ndl,\nmenu,\nol,\nul {\n  margin: 1em 0;\n}\n*,\n*:after,\n*:before {\n  box-sizing: border-box;\n}\nhtml {\n  font-size: 16px;\n}\nbody {\n  font-family: \"Avenir New\", Avenir, \"Helvetica Neue\", sans-serif;\n}\nbutton,\n.button {\n  -webkit-font-smoothing: subpixel-antialiased;\n  -moz-osx-font-smoothing: auto;\n  position: relative;\n  text-rendering: optimizeLegibility;\n  -webkit-tap-highlight-color: transparent;\n  -webkit-user-select: none;\n  -moz-user-select: none;\n  -ms-user-select: none;\n  user-select: none;\n  -webkit-appearance: none;\n  -moz-appearance: none;\n  appearance: none;\n  display: inline-block;\n  cursor: pointer;\n  border: 0;\n  border-radius: 0.1875em;\n  font-size: 1em;\n  padding: 0.6em 2em;\n  margin: 0;\n  text-align: center;\n  font-family: \"Avenir New\", Avenir, \"Helvetica Neue\", sans-serif;\n  font-weight: 300;\n  letter-spacing: 0.04em;\n  text-indent: 0.04em;\n  text-decoration: none;\n}\nbutton.slim,\n.button.slim {\n  padding-left: 1em;\n  padding-right: 1em;\n}\nbutton.nowrap,\n.button.nowrap {\n  white-space: nowrap;\n  max-width: 100%;\n}\n@media screen and (-webkit-min-device-pixel-ratio: 0) {\n  button,\n  .button {\n    font-weight: 400;\n  }\n}\n@media all and (-webkit-min-device-pixel-ratio: 0) and (-webkit-min-device-pixel-ratio: 0.001), all and (-webkit-min-device-pixel-ratio: 0) and (min-resolution: 0.001dppx) {\n  button,\n  .button {\n    font-weight: 300;\n  }\n}\nbutton:hover,\n.button:hover {\n  text-decoration: none;\n}\nbutton[disabled],\n.button[disabled] {\n  opacity: 0.7;\n  -ms-filter: \"progid:DXImageTransform.Microsoft.Alpha(Opacity=70)\";\n  filter: alpha(opacity=70);\n}\nbutton[disabled]:hover,\n.button[disabled]:hover,\nbutton[disabled]:focus,\n.button[disabled]:focus,\nbutton[disabled]:focus:hover,\n.button[disabled]:focus:hover {\n  box-shadow: none !important;\n}\nbutton:hover,\n.button:hover {\n  box-shadow: 0 0.1875em 0.375em -0.1875em rgba(0,0,0,0.325);\n}\nbutton:hover:active,\n.button:hover:active,\nbutton.active,\n.button.active {\n  box-shadow: inset 0 0.125em 0.375em rgba(0,0,0,0.325);\n}\nbutton:focus,\n.button:focus {\n  outline: none;\n}\nbutton:focus:before,\n.button:focus:before {\n  content: \"\";\n  position: absolute;\n  z-index: 1;\n  top: 2px;\n  right: 2px;\n  bottom: 2px;\n  left: 2px;\n  border-radius: 0.1em;\n  box-shadow: inset 0 0 0 1px #fff;\n  pointer-events: none;\n  -webkit-transition: opacity 0.3s ease-in-out;\n  transition: opacity 0.3s ease-in-out;\n}\nbutton:focus:active:before,\n.button:focus:active:before {\n  opacity: 0;\n  -ms-filter: \"progid:DXImageTransform.Microsoft.Alpha(Opacity=0)\";\n  filter: alpha(opacity=0);\n}\nbutton.primary,\n.button.primary {\n  background: #000;\n  color: #fff;\n}\nbutton.transparent,\n.button.transparent {\n  font-weight: 400;\n}\nbutton.transparent:not(:hover):not(:active):not(.active):not(:focus),\n.button.transparent:not(:hover):not(:active):not(.active):not(:focus) {\n  background: transparent;\n  box-shadow: inset 0 0 0 1px rgba(0,0,0,0.21);\n  color: rgba(0,0,0,0.55);\n}\nbutton.small,\n.button.small {\n  font-size: 0.9em;\n  border-radius: 0.2083em;\n  letter-spacing: 0.06em;\n  text-indent: 0.06em;\n}\nbutton.large,\n.button.large {\n  font-size: 1.25em;\n}\nbutton.with-spinner-icon,\n.button.with-spinner-icon {\n  position: relative;\n}\nbutton.with-spinner-icon .icon.spinner-icon,\n.button.with-spinner-icon .icon.spinner-icon {\n  display: none;\n}\nbutton.with-spinner-icon.showing-spinner-icon .button-content,\n.button.with-spinner-icon.showing-spinner-icon .button-content {\n  opacity: 0;\n  -ms-filter: \"progid:DXImageTransform.Microsoft.Alpha(Opacity=0)\";\n  filter: alpha(opacity=0);\n  pointer-events: none;\n}\nbutton.with-spinner-icon.showing-spinner-icon .icon.spinner-icon,\n.button.with-spinner-icon.showing-spinner-icon .icon.spinner-icon {\n  position: absolute;\n  display: block;\n  margin: auto;\n  top: 0;\n  right: 0;\n  bottom: 0;\n  left: 0;\n}\nbutton.with-spinner-icon.showing-spinner-icon.more:after,\n.button.with-spinner-icon.showing-spinner-icon.more:after {\n  opacity: 0;\n  -ms-filter: \"progid:DXImageTransform.Microsoft.Alpha(Opacity=0)\";\n  filter: alpha(opacity=0);\n  pointer-events: none;\n}\n.buttons-group span.buttons-group-message {\n  display: inline-block;\n  padding: 0.6em 0;\n}\n.buttons-group span.buttons-group-message.small {\n  font-size: 0.9em;\n}\n.buttons-group span.buttons-group-message.large {\n  font-size: 1.25em;\n}\n@media (min-width: 569px) {\n  .buttons-group button,\n  .buttons-group .button,\n  .buttons-group span.buttons-group-message {\n    margin-right: 1em;\n  }\n  .buttons-group button:last-child,\n  .buttons-group .button:last-child,\n  .buttons-group span.buttons-group-message:last-child {\n    margin-right: 0;\n  }\n}\n@media (max-width: 568px) {\n  .buttons-group button,\n  .buttons-group .button,\n  .buttons-group span.buttons-group-message {\n    display: block;\n    margin-bottom: 1em;\n  }\n  .buttons-group button:last-child,\n  .buttons-group .button:last-child,\n  .buttons-group span.buttons-group-message:last-child {\n    margin-bottom: 0;\n  }\n}\n@media (max-width: 568px) {\n  .buttons-group button {\n    width: 100%;\n  }\n}\n\n@font-face {\n  font-family: \"embed-box-icons\";\n  font-style: normal;\n  font-weight: normal;\n  src: url(data:application/x-font-woff;charset=utf-8;base64,d09GRk9UVE8AAAQQAAoAAAAABewAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAABDRkYgAAAA9AAAARQAAAEw7LPuDUZGVE0AAAIIAAAAGgAAABx04jsnT1MvMgAAAiQAAABLAAAAYGFpBYRjbWFwAAACcAAAAEcAAAFOP7UHcGhlYWQAAAK4AAAALwAAADYGoUQqaGhlYQAAAugAAAAfAAAAJAe/AetobXR4AAADCAAAABAAAAAQCwoAAG1heHAAAAMYAAAABgAAAAYABFAAbmFtZQAAAyAAAADaAAABsE3GDFBwb3N0AAAD/AAAABMAAAAg/50AZnicTY69S8NQFMXvbV5aLI/4GXEIzSJYAh0dXPwXLNpgVymvH6AtpMHJsWglk06CuPXvEPyg9E9wt2SVt/huk2exWUo5HPgdONx7EBgDROTioiWCSqfR6/YBc4BwTKUcuQbtsTo3JGelIrBh2Y2iJfBCFM5GydB04GXdAdhwYLTpwJqDB1tgZjfysA0ueHAYdq5EP+i02mGl0RbXQa97KZpLXvm9OgMA73CI98AQ90+aN+onkgmXKCVpacjd2ST5+pvk5TywE056zgsW+XRrq281rX2m0zROYxXXTtU0zRS/n6lFVhl9mBY90sDW5/RUrZOnhV547JvWLw0Y+fp5/KbLJMgjUX1dlB92Zkd2xIv/gw+CN3icY2BgYGQAggsF9tdA9CWLvytgNABOBQe1AAB4nGNgZopgnMDAysDBasw6k4GBUQ5CM19nSGMSYgACVgYIaGBgYGJAAgFprikMDgzXFazY0v6lMexg/sIgDhRmhCtQAEJGABgTC0oAeJxjYGBgZoBgGQZGBhDwAPIYwXwWBh0gzQakGRmYGK4rWP3/D+RfV7D8//+/FpAFUsUC1s0E5LAxQA0YnoCZibAaAF3eCGYAeJxjYGRgYADisx3H/eL5bb4ycHMwgMAli78rEPT/l8wCzF+AXA4GJpAoAFzJDHkAeJxjYGRgYP7y/yXDDmYBBoZ/b4EkUAQFsAAAloYFrwAEAAAAAf0AAAH9AAADEAAAAABQAAAEAAB4nI2PvQ3CMBCFXyCJxI8oEaULJCpHTiRSMEBKSvoIWVGaWHKYgREYgzEYgDEYgJoXc0UKCizZ/u7euzsbwBI3RBhWhAU2whMkMMJT7HAVjul5CCfkl3CKRbSiM4pnzKxD1cATzLEVnuKIUjim5y6ckJ/CKfkNixoNTw+NFmc4dOgBWzfW6/bsOgajvGSqEF/C7UO9QoGM/1A4cP/u+tVK5nI6NSsMac92rrtUzjdWFZlRBzWazqjUudGFyWn857WnoPfUB1VxwvAunKzvW9epPDN/9fkAFF9DNgAAeJxjYGYAg/+zGNIYsAAALpkCAwA=) format(\"woff\");\n}\na.more:after,\nbutton.more:after,\n.with-more-icon-after:after {\n  font-family: \"embed-box-icons\";\n  position: relative;\n  display: inline-block;\n  vertical-align: baseline;\n  color: inherit;\n  font-style: normal;\n  font-weight: inherit;\n  font-size: 1em;\n  line-height: 1;\n  text-decoration: none;\n  content: \"\\203A\";\n  padding-left: 0.3em;\n}\na.before:before,\n.with-before-icon-before:before {\n  font-family: \"embed-box-icons\";\n  position: relative;\n  display: inline-block;\n  vertical-align: baseline;\n  color: inherit;\n  font-style: normal;\n  font-weight: inherit;\n  font-size: 1em;\n  line-height: 1;\n  text-decoration: none;\n  content: \"\\2039\";\n  padding-right: 0.3em;\n}\nhtml,\nbody {\n  width: 100%;\n  height: 100%;\n}\nbody {\n  cursor: default;\n  margin: 0;\n  -webkit-user-select: none;\n  -moz-user-select: none;\n  -ms-user-select: none;\n  user-select: none;\n}\ndiv,\nfooter,\nheader,\nmain,\nsection {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: box;\n  display: flex;\n}\nbutton.run {\n  background: #e6db74;\n  color: #171717;\n  font-weight: 500;\n  margin: 0;\n  padding: 0.3em 1em;\n  position: absolute;\n  left: 1.5em;\n  top: 1.5em;\n}\n.embed-box-download-iframe {\n  position: fixed;\n  visibility: hidden;\n  width: 1px;\n  height: 1px;\n  z-index: -99999;\n}\n[data-column] {\n  -webkit-box-orient: vertical;\n  -moz-box-orient: vertical;\n  -o-box-orient: vertical;\n  -webkit-box-lines: single;\n  -moz-box-lines: single;\n  -o-box-lines: single;\n  -ms-flex-flow: column nowrap;\n  flex-flow: column nowrap;\n}\n[data-action] {\n  cursor: pointer;\n}\n[data-visibility=\"hidden\"] {\n  visibility: hidden;\n}\n[data-selectable],\n[contenteditable] {\n  cursor: text;\n  -webkit-user-select: text;\n  -moz-user-select: text;\n  -ms-user-select: text;\n  user-select: text;\n}\nhtml,\nbody {\n  overflow: hidden;\n}\nhtml {\n  background: transparent;\n}\nmain {\n  width: 100%;\n  height: 100%;\n  overflow: hidden;\n}\nbody {\n  background: rgba(0,0,0,0.4);\n}\n", ""]);
+exports.push([module.i, "article,\naside,\ndetails,\nfigcaption,\nfigure,\nfooter,\nheader,\nhgroup,\nnav,\nsection,\nsummary {\n  display: block;\n}\naudio,\ncanvas,\nvideo {\n  display: inline;\n  zoom: 1;\n}\naudio:not([controls]) {\n  display: none;\n  height: 0;\n}\n[hidden] {\n  display: none;\n}\nhtml {\n  font-size: 100%;\n  -webkit-text-size-adjust: 100%;\n  -ms-text-size-adjust: 100%;\n  text-size-adjust: 100%;\n}\nbody {\n  margin: 0;\n  text-rendering: optimizeLegibility;\n}\nbutton,\ninput,\nselect,\ntextarea {\n  font-family: inherit;\n  font-size: inherit;\n  margin: 0;\n}\nbutton,\ninput {\n  line-height: normal;\n}\nbutton,\ninput[type=\"button\"],\ninput[type=\"reset\"],\ninput[type=\"submit\"] {\n  cursor: pointer;\n}\nbutton[disabled],\ninput[type=\"button\"][disabled],\ninput[type=\"reset\"][disabled],\ninput[type=\"submit\"][disabled] {\n  cursor: not-allowed;\n}\nbutton::-moz-focus-inner,\ninput::-moz-focus-inner {\n  border: 0;\n  padding: 0;\n}\na:focus {\n  outline: thin dotted;\n}\na:active,\na:hover {\n  outline: 0;\n}\nabbr[title] {\n  border-bottom: thin dotted;\n}\nb,\nstrong {\n  font-weight: 700;\n}\ndfn {\n  font-style: italic;\n}\npre {\n  white-space: pre-wrap;\n  word-wrap: break-word;\n}\nimg {\n  border: 0;\n  -ms-interpolation-mode: bicubic;\n}\nsvg:not(:root) {\n  overflow: hidden;\n}\ntextarea {\n  overflow: auto;\n  -webkit-overflow-scrolling: touch;\n  overflow-scrolling: touch;\n  vertical-align: top;\n  resize: vertical;\n}\ntable {\n  border-collapse: collapse;\n  border-spacing: 0;\n}\nfigure,\nform {\n  margin: 0;\n}\np,\npre,\ndl,\nmenu,\nol,\nul {\n  margin: 1em 0;\n}\n*,\n*:after,\n*:before {\n  box-sizing: border-box;\n}\nhtml {\n  font-size: 16px;\n}\nbody {\n  font-family: \"Avenir New\", Avenir, \"Helvetica Neue\", sans-serif;\n}\nbutton,\n.button {\n  -webkit-font-smoothing: subpixel-antialiased;\n  -moz-osx-font-smoothing: auto;\n  position: relative;\n  text-rendering: optimizeLegibility;\n  -webkit-tap-highlight-color: transparent;\n  -webkit-user-select: none;\n  -moz-user-select: none;\n  -ms-user-select: none;\n  user-select: none;\n  -webkit-appearance: none;\n  -moz-appearance: none;\n  appearance: none;\n  display: inline-block;\n  cursor: pointer;\n  border: 0;\n  border-radius: 0.1875em;\n  font-size: 1em;\n  padding: 0.6em 2em;\n  margin: 0;\n  text-align: center;\n  font-family: \"Avenir New\", Avenir, \"Helvetica Neue\", sans-serif;\n  font-weight: 300;\n  letter-spacing: 0.04em;\n  text-indent: 0.04em;\n  text-decoration: none;\n}\nbutton.slim,\n.button.slim {\n  padding-left: 1em;\n  padding-right: 1em;\n}\nbutton.nowrap,\n.button.nowrap {\n  white-space: nowrap;\n  max-width: 100%;\n}\n@media screen and (-webkit-min-device-pixel-ratio: 0) {\n  button,\n  .button {\n    font-weight: 400;\n  }\n}\n@media all and (-webkit-min-device-pixel-ratio: 0) and (-webkit-min-device-pixel-ratio: 0.001), all and (-webkit-min-device-pixel-ratio: 0) and (min-resolution: 0.001dppx) {\n  button,\n  .button {\n    font-weight: 300;\n  }\n}\nbutton:hover,\n.button:hover {\n  text-decoration: none;\n}\nbutton[disabled],\n.button[disabled] {\n  opacity: 0.7;\n  -ms-filter: \"progid:DXImageTransform.Microsoft.Alpha(Opacity=70)\";\n  filter: alpha(opacity=70);\n}\nbutton[disabled]:hover,\n.button[disabled]:hover,\nbutton[disabled]:focus,\n.button[disabled]:focus,\nbutton[disabled]:focus:hover,\n.button[disabled]:focus:hover {\n  box-shadow: none !important;\n}\nbutton:hover,\n.button:hover {\n  box-shadow: 0 0.1875em 0.375em -0.1875em rgba(0,0,0,0.325);\n}\nbutton:hover:active,\n.button:hover:active,\nbutton.active,\n.button.active {\n  box-shadow: inset 0 0.125em 0.375em rgba(0,0,0,0.325);\n}\nbutton:focus,\n.button:focus {\n  outline: none;\n}\nbutton:focus:before,\n.button:focus:before {\n  content: \"\";\n  position: absolute;\n  z-index: 1;\n  top: 2px;\n  right: 2px;\n  bottom: 2px;\n  left: 2px;\n  border-radius: 0.1em;\n  box-shadow: inset 0 0 0 1px #fff;\n  pointer-events: none;\n  -webkit-transition: opacity 0.3s ease-in-out;\n  transition: opacity 0.3s ease-in-out;\n}\nbutton:focus:active:before,\n.button:focus:active:before {\n  opacity: 0;\n  -ms-filter: \"progid:DXImageTransform.Microsoft.Alpha(Opacity=0)\";\n  filter: alpha(opacity=0);\n}\nbutton.primary,\n.button.primary {\n  background: #000;\n  color: #fff;\n}\nbutton.transparent,\n.button.transparent {\n  font-weight: 400;\n}\nbutton.transparent:not(:hover):not(:active):not(.active):not(:focus),\n.button.transparent:not(:hover):not(:active):not(.active):not(:focus) {\n  background: transparent;\n  box-shadow: inset 0 0 0 1px lightLineGrayRGBA;\n  color: rgba(0,0,0,0.55);\n}\nbutton.small,\n.button.small {\n  font-size: 0.9em;\n  border-radius: 0.2083em;\n  letter-spacing: 0.06em;\n  text-indent: 0.06em;\n}\nbutton.large,\n.button.large {\n  font-size: 1.25em;\n}\nbutton.with-spinner-icon,\n.button.with-spinner-icon {\n  position: relative;\n}\nbutton.with-spinner-icon .icon.spinner-icon,\n.button.with-spinner-icon .icon.spinner-icon {\n  display: none;\n}\nbutton.with-spinner-icon.showing-spinner-icon .button-content,\n.button.with-spinner-icon.showing-spinner-icon .button-content {\n  opacity: 0;\n  -ms-filter: \"progid:DXImageTransform.Microsoft.Alpha(Opacity=0)\";\n  filter: alpha(opacity=0);\n  pointer-events: none;\n}\nbutton.with-spinner-icon.showing-spinner-icon .icon.spinner-icon,\n.button.with-spinner-icon.showing-spinner-icon .icon.spinner-icon {\n  position: absolute;\n  display: block;\n  margin: auto;\n  top: 0;\n  right: 0;\n  bottom: 0;\n  left: 0;\n}\nbutton.with-spinner-icon.showing-spinner-icon.more:after,\n.button.with-spinner-icon.showing-spinner-icon.more:after {\n  opacity: 0;\n  -ms-filter: \"progid:DXImageTransform.Microsoft.Alpha(Opacity=0)\";\n  filter: alpha(opacity=0);\n  pointer-events: none;\n}\n.buttons-group span.buttons-group-message {\n  display: inline-block;\n  padding: 0.6em 0;\n}\n.buttons-group span.buttons-group-message.small {\n  font-size: 0.9em;\n}\n.buttons-group span.buttons-group-message.large {\n  font-size: 1.25em;\n}\n@media (min-width: 569px) {\n  .buttons-group button,\n  .buttons-group .button,\n  .buttons-group span.buttons-group-message {\n    margin-right: 1em;\n  }\n  .buttons-group button:last-child,\n  .buttons-group .button:last-child,\n  .buttons-group span.buttons-group-message:last-child {\n    margin-right: 0;\n  }\n}\n@media (max-width: 568px) {\n  .buttons-group button,\n  .buttons-group .button,\n  .buttons-group span.buttons-group-message {\n    display: block;\n    margin-bottom: 1em;\n  }\n  .buttons-group button:last-child,\n  .buttons-group .button:last-child,\n  .buttons-group span.buttons-group-message:last-child {\n    margin-bottom: 0;\n  }\n}\n@media (max-width: 568px) {\n  .buttons-group button {\n    width: 100%;\n  }\n}\n\n@font-face {\n  font-family: \"embed-box-icons\";\n  font-style: normal;\n  font-weight: normal;\n  src: url(data:application/x-font-woff;charset=utf-8;base64,d09GRk9UVE8AAAQQAAoAAAAABewAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAABDRkYgAAAA9AAAARQAAAEw7LPuDUZGVE0AAAIIAAAAGgAAABx04jsnT1MvMgAAAiQAAABLAAAAYGFpBYRjbWFwAAACcAAAAEcAAAFOP7UHcGhlYWQAAAK4AAAALwAAADYGoUQqaGhlYQAAAugAAAAfAAAAJAe/AetobXR4AAADCAAAABAAAAAQCwoAAG1heHAAAAMYAAAABgAAAAYABFAAbmFtZQAAAyAAAADaAAABsE3GDFBwb3N0AAAD/AAAABMAAAAg/50AZnicTY69S8NQFMXvbV5aLI/4GXEIzSJYAh0dXPwXLNpgVymvH6AtpMHJsWglk06CuPXvEPyg9E9wt2SVt/huk2exWUo5HPgdONx7EBgDROTioiWCSqfR6/YBc4BwTKUcuQbtsTo3JGelIrBh2Y2iJfBCFM5GydB04GXdAdhwYLTpwJqDB1tgZjfysA0ueHAYdq5EP+i02mGl0RbXQa97KZpLXvm9OgMA73CI98AQ90+aN+onkgmXKCVpacjd2ST5+pvk5TywE056zgsW+XRrq281rX2m0zROYxXXTtU0zRS/n6lFVhl9mBY90sDW5/RUrZOnhV547JvWLw0Y+fp5/KbLJMgjUX1dlB92Zkd2xIv/gw+CN3icY2BgYGQAggsF9tdA9CWLvytgNABOBQe1AAB4nGNgZopgnMDAysDBasw6k4GBUQ5CM19nSGMSYgACVgYIaGBgYGJAAgFprikMDgzXFazY0v6lMexg/sIgDhRmhCtQAEJGABgTC0oAeJxjYGBgZoBgGQZGBhDwAPIYwXwWBh0gzQakGRmYGK4rWP3/D+RfV7D8//+/FpAFUsUC1s0E5LAxQA0YnoCZibAaAF3eCGYAeJxjYGRgYADisx3H/eL5bb4ycHMwgMAli78rEPT/l8wCzF+AXA4GJpAoAFzJDHkAeJxjYGRgYP7y/yXDDmYBBoZ/b4EkUAQFsAAAloYFrwAEAAAAAf0AAAH9AAADEAAAAABQAAAEAAB4nI2PvQ3CMBCFXyCJxI8oEaULJCpHTiRSMEBKSvoIWVGaWHKYgREYgzEYgDEYgJoXc0UKCizZ/u7euzsbwBI3RBhWhAU2whMkMMJT7HAVjul5CCfkl3CKRbSiM4pnzKxD1cATzLEVnuKIUjim5y6ckJ/CKfkNixoNTw+NFmc4dOgBWzfW6/bsOgajvGSqEF/C7UO9QoGM/1A4cP/u+tVK5nI6NSsMac92rrtUzjdWFZlRBzWazqjUudGFyWn857WnoPfUB1VxwvAunKzvW9epPDN/9fkAFF9DNgAAeJxjYGYAg/+zGNIYsAAALpkCAwA=) format(\"woff\");\n}\na.more:after,\nbutton.more:after,\n.with-more-icon-after:after {\n  font-family: \"embed-box-icons\";\n  position: relative;\n  display: inline-block;\n  vertical-align: baseline;\n  color: inherit;\n  font-style: normal;\n  font-weight: inherit;\n  font-size: 1em;\n  line-height: 1;\n  text-decoration: none;\n  content: \"\\203A\";\n  padding-left: 0.3em;\n}\na.before:before,\n.with-before-icon-before:before {\n  font-family: \"embed-box-icons\";\n  position: relative;\n  display: inline-block;\n  vertical-align: baseline;\n  color: inherit;\n  font-style: normal;\n  font-weight: inherit;\n  font-size: 1em;\n  line-height: 1;\n  text-decoration: none;\n  content: \"\\2039\";\n  padding-right: 0.3em;\n}\nhtml,\nbody {\n  width: 100%;\n  height: 100%;\n}\nbody {\n  margin: 0;\n}\ndiv,\nfooter,\nheader,\nmain,\nsection {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: box;\n  display: flex;\n}\n[data-column] {\n  -webkit-box-orient: vertical;\n  -moz-box-orient: vertical;\n  -o-box-orient: vertical;\n  -webkit-box-lines: single;\n  -moz-box-lines: single;\n  -o-box-lines: single;\n  -ms-flex-flow: column nowrap;\n  flex-flow: column nowrap;\n}\n[data-action] {\n  cursor: pointer;\n}\n[data-visibility=\"hidden\"] {\n  visibility: hidden;\n}\n[data-selectable],\n[contenteditable] {\n  cursor: text;\n  -webkit-user-select: text;\n  -moz-user-select: text;\n  -ms-user-select: text;\n  user-select: text;\n}\nhtml,\nbody {\n  overflow: hidden;\n}\nhtml {\n  background: transparent;\n}\nmain {\n  width: 100%;\n  height: 100%;\n  overflow: hidden;\n}\nbody {\n  background: rgba(0,0,0,0.4);\n  cursor: default;\n  -webkit-user-select: none;\n  -moz-user-select: none;\n  -ms-user-select: none;\n  user-select: none;\n}\n", ""]);
 
 // exports
 
@@ -1611,7 +1714,7 @@ exports = module.exports = __webpack_require__(0)();
 
 
 // module
-exports.push([module.i, "[data-component$=\"-page\"] {\n  -webkit-box-flex: 1;\n  -o-box-flex: 1;\n  box-flex: 1;\n  -ms-flex: 1 1 auto;\n  flex: 1 1 auto;\n  overflow: auto;\n}\n[data-component$=\"-page\"] .copy-container {\n  background: rgba(0,0,0,0.045);\n  position: relative;\n}\n[data-component$=\"-page\"] .copy-container > textarea {\n  background-color: transparent;\n  border: none;\n  display: block;\n  font-family: Monaco, \"Bitstream Vera Sans Mono\", \"Lucida Console\", Terminal, monospace;\n  margin: 0;\n  padding: 1.3em;\n  padding-top: 4.3em;\n  resize: none;\n  white-space: pre-wrap;\n  width: 100%;\n  word-wrap: break-word;\n}\n[data-component$=\"-page\"] .copy-container > textarea:focus {\n  outline: none;\n}\n.instructions.markdown {\n  cursor: auto;\n  display: block;\n  padding: 3em 2em 3em 4em;\n  -webkit-user-select: text;\n  -moz-user-select: text;\n  -ms-user-select: text;\n  user-select: text;\n}\n.instructions.markdown [data-content-slot] {\n  background: rgba(0,0,0,0.045);\n  padding: 1em;\n  border-radius: 3px;\n  margin-left: -2em;\n}\n.instructions.markdown div,\n.instructions.markdown footer,\n.instructions.markdown header,\n.instructions.markdown section {\n  display: block;\n}\n.instructions.markdown figure > img {\n  max-width: 100%;\n}\n.instructions.markdown h1 {\n  font-size: 1.25em;\n  font-weight: 300;\n  margin-top: 2em;\n  margin-bottom: 2em;\n  text-align: center;\n  padding-right: 2em;\n}\n.instructions.markdown h2 {\n  font-size: 1em;\n  font-weight: 500;\n  margin-top: 3em;\n}\n.instructions.markdown h2 .step-number {\n  display: inline-block;\n  width: 2em;\n  height: 2em;\n  margin-right: 1em;\n  margin-left: -3em;\n  line-height: 2em;\n  text-align: center;\n  vertical-align: baseline;\n  border-radius: 999em;\n}\n.instructions.markdown h2 .step-number:not(.accent-background-color) {\n  background: rgba(0,0,0,0.045);\n}\n.instructions.markdown h2 .step-number.accent-background-color {\n  color: #fff;\n}\n.instructions.markdown p {\n  color: #888;\n}\n.instructions.markdown > *:first-child {\n  margin-top: 0;\n}\n.instructions.markdown > *:last-child {\n  margin-bottom: 0;\n}\n", ""]);
+exports.push([module.i, "[data-component$=\"-page\"] {\n  -webkit-box-flex: 1;\n  -o-box-flex: 1;\n  box-flex: 1;\n  -ms-flex: 1 1 auto;\n  flex: 1 1 auto;\n  overflow: auto;\n  -webkit-overflow-scrolling: touch;\n  overflow-scrolling: touch;\n}\n[data-component$=\"-page\"]:focus {\n  outline: none;\n}\n[data-component$=\"-page\"] .copy-container {\n  font-size: 0.8em;\n  background: rgba(0,0,0,0.045);\n  position: relative;\n}\n[data-component$=\"-page\"] .copy-container button.run {\n  margin: 0;\n  padding: 0.3em 1em;\n  position: absolute;\n  left: 1.5em;\n  top: 1.5em;\n}\n[data-component$=\"-page\"] .copy-container > .copyable {\n  background-color: transparent;\n  border: none;\n  display: block;\n  font-family: Monaco, \"Bitstream Vera Sans Mono\", \"Lucida Console\", Terminal, monospace;\n  margin: 0;\n  padding: 1.3em;\n  padding-top: 4.3em;\n  resize: none;\n  white-space: pre-wrap;\n  width: 100%;\n  word-wrap: break-word;\n}\n[data-component$=\"-page\"] .copy-container > .copyable:focus {\n  outline: none;\n}\n.instructions.markdown {\n  cursor: auto;\n  display: block;\n  padding: 3em 2em 3em 4em;\n  -webkit-user-select: text;\n  -moz-user-select: text;\n  -ms-user-select: text;\n  user-select: text;\n}\n.instructions.markdown [data-content-slot] {\n  background: rgba(0,0,0,0.045);\n  padding: 1em;\n  border-radius: 3px;\n  margin-left: -2em;\n}\n.instructions.markdown div,\n.instructions.markdown footer,\n.instructions.markdown header,\n.instructions.markdown section {\n  display: block;\n}\n.instructions.markdown figure > img {\n  max-width: 100%;\n}\n.instructions.markdown h1 {\n  font-size: 1.25em;\n  font-weight: 300;\n  margin-top: 2em;\n  margin-bottom: 2em;\n  text-align: center;\n  padding-right: 2em;\n}\n.instructions.markdown h2 {\n  font-size: 1em;\n  font-weight: 500;\n  margin-top: 3em;\n}\n.instructions.markdown h2 .step-number {\n  border-radius: 50%;\n  cursor: default;\n  display: inline-block;\n  height: 2em;\n  line-height: 2em;\n  margin-left: -3em;\n  margin-right: 1em;\n  text-align: center;\n  -webkit-user-select: none;\n  -moz-user-select: none;\n  -ms-user-select: none;\n  user-select: none;\n  vertical-align: baseline;\n  width: 2em;\n}\n.instructions.markdown h2 .step-number:not(.accent-background-color) {\n  background: rgba(0,0,0,0.045);\n}\n.instructions.markdown h2 .step-number.accent-background-color {\n  color: #fff;\n}\n.instructions.markdown p {\n  color: rgba(0,0,0,0.43);\n}\n.instructions.markdown > *:first-child {\n  margin-top: 0;\n}\n.instructions.markdown > *:last-child {\n  margin-bottom: 0;\n}\n", ""]);
 
 // exports
 
@@ -1712,7 +1815,7 @@ var buf = [];
 var jade_mixins = {};
 var jade_interp;
 ;var locals_for_with = (locals || {});(function (config) {
-buf.push("<main data-column data-component=\"application\" role=\"main\"><div data-column class=\"modal\"><header role=\"menubar\" class=\"modal-header\"><button role=\"menuitem\" data-action=\"previous\" data-ref=\"previousPageButton\"></button><span class=\"title\">" + (jade.escape((jade_interp = config.labels.title(config.appName)) == null ? '' : jade_interp)) + "</span><button role=\"menuitem\" data-action=\"close\" data-ref=\"closeModalButton\"></button></header><div data-ref=\"content\" class=\"content\"></div></div></main>");}.call(this,"config" in locals_for_with?locals_for_with.config:typeof config!=="undefined"?config:undefined));;return buf.join("");
+buf.push("<main data-column data-component=\"application\" role=\"main\"><div data-column class=\"modal\"><header role=\"menubar\" class=\"modal-header\"><button data-action=\"previous\" data-ref=\"previousPageButton\" tabindex=\"1\" role=\"menuitem\"></button><span class=\"title\">" + (jade.escape((jade_interp = config.labels.title(config.appName)) == null ? '' : jade_interp)) + "</span><button data-action=\"close\" data-ref=\"closeModalButton\" tabindex=\"2\" role=\"menuitem\"></button></header><div data-ref=\"content\" class=\"content\"></div></div></main>");}.call(this,"config" in locals_for_with?locals_for_with.config:typeof config!=="undefined"?config:undefined));;return buf.join("");
 }
 
 /***/ },
@@ -1726,7 +1829,7 @@ var buf = [];
 var jade_mixins = {};
 var jade_interp;
 ;var locals_for_with = (locals || {});(function (config) {
-buf.push("<section data-column data-component=\"page-wrapper\"><div data-ref=\"pageMount\" class=\"page-mount\"></div><footer class=\"modal-footer\"><button data-action=\"close\" data-ref=\"doneButton\" class=\"primary slim\">" + (jade.escape((jade_interp = config.labels.done) == null ? '' : jade_interp)) + "</button></footer></section>");}.call(this,"config" in locals_for_with?locals_for_with.config:typeof config!=="undefined"?config:undefined));;return buf.join("");
+buf.push("<section data-column data-component=\"page-wrapper\"><div data-ref=\"pageMount\" tabindex=\"3\" class=\"page-mount\"></div><footer class=\"modal-footer\"><button data-action=\"close\" data-ref=\"doneButton\" tabindex=\"5\" class=\"primary slim\">" + (jade.escape((jade_interp = config.labels.done) == null ? '' : jade_interp)) + "</button></footer></section>");}.call(this,"config" in locals_for_with?locals_for_with.config:typeof config!=="undefined"?config:undefined));;return buf.join("");
 }
 
 /***/ },
@@ -1740,7 +1843,7 @@ var buf = [];
 var jade_mixins = {};
 var jade_interp;
 ;var locals_for_with = (locals || {});(function (config) {
-buf.push("<section data-column data-component=\"site-type-search\" data-event-receiver><header class=\"header\"><input autofocus data-ref=\"search\"" + (jade.attr("placeholder", config.labels.searchPlaceholder, true, true)) + " type=\"text\" class=\"search\"></header><div data-column data-ref=\"typesContainer\" class=\"types\"></div><footer class=\"modal-footer\"><button data-action=\"next\" data-ref=\"nextPageButton\" class=\"primary slim more\">" + (jade.escape((jade_interp = config.labels.next) == null ? '' : jade_interp)) + "</button></footer></section>");}.call(this,"config" in locals_for_with?locals_for_with.config:typeof config!=="undefined"?config:undefined));;return buf.join("");
+buf.push("<section data-column data-component=\"site-type-search\" data-event-receiver><header class=\"header\"><input autofocus data-ref=\"search\"" + (jade.attr("placeholder", config.labels.searchPlaceholder, true, true)) + " tabindex=\"3\" type=\"text\" class=\"search\"></header><div data-column data-ref=\"typesContainer\" class=\"types\"></div><footer class=\"modal-footer\"><button data-action=\"next\" data-ref=\"nextPageButton\" tabindex=\"5\" class=\"primary slim more\">" + (jade.escape((jade_interp = config.labels.next) == null ? '' : jade_interp)) + "</button></footer></section>");}.call(this,"config" in locals_for_with?locals_for_with.config:typeof config!=="undefined"?config:undefined));;return buf.join("");
 }
 
 /***/ },
