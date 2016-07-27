@@ -12,7 +12,8 @@
     "build-distributions": "NODE_ENV=production babel-node scripts/build-distributions.js",
     "build-site": "NODE_ENV=production babel-node scripts/build-site.js",
     "lint": "eslint ./app",
-    "lint:fix": "eslint --fix ./app"
+    "lint:fix": "eslint --fix ./app",
+    "prepublish": "npm run lint && npm run build-distributions"
   },
   "homepage": "https://github.com/EagerIO/EmbedBox",
   "main": "embed-box.js",
