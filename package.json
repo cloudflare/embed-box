@@ -1,8 +1,9 @@
 {
   "name": "embed-box",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "license": "MIT",
   "author": "Eager",
+  "description": "Simple install guidance for CMS plugins",
   "repository": {
     "type": "git",
     "url": "git://github.com/EagerIO/EmbedBox.git"
