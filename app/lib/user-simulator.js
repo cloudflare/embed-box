@@ -23,7 +23,14 @@ sequence = sequence.concat(
 )
 
 export function runDemo({contentWindow}) {
-  const embedBox = new contentWindow.EmbedBox()
+  const embedBox = new contentWindow.EmbedBox({
+    downloadURLs: {
+      wordpress: "about:blank",
+      joomla: "about:blank",
+      drupal: "about:blank",
+      generic: "about:blank"
+    }
+  })
   const iframeDocument = embedBox.iframe.document
 
   const searchComponent = iframeDocument.querySelector("[data-component='site-type-search']")

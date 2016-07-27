@@ -34,6 +34,10 @@ document.addEventListener("DOMContentLoaded", () => {
     if (instance) instance.destroy()
 
     exampleFrame.contentWindow.eval(example)
+
+    const {downloadURLs} = getStore(exampleFrame.contentWindow)
+
+    Object.keys(downloadURLs).forEach(key => downloadURLs[key] = "about:blank")
     alignWithElement(docsFloatingFigure, parentElement)
   }
 
