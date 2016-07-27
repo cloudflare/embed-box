@@ -24,7 +24,9 @@ sequence = sequence.concat(
 
 sequence.push({eventType: "scroll"})
 
+
 export function runDemo({contentWindow}, onComplete = () => {}) {
+  let running = true
   const embedBox = new contentWindow.EmbedBox({
     downloadURLs: {
       wordpress: "about:blank",
@@ -35,10 +37,21 @@ export function runDemo({contentWindow}, onComplete = () => {}) {
   })
   const iframeDocument = embedBox.iframe.document
 
+  function cancelDemo() {
+    if (!running) return
+
+    running = false
+  }
+
+  iframeDocument.addEventListener("mouseover", cancelDemo)
+  iframeDocument.addEventListener("click", cancelDemo)
+  iframeDocument.addEventListener("touchend", cancelDemo)
+
   const searchComponent = iframeDocument.querySelector("[data-component='site-type-search']")
   const input = searchComponent.querySelector(".search")
 
   function simulate(index = 0) {
+    if (!running) return
     if (["hiding", "hidden"].includes(embedBox.visibility)) return
 
     const {entity, eventType} = sequence[index]
