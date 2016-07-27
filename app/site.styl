@@ -150,17 +150,12 @@ body
 
     ul.features-list
       antialiasedFonts()
-      font-family sansSerifFonts
       list-style none
+      width centeredPageWidth
+      max-width 100%
       padding 0
       margin 0 auto
-
-      width centeredPageWidth
-      padding-left 1em
-      padding-right @padding-left
-      max-width 100%
-      margin-left auto
-      margin-right auto
+      font-family sansSerifFonts
 
       > li
         clearfix()
@@ -244,7 +239,7 @@ body
               pointer-events none
               position absolute
               display block
-              background lighterLineGray
+              background lighterLineGrayRGBA
               height .0625em
               top 100%
               width 100%
@@ -367,6 +362,16 @@ body
         path
           fill currentColor
 
+button.run
+  background #e6db74
+  color #171717
+  font-weight 500
+  margin 0
+  padding .3em 1em
+  position absolute
+  left 1.5em
+  top 1.5em
+
 .code-example
   antialiasedFonts()
   position relative
@@ -405,7 +410,7 @@ body
   code
     font-size .9em
     padding .15625em .3125em
-    background lightGray
+    background lightGrayRGBA
     white-space nowrap
     font-style normal
 
