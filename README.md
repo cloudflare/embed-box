@@ -45,8 +45,6 @@ $ npm install --save embed-box
 import EmbedBox from "embed-box"
 
 const embedBox = new EmbedBox()
-
-embedBox.show()
 ```
 
 ### Customization
@@ -119,8 +117,6 @@ A custom bundle can be made to include specific pages.
     console.log(EmbedBox.fetchedPages) // [WordPressPage, JoomlaPage]
 
     const embedBox = new EmbedBoxCustom()
-
-    embedBox.show()
   </script>
 </body>
 ```
