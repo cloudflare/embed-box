@@ -53,6 +53,25 @@ html
     @media mobileMaxWidthQuery
       font-size 1em
 
+  .headline-anchor
+    position relative
+
+    > a
+      color currentColor
+      display inline-block
+      text-decoration none
+
+    &::before
+      content "#"
+      display inline-block
+      margin-right 0.2em
+      opacity 0.1
+      position absolute
+      right 100%
+
+    &:hover::before
+      opacity 0.8
+
   .figure.frame-container
     overflow hidden
 

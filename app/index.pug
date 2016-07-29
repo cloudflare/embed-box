@@ -1,3 +1,9 @@
+mixin anchored(tag, text)
+  - var escapedText = text.toLowerCase().replace(/[^\w]+/g, "-")
+  | <#{tag} class="headline-anchor">
+  a.without-underline(name=escapedText href=("#" + escapedText))=text
+  | </#{tag}>
+
 doctype html
 html.no-js(lang="en" xmlns:og="http://ogp.me/ns#" xmlns:fb="http://www.facebook.com/2008/fbml")
   head
@@ -60,10 +66,9 @@ html.no-js(lang="en" xmlns:og="http://ogp.me/ns#" xmlns:fb="http://www.facebook.
             img.image(src="https://eager.io/images/home/feature-webhooks.png")
 
       .slide.padded.docs.full.install
-        :marked
-          # Docs
+        h1 Docs
 
-          ## How to use
+        +anchored("h2", "How to use")
 
           Download the <a href="#">latest release</a> and add this to your page:
 
@@ -74,10 +79,8 @@ html.no-js(lang="en" xmlns:og="http://ogp.me/ns#" xmlns:fb="http://www.facebook.
           button.run Run
           != require("./examples/basic.md")
 
-        :marked
-          ## Customization
-
-          ### Themes
+        +anchored("h2", "Customization")
+        +anchored("h3", "Themes")
 
         .code-example.has-run-button
           button.run Run
@@ -89,18 +92,18 @@ html.no-js(lang="en" xmlns:og="http://ogp.me/ns#" xmlns:fb="http://www.facebook.
         .code-example
           != require("./examples/custom-modal-stylesheet.md")
 
-        :marked
-          ### Content slots
+        +anchored("h3", "Content slots")
 
+        :marked
           Content can be inserted before and after the page instructions.
 
         .code-example.has-run-button
           button.run Run
           != require("./examples/content-slots.md")
 
-        :marked
-          ### Labels
+        +anchored("h3", "Labels")
 
+        :marked
           Labels can be added as strings or functions.
           The EmbedBox `config` is exposed to label functions.
 
@@ -109,9 +112,9 @@ html.no-js(lang="en" xmlns:og="http://ogp.me/ns#" xmlns:fb="http://www.facebook.
           != require("./examples/labels.md")
 
 
-        :marked
-          ### Custom pages
+        +anchored("h3", "Custom pages")
 
+        :marked
           If the content slots are too coarse, custom pages can be created with the custom build.
 
         .code-example
@@ -121,9 +124,9 @@ html.no-js(lang="en" xmlns:og="http://ogp.me/ns#" xmlns:fb="http://www.facebook.
           button.run Run
           != require("./examples/custom-page.md")
 
-        :marked
-          ## Contributing
+        +anchored("h3", "Contributing")
 
+        :marked
           Please do, we would love for this to become a project of the community.
           Feel free to open an issue, submit a PR or contribute to the wiki.
 
