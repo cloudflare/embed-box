@@ -92,11 +92,22 @@ html.no-js(lang="en" xmlns:og="http://ogp.me/ns#" xmlns:fb="http://www.facebook.
         :marked
           ### Content slots
 
-          Content be inserted before and after the page instructions.
+          Content can be inserted before and after the page instructions.
 
         .code-example.has-run-button
           button.run Run
           != require("./examples/content-slots.md")
+
+        :marked
+          ### Labels
+
+          Labels can be added as strings or functions.
+          The EmbedBox `config` is exposed to label functions.
+
+        .code-example.has-run-button
+          button.run Run
+          != require("./examples/labels.md")
+
 
         :marked
           ### Custom pages
