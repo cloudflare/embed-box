@@ -59,7 +59,7 @@ module.exports = function createWebpackConfig(overrides = {}) {
   $.module = {
     loaders: loaders.concat([
       {test: /\.md$/, loader: "html!markdown", exclude},
-      {test: /\.pug$/, loader: "jade", exclude},
+      {test: /\.pug$/, loader: "pug", exclude},
       {test: /\.png|jpe?g|gif$/i, loader: "url?limit=0", exclude},
       {test: /\.js$/, loader: "babel", exclude},
       {test: /\.svg$/, loader: "svg-inline", exclude},
