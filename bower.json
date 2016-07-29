@@ -1,16 +1,13 @@
 {
   "name": "embed-box",
-  "version": "0.0.1",
-  "private": true,
+  "version": "0.0.3",
   "ignore": [
     "deploy.yaml",
     "circle.yml",
-    "coffee/",
     "examples/",
-    "jade/",
     "node_modules/",
+    "media/",
     "pages/",
     "test/",
-    "tools/"
   ]
 }
