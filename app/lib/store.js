@@ -3,7 +3,7 @@ export function initializeStore(instance, spec = {}) {
   const {autoDownload = true, labels = {}} = spec
 
   window.EmbedBoxStore = {
-    appName: spec.appName || "an app",
+    appName: spec.appName,
     instance,
 
     autoDownload,
