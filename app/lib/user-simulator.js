@@ -26,21 +26,29 @@ sequence.push({eventType: "scroll"})
 
 
 export function runDemo({contentWindow}, onComplete = () => {}) {
+  function createEmbedBox() {
+    return new contentWindow.EmbedBox({
+      downloadURLs: {
+        wordpress: "about:blank",
+        joomla: "about:blank",
+        drupal: "about:blank",
+        generic: "about:blank"
+      }
+    })
+  }
+
   let running = true
-  const embedBox = new contentWindow.EmbedBox({
-    downloadURLs: {
-      wordpress: "about:blank",
-      joomla: "about:blank",
-      drupal: "about:blank",
-      generic: "about:blank"
-    }
-  })
+  let embedBox = createEmbedBox()
+
   const iframeDocument = embedBox.iframe.document
 
   function cancelDemo() {
     if (!running) return
 
     running = false
+    embedBox.destroy()
+
+    embedBox = createEmbedBox()
   }
 
   iframeDocument.addEventListener("mouseover", cancelDemo)
