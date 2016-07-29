@@ -1,6 +1,6 @@
 ```javascript
 new EmbedBox({
-  appName: "Example App",
+  name: "Example Plugin",
   downloadURLs: {
     wordpress: "http://example.com/wordpress-plugin.zip",
     joomla: "http://example.com/joomla-plugin.zip",

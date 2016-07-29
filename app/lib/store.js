@@ -3,7 +3,7 @@ export function initializeStore(instance, spec = {}) {
   const {autoDownload = true, labels = {}} = spec
 
   window.EmbedBoxStore = {
-    appName: spec.appName,
+    name: spec.name || "a plugin",
     instance,
 
     autoDownload,
@@ -27,7 +27,7 @@ export function initializeStore(instance, spec = {}) {
       done: "Done",
       searchPlaceholder: "Select or search the type of website you have...",
       next: "Next",
-      title: appName => `Add ${appName} to your site`,
+      title: config => `Add ${config.name} to your site`,
       ...labels
     }
   }

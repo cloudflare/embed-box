@@ -60,9 +60,16 @@ export default class BaseComponent {
 
   compileTemplate(templateVars = {}) {
     const {template} = this.constructor
+    const config = getStore()
+
+    function label(key) {
+      const value = config.labels[key]
+
+      return typeof value === "function" ? value(config) : value
+    }
 
     if (typeof template === "function") {
-      this.serializer.innerHTML = template.call(this, {config: getStore(), ...templateVars})
+      this.serializer.innerHTML = template.call(this, {config, label, ...templateVars})
     }
     else {
       this.serializer.innerHTML = template

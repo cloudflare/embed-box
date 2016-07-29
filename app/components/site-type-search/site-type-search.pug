@@ -3,7 +3,7 @@ section(data-column data-component="site-type-search" data-event-receiver)
     input.search(
       autofocus
       data-ref="search"
-      placeholder=config.labels.searchPlaceholder
+      placeholder=label("searchPlaceholder")
       tabindex="3"
       type="text")
 
@@ -11,5 +11,5 @@ section(data-column data-component="site-type-search" data-event-receiver)
 
   footer.modal-footer
     button.primary.slim.more(data-action="next" data-ref="nextPageButton" tabindex="5")
-      | #{config.labels.next}
+      = label("next")
 

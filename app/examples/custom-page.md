@@ -6,7 +6,7 @@ const CustomPage = EmbedBoxCustomPage.extend({
     registerURL: "http://example.com/register"
   },
   template: vars => `<section>
-    <h1>Installing ${vars.config.appName}</h1>
+    <h1>Installing ${vars.config.name}</h1>
 
     <p>
       <a href="${vars.registerURL}">
@@ -18,7 +18,7 @@ const CustomPage = EmbedBoxCustomPage.extend({
 })
 
 new EmbedBoxCustom({
-  appName: "Custom Page Example",
+  name: "Custom Page Example",
   pages: [CustomPage]
 })
 ```

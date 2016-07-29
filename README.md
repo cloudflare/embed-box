@@ -21,7 +21,7 @@ Download and include with a script tag.
 <body>
   <script>
     new EmbedBox({
-      appName: "Example App",
+      name: "Example Plugin",
       downloadURLs: {
         wordpress: "http://example.com/wordpress-plugin.zip",
         joomla: "http://example.com/joomla-plugin.zip",
@@ -90,7 +90,7 @@ const CustomPage = EmbedBoxCustomPage.extend({
     registerURL: "http://example.com/register"
   },
   template: vars => `<section>
-    <h1>Installing ${vars.config.appName} from a custom page</h1>
+    <h1>Installing ${vars.config.name} from a custom page</h1>
 
     <p>
       <a href="${vars.registerURL}">Register an account</a> before installing.
