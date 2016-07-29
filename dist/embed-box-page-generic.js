@@ -83,7 +83,7 @@ function initializeStore(instance) {
 
 
   window.EmbedBoxStore = {
-    appName: spec.appName || "an app",
+    name: spec.name || "a plugin",
     instance: instance,
 
     autoDownload: autoDownload,
@@ -107,8 +107,8 @@ function initializeStore(instance) {
       done: "Done",
       searchPlaceholder: "Select or search the type of website you have...",
       next: "Next",
-      title: function title(appName) {
-        return "Add " + appName + " to your site";
+      title: function title(config) {
+        return "Add " + config.name + " to your site";
       }
     }, labels)
   };
@@ -133,7 +133,7 @@ function destroyStore() {
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__generic_pug__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__generic_pug__ = __webpack_require__(12);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__generic_pug___default = __WEBPACK_IMPORTED_MODULE_0__generic_pug__ && __WEBPACK_IMPORTED_MODULE_0__generic_pug__.__esModule ? function() { return __WEBPACK_IMPORTED_MODULE_0__generic_pug__['default'] } : function() { return __WEBPACK_IMPORTED_MODULE_0__generic_pug__; };
 /* harmony import */ __webpack_require__.d(__WEBPACK_IMPORTED_MODULE_0__generic_pug___default, 'a', __WEBPACK_IMPORTED_MODULE_0__generic_pug___default);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_components_base_page__ = __webpack_require__(4);
@@ -369,9 +369,16 @@ var BaseComponent = (_temp = _class = function () {
       var templateVars = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
       var template = this.constructor.template;
 
+      var config = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_lib_store__["a" /* getStore */])();
+
+      function label(key) {
+        var value = config.labels[key];
+
+        return typeof value === "function" ? value(config) : value;
+      }
 
       if (typeof template === "function") {
-        this.serializer.innerHTML = template.call(this, _extends({ config: __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_lib_store__["a" /* getStore */])() }, templateVars));
+        this.serializer.innerHTML = template.call(this, _extends({ config: config, label: label }, templateVars));
       } else {
         this.serializer.innerHTML = template;
       }
@@ -990,7 +997,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 /* 7 */
 /***/ function(module, exports, __webpack_require__) {
 
-var matches = __webpack_require__(13)
+var matches = __webpack_require__(11)
 
 module.exports = function (element, selector, checkYoSelf) {
   var parent = checkYoSelf ? element : element.parentNode
@@ -1210,298 +1217,6 @@ module.exports = listen;
 
 /***/ },
 /* 11 */
-/***/ function(module, exports, __webpack_require__) {
-
-var jade = __webpack_require__(12);
-
-module.exports = function template(locals) {
-var buf = [];
-var jade_mixins = {};
-var jade_interp;
-;var locals_for_with = (locals || {});(function (config, undefined) {
-var count = 0
-buf.push("<section><h1>Installing " + (jade.escape((jade_interp = config.appName) == null ? '' : jade_interp)) + " on a CMS</h1>");
-if ( config.beforeContent)
-{
-buf.push("<div data-content-slot=\"before\">" + (null == (jade_interp = config.beforeContent) ? "" : jade_interp) + "</div>");
-}
-if ( this.downloadURL)
-{
-count++
-buf.push("<h2><span class=\"step-number accent-background-color\">" + (jade.escape(null == (jade_interp = count) ? "" : jade_interp)) + "</span><span><a target=\"_blank\"" + (jade.attr("href", this.downloadURL, true, true)) + " class=\"more\">" + (jade.escape(null == (jade_interp = this.downloadLabel) ? "" : jade_interp)) + "</a><div>" + (jade.escape(null == (jade_interp = this.autoDownloadLabel) ? "" : jade_interp)) + "</div></span></h2>");
-count++
-buf.push("<h2><span class=\"step-number accent-background-color\">" + (jade.escape(null == (jade_interp = count) ? "" : jade_interp)) + "</span><span>Copy script tag <head> of your page.</span>");
-if ( this.downloadURL)
-{
-buf.push("<div class=\"copy-container\"><button data-ref=\"copyButtons[]\" class=\"primary run\">Copy</button><div contenteditable class=\"copyable\">&lt;script src=\"" + (jade.escape((jade_interp = this.downloadURL) == null ? '' : jade_interp)) + "\"&gt;&lt;/script&gt;</div></div>");
-}
-buf.push("</h2>");
-}
-buf.push("<figure><img" + (jade.attr("src", __webpack_require__(16), true, true)) + "></figure>");
-count++
-buf.push("<h2><span class=\"step-number accent-background-color\">" + (jade.escape(null == (jade_interp = count) ? "" : jade_interp)) + "</span><span>Visit your site</span></h2><p>After saving the changes you made, visit your site in the browser.</p><p>You should see a welcome message letting you know the installation worked.</p>");
-if ( config.afterContent)
-{
-buf.push("<div data-content-slot=\"after\">" + (null == (jade_interp = config.afterContent) ? "" : jade_interp) + "</div>");
-}
-buf.push("</section>");}.call(this,"config" in locals_for_with?locals_for_with.config:typeof config!=="undefined"?config:undefined,"undefined" in locals_for_with?locals_for_with.undefined: false?undefined:undefined));;return buf.join("");
-}
-
-/***/ },
-/* 12 */
-/***/ function(module, exports, __webpack_require__) {
-
-"use strict";
-'use strict';
-
-/**
- * Merge two attribute objects giving precedence
- * to values in object `b`. Classes are special-cased
- * allowing for arrays and merging/joining appropriately
- * resulting in a string.
- *
- * @param {Object} a
- * @param {Object} b
- * @return {Object} a
- * @api private
- */
-
-exports.merge = function merge(a, b) {
-  if (arguments.length === 1) {
-    var attrs = a[0];
-    for (var i = 1; i < a.length; i++) {
-      attrs = merge(attrs, a[i]);
-    }
-    return attrs;
-  }
-  var ac = a['class'];
-  var bc = b['class'];
-
-  if (ac || bc) {
-    ac = ac || [];
-    bc = bc || [];
-    if (!Array.isArray(ac)) ac = [ac];
-    if (!Array.isArray(bc)) bc = [bc];
-    a['class'] = ac.concat(bc).filter(nulls);
-  }
-
-  for (var key in b) {
-    if (key != 'class') {
-      a[key] = b[key];
-    }
-  }
-
-  return a;
-};
-
-/**
- * Filter null `val`s.
- *
- * @param {*} val
- * @return {Boolean}
- * @api private
- */
-
-function nulls(val) {
-  return val != null && val !== '';
-}
-
-/**
- * join array as classes.
- *
- * @param {*} val
- * @return {String}
- */
-exports.joinClasses = joinClasses;
-function joinClasses(val) {
-  return (Array.isArray(val) ? val.map(joinClasses) :
-    (val && typeof val === 'object') ? Object.keys(val).filter(function (key) { return val[key]; }) :
-    [val]).filter(nulls).join(' ');
-}
-
-/**
- * Render the given classes.
- *
- * @param {Array} classes
- * @param {Array.<Boolean>} escaped
- * @return {String}
- */
-exports.cls = function cls(classes, escaped) {
-  var buf = [];
-  for (var i = 0; i < classes.length; i++) {
-    if (escaped && escaped[i]) {
-      buf.push(exports.escape(joinClasses([classes[i]])));
-    } else {
-      buf.push(joinClasses(classes[i]));
-    }
-  }
-  var text = joinClasses(buf);
-  if (text.length) {
-    return ' class="' + text + '"';
-  } else {
-    return '';
-  }
-};
-
-
-exports.style = function (val) {
-  if (val && typeof val === 'object') {
-    return Object.keys(val).map(function (style) {
-      return style + ':' + val[style];
-    }).join(';');
-  } else {
-    return val;
-  }
-};
-/**
- * Render the given attribute.
- *
- * @param {String} key
- * @param {String} val
- * @param {Boolean} escaped
- * @param {Boolean} terse
- * @return {String}
- */
-exports.attr = function attr(key, val, escaped, terse) {
-  if (key === 'style') {
-    val = exports.style(val);
-  }
-  if ('boolean' == typeof val || null == val) {
-    if (val) {
-      return ' ' + (terse ? key : key + '="' + key + '"');
-    } else {
-      return '';
-    }
-  } else if (0 == key.indexOf('data') && 'string' != typeof val) {
-    if (JSON.stringify(val).indexOf('&') !== -1) {
-      console.warn('Since Jade 2.0.0, ampersands (`&`) in data attributes ' +
-                   'will be escaped to `&amp;`');
-    };
-    if (val && typeof val.toISOString === 'function') {
-      console.warn('Jade will eliminate the double quotes around dates in ' +
-                   'ISO form after 2.0.0');
-    }
-    return ' ' + key + "='" + JSON.stringify(val).replace(/'/g, '&apos;') + "'";
-  } else if (escaped) {
-    if (val && typeof val.toISOString === 'function') {
-      console.warn('Jade will stringify dates in ISO form after 2.0.0');
-    }
-    return ' ' + key + '="' + exports.escape(val) + '"';
-  } else {
-    if (val && typeof val.toISOString === 'function') {
-      console.warn('Jade will stringify dates in ISO form after 2.0.0');
-    }
-    return ' ' + key + '="' + val + '"';
-  }
-};
-
-/**
- * Render the given attributes object.
- *
- * @param {Object} obj
- * @param {Object} escaped
- * @return {String}
- */
-exports.attrs = function attrs(obj, terse){
-  var buf = [];
-
-  var keys = Object.keys(obj);
-
-  if (keys.length) {
-    for (var i = 0; i < keys.length; ++i) {
-      var key = keys[i]
-        , val = obj[key];
-
-      if ('class' == key) {
-        if (val = joinClasses(val)) {
-          buf.push(' ' + key + '="' + val + '"');
-        }
-      } else {
-        buf.push(exports.attr(key, val, false, terse));
-      }
-    }
-  }
-
-  return buf.join('');
-};
-
-/**
- * Escape the given string of `html`.
- *
- * @param {String} html
- * @return {String}
- * @api private
- */
-
-var jade_encode_html_rules = {
-  '&': '&amp;',
-  '<': '&lt;',
-  '>': '&gt;',
-  '"': '&quot;'
-};
-var jade_match_html = /[&<>"]/g;
-
-function jade_encode_char(c) {
-  return jade_encode_html_rules[c] || c;
-}
-
-exports.escape = jade_escape;
-function jade_escape(html){
-  var result = String(html).replace(jade_match_html, jade_encode_char);
-  if (result === '' + html) return html;
-  else return result;
-};
-
-/**
- * Re-throw the given `err` in context to the
- * the jade in `filename` at the given `lineno`.
- *
- * @param {Error} err
- * @param {String} filename
- * @param {String} lineno
- * @api private
- */
-
-exports.rethrow = function rethrow(err, filename, lineno, str){
-  if (!(err instanceof Error)) throw err;
-  if ((typeof window != 'undefined' || !filename) && !str) {
-    err.message += ' on line ' + lineno;
-    throw err;
-  }
-  try {
-    str = str || __webpack_require__(17).readFileSync(filename, 'utf8')
-  } catch (ex) {
-    rethrow(err, null, lineno)
-  }
-  var context = 3
-    , lines = str.split('\n')
-    , start = Math.max(lineno - context, 0)
-    , end = Math.min(lines.length, lineno + context);
-
-  // Error context
-  var context = lines.slice(start, end).map(function(line, i){
-    var curr = i + start + 1;
-    return (curr == lineno ? '  > ' : '    ')
-      + curr
-      + '| '
-      + line;
-  }).join('\n');
-
-  // Alter exception message
-  err.path = filename;
-  err.message = (filename || 'Jade') + ':' + lineno
-    + '\n' + context + '\n\n' + err.message;
-  throw err;
-};
-
-exports.DebugItem = function DebugItem(lineno, filename) {
-  this.lineno = lineno;
-  this.filename = filename;
-}
-
-
-/***/ },
-/* 13 */
 /***/ function(module, exports) {
 
 
@@ -1544,6 +1259,297 @@ function match(el, selector) {
   }
   return false;
 }
+
+/***/ },
+/* 12 */
+/***/ function(module, exports, __webpack_require__) {
+
+var pug = __webpack_require__(13);
+
+function template(locals) {var pug_html = "", pug_mixins = {}, pug_interp;;var locals_for_with = (locals || {});(function (config) {var count = 0
+pug_html = pug_html + "\u003Csection\u003E\u003Ch1\u003EInstalling " + (pug.escape(null == (pug_interp = config.name) ? "" : pug_interp)) + " on a CMS\u003C\u002Fh1\u003E";
+if (config.beforeContent) {
+pug_html = pug_html + "\u003Cdiv data-content-slot=\"before\"\u003E" + (null == (pug_interp = config.beforeContent) ? "" : pug_interp) + "\u003C\u002Fdiv\u003E";
+}
+if (this.downloadURL) {
+count++
+pug_html = pug_html + "\u003Ch2\u003E\u003Cspan class=\"step-number accent-background-color\"\u003E" + (pug.escape(null == (pug_interp = count) ? "" : pug_interp)) + "\u003C\u002Fspan\u003E\u003Cspan\u003E\u003Ca" + (" class=\"more\""+" target=\"_blank\""+pug.attr("href", this.downloadURL, true, true)) + "\u003E" + (pug.escape(null == (pug_interp = this.downloadLabel) ? "" : pug_interp)) + "\u003C\u002Fa\u003E\u003Cdiv\u003E" + (pug.escape(null == (pug_interp = this.autoDownloadLabel) ? "" : pug_interp)) + "\u003C\u002Fdiv\u003E\u003C\u002Fspan\u003E\u003C\u002Fh2\u003E";
+count++
+pug_html = pug_html + "\u003Ch2\u003E\u003Cspan class=\"step-number accent-background-color\"\u003E" + (pug.escape(null == (pug_interp = count) ? "" : pug_interp)) + "\u003C\u002Fspan\u003E\u003Cspan\u003ECopy script tag \u003Chead\u003E of your page.\u003C\u002Fspan\u003E";
+if (this.downloadURL) {
+pug_html = pug_html + "\u003Cdiv class=\"copy-container\"\u003E\u003Cbutton class=\"primary run\" data-ref=\"copyButtons[]\"\u003ECopy\u003C\u002Fbutton\u003E\u003Cdiv class=\"copyable\" contenteditable\u003E&lt;script src=\"" + (pug.escape(null == (pug_interp = this.downloadURL) ? "" : pug_interp)) + "\"&gt;&lt;\u002Fscript&gt;\u003C\u002Fdiv\u003E\u003C\u002Fdiv\u003E";
+}
+pug_html = pug_html + "\u003C\u002Fh2\u003E";
+}
+pug_html = pug_html + "\u003Cfigure\u003E\u003Cimg" + (pug.attr("src", __webpack_require__(16), true, true)) + "\u003E\u003C\u002Ffigure\u003E";
+count++
+pug_html = pug_html + "\u003Ch2\u003E\u003Cspan class=\"step-number accent-background-color\"\u003E" + (pug.escape(null == (pug_interp = count) ? "" : pug_interp)) + "\u003C\u002Fspan\u003E\u003Cspan\u003EVisit your site\u003C\u002Fspan\u003E\u003C\u002Fh2\u003E\u003Cp\u003EAfter saving the changes you made, visit your site in the browser.\u003C\u002Fp\u003E\u003Cp\u003EYou should see a welcome message letting you know the installation worked.\u003C\u002Fp\u003E";
+if (config.afterContent) {
+pug_html = pug_html + "\u003Cdiv data-content-slot=\"after\"\u003E" + (null == (pug_interp = config.afterContent) ? "" : pug_interp) + "\u003C\u002Fdiv\u003E";
+}
+pug_html = pug_html + "\u003C\u002Fsection\u003E";}.call(this,"config" in locals_for_with?locals_for_with.config:typeof config!=="undefined"?config:undefined));;return pug_html;};
+module.exports = template;
+
+/***/ },
+/* 13 */
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+'use strict';
+
+var pug_has_own_property = Object.prototype.hasOwnProperty;
+
+/**
+ * Merge two attribute objects giving precedence
+ * to values in object `b`. Classes are special-cased
+ * allowing for arrays and merging/joining appropriately
+ * resulting in a string.
+ *
+ * @param {Object} a
+ * @param {Object} b
+ * @return {Object} a
+ * @api private
+ */
+
+exports.merge = pug_merge;
+function pug_merge(a, b) {
+  if (arguments.length === 1) {
+    var attrs = a[0];
+    for (var i = 1; i < a.length; i++) {
+      attrs = pug_merge(attrs, a[i]);
+    }
+    return attrs;
+  }
+
+  for (var key in b) {
+    if (key === 'class') {
+      var valA = a[key] || [];
+      a[key] = (Array.isArray(valA) ? valA : [valA]).concat(b[key] || []);
+    } else if (key === 'style') {
+      var valA = pug_style(a[key]);
+      var valB = pug_style(b[key]);
+      a[key] = valA + (valA && valB && ';') + valB;
+    } else {
+      a[key] = b[key];
+    }
+  }
+
+  return a;
+};
+
+/**
+ * Process array, object, or string as a string of classes delimited by a space.
+ *
+ * If `val` is an array, all members of it and its subarrays are counted as
+ * classes. If `escaping` is an array, then whether or not the item in `val` is
+ * escaped depends on the corresponding item in `escaping`. If `escaping` is
+ * not an array, no escaping is done.
+ *
+ * If `val` is an object, all the keys whose value is truthy are counted as
+ * classes. No escaping is done.
+ *
+ * If `val` is a string, it is counted as a class. No escaping is done.
+ *
+ * @param {(Array.<string>|Object.<string, boolean>|string)} val
+ * @param {?Array.<string>} escaping
+ * @return {String}
+ */
+exports.classes = pug_classes;
+function pug_classes_array(val, escaping) {
+  var classString = '', className, padding = '', escapeEnabled = Array.isArray(escaping);
+  for (var i = 0; i < val.length; i++) {
+    className = pug_classes(val[i]);
+    if (!className) continue;
+    escapeEnabled && escaping[i] && (className = pug_escape(className));
+    classString = classString + padding + className;
+    padding = ' ';
+  }
+  return classString;
+}
+function pug_classes_object(val) {
+  var classString = '', padding = '';
+  for (var key in val) {
+    if (key && val[key] && pug_has_own_property.call(val, key)) {
+      classString = classString + padding + key;
+      padding = ' ';
+    }
+  }
+  return classString;
+}
+function pug_classes(val, escaping) {
+  if (Array.isArray(val)) {
+    return pug_classes_array(val, escaping);
+  } else if (val && typeof val === 'object') {
+    return pug_classes_object(val);
+  } else {
+    return val || '';
+  }
+}
+
+/**
+ * Convert object or string to a string of CSS styles delimited by a semicolon.
+ *
+ * @param {(Object.<string, string>|string)} val
+ * @return {String}
+ */
+
+exports.style = pug_style;
+function pug_style(val) {
+  if (!val) return '';
+  if (typeof val === 'object') {
+    var out = '', delim = '';
+    for (var style in val) {
+      /* istanbul ignore else */
+      if (pug_has_own_property.call(val, style)) {
+        out = out + delim + style + ':' + val[style];
+        delim = ';';
+      }
+    }
+    return out;
+  } else {
+    val = '' + val;
+    if (val[val.length - 1] === ';') return val.slice(0, -1);
+    return val;
+  }
+};
+
+/**
+ * Render the given attribute.
+ *
+ * @param {String} key
+ * @param {String} val
+ * @param {Boolean} escaped
+ * @param {Boolean} terse
+ * @return {String}
+ */
+exports.attr = pug_attr;
+function pug_attr(key, val, escaped, terse) {
+  if (val === false || val == null || !val && (key === 'class' || key === 'style')) {
+    return '';
+  }
+  if (val === true) {
+    return ' ' + (terse ? key : key + '="' + key + '"');
+  }
+  if (typeof val.toJSON === 'function') {
+    val = val.toJSON();
+  }
+  if (typeof val !== 'string') {
+    val = JSON.stringify(val);
+    if (!escaped && val.indexOf('"') !== -1) {
+      return ' ' + key + '=\'' + val.replace(/'/g, '&#39;') + '\'';
+    }
+  }
+  if (escaped) val = pug_escape(val);
+  return ' ' + key + '="' + val + '"';
+};
+
+/**
+ * Render the given attributes object.
+ *
+ * @param {Object} obj
+ * @param {Object} terse whether to use HTML5 terse boolean attributes
+ * @return {String}
+ */
+exports.attrs = pug_attrs;
+function pug_attrs(obj, terse){
+  var attrs = '';
+
+  for (var key in obj) {
+    if (pug_has_own_property.call(obj, key)) {
+      var val = obj[key];
+
+      if ('class' === key) {
+        val = pug_classes(val);
+        attrs = pug_attr(key, val, false, terse) + attrs;
+        continue;
+      }
+      if ('style' === key) {
+        val = pug_style(val);
+      }
+      attrs += pug_attr(key, val, false, terse);
+    }
+  }
+
+  return attrs;
+};
+
+/**
+ * Escape the given string of `html`.
+ *
+ * @param {String} html
+ * @return {String}
+ * @api private
+ */
+
+var pug_match_html = /["&<>]/;
+exports.escape = pug_escape;
+function pug_escape(_html){
+  var html = '' + _html;
+  var regexResult = pug_match_html.exec(html);
+  if (!regexResult) return _html;
+
+  var result = '';
+  var i, lastIndex, escape;
+  for (i = regexResult.index, lastIndex = 0; i < html.length; i++) {
+    switch (html.charCodeAt(i)) {
+      case 34: escape = '&quot;'; break;
+      case 38: escape = '&amp;'; break;
+      case 60: escape = '&lt;'; break;
+      case 62: escape = '&gt;'; break;
+      default: continue;
+    }
+    if (lastIndex !== i) result += html.substring(lastIndex, i);
+    lastIndex = i + 1;
+    result += escape;
+  }
+  if (lastIndex !== i) return result + html.substring(lastIndex, i);
+  else return result;
+};
+
+/**
+ * Re-throw the given `err` in context to the
+ * the pug in `filename` at the given `lineno`.
+ *
+ * @param {Error} err
+ * @param {String} filename
+ * @param {String} lineno
+ * @param {String} str original source
+ * @api private
+ */
+
+exports.rethrow = pug_rethrow;
+function pug_rethrow(err, filename, lineno, str){
+  if (!(err instanceof Error)) throw err;
+  if ((typeof window != 'undefined' || !filename) && !str) {
+    err.message += ' on line ' + lineno;
+    throw err;
+  }
+  try {
+    str = str || __webpack_require__(17).readFileSync(filename, 'utf8')
+  } catch (ex) {
+    pug_rethrow(err, null, lineno)
+  }
+  var context = 3
+    , lines = str.split('\n')
+    , start = Math.max(lineno - context, 0)
+    , end = Math.min(lines.length, lineno + context);
+
+  // Error context
+  var context = lines.slice(start, end).map(function(line, i){
+    var curr = i + start + 1;
+    return (curr == lineno ? '  > ' : '    ')
+      + curr
+      + '| '
+      + line;
+  }).join('\n');
+
+  // Alter exception message
+  err.path = filename;
+  err.message = (filename || 'Pug') + ':' + lineno
+    + '\n' + context + '\n\n' + err.message;
+  throw err;
+};
+
 
 /***/ },
 /* 14 */

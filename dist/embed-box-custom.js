@@ -215,9 +215,16 @@ var BaseComponent = (_temp = _class = function () {
       var templateVars = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
       var template = this.constructor.template;
 
+      var config = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_lib_store__["a" /* getStore */])();
+
+      function label(key) {
+        var value = config.labels[key];
+
+        return typeof value === "function" ? value(config) : value;
+      }
 
       if (typeof template === "function") {
-        this.serializer.innerHTML = template.call(this, _extends({ config: __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_lib_store__["a" /* getStore */])() }, templateVars));
+        this.serializer.innerHTML = template.call(this, _extends({ config: config, label: label }, templateVars));
       } else {
         this.serializer.innerHTML = template;
       }
@@ -278,7 +285,7 @@ function initializeStore(instance) {
 
 
   window.EmbedBoxStore = {
-    appName: spec.appName || "an app",
+    name: spec.name || "a plugin",
     instance: instance,
 
     autoDownload: autoDownload,
@@ -302,8 +309,8 @@ function initializeStore(instance) {
       done: "Done",
       searchPlaceholder: "Select or search the type of website you have...",
       next: "Next",
-      title: function title(appName) {
-        return "Add " + appName + " to your site";
+      title: function title(config) {
+        return "Add " + config.name + " to your site";
       }
     }, labels)
   };
@@ -433,6 +440,8 @@ module.exports = exports['default'];
 "use strict";
 'use strict';
 
+var pug_has_own_property = Object.prototype.hasOwnProperty;
+
 /**
  * Merge two attribute objects giving precedence
  * to values in object `b`. Classes are special-cased
@@ -445,27 +454,25 @@ module.exports = exports['default'];
  * @api private
  */
 
-exports.merge = function merge(a, b) {
+exports.merge = pug_merge;
+function pug_merge(a, b) {
   if (arguments.length === 1) {
     var attrs = a[0];
     for (var i = 1; i < a.length; i++) {
-      attrs = merge(attrs, a[i]);
+      attrs = pug_merge(attrs, a[i]);
     }
     return attrs;
   }
-  var ac = a['class'];
-  var bc = b['class'];
-
-  if (ac || bc) {
-    ac = ac || [];
-    bc = bc || [];
-    if (!Array.isArray(ac)) ac = [ac];
-    if (!Array.isArray(bc)) bc = [bc];
-    a['class'] = ac.concat(bc).filter(nulls);
-  }
 
   for (var key in b) {
-    if (key != 'class') {
+    if (key === 'class') {
+      var valA = a[key] || [];
+      a[key] = (Array.isArray(valA) ? valA : [valA]).concat(b[key] || []);
+    } else if (key === 'style') {
+      var valA = pug_style(a[key]);
+      var valB = pug_style(b[key]);
+      a[key] = valA + (valA && valB && ';') + valB;
+    } else {
       a[key] = b[key];
     }
   }
@@ -474,64 +481,81 @@ exports.merge = function merge(a, b) {
 };
 
 /**
- * Filter null `val`s.
+ * Process array, object, or string as a string of classes delimited by a space.
  *
- * @param {*} val
- * @return {Boolean}
- * @api private
- */
-
-function nulls(val) {
-  return val != null && val !== '';
-}
-
-/**
- * join array as classes.
+ * If `val` is an array, all members of it and its subarrays are counted as
+ * classes. If `escaping` is an array, then whether or not the item in `val` is
+ * escaped depends on the corresponding item in `escaping`. If `escaping` is
+ * not an array, no escaping is done.
  *
- * @param {*} val
+ * If `val` is an object, all the keys whose value is truthy are counted as
+ * classes. No escaping is done.
+ *
+ * If `val` is a string, it is counted as a class. No escaping is done.
+ *
+ * @param {(Array.<string>|Object.<string, boolean>|string)} val
+ * @param {?Array.<string>} escaping
  * @return {String}
  */
-exports.joinClasses = joinClasses;
-function joinClasses(val) {
-  return (Array.isArray(val) ? val.map(joinClasses) :
-    (val && typeof val === 'object') ? Object.keys(val).filter(function (key) { return val[key]; }) :
-    [val]).filter(nulls).join(' ');
+exports.classes = pug_classes;
+function pug_classes_array(val, escaping) {
+  var classString = '', className, padding = '', escapeEnabled = Array.isArray(escaping);
+  for (var i = 0; i < val.length; i++) {
+    className = pug_classes(val[i]);
+    if (!className) continue;
+    escapeEnabled && escaping[i] && (className = pug_escape(className));
+    classString = classString + padding + className;
+    padding = ' ';
+  }
+  return classString;
 }
-
-/**
- * Render the given classes.
- *
- * @param {Array} classes
- * @param {Array.<Boolean>} escaped
- * @return {String}
- */
-exports.cls = function cls(classes, escaped) {
-  var buf = [];
-  for (var i = 0; i < classes.length; i++) {
-    if (escaped && escaped[i]) {
-      buf.push(exports.escape(joinClasses([classes[i]])));
-    } else {
-      buf.push(joinClasses(classes[i]));
+function pug_classes_object(val) {
+  var classString = '', padding = '';
+  for (var key in val) {
+    if (key && val[key] && pug_has_own_property.call(val, key)) {
+      classString = classString + padding + key;
+      padding = ' ';
     }
   }
-  var text = joinClasses(buf);
-  if (text.length) {
-    return ' class="' + text + '"';
+  return classString;
+}
+function pug_classes(val, escaping) {
+  if (Array.isArray(val)) {
+    return pug_classes_array(val, escaping);
+  } else if (val && typeof val === 'object') {
+    return pug_classes_object(val);
   } else {
-    return '';
+    return val || '';
   }
-};
+}
 
+/**
+ * Convert object or string to a string of CSS styles delimited by a semicolon.
+ *
+ * @param {(Object.<string, string>|string)} val
+ * @return {String}
+ */
 
-exports.style = function (val) {
-  if (val && typeof val === 'object') {
-    return Object.keys(val).map(function (style) {
-      return style + ':' + val[style];
-    }).join(';');
+exports.style = pug_style;
+function pug_style(val) {
+  if (!val) return '';
+  if (typeof val === 'object') {
+    var out = '', delim = '';
+    for (var style in val) {
+      /* istanbul ignore else */
+      if (pug_has_own_property.call(val, style)) {
+        out = out + delim + style + ':' + val[style];
+        delim = ';';
+      }
+    }
+    return out;
   } else {
+    val = '' + val;
+    if (val[val.length - 1] === ';') return val.slice(0, -1);
     return val;
   }
 };
+
 /**
  * Render the given attribute.
  *
@@ -541,67 +565,55 @@ exports.style = function (val) {
  * @param {Boolean} terse
  * @return {String}
  */
-exports.attr = function attr(key, val, escaped, terse) {
-  if (key === 'style') {
-    val = exports.style(val);
+exports.attr = pug_attr;
+function pug_attr(key, val, escaped, terse) {
+  if (val === false || val == null || !val && (key === 'class' || key === 'style')) {
+    return '';
   }
-  if ('boolean' == typeof val || null == val) {
-    if (val) {
-      return ' ' + (terse ? key : key + '="' + key + '"');
-    } else {
-      return '';
-    }
-  } else if (0 == key.indexOf('data') && 'string' != typeof val) {
-    if (JSON.stringify(val).indexOf('&') !== -1) {
-      console.warn('Since Jade 2.0.0, ampersands (`&`) in data attributes ' +
-                   'will be escaped to `&amp;`');
-    };
-    if (val && typeof val.toISOString === 'function') {
-      console.warn('Jade will eliminate the double quotes around dates in ' +
-                   'ISO form after 2.0.0');
-    }
-    return ' ' + key + "='" + JSON.stringify(val).replace(/'/g, '&apos;') + "'";
-  } else if (escaped) {
-    if (val && typeof val.toISOString === 'function') {
-      console.warn('Jade will stringify dates in ISO form after 2.0.0');
-    }
-    return ' ' + key + '="' + exports.escape(val) + '"';
-  } else {
-    if (val && typeof val.toISOString === 'function') {
-      console.warn('Jade will stringify dates in ISO form after 2.0.0');
-    }
-    return ' ' + key + '="' + val + '"';
+  if (val === true) {
+    return ' ' + (terse ? key : key + '="' + key + '"');
   }
+  if (typeof val.toJSON === 'function') {
+    val = val.toJSON();
+  }
+  if (typeof val !== 'string') {
+    val = JSON.stringify(val);
+    if (!escaped && val.indexOf('"') !== -1) {
+      return ' ' + key + '=\'' + val.replace(/'/g, '&#39;') + '\'';
+    }
+  }
+  if (escaped) val = pug_escape(val);
+  return ' ' + key + '="' + val + '"';
 };
 
 /**
  * Render the given attributes object.
  *
  * @param {Object} obj
- * @param {Object} escaped
+ * @param {Object} terse whether to use HTML5 terse boolean attributes
  * @return {String}
  */
-exports.attrs = function attrs(obj, terse){
-  var buf = [];
+exports.attrs = pug_attrs;
+function pug_attrs(obj, terse){
+  var attrs = '';
 
-  var keys = Object.keys(obj);
+  for (var key in obj) {
+    if (pug_has_own_property.call(obj, key)) {
+      var val = obj[key];
 
-  if (keys.length) {
-    for (var i = 0; i < keys.length; ++i) {
-      var key = keys[i]
-        , val = obj[key];
-
-      if ('class' == key) {
-        if (val = joinClasses(val)) {
-          buf.push(' ' + key + '="' + val + '"');
-        }
-      } else {
-        buf.push(exports.attr(key, val, false, terse));
+      if ('class' === key) {
+        val = pug_classes(val);
+        attrs = pug_attr(key, val, false, terse) + attrs;
+        continue;
       }
+      if ('style' === key) {
+        val = pug_style(val);
+      }
+      attrs += pug_attr(key, val, false, terse);
     }
   }
 
-  return buf.join('');
+  return attrs;
 };
 
 /**
@@ -612,36 +624,44 @@ exports.attrs = function attrs(obj, terse){
  * @api private
  */
 
-var jade_encode_html_rules = {
-  '&': '&amp;',
-  '<': '&lt;',
-  '>': '&gt;',
-  '"': '&quot;'
-};
-var jade_match_html = /[&<>"]/g;
+var pug_match_html = /["&<>]/;
+exports.escape = pug_escape;
+function pug_escape(_html){
+  var html = '' + _html;
+  var regexResult = pug_match_html.exec(html);
+  if (!regexResult) return _html;
 
-function jade_encode_char(c) {
-  return jade_encode_html_rules[c] || c;
-}
-
-exports.escape = jade_escape;
-function jade_escape(html){
-  var result = String(html).replace(jade_match_html, jade_encode_char);
-  if (result === '' + html) return html;
+  var result = '';
+  var i, lastIndex, escape;
+  for (i = regexResult.index, lastIndex = 0; i < html.length; i++) {
+    switch (html.charCodeAt(i)) {
+      case 34: escape = '&quot;'; break;
+      case 38: escape = '&amp;'; break;
+      case 60: escape = '&lt;'; break;
+      case 62: escape = '&gt;'; break;
+      default: continue;
+    }
+    if (lastIndex !== i) result += html.substring(lastIndex, i);
+    lastIndex = i + 1;
+    result += escape;
+  }
+  if (lastIndex !== i) return result + html.substring(lastIndex, i);
   else return result;
 };
 
 /**
  * Re-throw the given `err` in context to the
- * the jade in `filename` at the given `lineno`.
+ * the pug in `filename` at the given `lineno`.
  *
  * @param {Error} err
  * @param {String} filename
  * @param {String} lineno
+ * @param {String} str original source
  * @api private
  */
 
-exports.rethrow = function rethrow(err, filename, lineno, str){
+exports.rethrow = pug_rethrow;
+function pug_rethrow(err, filename, lineno, str){
   if (!(err instanceof Error)) throw err;
   if ((typeof window != 'undefined' || !filename) && !str) {
     err.message += ' on line ' + lineno;
@@ -650,7 +670,7 @@ exports.rethrow = function rethrow(err, filename, lineno, str){
   try {
     str = str || __webpack_require__(32).readFileSync(filename, 'utf8')
   } catch (ex) {
-    rethrow(err, null, lineno)
+    pug_rethrow(err, null, lineno)
   }
   var context = 3
     , lines = str.split('\n')
@@ -668,15 +688,10 @@ exports.rethrow = function rethrow(err, filename, lineno, str){
 
   // Alter exception message
   err.path = filename;
-  err.message = (filename || 'Jade') + ':' + lineno
+  err.message = (filename || 'Pug') + ':' + lineno
     + '\n' + context + '\n\n' + err.message;
   throw err;
 };
-
-exports.DebugItem = function DebugItem(lineno, filename) {
-  this.lineno = lineno;
-  this.filename = filename;
-}
 
 
 /***/ },
@@ -1808,43 +1823,28 @@ if (typeof styles === 'string') {
 /* 22 */
 /***/ function(module, exports, __webpack_require__) {
 
-var jade = __webpack_require__(4);
+var pug = __webpack_require__(4);
 
-module.exports = function template(locals) {
-var buf = [];
-var jade_mixins = {};
-var jade_interp;
-;var locals_for_with = (locals || {});(function (config) {
-buf.push("<main data-column data-component=\"application\" role=\"main\"><div data-column class=\"modal\"><header role=\"menubar\" class=\"modal-header\"><button data-action=\"previous\" data-ref=\"previousPageButton\" tabindex=\"1\" role=\"menuitem\"></button><span class=\"title\">" + (jade.escape((jade_interp = config.labels.title(config.appName)) == null ? '' : jade_interp)) + "</span><button data-action=\"close\" data-ref=\"closeModalButton\" tabindex=\"2\" role=\"menuitem\"></button></header><div data-ref=\"content\" class=\"content\"></div></div></main>");}.call(this,"config" in locals_for_with?locals_for_with.config:typeof config!=="undefined"?config:undefined));;return buf.join("");
-}
+function template(locals) {var pug_html = "", pug_mixins = {}, pug_interp;;var locals_for_with = (locals || {});(function (label) {pug_html = pug_html + "\u003Cmain data-column data-component=\"application\" role=\"main\"\u003E\u003Cdiv class=\"modal\" data-column\u003E\u003Cheader class=\"modal-header\" role=\"menubar\"\u003E\u003Cbutton data-action=\"previous\" data-ref=\"previousPageButton\" tabindex=\"1\" role=\"menuitem\"\u003E\u003C\u002Fbutton\u003E\u003Cspan class=\"title\"\u003E" + (pug.escape(null == (pug_interp = label("title")) ? "" : pug_interp)) + "\u003C\u002Fspan\u003E\u003Cbutton data-action=\"close\" data-ref=\"closeModalButton\" tabindex=\"2\" role=\"menuitem\"\u003E\u003C\u002Fbutton\u003E\u003C\u002Fheader\u003E\u003Cdiv class=\"content\" data-ref=\"content\"\u003E\u003C\u002Fdiv\u003E\u003C\u002Fdiv\u003E\u003C\u002Fmain\u003E";}.call(this,"label" in locals_for_with?locals_for_with.label:typeof label!=="undefined"?label:undefined));;return pug_html;};
+module.exports = template;
 
 /***/ },
 /* 23 */
 /***/ function(module, exports, __webpack_require__) {
 
-var jade = __webpack_require__(4);
+var pug = __webpack_require__(4);
 
-module.exports = function template(locals) {
-var buf = [];
-var jade_mixins = {};
-var jade_interp;
-;var locals_for_with = (locals || {});(function (config) {
-buf.push("<section data-column data-component=\"page-wrapper\"><div data-ref=\"pageMount\" tabindex=\"3\" class=\"page-mount\"></div><footer class=\"modal-footer\"><button data-action=\"close\" data-ref=\"doneButton\" tabindex=\"5\" class=\"primary slim\">" + (jade.escape((jade_interp = config.labels.done) == null ? '' : jade_interp)) + "</button></footer></section>");}.call(this,"config" in locals_for_with?locals_for_with.config:typeof config!=="undefined"?config:undefined));;return buf.join("");
-}
+function template(locals) {var pug_html = "", pug_mixins = {}, pug_interp;;var locals_for_with = (locals || {});(function (label) {pug_html = pug_html + "\u003Csection data-column data-component=\"page-wrapper\"\u003E\u003Cdiv class=\"page-mount\" data-ref=\"pageMount\" tabindex=\"3\"\u003E\u003C\u002Fdiv\u003E\u003Cfooter class=\"modal-footer\"\u003E\u003Cbutton class=\"primary slim\" data-action=\"close\" data-ref=\"doneButton\" tabindex=\"5\"\u003E" + (pug.escape(null == (pug_interp = label("done")) ? "" : pug_interp)) + "\u003C\u002Fbutton\u003E\u003C\u002Ffooter\u003E\u003C\u002Fsection\u003E";}.call(this,"label" in locals_for_with?locals_for_with.label:typeof label!=="undefined"?label:undefined));;return pug_html;};
+module.exports = template;
 
 /***/ },
 /* 24 */
 /***/ function(module, exports, __webpack_require__) {
 
-var jade = __webpack_require__(4);
+var pug = __webpack_require__(4);
 
-module.exports = function template(locals) {
-var buf = [];
-var jade_mixins = {};
-var jade_interp;
-;var locals_for_with = (locals || {});(function (config) {
-buf.push("<section data-column data-component=\"site-type-search\" data-event-receiver><header class=\"header\"><input autofocus data-ref=\"search\"" + (jade.attr("placeholder", config.labels.searchPlaceholder, true, true)) + " tabindex=\"3\" type=\"text\" class=\"search\"></header><div data-column data-ref=\"typesContainer\" class=\"types\"></div><footer class=\"modal-footer\"><button data-action=\"next\" data-ref=\"nextPageButton\" tabindex=\"5\" class=\"primary slim more\">" + (jade.escape((jade_interp = config.labels.next) == null ? '' : jade_interp)) + "</button></footer></section>");}.call(this,"config" in locals_for_with?locals_for_with.config:typeof config!=="undefined"?config:undefined));;return buf.join("");
-}
+function template(locals) {var pug_html = "", pug_mixins = {}, pug_interp;;var locals_for_with = (locals || {});(function (label) {pug_html = pug_html + "\u003Csection data-column data-component=\"site-type-search\" data-event-receiver\u003E\u003Cheader class=\"header\"\u003E\u003Cinput" + (" class=\"search\""+" autofocus data-ref=\"search\""+pug.attr("placeholder", label("searchPlaceholder"), true, true)+" tabindex=\"3\" type=\"text\"") + "\u003E\u003C\u002Fheader\u003E\u003Cdiv class=\"types\" data-column data-ref=\"typesContainer\"\u003E\u003C\u002Fdiv\u003E\u003Cfooter class=\"modal-footer\"\u003E\u003Cbutton class=\"primary slim more\" data-action=\"next\" data-ref=\"nextPageButton\" tabindex=\"5\"\u003E" + (pug.escape(null == (pug_interp = label("next")) ? "" : pug_interp)) + "\u003C\u002Fbutton\u003E\u003C\u002Ffooter\u003E\u003C\u002Fsection\u003E";}.call(this,"label" in locals_for_with?locals_for_with.label:typeof label!=="undefined"?label:undefined));;return pug_html;};
+module.exports = template;
 
 /***/ },
 /* 25 */

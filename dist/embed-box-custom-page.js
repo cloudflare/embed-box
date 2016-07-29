@@ -83,7 +83,7 @@ function initializeStore(instance) {
 
 
   window.EmbedBoxStore = {
-    appName: spec.appName || "an app",
+    name: spec.name || "a plugin",
     instance: instance,
 
     autoDownload: autoDownload,
@@ -107,8 +107,8 @@ function initializeStore(instance) {
       done: "Done",
       searchPlaceholder: "Select or search the type of website you have...",
       next: "Next",
-      title: function title(appName) {
-        return "Add " + appName + " to your site";
+      title: function title(config) {
+        return "Add " + config.name + " to your site";
       }
     }, labels)
   };
@@ -502,9 +502,16 @@ var BaseComponent = (_temp = _class = function () {
       var templateVars = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
       var template = this.constructor.template;
 
+      var config = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_lib_store__["a" /* getStore */])();
+
+      function label(key) {
+        var value = config.labels[key];
+
+        return typeof value === "function" ? value(config) : value;
+      }
 
       if (typeof template === "function") {
-        this.serializer.innerHTML = template.call(this, _extends({ config: __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_lib_store__["a" /* getStore */])() }, templateVars));
+        this.serializer.innerHTML = template.call(this, _extends({ config: config, label: label }, templateVars));
       } else {
         this.serializer.innerHTML = template;
       }
