@@ -1,7 +1,3 @@
 ```javascript
-EmbedBox.modalStylesheet += `
-  header {
-    font-weight: bold;
-  }
-`
+EmbedBox.modalStylesheet += "header { font-weight: bold; }"
 ```

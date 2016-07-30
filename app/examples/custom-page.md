@@ -5,16 +5,16 @@ const CustomPage = EmbedBoxCustomPage.extend({
   templateVars: {
     registerURL: "http://example.com/register"
   },
-  template: vars => `<section>
-    <h1>Installing ${vars.config.name}</h1>
-
-    <p>
-      <a href="${vars.registerURL}">
-        Register anaccount
-      </a>
-      before installing.
-    </p>
-  </section>`
+  template: function(vars) {
+    return ""
+    + "<section>"
+    +   "<h1>Installing " + vars.config.name + "</h1>"
+    +   "<p>"
+    +     "<a href='${vars.registerURL}'>Register an account</a>"
+    +     " before installing."
+    +   "</p>"
+    + "</section>"
+  }
 })
 
 new EmbedBoxCustom({
