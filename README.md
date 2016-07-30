@@ -20,7 +20,7 @@ Download and include with a script tag.
 
 <body>
   <script>
-    new EmbedBox({
+    var embedBox = new EmbedBox({
       name: "Example Plugin",
       downloadURLs: {
         wordpress: "http://example.com/wordpress-plugin.zip",
@@ -35,7 +35,7 @@ Download and include with a script tag.
 
 ### NPM
 
-NPM is the recommended install method when your application uses a build process.
+NPM is the recommended install method when your application uses a build process like Webpack or Browserify.
 
 ```shell
 $ npm install --save embed-box
@@ -51,31 +51,43 @@ const embedBox = new EmbedBox()
 
 #### Content
 
-Page content can be customized by adding content in slots.
+Target content can be customized by adding content in slots.
 
 ```javascript
-import EmbedBox from "embed-box"
-
-const embedBox = new EmbedBox({
-  beforeContent: "Contact <strong>ACME Inc.</strong> for an account ID.",
-  afterContent: "Thanks you for installing ACME Inc. embed!"
+new EmbedBox({
+  beforeContent: "Having some trouble? " +
+    "Call us at <strong>(555)-123-4567</strong>",
+  afterContent: "You should receive an email with your account password."
 })
 ```
 
-#### Custom Pages
+#### Custom targets
+
+If the content slots are too coarse, custom targets can be created with the custom build.
+
+Include the custom package for an empty EmbedBox.
+
+```html
+<script src="embed-box-custom.js"></script>
+<script src="embed-box-custom-target.js"></script>
+```
+
+Or import them with a bundler.
 
 ```javascript
-import EmbedBox from "embed-box"
-import CustomPage from "embed-box/custom-page"
+import EmbedBoxCustom from "embed-box/custom"
+import CustomTarget from "embed-box/custom-target"
+```
 
-const CustomPage = EmbedBoxCustomPage.extend({
+```javascript
+var CustomTarget = EmbedBoxCustomTarget.extend({
   id: "custom-test",
-  label: "Custom Page",
-  template: "<section>Hello from a custom page!</section>"
+  label: "Custom Target",
+  template: "<section>Hello from a custom target!</section>"
 })
 
-const embedBox = new EmbedBox({
-  pages: [CustomPage]
+new EmbedBoxCustom({
+  targets: [CustomTarget]
 })
 ```
 
@@ -83,55 +95,64 @@ Templates can be passed as function as well to pass varibles.
 The EmbedBox configuration is available under `vars.config`.
 
 ```javascript
-const CustomPage = EmbedBoxCustomPage.extend({
+var CustomTarget = EmbedBoxCustomTarget.extend({
   id: "custom-test",
-  label: "Custom Page",
+  label: "Custom Target",
   templateVars: {
     registerURL: "http://example.com/register"
   },
-  template: vars => `<section>
-    <h1>Installing ${vars.config.name} from a custom page</h1>
+  template: function(vars) {
+    return ""
+    + "<section>"
+    +   "<h1>Installing " + vars.config.name + "</h1>"
+    +   "<p>"
+    +     "<a href='${vars.registerURL}'>Register an account</a>"
+    +     " before installing."
+    +   "</p>"
+    + "</section>"
+  }
+})
 
-    <p>
-      <a href="${vars.registerURL}">Register an account</a> before installing.
-    </p>
-  </section>`
+new EmbedBoxCustom({
+  name: "Custom Target Example",
+  targets: [CustomTarget]
+})
 })
 ```
 
 #### Custom Bundles
 
-A custom bundle can be made to include specific pages.
+A custom bundle can be made to include specific targets.
 
 ##### Standalone
 
 ```html
 <head>
   <script src="embed-box-custom.js"></script>
-  <script src="embed-box-page-wordpress.js"></script>
-  <script src="embed-box-page-joomla.js"></script>
+  <script src="embed-box-target-wordpress.js"></script>
+  <script src="embed-box-target-joomla.js"></script>
 </head>
 
 <body>
   <script>
-    console.log(EmbedBox.fetchedPages) // [WordPressPage, JoomlaPage]
+    console.log(EmbedBox.fetchedTargets) // [WordPressTarget, JoomlaTarget]
 
     const embedBox = new EmbedBoxCustom()
   </script>
 </body>
 ```
 
-##### With builder
+##### With bundler
 
 ```javascript
 import EmbedBoxCustom from "embed-box/custom"
-import WordPressPage from "embed-box/pages/wordpress"
-import JoomlaPage from "embed-box/pages/joomla"
+import WordPressTarget from "embed-box/targets/wordpress"
+import JoomlaTarget from "embed-box/targets/joomla"
 
 const embedBox = new EmbedBoxCustom({
-  pages: [
-    WordPressPage,
-    JoomlaPage
+  targets: [
+    WordPressTarget,
+    JoomlaTarget
   ]
 })
 ```

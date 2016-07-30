@@ -5,12 +5,12 @@ import autobind from "autobind-decorator"
 
 const AUTO_DOWNLOAD_DELAY = 3000
 
-export default class BasePage extends BaseComponent {
+export default class BaseTarget extends BaseComponent {
   static extend = function extend({fallback, id, label, template, templateVars} = {}) {
-    if (!id) throw new Error("EmbedBox: Page must have `id`")
-    if (!label) throw new Error("EmbedBox: Page must have `label`")
+    if (!id) throw new Error("EmbedBox: Target must have `id`")
+    if (!label) throw new Error("EmbedBox: Target must have `label`")
 
-    return class CustomPage extends BasePage {
+    return class CustomTarget extends BaseTarget {
       static fallback = fallback || false;
       static id = id;
       static label = label;
@@ -24,7 +24,7 @@ export default class BasePage extends BaseComponent {
 
     BaseComponent.prototype.compileTemplate.call(this, templateVars)
 
-    this.element.setAttribute("data-component", `${id}-page`)
+    this.element.setAttribute("data-component", `${id}-target`)
     this.element.setAttribute("data-column", "")
     this.element.setAttribute("autofocus", "")
     this.element.className = `markdown instructions ${this.element.className || ""}`

@@ -1,16 +1,16 @@
 /* eslint-env node, es6 */
 
 const EmbedBoxBase = require("./app/embed-box-base").default
-const pages = require("./app/components/pages")
+const targets = require("./app/components/targets")
 
 module.exports = function EmbedBox(spec = {}, ...args) {
-  spec.pages = spec.pages || []
+  spec.targets = spec.targets || []
 
-  spec.pages.push(
-    pages.wordpress,
-    pages.drupal,
-    pages.joomla,
-    pages.generic)
+  spec.targets.push(
+    targets.wordpress,
+    targets.drupal,
+    targets.joomla,
+    targets.generic)
 
   return new EmbedBoxBase(spec, ...args)
 }

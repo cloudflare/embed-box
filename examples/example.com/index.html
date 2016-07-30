@@ -52,19 +52,19 @@
   </style>
 
   <script src="../../dist/embed-box-custom.js"></script>
-  <script src="../../dist/embed-box-page-wordpress.js"></script>
-  <script src="../../dist/embed-box-custom-page.js"></script>
+  <script src="../../dist/embed-box-target-wordpress.js"></script>
+  <script src="../../dist/embed-box-custom-target.js"></script>
   <script type="text/javascript">
-    const CustomPage = window.EmbedBoxCustomPage.extend({
-      template: "<div>Hello from a custom page!</div>",
+    const CustomTarget = window.EmbedBoxCustomTarget.extend({
+      template: "<div>Hello from a custom target!</div>",
       id: "custom-test",
-      label: "Custom Page"
+      label: "Custom Target"
     })
 
 
     document.addEventListener("DOMContentLoaded", () => {
       const embedBox = new window.EmbedBoxCustom({
-        pages: [CustomPage]
+        target: [CustomTarget]
       })
 
       document

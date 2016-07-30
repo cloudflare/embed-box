@@ -1,8 +1,8 @@
 import template from "./joomla.pug"
 
-import BasePage from "components/base-page"
+import BaseTarget from "components/base-target"
 
-export default class JoomlaPage extends BasePage {
+export default class JoomlaTarget extends BaseTarget {
   static fallback = false;
   static id = "joomla";
   static label = "Joomla";

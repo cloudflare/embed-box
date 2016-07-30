@@ -1,6 +1,6 @@
 import keyMap from "lib/key-map"
 import smoothScroll from "smooth-scroll"
-const PAGE_ENTRIES = [
+const TARGET_ENTRIES = [
   "WordPress",
   "Drupal",
   "Joomla",
@@ -11,14 +11,14 @@ let sequence = []
 
 const toKeyDown = () => ({entity: keyMap.down, eventType: "keydown"})
 
-PAGE_ENTRIES.forEach(phrase => {
+TARGET_ENTRIES.forEach(phrase => {
   const subSet = [...phrase, keyMap.backspace]
 
   sequence = sequence.concat(subSet.map(entity => ({entity, eventType: "input"})))
 })
 
 sequence = sequence.concat(
-  PAGE_ENTRIES.map(toKeyDown),
+  TARGET_ENTRIES.map(toKeyDown),
   {entity: keyMap.enter, eventType: "keypress"}
 )
 
@@ -91,7 +91,7 @@ export function runDemo({contentWindow}, onComplete = () => {}) {
       delay = 200
     }
     else if (eventType === "scroll") {
-      const container = iframeDocument.querySelector("[data-component='page-wrapper'] .instructions")
+      const container = iframeDocument.querySelector("[data-component='target-wrapper'] .instructions")
       const bottom = container.scrollHeight - container.getBoundingClientRect().height
 
       runStep = () => smoothScroll(container, bottom, {duration: 3000, onScrolled: onStep})

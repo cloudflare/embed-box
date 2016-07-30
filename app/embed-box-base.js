@@ -1,6 +1,5 @@
 import stylesheet from "./embed-box.styl"
 import modalStylesheet from "./iframe.styl"
-import pagesStylesheet from "./pages.styl"
 
 import autobind from "autobind-decorator"
 import Application from "components/application"
@@ -47,11 +46,6 @@ export default class EmbedBoxBase {
 
     polyfillCustomEvent(iframe)
 
-    const pageStyle = iframe.document.createElement("style")
-
-    pageStyle.innerHTML = pagesStylesheet
-    iframe.document.head.appendChild(pageStyle)
-
     iframe.element.addEventListener("transitionend", this.handleTransitionEnd)
 
     this.iframe = iframe
@@ -65,7 +59,7 @@ export default class EmbedBoxBase {
 
     this.application = new Application(this.iframe.document.body, {
       onClose: this.hide,
-      pages: spec.pages || []
+      targets: spec.targets || []
     })
 
     if (autoShow) this.show()

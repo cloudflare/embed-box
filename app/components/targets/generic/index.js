@@ -1,8 +1,8 @@
 import template from "./generic.pug"
 
-import BasePage from "components/base-page"
+import BaseTarget from "components/base-target"
 
-export default class GenericPage extends BasePage {
+export default class GenericTarget extends BaseTarget {
   static fallback = true;
   static id = "generic";
   static label = "Another CMS";

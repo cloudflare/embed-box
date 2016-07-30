@@ -3,13 +3,13 @@
 const EmbedBoxBase = require("./app/embed-box-base").default
 
 function EmbedBoxCustom(spec = {}, ...args) {
-  const {fetchedPages} = this.constructor
+  const {fetchedTargets} = this.constructor
 
-  spec.pages = fetchedPages.concat(spec.pages || [])
+  spec.targets = fetchedTargets.concat(spec.targets || [])
 
   return new EmbedBoxBase(spec, ...args)
 }
 
-EmbedBoxCustom.fetchedPages = []
+EmbedBoxCustom.fetchedTargets = []
 
 module.exports = EmbedBoxCustom

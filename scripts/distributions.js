@@ -9,25 +9,25 @@ exports.entries = {
     library: "EmbedBoxCustom",
     path: "./custom.js"
   },
-  "embed-box-custom-page": {
-    library: "EmbedBoxCustomPage",
-    path: "./custom-page.js"
+  "embed-box-custom-target": {
+    library: "EmbedBoxCustomTarget",
+    path: "./custom-target.js"
   },
-  "embed-box-page-drupal": {
-    library: "EmbedBoxDrupalPage",
-    path: "./pages/drupal.js"
+  "embed-box-target-drupal": {
+    library: "EmbedBoxDrupalTarget",
+    path: "./targets/drupal.js"
   },
-  "embed-box-page-generic": {
-    library: "EmbedBoxGenericPage",
-    path: "./pages/generic.js"
+  "embed-box-target-generic": {
+    library: "EmbedBoxGenericTarget",
+    path: "./targets/generic.js"
   },
-  "embed-box-page-joomla": {
-    library: "EmbedBoxWordpressPage",
-    path: "./pages/joomla.js"
+  "embed-box-target-joomla": {
+    library: "EmbedBoxWordpressTarget",
+    path: "./targets/joomla.js"
   },
-  "embed-box-page-wordpress": {
-    library: "EmbedBoxWordpressPage",
-    path: "./pages/wordpress.js"
+  "embed-box-target-wordpress": {
+    library: "EmbedBoxWordpressTarget",
+    path: "./targets/wordpress.js"
   }
 }
 

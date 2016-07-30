@@ -93,7 +93,7 @@ html.no-js(lang="en" xmlns:og="http://ogp.me/ns#" xmlns:fb="http://www.facebook.
         +anchored("h3", "Content slots")
 
         :marked
-          Content can be inserted before and after the page instructions.
+          Content can be inserted before and after the target instructions.
 
         .code-example.has-run-button
           button.run Run
@@ -110,17 +110,17 @@ html.no-js(lang="en" xmlns:og="http://ogp.me/ns#" xmlns:fb="http://www.facebook.
           != require("./examples/labels.md")
 
 
-        +anchored("h3", "Custom pages")
+        +anchored("h3", "Custom targets")
 
         :marked
-          If the content slots are too coarse, custom pages can be created with the custom build.
+          If the content slots are too coarse, custom targets can be created with the custom build.
 
         .code-example
           != require("./examples/custom-install.md")
 
         .code-example.has-run-button
           button.run Run
-          != require("./examples/custom-page.md")
+          != require("./examples/custom-target.md")
 
         +anchored("h3", "Contributing")
 

@@ -7,7 +7,7 @@
     "examples/",
     "node_modules/",
     "media/",
-    "pages/",
+    "targets/",
     "test/",
   ]
 }

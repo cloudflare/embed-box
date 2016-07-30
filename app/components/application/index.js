@@ -7,7 +7,7 @@ import {getStore} from "lib/store"
 import * as icons from "components/icons"
 import KM from "lib/key-map"
 import SiteTypeSearch from "components/site-type-search"
-import PageWrapper from "components/page-wrapper"
+import TargetWrapper from "components/target-wrapper"
 
 export default class Application extends BaseComponent {
   static template = template;
@@ -17,13 +17,13 @@ export default class Application extends BaseComponent {
     super(options)
 
     this.transitioning = false
-    this.page = "home"
+    this.route = "home"
 
     const element = this.compileTemplate()
 
     const {window: iframeWindow} = getStore().iframe
-    const {closeModalButton, previousPageButton} = this.refs
-    const headerButtons = [closeModalButton, previousPageButton]
+    const {closeModalButton, previousButton} = this.refs
+    const headerButtons = [closeModalButton, previousButton]
 
     headerButtons.forEach(button => {
       const id = button.getAttribute("data-action")
@@ -41,7 +41,7 @@ export default class Application extends BaseComponent {
       if (event.target === element) this.closeModal()
     })
 
-    previousPageButton.addEventListener("click", this.navigateToHome)
+    previousButton.addEventListener("click", this.navigateToHome)
 
     this.navigateToHome()
     mountPoint.appendChild(this.element)
@@ -81,7 +81,7 @@ export default class Application extends BaseComponent {
 
         event.preventDefault()
 
-        if (this.page !== "home") this.navigateToHome()
+        if (this.route !== "home") this.navigateToHome()
         break
 
       default:
@@ -93,11 +93,11 @@ export default class Application extends BaseComponent {
     const {content} = this.refs
     const {firstChild} = content
     const siteTypeSearch = new SiteTypeSearch({
-      pages: this.pages,
+      targets: this.targets,
       onSelection: this.setNavigationState,
       onSubmit: selectedId => {
-        this.page = selectedId
-        this.navigateToPage()
+        this.route = selectedId
+        this.navigateToTarget()
       }
     }).render()
 
@@ -120,34 +120,34 @@ export default class Application extends BaseComponent {
   @autobind
   navigateToHome() {
     this.transitioning = false
-    this.page = "home"
+    this.route = "home"
     this.renderSiteTypeSearch()
     this.autofocus()
 
-    this.element.setAttribute("data-page", this.page)
+    this.element.setAttribute("data-route", this.route)
   }
 
   @autobind
-  navigateToPage() {
+  navigateToTarget() {
     this.transitioning = true
 
     const {content} = this.refs
     const {firstChild} = content
-    const [Page] = this.pages.filter(page => page.id === this.page)
-    const pageWrapper = new PageWrapper({
+    const [Target] = this.targets.filter(route => route.id === this.route)
+    const targetWrapper = new TargetWrapper({
       onDone: this.closeModal,
-      page: new Page()
+      target: new Target()
     }).render()
 
-    content.appendChild(pageWrapper)
+    content.appendChild(targetWrapper)
 
     firstChild.addEventListener("transitionend", () => {
       this.removeElement(firstChild)
       this.autofocus()
-      this.element.setAttribute("data-page", this.page)
+      this.element.setAttribute("data-route", this.route)
       this.transitioning = false
 
-      pageWrapper.firstChild.focus()
+      targetWrapper.firstChild.focus()
     })
 
     requestAnimationFrame(() => firstChild.setAttribute("data-transition", "hidden-left"))

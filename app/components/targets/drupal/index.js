@@ -1,8 +1,8 @@
 import template from "./drupal.pug"
 
-import BasePage from "components/base-page"
+import BaseTarget from "components/base-target"
 
-export default class DrupalPage extends BasePage {
+export default class DrupalTarget extends BaseTarget {
   static fallback = false;
   static id = "drupal";
   static label = "Drupal";

@@ -1,8 +1,8 @@
 import template from "./wordpress.pug"
 
-import BasePage from "components/base-page"
+import BaseTarget from "components/base-target"
 
-export default class WordpressPage extends BasePage {
+export default class WordpressTarget extends BaseTarget {
   static fallback = false;
   static id = "wordpress";
   static label = "WordPress";

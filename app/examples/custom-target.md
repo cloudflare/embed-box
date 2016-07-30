@@ -1,7 +1,7 @@
 ```javascript
-const CustomPage = EmbedBoxCustomPage.extend({
+var CustomTarget = EmbedBoxCustomTarget.extend({
   id: "custom-test",
-  label: "Custom Page",
+  label: "Custom Target",
   templateVars: {
     registerURL: "http://example.com/register"
   },
@@ -18,7 +18,7 @@ const CustomPage = EmbedBoxCustomPage.extend({
 })
 
 new EmbedBoxCustom({
-  name: "Custom Page Example",
-  pages: [CustomPage]
+  name: "Custom Target Example",
+  targets: [CustomTarget]
 })
 ```

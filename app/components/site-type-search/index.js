@@ -20,16 +20,16 @@ export default class SiteTypeSearch extends BaseComponent {
   selectedId = null;
 
   get types() {
-    const {query, pages} = this
+    const {query, targets} = this
 
-    if (!query) return pages
+    if (!query) return targets
 
-    return pages.map(page => {
-      const label = page.label.toLowerCase()
+    return targets.map(target => {
+      const label = target.label.toLowerCase()
 
       return {
-        ...page,
-        hidden: label.indexOf(query) === -1 && !page.fallback
+        ...target,
+        hidden: label.indexOf(query) === -1 && !target.fallback
       }
     })
   }
@@ -119,15 +119,15 @@ export default class SiteTypeSearch extends BaseComponent {
   }
 
   setNavigationState() {
-    const {nextPageButton} = this.refs
+    const {nextButton} = this.refs
 
-    nextPageButton.disabled = !this.selectedId
+    nextButton.disabled = !this.selectedId
   }
 
   render() {
     this.compileTemplate()
 
-    const {nextPageButton, search} = this.refs
+    const {nextButton, search} = this.refs
     const searchIcon = new SearchIcon()
 
     this.insertBefore(searchIcon.render(), search)
@@ -140,7 +140,7 @@ export default class SiteTypeSearch extends BaseComponent {
     this.element.addEventListener("dispatched-keydown", this.handleDelgatedKeydown)
     this.element.addEventListener("dispatched-keypress", this.handleDelgatedKeypress)
     this.element.addEventListener("dispatched-input", this.handleSearchInput)
-    nextPageButton.addEventListener("click", this.submit)
+    nextButton.addEventListener("click", this.submit)
 
     return this.element
   }
