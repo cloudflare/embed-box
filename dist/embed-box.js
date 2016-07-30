@@ -708,7 +708,7 @@ module.exports = exports['default'];
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_autobind_decorator___default = __WEBPACK_IMPORTED_MODULE_3_autobind_decorator__ && __WEBPACK_IMPORTED_MODULE_3_autobind_decorator__.__esModule ? function() { return __WEBPACK_IMPORTED_MODULE_3_autobind_decorator__['default'] } : function() { return __WEBPACK_IMPORTED_MODULE_3_autobind_decorator__; };
 /* harmony import */ __webpack_require__.d(__WEBPACK_IMPORTED_MODULE_3_autobind_decorator___default, 'a', __WEBPACK_IMPORTED_MODULE_3_autobind_decorator___default);
 
-/* harmony export */ __webpack_require__.d(exports, "a", function() { return BasePage; });var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+/* harmony export */ __webpack_require__.d(exports, "a", function() { return BaseTarget; });var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _desc, _value, _class, _class2, _temp;
 
@@ -754,16 +754,16 @@ function _applyDecoratedDescriptor(target, property, decorators, descriptor, con
 
 var AUTO_DOWNLOAD_DELAY = 3000;
 
-var BasePage = (_class = (_temp = _class2 = function (_BaseComponent) {
-  _inherits(BasePage, _BaseComponent);
+var BaseTarget = (_class = (_temp = _class2 = function (_BaseComponent) {
+  _inherits(BaseTarget, _BaseComponent);
 
-  function BasePage() {
-    _classCallCheck(this, BasePage);
+  function BaseTarget() {
+    _classCallCheck(this, BaseTarget);
 
-    return _possibleConstructorReturn(this, Object.getPrototypeOf(BasePage).apply(this, arguments));
+    return _possibleConstructorReturn(this, Object.getPrototypeOf(BaseTarget).apply(this, arguments));
   }
 
-  _createClass(BasePage, [{
+  _createClass(BaseTarget, [{
     key: "compileTemplate",
     value: function compileTemplate() {
       var _constructor = this.constructor;
@@ -773,7 +773,7 @@ var BasePage = (_class = (_temp = _class2 = function (_BaseComponent) {
 
       __WEBPACK_IMPORTED_MODULE_0_components_base_component__["a" /* default */].prototype.compileTemplate.call(this, templateVars);
 
-      this.element.setAttribute("data-component", id + "-page");
+      this.element.setAttribute("data-component", id + "-target");
       this.element.setAttribute("data-column", "");
       this.element.setAttribute("autofocus", "");
       this.element.className = "markdown instructions " + (this.element.className || "");
@@ -842,7 +842,7 @@ var BasePage = (_class = (_temp = _class2 = function (_BaseComponent) {
     }
   }]);
 
-  return BasePage;
+  return BaseTarget;
 }(__WEBPACK_IMPORTED_MODULE_0_components_base_component__["a" /* default */]), _class2.extend = function extend() {
   var _class3, _temp2;
 
@@ -854,20 +854,20 @@ var BasePage = (_class = (_temp = _class2 = function (_BaseComponent) {
   var template = _ref.template;
   var templateVars = _ref.templateVars;
 
-  if (!id) throw new Error("EmbedBox: Page must have `id`");
-  if (!label) throw new Error("EmbedBox: Page must have `label`");
+  if (!id) throw new Error("EmbedBox: Target must have `id`");
+  if (!label) throw new Error("EmbedBox: Target must have `label`");
 
-  return _temp2 = _class3 = function (_BasePage) {
-    _inherits(CustomPage, _BasePage);
+  return _temp2 = _class3 = function (_BaseTarget) {
+    _inherits(CustomTarget, _BaseTarget);
 
-    function CustomPage() {
-      _classCallCheck(this, CustomPage);
+    function CustomTarget() {
+      _classCallCheck(this, CustomTarget);
 
-      return _possibleConstructorReturn(this, Object.getPrototypeOf(CustomPage).apply(this, arguments));
+      return _possibleConstructorReturn(this, Object.getPrototypeOf(CustomTarget).apply(this, arguments));
     }
 
-    return CustomPage;
-  }(BasePage), _class3.fallback = fallback || false, _class3.id = id, _class3.label = label, _class3.template = template || "", _class3.templateVars = templateVars || {}, _temp2;
+    return CustomTarget;
+  }(BaseTarget), _class3.fallback = fallback || false, _class3.id = id, _class3.label = label, _class3.template = template || "", _class3.templateVars = templateVars || {}, _temp2;
 }, _temp), (_applyDecoratedDescriptor(_class.prototype, "startDownload", [__WEBPACK_IMPORTED_MODULE_3_autobind_decorator___default.a], Object.getOwnPropertyDescriptor(_class.prototype, "startDownload"), _class.prototype)), _class);
 
 
@@ -995,10 +995,10 @@ var wordpress = toComponent(__WEBPACK_IMPORTED_MODULE_7__wordpress_svg___default
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__drupal__ = __webpack_require__(12);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__generic__ = __webpack_require__(13);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__joomla__ = __webpack_require__(14);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__wordpress__ = __webpack_require__(15);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__drupal__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__generic__ = __webpack_require__(14);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__joomla__ = __webpack_require__(15);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__wordpress__ = __webpack_require__(16);
 
 /* harmony reexport */ if(__webpack_require__.o(__WEBPACK_IMPORTED_MODULE_0__drupal__, "a")) __webpack_require__.d(exports, "drupal", function() { return __WEBPACK_IMPORTED_MODULE_0__drupal__["a"]; });
 
@@ -1017,21 +1017,18 @@ var wordpress = toComponent(__WEBPACK_IMPORTED_MODULE_7__wordpress_svg___default
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__embed_box_styl__ = __webpack_require__(28);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__embed_box_styl__ = __webpack_require__(29);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__embed_box_styl___default = __WEBPACK_IMPORTED_MODULE_0__embed_box_styl__ && __WEBPACK_IMPORTED_MODULE_0__embed_box_styl__.__esModule ? function() { return __WEBPACK_IMPORTED_MODULE_0__embed_box_styl__['default'] } : function() { return __WEBPACK_IMPORTED_MODULE_0__embed_box_styl__; };
 /* harmony import */ __webpack_require__.d(__WEBPACK_IMPORTED_MODULE_0__embed_box_styl___default, 'a', __WEBPACK_IMPORTED_MODULE_0__embed_box_styl___default);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__iframe_styl__ = __webpack_require__(29);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__iframe_styl__ = __webpack_require__(30);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__iframe_styl___default = __WEBPACK_IMPORTED_MODULE_1__iframe_styl__ && __WEBPACK_IMPORTED_MODULE_1__iframe_styl__.__esModule ? function() { return __WEBPACK_IMPORTED_MODULE_1__iframe_styl__['default'] } : function() { return __WEBPACK_IMPORTED_MODULE_1__iframe_styl__; };
 /* harmony import */ __webpack_require__.d(__WEBPACK_IMPORTED_MODULE_1__iframe_styl___default, 'a', __WEBPACK_IMPORTED_MODULE_1__iframe_styl___default);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__pages_styl__ = __webpack_require__(30);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__pages_styl___default = __WEBPACK_IMPORTED_MODULE_2__pages_styl__ && __WEBPACK_IMPORTED_MODULE_2__pages_styl__.__esModule ? function() { return __WEBPACK_IMPORTED_MODULE_2__pages_styl__['default'] } : function() { return __WEBPACK_IMPORTED_MODULE_2__pages_styl__; };
-/* harmony import */ __webpack_require__.d(__WEBPACK_IMPORTED_MODULE_2__pages_styl___default, 'a', __WEBPACK_IMPORTED_MODULE_2__pages_styl___default);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_autobind_decorator__ = __webpack_require__(4);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_autobind_decorator___default = __WEBPACK_IMPORTED_MODULE_3_autobind_decorator__ && __WEBPACK_IMPORTED_MODULE_3_autobind_decorator__.__esModule ? function() { return __WEBPACK_IMPORTED_MODULE_3_autobind_decorator__['default'] } : function() { return __WEBPACK_IMPORTED_MODULE_3_autobind_decorator__; };
-/* harmony import */ __webpack_require__.d(__WEBPACK_IMPORTED_MODULE_3_autobind_decorator___default, 'a', __WEBPACK_IMPORTED_MODULE_3_autobind_decorator___default);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_components_application__ = __webpack_require__(10);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_lib_custom_event__ = __webpack_require__(17);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_lib_store__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_autobind_decorator__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_autobind_decorator___default = __WEBPACK_IMPORTED_MODULE_2_autobind_decorator__ && __WEBPACK_IMPORTED_MODULE_2_autobind_decorator__.__esModule ? function() { return __WEBPACK_IMPORTED_MODULE_2_autobind_decorator__['default'] } : function() { return __WEBPACK_IMPORTED_MODULE_2_autobind_decorator__; };
+/* harmony import */ __webpack_require__.d(__WEBPACK_IMPORTED_MODULE_2_autobind_decorator___default, 'a', __WEBPACK_IMPORTED_MODULE_2_autobind_decorator___default);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_components_application__ = __webpack_require__(10);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_lib_custom_event__ = __webpack_require__(17);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_lib_store__ = __webpack_require__(2);
 
 /* harmony export */ __webpack_require__.d(exports, "default", function() { return EmbedBoxBase; });var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
@@ -1080,7 +1077,6 @@ function _applyDecoratedDescriptor(target, property, decorators, descriptor, con
 
 
 
-
 var STATE_ATTRIBUTE = "data-embed-box";
 
 function removeElement(element) {
@@ -1102,7 +1098,7 @@ var EmbedBoxBase = (_class = (_temp = _class2 = function () {
     var stylesheet = _constructor.stylesheet;
     var theme = _constructor.theme;
 
-    var store = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_6_lib_store__["b" /* initializeStore */])(this, spec);
+    var store = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_5_lib_store__["b" /* initializeStore */])(this, spec);
     var iframe = store.iframe;
 
 
@@ -1113,12 +1109,7 @@ var EmbedBoxBase = (_class = (_temp = _class2 = function () {
     this.container = document.body;
     this.container.appendChild(iframe.element);
 
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_5_lib_custom_event__["a" /* default */])(iframe);
-
-    var pageStyle = iframe.document.createElement("style");
-
-    pageStyle.innerHTML = __WEBPACK_IMPORTED_MODULE_2__pages_styl___default.a;
-    iframe.document.head.appendChild(pageStyle);
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4_lib_custom_event__["a" /* default */])(iframe);
 
     iframe.element.addEventListener("transitionend", this.handleTransitionEnd);
 
@@ -1131,9 +1122,9 @@ var EmbedBoxBase = (_class = (_temp = _class2 = function () {
 
     this.appendModalStylesheet();
 
-    this.application = new __WEBPACK_IMPORTED_MODULE_4_components_application__["a" /* default */](this.iframe.document.body, {
+    this.application = new __WEBPACK_IMPORTED_MODULE_3_components_application__["a" /* default */](this.iframe.document.body, {
       onClose: this.hide,
-      pages: spec.pages || []
+      targets: spec.targets || []
     });
 
     if (autoShow) this.show();
@@ -1161,7 +1152,7 @@ var EmbedBoxBase = (_class = (_temp = _class2 = function () {
     value: function destroy() {
       removeElement(this.iframe.element);
       removeElement(this.style);
-      __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_6_lib_store__["c" /* destroyStore */])();
+      __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_5_lib_store__["c" /* destroyStore */])();
     }
 
     // Forces browser to compute transitions on elements inserted in current frame.
@@ -1214,7 +1205,7 @@ var EmbedBoxBase = (_class = (_temp = _class2 = function () {
   accentColor: "#2d88f3",
   backgroundColor: "#ffffff",
   textColor: "#000000"
-}, _temp), (_applyDecoratedDescriptor(_class.prototype, "handleTransitionEnd", [__WEBPACK_IMPORTED_MODULE_3_autobind_decorator___default.a], Object.getOwnPropertyDescriptor(_class.prototype, "handleTransitionEnd"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "hide", [__WEBPACK_IMPORTED_MODULE_3_autobind_decorator___default.a], Object.getOwnPropertyDescriptor(_class.prototype, "hide"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "show", [__WEBPACK_IMPORTED_MODULE_3_autobind_decorator___default.a], Object.getOwnPropertyDescriptor(_class.prototype, "show"), _class.prototype)), _class);
+}, _temp), (_applyDecoratedDescriptor(_class.prototype, "handleTransitionEnd", [__WEBPACK_IMPORTED_MODULE_2_autobind_decorator___default.a], Object.getOwnPropertyDescriptor(_class.prototype, "handleTransitionEnd"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "hide", [__WEBPACK_IMPORTED_MODULE_2_autobind_decorator___default.a], Object.getOwnPropertyDescriptor(_class.prototype, "hide"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "show", [__WEBPACK_IMPORTED_MODULE_2_autobind_decorator___default.a], Object.getOwnPropertyDescriptor(_class.prototype, "show"), _class.prototype)), _class);
 
 
 /***/ },
@@ -1235,8 +1226,8 @@ var EmbedBoxBase = (_class = (_temp = _class2 = function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_lib_store__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_components_icons__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_lib_key_map__ = __webpack_require__(7);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_components_site_type_search__ = __webpack_require__(16);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_components_page_wrapper__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_components_site_type_search__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_components_target_wrapper__ = __webpack_require__(12);
 
 /* harmony export */ __webpack_require__.d(exports, "a", function() { return Application; });var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
 
@@ -1299,16 +1290,16 @@ var Application = (_class = (_temp = _class2 = function (_BaseComponent) {
     var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Application).call(this, options));
 
     _this.transitioning = false;
-    _this.page = "home";
+    _this.route = "home";
 
     var element = _this.compileTemplate();
 
     var iframeWindow = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4_lib_store__["a" /* getStore */])().iframe.window;
     var _this$refs = _this.refs;
     var closeModalButton = _this$refs.closeModalButton;
-    var previousPageButton = _this$refs.previousPageButton;
+    var previousButton = _this$refs.previousButton;
 
-    var headerButtons = [closeModalButton, previousPageButton];
+    var headerButtons = [closeModalButton, previousButton];
 
     headerButtons.forEach(function (button) {
       var id = button.getAttribute("data-action");
@@ -1326,7 +1317,7 @@ var Application = (_class = (_temp = _class2 = function (_BaseComponent) {
       if (event.target === element) _this.closeModal();
     });
 
-    previousPageButton.addEventListener("click", _this.navigateToHome);
+    previousButton.addEventListener("click", _this.navigateToHome);
 
     _this.navigateToHome();
     mountPoint.appendChild(_this.element);
@@ -1368,7 +1359,7 @@ var Application = (_class = (_temp = _class2 = function (_BaseComponent) {
 
           event.preventDefault();
 
-          if (this.page !== "home") this.navigateToHome();
+          if (this.route !== "home") this.navigateToHome();
           break;
 
         default:
@@ -1384,11 +1375,11 @@ var Application = (_class = (_temp = _class2 = function (_BaseComponent) {
       var firstChild = content.firstChild;
 
       var siteTypeSearch = new __WEBPACK_IMPORTED_MODULE_7_components_site_type_search__["a" /* default */]({
-        pages: this.pages,
+        targets: this.targets,
         onSelection: this.setNavigationState,
         onSubmit: function onSubmit(selectedId) {
-          _this2.page = selectedId;
-          _this2.navigateToPage();
+          _this2.route = selectedId;
+          _this2.navigateToTarget();
         }
       }).render();
 
@@ -1413,15 +1404,15 @@ var Application = (_class = (_temp = _class2 = function (_BaseComponent) {
     key: "navigateToHome",
     value: function navigateToHome() {
       this.transitioning = false;
-      this.page = "home";
+      this.route = "home";
       this.renderSiteTypeSearch();
       this.autofocus();
 
-      this.element.setAttribute("data-page", this.page);
+      this.element.setAttribute("data-route", this.route);
     }
   }, {
-    key: "navigateToPage",
-    value: function navigateToPage() {
+    key: "navigateToTarget",
+    value: function navigateToTarget() {
       var _this3 = this;
 
       this.transitioning = true;
@@ -1429,28 +1420,28 @@ var Application = (_class = (_temp = _class2 = function (_BaseComponent) {
       var content = this.refs.content;
       var firstChild = content.firstChild;
 
-      var _pages$filter = this.pages.filter(function (page) {
-        return page.id === _this3.page;
+      var _targets$filter = this.targets.filter(function (route) {
+        return route.id === _this3.route;
       });
 
-      var _pages$filter2 = _slicedToArray(_pages$filter, 1);
+      var _targets$filter2 = _slicedToArray(_targets$filter, 1);
 
-      var Page = _pages$filter2[0];
+      var Target = _targets$filter2[0];
 
-      var pageWrapper = new __WEBPACK_IMPORTED_MODULE_8_components_page_wrapper__["a" /* default */]({
+      var targetWrapper = new __WEBPACK_IMPORTED_MODULE_8_components_target_wrapper__["a" /* default */]({
         onDone: this.closeModal,
-        page: new Page()
+        target: new Target()
       }).render();
 
-      content.appendChild(pageWrapper);
+      content.appendChild(targetWrapper);
 
       firstChild.addEventListener("transitionend", function () {
         _this3.removeElement(firstChild);
         _this3.autofocus();
-        _this3.element.setAttribute("data-page", _this3.page);
+        _this3.element.setAttribute("data-route", _this3.route);
         _this3.transitioning = false;
 
-        pageWrapper.firstChild.focus();
+        targetWrapper.firstChild.focus();
       });
 
       requestAnimationFrame(function () {
@@ -1460,216 +1451,11 @@ var Application = (_class = (_temp = _class2 = function (_BaseComponent) {
   }]);
 
   return Application;
-}(__WEBPACK_IMPORTED_MODULE_3_components_base_component__["a" /* default */]), _class2.template = __WEBPACK_IMPORTED_MODULE_1__application_pug___default.a, _class2.stylesheet = __WEBPACK_IMPORTED_MODULE_0__application_styl___default.a, _temp), (_applyDecoratedDescriptor(_class.prototype, "closeModal", [__WEBPACK_IMPORTED_MODULE_2_autobind_decorator___default.a], Object.getOwnPropertyDescriptor(_class.prototype, "closeModal"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "delgateKeyEvent", [__WEBPACK_IMPORTED_MODULE_2_autobind_decorator___default.a], Object.getOwnPropertyDescriptor(_class.prototype, "delgateKeyEvent"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "handleKeyNavigation", [__WEBPACK_IMPORTED_MODULE_2_autobind_decorator___default.a], Object.getOwnPropertyDescriptor(_class.prototype, "handleKeyNavigation"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "navigateToHome", [__WEBPACK_IMPORTED_MODULE_2_autobind_decorator___default.a], Object.getOwnPropertyDescriptor(_class.prototype, "navigateToHome"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "navigateToPage", [__WEBPACK_IMPORTED_MODULE_2_autobind_decorator___default.a], Object.getOwnPropertyDescriptor(_class.prototype, "navigateToPage"), _class.prototype)), _class);
+}(__WEBPACK_IMPORTED_MODULE_3_components_base_component__["a" /* default */]), _class2.template = __WEBPACK_IMPORTED_MODULE_1__application_pug___default.a, _class2.stylesheet = __WEBPACK_IMPORTED_MODULE_0__application_styl___default.a, _temp), (_applyDecoratedDescriptor(_class.prototype, "closeModal", [__WEBPACK_IMPORTED_MODULE_2_autobind_decorator___default.a], Object.getOwnPropertyDescriptor(_class.prototype, "closeModal"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "delgateKeyEvent", [__WEBPACK_IMPORTED_MODULE_2_autobind_decorator___default.a], Object.getOwnPropertyDescriptor(_class.prototype, "delgateKeyEvent"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "handleKeyNavigation", [__WEBPACK_IMPORTED_MODULE_2_autobind_decorator___default.a], Object.getOwnPropertyDescriptor(_class.prototype, "handleKeyNavigation"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "navigateToHome", [__WEBPACK_IMPORTED_MODULE_2_autobind_decorator___default.a], Object.getOwnPropertyDescriptor(_class.prototype, "navigateToHome"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "navigateToTarget", [__WEBPACK_IMPORTED_MODULE_2_autobind_decorator___default.a], Object.getOwnPropertyDescriptor(_class.prototype, "navigateToTarget"), _class.prototype)), _class);
 
 
 /***/ },
 /* 11 */
-/***/ function(module, exports, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__page_wrapper_pug__ = __webpack_require__(36);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__page_wrapper_pug___default = __WEBPACK_IMPORTED_MODULE_0__page_wrapper_pug__ && __WEBPACK_IMPORTED_MODULE_0__page_wrapper_pug__.__esModule ? function() { return __WEBPACK_IMPORTED_MODULE_0__page_wrapper_pug__['default'] } : function() { return __WEBPACK_IMPORTED_MODULE_0__page_wrapper_pug__; };
-/* harmony import */ __webpack_require__.d(__WEBPACK_IMPORTED_MODULE_0__page_wrapper_pug___default, 'a', __WEBPACK_IMPORTED_MODULE_0__page_wrapper_pug___default);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_components_base_component__ = __webpack_require__(1);
-
-/* harmony export */ __webpack_require__.d(exports, "a", function() { return PageWrapper; });var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _class, _temp;
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-
-
-
-
-var PageWrapper = (_temp = _class = function (_BaseComponent) {
-  _inherits(PageWrapper, _BaseComponent);
-
-  function PageWrapper() {
-    _classCallCheck(this, PageWrapper);
-
-    return _possibleConstructorReturn(this, Object.getPrototypeOf(PageWrapper).apply(this, arguments));
-  }
-
-  _createClass(PageWrapper, [{
-    key: "render",
-    value: function render() {
-      this.compileTemplate();
-
-      var page = this.page.render();
-      var _refs = this.refs;
-      var doneButton = _refs.doneButton;
-      var pageMount = _refs.pageMount;
-
-
-      this.replaceElement(pageMount, page);
-
-      doneButton.addEventListener("click", this.onDone);
-
-      return this.element;
-    }
-  }]);
-
-  return PageWrapper;
-}(__WEBPACK_IMPORTED_MODULE_1_components_base_component__["a" /* default */]), _class.template = __WEBPACK_IMPORTED_MODULE_0__page_wrapper_pug___default.a, _temp);
-
-
-/***/ },
-/* 12 */
-/***/ function(module, exports, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__drupal_pug__ = __webpack_require__(37);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__drupal_pug___default = __WEBPACK_IMPORTED_MODULE_0__drupal_pug__ && __WEBPACK_IMPORTED_MODULE_0__drupal_pug__.__esModule ? function() { return __WEBPACK_IMPORTED_MODULE_0__drupal_pug__['default'] } : function() { return __WEBPACK_IMPORTED_MODULE_0__drupal_pug__; };
-/* harmony import */ __webpack_require__.d(__WEBPACK_IMPORTED_MODULE_0__drupal_pug___default, 'a', __WEBPACK_IMPORTED_MODULE_0__drupal_pug___default);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_components_base_page__ = __webpack_require__(5);
-
-/* harmony export */ __webpack_require__.d(exports, "a", function() { return DrupalPage; });var _class, _temp;
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-
-
-
-
-var DrupalPage = (_temp = _class = function (_BasePage) {
-  _inherits(DrupalPage, _BasePage);
-
-  function DrupalPage() {
-    _classCallCheck(this, DrupalPage);
-
-    return _possibleConstructorReturn(this, Object.getPrototypeOf(DrupalPage).apply(this, arguments));
-  }
-
-  return DrupalPage;
-}(__WEBPACK_IMPORTED_MODULE_1_components_base_page__["a" /* default */]), _class.fallback = false, _class.id = "drupal", _class.label = "Drupal", _class.template = __WEBPACK_IMPORTED_MODULE_0__drupal_pug___default.a, _temp);
-
-
-/***/ },
-/* 13 */
-/***/ function(module, exports, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__generic_pug__ = __webpack_require__(38);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__generic_pug___default = __WEBPACK_IMPORTED_MODULE_0__generic_pug__ && __WEBPACK_IMPORTED_MODULE_0__generic_pug__.__esModule ? function() { return __WEBPACK_IMPORTED_MODULE_0__generic_pug__['default'] } : function() { return __WEBPACK_IMPORTED_MODULE_0__generic_pug__; };
-/* harmony import */ __webpack_require__.d(__WEBPACK_IMPORTED_MODULE_0__generic_pug___default, 'a', __WEBPACK_IMPORTED_MODULE_0__generic_pug___default);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_components_base_page__ = __webpack_require__(5);
-
-/* harmony export */ __webpack_require__.d(exports, "a", function() { return GenericPage; });var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _class, _temp;
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-
-
-
-
-var GenericPage = (_temp = _class = function (_BasePage) {
-  _inherits(GenericPage, _BasePage);
-
-  function GenericPage() {
-    _classCallCheck(this, GenericPage);
-
-    return _possibleConstructorReturn(this, Object.getPrototypeOf(GenericPage).apply(this, arguments));
-  }
-
-  _createClass(GenericPage, [{
-    key: "downloadLabel",
-    get: function get() {
-      return "Download the plugin";
-    }
-  }]);
-
-  return GenericPage;
-}(__WEBPACK_IMPORTED_MODULE_1_components_base_page__["a" /* default */]), _class.fallback = true, _class.id = "generic", _class.label = "Another CMS", _class.template = __WEBPACK_IMPORTED_MODULE_0__generic_pug___default.a, _temp);
-
-
-/***/ },
-/* 14 */
-/***/ function(module, exports, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__joomla_pug__ = __webpack_require__(39);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__joomla_pug___default = __WEBPACK_IMPORTED_MODULE_0__joomla_pug__ && __WEBPACK_IMPORTED_MODULE_0__joomla_pug__.__esModule ? function() { return __WEBPACK_IMPORTED_MODULE_0__joomla_pug__['default'] } : function() { return __WEBPACK_IMPORTED_MODULE_0__joomla_pug__; };
-/* harmony import */ __webpack_require__.d(__WEBPACK_IMPORTED_MODULE_0__joomla_pug___default, 'a', __WEBPACK_IMPORTED_MODULE_0__joomla_pug___default);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_components_base_page__ = __webpack_require__(5);
-
-/* harmony export */ __webpack_require__.d(exports, "a", function() { return JoomlaPage; });var _class, _temp;
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-
-
-
-
-var JoomlaPage = (_temp = _class = function (_BasePage) {
-  _inherits(JoomlaPage, _BasePage);
-
-  function JoomlaPage() {
-    _classCallCheck(this, JoomlaPage);
-
-    return _possibleConstructorReturn(this, Object.getPrototypeOf(JoomlaPage).apply(this, arguments));
-  }
-
-  return JoomlaPage;
-}(__WEBPACK_IMPORTED_MODULE_1_components_base_page__["a" /* default */]), _class.fallback = false, _class.id = "joomla", _class.label = "Joomla", _class.template = __WEBPACK_IMPORTED_MODULE_0__joomla_pug___default.a, _temp);
-
-
-/***/ },
-/* 15 */
-/***/ function(module, exports, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__wordpress_pug__ = __webpack_require__(40);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__wordpress_pug___default = __WEBPACK_IMPORTED_MODULE_0__wordpress_pug__ && __WEBPACK_IMPORTED_MODULE_0__wordpress_pug__.__esModule ? function() { return __WEBPACK_IMPORTED_MODULE_0__wordpress_pug__['default'] } : function() { return __WEBPACK_IMPORTED_MODULE_0__wordpress_pug__; };
-/* harmony import */ __webpack_require__.d(__WEBPACK_IMPORTED_MODULE_0__wordpress_pug___default, 'a', __WEBPACK_IMPORTED_MODULE_0__wordpress_pug___default);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_components_base_page__ = __webpack_require__(5);
-
-/* harmony export */ __webpack_require__.d(exports, "a", function() { return WordpressPage; });var _class, _temp;
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-
-
-
-
-var WordpressPage = (_temp = _class = function (_BasePage) {
-  _inherits(WordpressPage, _BasePage);
-
-  function WordpressPage() {
-    _classCallCheck(this, WordpressPage);
-
-    return _possibleConstructorReturn(this, Object.getPrototypeOf(WordpressPage).apply(this, arguments));
-  }
-
-  return WordpressPage;
-}(__WEBPACK_IMPORTED_MODULE_1_components_base_page__["a" /* default */]), _class.fallback = false, _class.id = "wordpress", _class.label = "WordPress", _class.template = __WEBPACK_IMPORTED_MODULE_0__wordpress_pug___default.a, _temp);
-
-
-/***/ },
-/* 16 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1680,7 +1466,7 @@ var WordpressPage = (_temp = _class = function (_BasePage) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_autobind_decorator___default = __WEBPACK_IMPORTED_MODULE_1_autobind_decorator__ && __WEBPACK_IMPORTED_MODULE_1_autobind_decorator__.__esModule ? function() { return __WEBPACK_IMPORTED_MODULE_1_autobind_decorator__['default'] } : function() { return __WEBPACK_IMPORTED_MODULE_1_autobind_decorator__; };
 /* harmony import */ __webpack_require__.d(__WEBPACK_IMPORTED_MODULE_1_autobind_decorator___default, 'a', __WEBPACK_IMPORTED_MODULE_1_autobind_decorator___default);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_components_base_component__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__site_type_search_pug__ = __webpack_require__(41);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__site_type_search_pug__ = __webpack_require__(36);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__site_type_search_pug___default = __WEBPACK_IMPORTED_MODULE_3__site_type_search_pug__ && __WEBPACK_IMPORTED_MODULE_3__site_type_search_pug__.__esModule ? function() { return __WEBPACK_IMPORTED_MODULE_3__site_type_search_pug__['default'] } : function() { return __WEBPACK_IMPORTED_MODULE_3__site_type_search_pug__; };
 /* harmony import */ __webpack_require__.d(__WEBPACK_IMPORTED_MODULE_3__site_type_search_pug___default, 'a', __WEBPACK_IMPORTED_MODULE_3__site_type_search_pug___default);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_components_icons__ = __webpack_require__(6);
@@ -1886,10 +1672,10 @@ var SiteTypeSearch = (_class = (_temp2 = _class2 = function (_BaseComponent) {
   }, {
     key: "setNavigationState",
     value: function setNavigationState() {
-      var nextPageButton = this.refs.nextPageButton;
+      var nextButton = this.refs.nextButton;
 
 
-      nextPageButton.disabled = !this.selectedId;
+      nextButton.disabled = !this.selectedId;
     }
   }, {
     key: "render",
@@ -1897,7 +1683,7 @@ var SiteTypeSearch = (_class = (_temp2 = _class2 = function (_BaseComponent) {
       this.compileTemplate();
 
       var _refs3 = this.refs;
-      var nextPageButton = _refs3.nextPageButton;
+      var nextButton = _refs3.nextButton;
       var search = _refs3.search;
 
       var searchIcon = new SearchIcon();
@@ -1912,7 +1698,7 @@ var SiteTypeSearch = (_class = (_temp2 = _class2 = function (_BaseComponent) {
       this.element.addEventListener("dispatched-keydown", this.handleDelgatedKeydown);
       this.element.addEventListener("dispatched-keypress", this.handleDelgatedKeypress);
       this.element.addEventListener("dispatched-input", this.handleSearchInput);
-      nextPageButton.addEventListener("click", this.submit);
+      nextButton.addEventListener("click", this.submit);
 
       return this.element;
     }
@@ -1967,16 +1753,16 @@ var SiteTypeSearch = (_class = (_temp2 = _class2 = function (_BaseComponent) {
     key: "types",
     get: function get() {
       var query = this.query;
-      var pages = this.pages;
+      var targets = this.targets;
 
 
-      if (!query) return pages;
+      if (!query) return targets;
 
-      return pages.map(function (page) {
-        var label = page.label.toLowerCase();
+      return targets.map(function (target) {
+        var label = target.label.toLowerCase();
 
-        return _extends({}, page, {
-          hidden: label.indexOf(query) === -1 && !page.fallback
+        return _extends({}, target, {
+          hidden: label.indexOf(query) === -1 && !target.fallback
         });
       });
     }
@@ -1984,6 +1770,215 @@ var SiteTypeSearch = (_class = (_temp2 = _class2 = function (_BaseComponent) {
 
   return SiteTypeSearch;
 }(__WEBPACK_IMPORTED_MODULE_2_components_base_component__["a" /* default */]), _class2.template = __WEBPACK_IMPORTED_MODULE_3__site_type_search_pug___default.a, _class2.stylesheet = __WEBPACK_IMPORTED_MODULE_0__site_type_search_styl___default.a, _temp2), (_applyDecoratedDescriptor(_class.prototype, "handleSearchInput", [__WEBPACK_IMPORTED_MODULE_1_autobind_decorator___default.a], Object.getOwnPropertyDescriptor(_class.prototype, "handleSearchInput"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "handleDelgatedKeydown", [__WEBPACK_IMPORTED_MODULE_1_autobind_decorator___default.a], Object.getOwnPropertyDescriptor(_class.prototype, "handleDelgatedKeydown"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "handleDelgatedKeypress", [__WEBPACK_IMPORTED_MODULE_1_autobind_decorator___default.a], Object.getOwnPropertyDescriptor(_class.prototype, "handleDelgatedKeypress"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "submit", [__WEBPACK_IMPORTED_MODULE_1_autobind_decorator___default.a], Object.getOwnPropertyDescriptor(_class.prototype, "submit"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "setTypeStyle", [__WEBPACK_IMPORTED_MODULE_1_autobind_decorator___default.a], Object.getOwnPropertyDescriptor(_class.prototype, "setTypeStyle"), _class.prototype)), _class);
+
+
+/***/ },
+/* 12 */
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__target_wrapper_pug__ = __webpack_require__(37);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__target_wrapper_pug___default = __WEBPACK_IMPORTED_MODULE_0__target_wrapper_pug__ && __WEBPACK_IMPORTED_MODULE_0__target_wrapper_pug__.__esModule ? function() { return __WEBPACK_IMPORTED_MODULE_0__target_wrapper_pug__['default'] } : function() { return __WEBPACK_IMPORTED_MODULE_0__target_wrapper_pug__; };
+/* harmony import */ __webpack_require__.d(__WEBPACK_IMPORTED_MODULE_0__target_wrapper_pug___default, 'a', __WEBPACK_IMPORTED_MODULE_0__target_wrapper_pug___default);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__target_wrapper_styl__ = __webpack_require__(28);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__target_wrapper_styl___default = __WEBPACK_IMPORTED_MODULE_1__target_wrapper_styl__ && __WEBPACK_IMPORTED_MODULE_1__target_wrapper_styl__.__esModule ? function() { return __WEBPACK_IMPORTED_MODULE_1__target_wrapper_styl__['default'] } : function() { return __WEBPACK_IMPORTED_MODULE_1__target_wrapper_styl__; };
+/* harmony import */ __webpack_require__.d(__WEBPACK_IMPORTED_MODULE_1__target_wrapper_styl___default, 'a', __WEBPACK_IMPORTED_MODULE_1__target_wrapper_styl___default);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_components_base_component__ = __webpack_require__(1);
+
+/* harmony export */ __webpack_require__.d(exports, "a", function() { return TargetWrapper; });var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _class, _temp;
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+
+
+
+
+
+var TargetWrapper = (_temp = _class = function (_BaseComponent) {
+  _inherits(TargetWrapper, _BaseComponent);
+
+  function TargetWrapper() {
+    _classCallCheck(this, TargetWrapper);
+
+    return _possibleConstructorReturn(this, Object.getPrototypeOf(TargetWrapper).apply(this, arguments));
+  }
+
+  _createClass(TargetWrapper, [{
+    key: "render",
+    value: function render() {
+      this.compileTemplate();
+
+      var target = this.target.render();
+      var _refs = this.refs;
+      var doneButton = _refs.doneButton;
+      var targetMount = _refs.targetMount;
+
+
+      this.replaceElement(targetMount, target);
+
+      doneButton.addEventListener("click", this.onDone);
+
+      return this.element;
+    }
+  }]);
+
+  return TargetWrapper;
+}(__WEBPACK_IMPORTED_MODULE_2_components_base_component__["a" /* default */]), _class.template = __WEBPACK_IMPORTED_MODULE_0__target_wrapper_pug___default.a, _class.stylesheet = __WEBPACK_IMPORTED_MODULE_1__target_wrapper_styl___default.a, _temp);
+
+
+/***/ },
+/* 13 */
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__drupal_pug__ = __webpack_require__(38);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__drupal_pug___default = __WEBPACK_IMPORTED_MODULE_0__drupal_pug__ && __WEBPACK_IMPORTED_MODULE_0__drupal_pug__.__esModule ? function() { return __WEBPACK_IMPORTED_MODULE_0__drupal_pug__['default'] } : function() { return __WEBPACK_IMPORTED_MODULE_0__drupal_pug__; };
+/* harmony import */ __webpack_require__.d(__WEBPACK_IMPORTED_MODULE_0__drupal_pug___default, 'a', __WEBPACK_IMPORTED_MODULE_0__drupal_pug___default);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_components_base_target__ = __webpack_require__(5);
+
+/* harmony export */ __webpack_require__.d(exports, "a", function() { return DrupalTarget; });var _class, _temp;
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+
+
+
+
+var DrupalTarget = (_temp = _class = function (_BaseTarget) {
+  _inherits(DrupalTarget, _BaseTarget);
+
+  function DrupalTarget() {
+    _classCallCheck(this, DrupalTarget);
+
+    return _possibleConstructorReturn(this, Object.getPrototypeOf(DrupalTarget).apply(this, arguments));
+  }
+
+  return DrupalTarget;
+}(__WEBPACK_IMPORTED_MODULE_1_components_base_target__["a" /* default */]), _class.fallback = false, _class.id = "drupal", _class.label = "Drupal", _class.template = __WEBPACK_IMPORTED_MODULE_0__drupal_pug___default.a, _temp);
+
+
+/***/ },
+/* 14 */
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__generic_pug__ = __webpack_require__(39);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__generic_pug___default = __WEBPACK_IMPORTED_MODULE_0__generic_pug__ && __WEBPACK_IMPORTED_MODULE_0__generic_pug__.__esModule ? function() { return __WEBPACK_IMPORTED_MODULE_0__generic_pug__['default'] } : function() { return __WEBPACK_IMPORTED_MODULE_0__generic_pug__; };
+/* harmony import */ __webpack_require__.d(__WEBPACK_IMPORTED_MODULE_0__generic_pug___default, 'a', __WEBPACK_IMPORTED_MODULE_0__generic_pug___default);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_components_base_target__ = __webpack_require__(5);
+
+/* harmony export */ __webpack_require__.d(exports, "a", function() { return GenericTarget; });var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _class, _temp;
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+
+
+
+
+var GenericTarget = (_temp = _class = function (_BaseTarget) {
+  _inherits(GenericTarget, _BaseTarget);
+
+  function GenericTarget() {
+    _classCallCheck(this, GenericTarget);
+
+    return _possibleConstructorReturn(this, Object.getPrototypeOf(GenericTarget).apply(this, arguments));
+  }
+
+  _createClass(GenericTarget, [{
+    key: "downloadLabel",
+    get: function get() {
+      return "Download the plugin";
+    }
+  }]);
+
+  return GenericTarget;
+}(__WEBPACK_IMPORTED_MODULE_1_components_base_target__["a" /* default */]), _class.fallback = true, _class.id = "generic", _class.label = "Another CMS", _class.template = __WEBPACK_IMPORTED_MODULE_0__generic_pug___default.a, _temp);
+
+
+/***/ },
+/* 15 */
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__joomla_pug__ = __webpack_require__(40);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__joomla_pug___default = __WEBPACK_IMPORTED_MODULE_0__joomla_pug__ && __WEBPACK_IMPORTED_MODULE_0__joomla_pug__.__esModule ? function() { return __WEBPACK_IMPORTED_MODULE_0__joomla_pug__['default'] } : function() { return __WEBPACK_IMPORTED_MODULE_0__joomla_pug__; };
+/* harmony import */ __webpack_require__.d(__WEBPACK_IMPORTED_MODULE_0__joomla_pug___default, 'a', __WEBPACK_IMPORTED_MODULE_0__joomla_pug___default);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_components_base_target__ = __webpack_require__(5);
+
+/* harmony export */ __webpack_require__.d(exports, "a", function() { return JoomlaTarget; });var _class, _temp;
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+
+
+
+
+var JoomlaTarget = (_temp = _class = function (_BaseTarget) {
+  _inherits(JoomlaTarget, _BaseTarget);
+
+  function JoomlaTarget() {
+    _classCallCheck(this, JoomlaTarget);
+
+    return _possibleConstructorReturn(this, Object.getPrototypeOf(JoomlaTarget).apply(this, arguments));
+  }
+
+  return JoomlaTarget;
+}(__WEBPACK_IMPORTED_MODULE_1_components_base_target__["a" /* default */]), _class.fallback = false, _class.id = "joomla", _class.label = "Joomla", _class.template = __WEBPACK_IMPORTED_MODULE_0__joomla_pug___default.a, _temp);
+
+
+/***/ },
+/* 16 */
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__wordpress_pug__ = __webpack_require__(41);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__wordpress_pug___default = __WEBPACK_IMPORTED_MODULE_0__wordpress_pug__ && __WEBPACK_IMPORTED_MODULE_0__wordpress_pug__.__esModule ? function() { return __WEBPACK_IMPORTED_MODULE_0__wordpress_pug__['default'] } : function() { return __WEBPACK_IMPORTED_MODULE_0__wordpress_pug__; };
+/* harmony import */ __webpack_require__.d(__WEBPACK_IMPORTED_MODULE_0__wordpress_pug___default, 'a', __WEBPACK_IMPORTED_MODULE_0__wordpress_pug___default);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_components_base_target__ = __webpack_require__(5);
+
+/* harmony export */ __webpack_require__.d(exports, "a", function() { return WordpressTarget; });var _class, _temp;
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+
+
+
+
+var WordpressTarget = (_temp = _class = function (_BaseTarget) {
+  _inherits(WordpressTarget, _BaseTarget);
+
+  function WordpressTarget() {
+    _classCallCheck(this, WordpressTarget);
+
+    return _possibleConstructorReturn(this, Object.getPrototypeOf(WordpressTarget).apply(this, arguments));
+  }
+
+  return WordpressTarget;
+}(__WEBPACK_IMPORTED_MODULE_1_components_base_target__["a" /* default */]), _class.fallback = false, _class.id = "wordpress", _class.label = "WordPress", _class.template = __WEBPACK_IMPORTED_MODULE_0__wordpress_pug___default.a, _temp);
 
 
 /***/ },
@@ -2432,7 +2427,7 @@ exports = module.exports = __webpack_require__(3)();
 
 
 // module
-exports.push([module.i, "[data-component=\"application\"] {\n  -webkit-box-align: center;\n  -o-box-align: center;\n  -ms-flex-align: center;\n  -ms-grid-row-align: center;\n      align-items: center;\n  -webkit-box-pack: center;\n  -o-box-pack: center;\n  -ms-flex-pack: center;\n  justify-content: center;\n  max-height: 100%;\n  min-height: 100%;\n}\n[data-component=\"application\"][data-page=\"home\"] .modal-header [data-action=\"previous\"] {\n  visibility: hidden;\n}\n[data-component=\"application\"]:not([data-page=\"home\"]) .modal-footer [data-action=\"next\"] {\n  display: none;\n}\n@media (max-height: 24em) {\n  [data-component=\"application\"] {\n    -webkit-box-pack: start;\n    -o-box-pack: start;\n    -ms-flex-pack: start;\n    justify-content: flex-start;\n  }\n}\n[data-component=\"application\"] .modal {\n  position: relative;\n  z-index: 1;\n  -webkit-box-flex: 1;\n  -o-box-flex: 1;\n  box-flex: 1;\n  -ms-flex: 1 1 auto;\n  flex: 1 1 auto;\n  min-height: 18em;\n  max-height: 38em;\n  overflow: hidden;\n  width: 35em;\n  max-width: 100%;\n  background: #fff;\n  border-radius: 0.3125em;\n}\n[data-component=\"application\"] .modal .content {\n  -webkit-box-flex: 1;\n  -o-box-flex: 1;\n  box-flex: 1;\n  -ms-flex: 1 1 auto;\n  flex: 1 1 auto;\n}\n[data-component=\"application\"] .modal .content > * {\n  margin: 0;\n  -webkit-box-flex: 1;\n  -o-box-flex: 1;\n  box-flex: 1;\n  -ms-flex: 1 0 auto;\n  flex: 1 0 auto;\n  -webkit-transition: margin 0.2s ease-in-out;\n  transition: margin 0.2s ease-in-out;\n  width: 100%;\n}\n[data-component=\"application\"] .modal .content [data-component=\"site-type-search\"][data-transition=\"hidden-left\"] {\n  margin-left: -100%;\n}\n[data-component=\"application\"] .modal-header {\n  -webkit-box-align: center;\n  -o-box-align: center;\n  -ms-flex-align: center;\n  -ms-grid-row-align: center;\n      align-items: center;\n  box-shadow: 0 1px rgba(0,0,0,0.21);\n  -webkit-box-flex: 1;\n  -o-box-flex: 1;\n  box-flex: 1;\n  -ms-flex: 0 0 auto;\n  flex: 0 0 auto;\n  -webkit-box-pack: justify;\n  -o-box-pack: justify;\n  -ms-flex-pack: justify;\n  justify-content: space-between;\n  width: 100%;\n  z-index: 1;\n}\n[data-component=\"application\"] .modal-header .title {\n  text-align: center;\n  line-height: 1.4;\n  padding: 0.8em 0;\n}\n[data-component=\"application\"] .modal-header button[data-action] {\n  -webkit-appearance: none;\n  -moz-appearance: none;\n  appearance: none;\n  background: inherit;\n  border-radius: 0;\n  color: inherit;\n  -webkit-box-flex: 1;\n  -o-box-flex: 1;\n  box-flex: 1;\n  -ms-flex: 0 0 auto;\n  flex: 0 0 auto;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: box;\n  display: flex;\n  height: 4em;\n  -webkit-box-pack: center;\n  -o-box-pack: center;\n  -ms-flex-pack: center;\n  justify-content: center;\n  padding: 0;\n  margin: 0;\n  opacity: 0.85;\n  -ms-filter: \"progid:DXImageTransform.Microsoft.Alpha(Opacity=85)\";\n  filter: alpha(opacity=85);\n  width: 4em;\n}\n[data-component=\"application\"] .modal-header button[data-action]:focus:before {\n  display: none;\n}\n[data-component=\"application\"] .modal-header button[data-action]:hover,\n[data-component=\"application\"] .modal-header button[data-action]:focus {\n  background: rgba(0,0,0,0.045);\n  box-shadow: none;\n  opacity: 1;\n  -ms-filter: none;\n  -webkit-filter: none;\n          filter: none;\n}\n[data-component=\"application\"] .modal-header button[data-action]:not(:hover) {\n  color: rgba(0,0,0,0.43);\n}\n[data-component=\"application\"] .modal-header button[data-action] > .icon {\n  -webkit-box-flex: 1;\n  -o-box-flex: 1;\n  box-flex: 1;\n  -ms-flex: 1 0 auto;\n  flex: 1 0 auto;\n  width: 1em;\n  height: 1em;\n  stroke: currentColor;\n}\n[data-component=\"application\"] .modal-footer {\n  box-shadow: 0 -1px rgba(0,0,0,0.21);\n  -webkit-box-flex: 1;\n  -o-box-flex: 1;\n  box-flex: 1;\n  -ms-flex: 0 0 auto;\n  flex: 0 0 auto;\n  -webkit-box-pack: end;\n  -o-box-pack: end;\n  -ms-flex-pack: end;\n  justify-content: flex-end;\n  padding: 1.5em;\n  position: relative;\n  z-index: 1;\n}\n[data-component=\"application\"] .modal-footer button[disabled],\n[data-component=\"application\"] .modal-footer .button[disabled] {\n  background: #e0e0e0;\n}\n@media (min-width: 769px) {\n  [data-component=\"application\"] .modal {\n    box-shadow: 0 2px 8px rgba(0,0,0,0.4);\n    margin: 1.5em 0;\n  }\n}\n@media (max-width: 768px) {\n  [data-component=\"application\"] .modal {\n    border-radius: 0;\n    max-height: 100vh;\n    width: 100%;\n  }\n}\n", ""]);
+exports.push([module.i, "[data-component=\"application\"] {\n  -webkit-box-align: center;\n  -o-box-align: center;\n  -ms-flex-align: center;\n  -ms-grid-row-align: center;\n      align-items: center;\n  -webkit-box-pack: center;\n  -o-box-pack: center;\n  -ms-flex-pack: center;\n  justify-content: center;\n  max-height: 100%;\n  min-height: 100%;\n}\n[data-component=\"application\"][data-route=\"home\"] .modal-header [data-action=\"previous\"] {\n  visibility: hidden;\n}\n@media (max-height: 24em) {\n  [data-component=\"application\"] {\n    -webkit-box-pack: start;\n    -o-box-pack: start;\n    -ms-flex-pack: start;\n    justify-content: flex-start;\n  }\n}\n[data-component=\"application\"] .modal {\n  position: relative;\n  z-index: 1;\n  -webkit-box-flex: 1;\n  -o-box-flex: 1;\n  box-flex: 1;\n  -ms-flex: 1 1 auto;\n  flex: 1 1 auto;\n  min-height: 18em;\n  max-height: 38em;\n  overflow: hidden;\n  width: 35em;\n  max-width: 100%;\n  background: #fff;\n  border-radius: 0.3125em;\n}\n[data-component=\"application\"] .modal .content {\n  -webkit-box-flex: 1;\n  -o-box-flex: 1;\n  box-flex: 1;\n  -ms-flex: 1 1 auto;\n  flex: 1 1 auto;\n}\n[data-component=\"application\"] .modal .content > * {\n  margin: 0;\n  -webkit-box-flex: 1;\n  -o-box-flex: 1;\n  box-flex: 1;\n  -ms-flex: 1 0 auto;\n  flex: 1 0 auto;\n  -webkit-transition: margin 0.2s ease-in-out;\n  transition: margin 0.2s ease-in-out;\n  width: 100%;\n}\n[data-component=\"application\"] .modal .content [data-component=\"site-type-search\"][data-transition=\"hidden-left\"] {\n  margin-left: -100%;\n}\n[data-component=\"application\"] .modal-header {\n  -webkit-box-align: center;\n  -o-box-align: center;\n  -ms-flex-align: center;\n  -ms-grid-row-align: center;\n      align-items: center;\n  box-shadow: 0 1px rgba(0,0,0,0.21);\n  -webkit-box-flex: 1;\n  -o-box-flex: 1;\n  box-flex: 1;\n  -ms-flex: 0 0 auto;\n  flex: 0 0 auto;\n  -webkit-box-pack: justify;\n  -o-box-pack: justify;\n  -ms-flex-pack: justify;\n  justify-content: space-between;\n  width: 100%;\n  z-index: 1;\n}\n[data-component=\"application\"] .modal-header .title {\n  text-align: center;\n  line-height: 1.4;\n  padding: 0.8em 0;\n}\n[data-component=\"application\"] .modal-header button[data-action] {\n  -webkit-appearance: none;\n  -moz-appearance: none;\n  appearance: none;\n  background: inherit;\n  border-radius: 0;\n  color: inherit;\n  -webkit-box-flex: 1;\n  -o-box-flex: 1;\n  box-flex: 1;\n  -ms-flex: 0 0 auto;\n  flex: 0 0 auto;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: box;\n  display: flex;\n  height: 4em;\n  -webkit-box-pack: center;\n  -o-box-pack: center;\n  -ms-flex-pack: center;\n  justify-content: center;\n  padding: 0;\n  margin: 0;\n  opacity: 0.85;\n  -ms-filter: \"progid:DXImageTransform.Microsoft.Alpha(Opacity=85)\";\n  filter: alpha(opacity=85);\n  width: 4em;\n}\n[data-component=\"application\"] .modal-header button[data-action]:focus:before {\n  display: none;\n}\n[data-component=\"application\"] .modal-header button[data-action]:hover,\n[data-component=\"application\"] .modal-header button[data-action]:focus {\n  background: rgba(0,0,0,0.045);\n  box-shadow: none;\n  opacity: 1;\n  -ms-filter: none;\n  -webkit-filter: none;\n          filter: none;\n}\n[data-component=\"application\"] .modal-header button[data-action]:not(:hover) {\n  color: rgba(0,0,0,0.43);\n}\n[data-component=\"application\"] .modal-header button[data-action] > .icon {\n  -webkit-box-flex: 1;\n  -o-box-flex: 1;\n  box-flex: 1;\n  -ms-flex: 1 0 auto;\n  flex: 1 0 auto;\n  width: 1em;\n  height: 1em;\n  stroke: currentColor;\n}\n[data-component=\"application\"] .modal-footer {\n  box-shadow: 0 -1px rgba(0,0,0,0.21);\n  -webkit-box-flex: 1;\n  -o-box-flex: 1;\n  box-flex: 1;\n  -ms-flex: 0 0 auto;\n  flex: 0 0 auto;\n  -webkit-box-pack: end;\n  -o-box-pack: end;\n  -ms-flex-pack: end;\n  justify-content: flex-end;\n  padding: 1.5em;\n  position: relative;\n  z-index: 1;\n}\n[data-component=\"application\"] .modal-footer button[disabled],\n[data-component=\"application\"] .modal-footer .button[disabled] {\n  background: #e0e0e0;\n}\n@media (min-width: 769px) {\n  [data-component=\"application\"] .modal {\n    box-shadow: 0 2px 8px rgba(0,0,0,0.4);\n    margin: 1.5em 0;\n  }\n}\n@media (max-width: 768px) {\n  [data-component=\"application\"] .modal {\n    border-radius: 0;\n    max-height: 100vh;\n    width: 100%;\n  }\n}\n", ""]);
 
 // exports
 
@@ -2460,7 +2455,7 @@ exports = module.exports = __webpack_require__(3)();
 
 
 // module
-exports.push([module.i, "[data-embed-box] {\n  bottom: 0 !important;\n  height: 100vh !important;\n  left: 0 !important;\n  opacity: 0 !important;\n  -ms-filter: \"progid:DXImageTransform.Microsoft.Alpha(Opacity=0)\" !important;\n  filter: alpha(opacity=0) !important;\n  position: fixed !important;\n  right: 0 !important;\n  top: 0 !important;\n  -webkit-transition: opacity 0.1s linear !important;\n  transition: opacity 0.1s linear !important;\n  width: 100vw !important;\n  z-index: 10000 !important;\n}\n[data-embed-box=\"hiding\"] {\n  opacity: 0 !important;\n  -ms-filter: \"progid:DXImageTransform.Microsoft.Alpha(Opacity=0)\" !important;\n  filter: alpha(opacity=0) !important;\n}\n[data-embed-box=\"hidden\"] {\n  opacity: 0 !important;\n  -ms-filter: \"progid:DXImageTransform.Microsoft.Alpha(Opacity=0)\" !important;\n  filter: alpha(opacity=0) !important;\n}\n[data-embed-box=\"showing\"] {\n  opacity: 0.5 !important;\n  -ms-filter: \"progid:DXImageTransform.Microsoft.Alpha(Opacity=50)\" !important;\n  filter: alpha(opacity=50) !important;\n}\n[data-embed-box=\"shown\"] {\n  opacity: 1 !important;\n  -ms-filter: none !important;\n  -webkit-filter: none !important;\n          filter: none !important;\n}\n.embed-box-download-iframe {\n  position: fixed;\n  visibility: hidden;\n  width: 1px;\n  height: 1px;\n  z-index: -99999;\n}\n", ""]);
+exports.push([module.i, "[data-component$=\"-target\"] {\n  -webkit-box-flex: 1;\n  -o-box-flex: 1;\n  box-flex: 1;\n  -ms-flex: 1 1 auto;\n  flex: 1 1 auto;\n  overflow: auto;\n  -webkit-overflow-scrolling: touch;\n  overflow-scrolling: touch;\n}\n[data-component$=\"-target\"]:focus {\n  outline: none;\n}\n[data-component$=\"-target\"] .copy-container {\n  font-size: 0.8em;\n  background: rgba(0,0,0,0.045);\n  position: relative;\n}\n[data-component$=\"-target\"] .copy-container button.run {\n  margin: 0;\n  padding: 0.3em 1em;\n  position: absolute;\n  left: 1.5em;\n  top: 1.5em;\n}\n[data-component$=\"-target\"] .copy-container > .copyable {\n  background-color: transparent;\n  border: none;\n  display: block;\n  font-family: Monaco, \"Bitstream Vera Sans Mono\", \"Lucida Console\", Terminal, monospace;\n  margin: 0;\n  padding: 1.3em;\n  padding-top: 4.3em;\n  resize: none;\n  white-space: pre-wrap;\n  width: 100%;\n  word-wrap: break-word;\n}\n[data-component$=\"-target\"] .copy-container > .copyable:focus {\n  outline: none;\n}\n.instructions.markdown {\n  cursor: auto;\n  display: block;\n  padding: 3em 2em 3em 4em;\n  -webkit-user-select: text;\n  -moz-user-select: text;\n  -ms-user-select: text;\n  user-select: text;\n}\n.instructions.markdown [data-content-slot] {\n  background: rgba(0,0,0,0.045);\n  padding: 1em;\n  border-radius: 3px;\n  margin-left: -2em;\n}\n.instructions.markdown div,\n.instructions.markdown footer,\n.instructions.markdown header,\n.instructions.markdown section {\n  display: block;\n}\n.instructions.markdown figure > img {\n  max-width: 100%;\n}\n.instructions.markdown h1 {\n  font-size: 1.25em;\n  font-weight: 300;\n  margin-top: 2em;\n  margin-bottom: 2em;\n  text-align: center;\n  padding-right: 2em;\n}\n.instructions.markdown h2 {\n  font-size: 1em;\n  font-weight: 500;\n  margin-top: 3em;\n}\n.instructions.markdown h2 .step-number {\n  border-radius: 50%;\n  cursor: default;\n  display: inline-block;\n  height: 2em;\n  line-height: 2em;\n  margin-left: -3em;\n  margin-right: 1em;\n  text-align: center;\n  -webkit-user-select: none;\n  -moz-user-select: none;\n  -ms-user-select: none;\n  user-select: none;\n  vertical-align: baseline;\n  width: 2em;\n}\n.instructions.markdown h2 .step-number:not(.accent-background-color) {\n  background: rgba(0,0,0,0.045);\n}\n.instructions.markdown h2 .step-number.accent-background-color {\n  color: #fff;\n}\n.instructions.markdown p {\n  color: rgba(0,0,0,0.43);\n}\n.instructions.markdown > *:first-child {\n  margin-top: 0;\n}\n.instructions.markdown > *:last-child {\n  margin-bottom: 0;\n}\n", ""]);
 
 // exports
 
@@ -2474,7 +2469,7 @@ exports = module.exports = __webpack_require__(3)();
 
 
 // module
-exports.push([module.i, "article,\naside,\ndetails,\nfigcaption,\nfigure,\nfooter,\nheader,\nhgroup,\nnav,\nsection,\nsummary {\n  display: block;\n}\naudio,\ncanvas,\nvideo {\n  display: inline;\n  zoom: 1;\n}\naudio:not([controls]) {\n  display: none;\n  height: 0;\n}\n[hidden] {\n  display: none;\n}\nhtml {\n  font-size: 100%;\n  -webkit-text-size-adjust: 100%;\n  -ms-text-size-adjust: 100%;\n  text-size-adjust: 100%;\n}\nbody {\n  margin: 0;\n  text-rendering: optimizeLegibility;\n}\nbutton,\ninput,\nselect,\ntextarea {\n  font-family: inherit;\n  font-size: inherit;\n  margin: 0;\n}\nbutton,\ninput {\n  line-height: normal;\n}\nbutton,\ninput[type=\"button\"],\ninput[type=\"reset\"],\ninput[type=\"submit\"] {\n  cursor: pointer;\n}\nbutton[disabled],\ninput[type=\"button\"][disabled],\ninput[type=\"reset\"][disabled],\ninput[type=\"submit\"][disabled] {\n  cursor: not-allowed;\n}\nbutton::-moz-focus-inner,\ninput::-moz-focus-inner {\n  border: 0;\n  padding: 0;\n}\na:focus {\n  outline: thin dotted;\n}\na:active,\na:hover {\n  outline: 0;\n}\nabbr[title] {\n  border-bottom: thin dotted;\n}\nb,\nstrong {\n  font-weight: 700;\n}\ndfn {\n  font-style: italic;\n}\npre {\n  white-space: pre-wrap;\n  word-wrap: break-word;\n}\nimg {\n  border: 0;\n  -ms-interpolation-mode: bicubic;\n}\nsvg:not(:root) {\n  overflow: hidden;\n}\ntextarea {\n  overflow: auto;\n  -webkit-overflow-scrolling: touch;\n  overflow-scrolling: touch;\n  vertical-align: top;\n  resize: vertical;\n}\ntable {\n  border-collapse: collapse;\n  border-spacing: 0;\n}\nfigure,\nform {\n  margin: 0;\n}\np,\npre,\ndl,\nmenu,\nol,\nul {\n  margin: 1em 0;\n}\n*,\n*:after,\n*:before {\n  box-sizing: border-box;\n}\nhtml {\n  font-size: 16px;\n}\nbody {\n  font-family: \"Avenir New\", Avenir, \"Helvetica Neue\", sans-serif;\n}\nbutton,\n.button {\n  -webkit-font-smoothing: subpixel-antialiased;\n  -moz-osx-font-smoothing: auto;\n  position: relative;\n  text-rendering: optimizeLegibility;\n  -webkit-tap-highlight-color: transparent;\n  -webkit-user-select: none;\n  -moz-user-select: none;\n  -ms-user-select: none;\n  user-select: none;\n  -webkit-appearance: none;\n  -moz-appearance: none;\n  appearance: none;\n  display: inline-block;\n  cursor: pointer;\n  border: 0;\n  border-radius: 0.1875em;\n  font-size: 1em;\n  padding: 0.6em 2em;\n  margin: 0;\n  text-align: center;\n  font-family: \"Avenir New\", Avenir, \"Helvetica Neue\", sans-serif;\n  font-weight: 300;\n  letter-spacing: 0.04em;\n  text-indent: 0.04em;\n  text-decoration: none;\n}\nbutton.slim,\n.button.slim {\n  padding-left: 1em;\n  padding-right: 1em;\n}\nbutton.nowrap,\n.button.nowrap {\n  white-space: nowrap;\n  max-width: 100%;\n}\n@media screen and (-webkit-min-device-pixel-ratio: 0) {\n  button,\n  .button {\n    font-weight: 400;\n  }\n}\n@media all and (-webkit-min-device-pixel-ratio: 0) and (-webkit-min-device-pixel-ratio: 0.001), all and (-webkit-min-device-pixel-ratio: 0) and (min-resolution: 0.001dppx) {\n  button,\n  .button {\n    font-weight: 300;\n  }\n}\nbutton:hover,\n.button:hover {\n  text-decoration: none;\n}\nbutton[disabled],\n.button[disabled] {\n  opacity: 0.7;\n  -ms-filter: \"progid:DXImageTransform.Microsoft.Alpha(Opacity=70)\";\n  filter: alpha(opacity=70);\n}\nbutton[disabled]:hover,\n.button[disabled]:hover,\nbutton[disabled]:focus,\n.button[disabled]:focus,\nbutton[disabled]:focus:hover,\n.button[disabled]:focus:hover {\n  box-shadow: none !important;\n}\nbutton:hover,\n.button:hover {\n  box-shadow: 0 0.1875em 0.375em -0.1875em rgba(0,0,0,0.325);\n}\nbutton:hover:active,\n.button:hover:active,\nbutton.active,\n.button.active {\n  box-shadow: inset 0 0.125em 0.375em rgba(0,0,0,0.325);\n}\nbutton:focus,\n.button:focus {\n  outline: none;\n}\nbutton:focus:before,\n.button:focus:before {\n  content: \"\";\n  position: absolute;\n  z-index: 1;\n  top: 2px;\n  right: 2px;\n  bottom: 2px;\n  left: 2px;\n  border-radius: 0.1em;\n  box-shadow: inset 0 0 0 1px #fff;\n  pointer-events: none;\n  -webkit-transition: opacity 0.3s ease-in-out;\n  transition: opacity 0.3s ease-in-out;\n}\nbutton:focus:active:before,\n.button:focus:active:before {\n  opacity: 0;\n  -ms-filter: \"progid:DXImageTransform.Microsoft.Alpha(Opacity=0)\";\n  filter: alpha(opacity=0);\n}\nbutton.primary,\n.button.primary {\n  background: #000;\n  color: #fff;\n}\nbutton.transparent,\n.button.transparent {\n  font-weight: 400;\n}\nbutton.transparent:not(:hover):not(:active):not(.active):not(:focus),\n.button.transparent:not(:hover):not(:active):not(.active):not(:focus) {\n  background: transparent;\n  box-shadow: inset 0 0 0 1px lightLineGrayRGBA;\n  color: rgba(0,0,0,0.55);\n}\nbutton.small,\n.button.small {\n  font-size: 0.9em;\n  border-radius: 0.2083em;\n  letter-spacing: 0.06em;\n  text-indent: 0.06em;\n}\nbutton.large,\n.button.large {\n  font-size: 1.25em;\n}\nbutton.with-spinner-icon,\n.button.with-spinner-icon {\n  position: relative;\n}\nbutton.with-spinner-icon .icon.spinner-icon,\n.button.with-spinner-icon .icon.spinner-icon {\n  display: none;\n}\nbutton.with-spinner-icon.showing-spinner-icon .button-content,\n.button.with-spinner-icon.showing-spinner-icon .button-content {\n  opacity: 0;\n  -ms-filter: \"progid:DXImageTransform.Microsoft.Alpha(Opacity=0)\";\n  filter: alpha(opacity=0);\n  pointer-events: none;\n}\nbutton.with-spinner-icon.showing-spinner-icon .icon.spinner-icon,\n.button.with-spinner-icon.showing-spinner-icon .icon.spinner-icon {\n  position: absolute;\n  display: block;\n  margin: auto;\n  top: 0;\n  right: 0;\n  bottom: 0;\n  left: 0;\n}\nbutton.with-spinner-icon.showing-spinner-icon.more:after,\n.button.with-spinner-icon.showing-spinner-icon.more:after {\n  opacity: 0;\n  -ms-filter: \"progid:DXImageTransform.Microsoft.Alpha(Opacity=0)\";\n  filter: alpha(opacity=0);\n  pointer-events: none;\n}\n.buttons-group span.buttons-group-message {\n  display: inline-block;\n  padding: 0.6em 0;\n}\n.buttons-group span.buttons-group-message.small {\n  font-size: 0.9em;\n}\n.buttons-group span.buttons-group-message.large {\n  font-size: 1.25em;\n}\n@media (min-width: 569px) {\n  .buttons-group button,\n  .buttons-group .button,\n  .buttons-group span.buttons-group-message {\n    margin-right: 1em;\n  }\n  .buttons-group button:last-child,\n  .buttons-group .button:last-child,\n  .buttons-group span.buttons-group-message:last-child {\n    margin-right: 0;\n  }\n}\n@media (max-width: 568px) {\n  .buttons-group button,\n  .buttons-group .button,\n  .buttons-group span.buttons-group-message {\n    display: block;\n    margin-bottom: 1em;\n  }\n  .buttons-group button:last-child,\n  .buttons-group .button:last-child,\n  .buttons-group span.buttons-group-message:last-child {\n    margin-bottom: 0;\n  }\n}\n@media (max-width: 568px) {\n  .buttons-group button {\n    width: 100%;\n  }\n}\n\n@font-face {\n  font-family: \"embed-box-icons\";\n  font-style: normal;\n  font-weight: normal;\n  src: url(data:application/x-font-woff;charset=utf-8;base64,d09GRk9UVE8AAAQQAAoAAAAABewAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAABDRkYgAAAA9AAAARQAAAEw7LPuDUZGVE0AAAIIAAAAGgAAABx04jsnT1MvMgAAAiQAAABLAAAAYGFpBYRjbWFwAAACcAAAAEcAAAFOP7UHcGhlYWQAAAK4AAAALwAAADYGoUQqaGhlYQAAAugAAAAfAAAAJAe/AetobXR4AAADCAAAABAAAAAQCwoAAG1heHAAAAMYAAAABgAAAAYABFAAbmFtZQAAAyAAAADaAAABsE3GDFBwb3N0AAAD/AAAABMAAAAg/50AZnicTY69S8NQFMXvbV5aLI/4GXEIzSJYAh0dXPwXLNpgVymvH6AtpMHJsWglk06CuPXvEPyg9E9wt2SVt/huk2exWUo5HPgdONx7EBgDROTioiWCSqfR6/YBc4BwTKUcuQbtsTo3JGelIrBh2Y2iJfBCFM5GydB04GXdAdhwYLTpwJqDB1tgZjfysA0ueHAYdq5EP+i02mGl0RbXQa97KZpLXvm9OgMA73CI98AQ90+aN+onkgmXKCVpacjd2ST5+pvk5TywE056zgsW+XRrq281rX2m0zROYxXXTtU0zRS/n6lFVhl9mBY90sDW5/RUrZOnhV547JvWLw0Y+fp5/KbLJMgjUX1dlB92Zkd2xIv/gw+CN3icY2BgYGQAggsF9tdA9CWLvytgNABOBQe1AAB4nGNgZopgnMDAysDBasw6k4GBUQ5CM19nSGMSYgACVgYIaGBgYGJAAgFprikMDgzXFazY0v6lMexg/sIgDhRmhCtQAEJGABgTC0oAeJxjYGBgZoBgGQZGBhDwAPIYwXwWBh0gzQakGRmYGK4rWP3/D+RfV7D8//+/FpAFUsUC1s0E5LAxQA0YnoCZibAaAF3eCGYAeJxjYGRgYADisx3H/eL5bb4ycHMwgMAli78rEPT/l8wCzF+AXA4GJpAoAFzJDHkAeJxjYGRgYP7y/yXDDmYBBoZ/b4EkUAQFsAAAloYFrwAEAAAAAf0AAAH9AAADEAAAAABQAAAEAAB4nI2PvQ3CMBCFXyCJxI8oEaULJCpHTiRSMEBKSvoIWVGaWHKYgREYgzEYgDEYgJoXc0UKCizZ/u7euzsbwBI3RBhWhAU2whMkMMJT7HAVjul5CCfkl3CKRbSiM4pnzKxD1cATzLEVnuKIUjim5y6ckJ/CKfkNixoNTw+NFmc4dOgBWzfW6/bsOgajvGSqEF/C7UO9QoGM/1A4cP/u+tVK5nI6NSsMac92rrtUzjdWFZlRBzWazqjUudGFyWn857WnoPfUB1VxwvAunKzvW9epPDN/9fkAFF9DNgAAeJxjYGYAg/+zGNIYsAAALpkCAwA=) format(\"woff\");\n}\na.more:after,\nbutton.more:after,\n.with-more-icon-after:after {\n  font-family: \"embed-box-icons\";\n  position: relative;\n  display: inline-block;\n  vertical-align: baseline;\n  color: inherit;\n  font-style: normal;\n  font-weight: inherit;\n  font-size: 1em;\n  line-height: 1;\n  text-decoration: none;\n  content: \"\\203A\";\n  padding-left: 0.3em;\n}\na.before:before,\n.with-before-icon-before:before {\n  font-family: \"embed-box-icons\";\n  position: relative;\n  display: inline-block;\n  vertical-align: baseline;\n  color: inherit;\n  font-style: normal;\n  font-weight: inherit;\n  font-size: 1em;\n  line-height: 1;\n  text-decoration: none;\n  content: \"\\2039\";\n  padding-right: 0.3em;\n}\nhtml,\nbody {\n  width: 100%;\n  height: 100%;\n}\nbody {\n  margin: 0;\n}\ndiv,\nfooter,\nheader,\nmain,\nsection {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: box;\n  display: flex;\n}\n[data-column] {\n  -webkit-box-orient: vertical;\n  -moz-box-orient: vertical;\n  -o-box-orient: vertical;\n  -webkit-box-lines: single;\n  -moz-box-lines: single;\n  -o-box-lines: single;\n  -ms-flex-flow: column nowrap;\n  flex-flow: column nowrap;\n}\n[data-action] {\n  cursor: pointer;\n}\n[data-visibility=\"hidden\"] {\n  visibility: hidden;\n}\n[data-selectable],\n[contenteditable] {\n  cursor: text;\n  -webkit-user-select: text;\n  -moz-user-select: text;\n  -ms-user-select: text;\n  user-select: text;\n}\nhtml,\nbody {\n  overflow: hidden;\n}\nhtml {\n  background: transparent;\n}\nmain {\n  width: 100%;\n  height: 100%;\n  overflow: hidden;\n}\nbody {\n  background: rgba(0,0,0,0.4);\n  cursor: default;\n  -webkit-user-select: none;\n  -moz-user-select: none;\n  -ms-user-select: none;\n  user-select: none;\n}\n", ""]);
+exports.push([module.i, "[data-embed-box] {\n  bottom: 0 !important;\n  height: 100vh !important;\n  left: 0 !important;\n  opacity: 0 !important;\n  -ms-filter: \"progid:DXImageTransform.Microsoft.Alpha(Opacity=0)\" !important;\n  filter: alpha(opacity=0) !important;\n  position: fixed !important;\n  right: 0 !important;\n  top: 0 !important;\n  -webkit-transition: opacity 0.1s linear !important;\n  transition: opacity 0.1s linear !important;\n  width: 100vw !important;\n  z-index: 10000 !important;\n}\n[data-embed-box=\"hiding\"] {\n  opacity: 0 !important;\n  -ms-filter: \"progid:DXImageTransform.Microsoft.Alpha(Opacity=0)\" !important;\n  filter: alpha(opacity=0) !important;\n}\n[data-embed-box=\"hidden\"] {\n  opacity: 0 !important;\n  -ms-filter: \"progid:DXImageTransform.Microsoft.Alpha(Opacity=0)\" !important;\n  filter: alpha(opacity=0) !important;\n}\n[data-embed-box=\"showing\"] {\n  opacity: 0.5 !important;\n  -ms-filter: \"progid:DXImageTransform.Microsoft.Alpha(Opacity=50)\" !important;\n  filter: alpha(opacity=50) !important;\n}\n[data-embed-box=\"shown\"] {\n  opacity: 1 !important;\n  -ms-filter: none !important;\n  -webkit-filter: none !important;\n          filter: none !important;\n}\n.embed-box-download-iframe {\n  position: fixed;\n  visibility: hidden;\n  width: 1px;\n  height: 1px;\n  z-index: -99999;\n}\n", ""]);
 
 // exports
 
@@ -2488,7 +2483,7 @@ exports = module.exports = __webpack_require__(3)();
 
 
 // module
-exports.push([module.i, "[data-component$=\"-page\"] {\n  -webkit-box-flex: 1;\n  -o-box-flex: 1;\n  box-flex: 1;\n  -ms-flex: 1 1 auto;\n  flex: 1 1 auto;\n  overflow: auto;\n  -webkit-overflow-scrolling: touch;\n  overflow-scrolling: touch;\n}\n[data-component$=\"-page\"]:focus {\n  outline: none;\n}\n[data-component$=\"-page\"] .copy-container {\n  font-size: 0.8em;\n  background: rgba(0,0,0,0.045);\n  position: relative;\n}\n[data-component$=\"-page\"] .copy-container button.run {\n  margin: 0;\n  padding: 0.3em 1em;\n  position: absolute;\n  left: 1.5em;\n  top: 1.5em;\n}\n[data-component$=\"-page\"] .copy-container > .copyable {\n  background-color: transparent;\n  border: none;\n  display: block;\n  font-family: Monaco, \"Bitstream Vera Sans Mono\", \"Lucida Console\", Terminal, monospace;\n  margin: 0;\n  padding: 1.3em;\n  padding-top: 4.3em;\n  resize: none;\n  white-space: pre-wrap;\n  width: 100%;\n  word-wrap: break-word;\n}\n[data-component$=\"-page\"] .copy-container > .copyable:focus {\n  outline: none;\n}\n.instructions.markdown {\n  cursor: auto;\n  display: block;\n  padding: 3em 2em 3em 4em;\n  -webkit-user-select: text;\n  -moz-user-select: text;\n  -ms-user-select: text;\n  user-select: text;\n}\n.instructions.markdown [data-content-slot] {\n  background: rgba(0,0,0,0.045);\n  padding: 1em;\n  border-radius: 3px;\n  margin-left: -2em;\n}\n.instructions.markdown div,\n.instructions.markdown footer,\n.instructions.markdown header,\n.instructions.markdown section {\n  display: block;\n}\n.instructions.markdown figure > img {\n  max-width: 100%;\n}\n.instructions.markdown h1 {\n  font-size: 1.25em;\n  font-weight: 300;\n  margin-top: 2em;\n  margin-bottom: 2em;\n  text-align: center;\n  padding-right: 2em;\n}\n.instructions.markdown h2 {\n  font-size: 1em;\n  font-weight: 500;\n  margin-top: 3em;\n}\n.instructions.markdown h2 .step-number {\n  border-radius: 50%;\n  cursor: default;\n  display: inline-block;\n  height: 2em;\n  line-height: 2em;\n  margin-left: -3em;\n  margin-right: 1em;\n  text-align: center;\n  -webkit-user-select: none;\n  -moz-user-select: none;\n  -ms-user-select: none;\n  user-select: none;\n  vertical-align: baseline;\n  width: 2em;\n}\n.instructions.markdown h2 .step-number:not(.accent-background-color) {\n  background: rgba(0,0,0,0.045);\n}\n.instructions.markdown h2 .step-number.accent-background-color {\n  color: #fff;\n}\n.instructions.markdown p {\n  color: rgba(0,0,0,0.43);\n}\n.instructions.markdown > *:first-child {\n  margin-top: 0;\n}\n.instructions.markdown > *:last-child {\n  margin-bottom: 0;\n}\n", ""]);
+exports.push([module.i, "article,\naside,\ndetails,\nfigcaption,\nfigure,\nfooter,\nheader,\nhgroup,\nnav,\nsection,\nsummary {\n  display: block;\n}\naudio,\ncanvas,\nvideo {\n  display: inline;\n  zoom: 1;\n}\naudio:not([controls]) {\n  display: none;\n  height: 0;\n}\n[hidden] {\n  display: none;\n}\nhtml {\n  font-size: 100%;\n  -webkit-text-size-adjust: 100%;\n  -ms-text-size-adjust: 100%;\n  text-size-adjust: 100%;\n}\nbody {\n  margin: 0;\n  text-rendering: optimizeLegibility;\n}\nbutton,\ninput,\nselect,\ntextarea {\n  font-family: inherit;\n  font-size: inherit;\n  margin: 0;\n}\nbutton,\ninput {\n  line-height: normal;\n}\nbutton,\ninput[type=\"button\"],\ninput[type=\"reset\"],\ninput[type=\"submit\"] {\n  cursor: pointer;\n}\nbutton[disabled],\ninput[type=\"button\"][disabled],\ninput[type=\"reset\"][disabled],\ninput[type=\"submit\"][disabled] {\n  cursor: not-allowed;\n}\nbutton::-moz-focus-inner,\ninput::-moz-focus-inner {\n  border: 0;\n  padding: 0;\n}\na:focus {\n  outline: thin dotted;\n}\na:active,\na:hover {\n  outline: 0;\n}\nabbr[title] {\n  border-bottom: thin dotted;\n}\nb,\nstrong {\n  font-weight: 700;\n}\ndfn {\n  font-style: italic;\n}\npre {\n  white-space: pre-wrap;\n  word-wrap: break-word;\n}\nimg {\n  border: 0;\n  -ms-interpolation-mode: bicubic;\n}\nsvg:not(:root) {\n  overflow: hidden;\n}\ntextarea {\n  overflow: auto;\n  -webkit-overflow-scrolling: touch;\n  overflow-scrolling: touch;\n  vertical-align: top;\n  resize: vertical;\n}\ntable {\n  border-collapse: collapse;\n  border-spacing: 0;\n}\nfigure,\nform {\n  margin: 0;\n}\np,\npre,\ndl,\nmenu,\nol,\nul {\n  margin: 1em 0;\n}\n*,\n*:after,\n*:before {\n  box-sizing: border-box;\n}\nhtml {\n  font-size: 16px;\n}\nbody {\n  font-family: \"Avenir New\", Avenir, \"Helvetica Neue\", sans-serif;\n}\nbutton,\n.button {\n  -webkit-font-smoothing: subpixel-antialiased;\n  -moz-osx-font-smoothing: auto;\n  position: relative;\n  text-rendering: optimizeLegibility;\n  -webkit-tap-highlight-color: transparent;\n  -webkit-user-select: none;\n  -moz-user-select: none;\n  -ms-user-select: none;\n  user-select: none;\n  -webkit-appearance: none;\n  -moz-appearance: none;\n  appearance: none;\n  display: inline-block;\n  cursor: pointer;\n  border: 0;\n  border-radius: 0.1875em;\n  font-size: 1em;\n  padding: 0.6em 2em;\n  margin: 0;\n  text-align: center;\n  font-family: \"Avenir New\", Avenir, \"Helvetica Neue\", sans-serif;\n  font-weight: 300;\n  letter-spacing: 0.04em;\n  text-indent: 0.04em;\n  text-decoration: none;\n}\nbutton.slim,\n.button.slim {\n  padding-left: 1em;\n  padding-right: 1em;\n}\nbutton.nowrap,\n.button.nowrap {\n  white-space: nowrap;\n  max-width: 100%;\n}\n@media screen and (-webkit-min-device-pixel-ratio: 0) {\n  button,\n  .button {\n    font-weight: 400;\n  }\n}\n@media all and (-webkit-min-device-pixel-ratio: 0) and (-webkit-min-device-pixel-ratio: 0.001), all and (-webkit-min-device-pixel-ratio: 0) and (min-resolution: 0.001dppx) {\n  button,\n  .button {\n    font-weight: 300;\n  }\n}\nbutton:hover,\n.button:hover {\n  text-decoration: none;\n}\nbutton[disabled],\n.button[disabled] {\n  opacity: 0.7;\n  -ms-filter: \"progid:DXImageTransform.Microsoft.Alpha(Opacity=70)\";\n  filter: alpha(opacity=70);\n}\nbutton[disabled]:hover,\n.button[disabled]:hover,\nbutton[disabled]:focus,\n.button[disabled]:focus,\nbutton[disabled]:focus:hover,\n.button[disabled]:focus:hover {\n  box-shadow: none !important;\n}\nbutton:hover,\n.button:hover {\n  box-shadow: 0 0.1875em 0.375em -0.1875em rgba(0,0,0,0.325);\n}\nbutton:hover:active,\n.button:hover:active,\nbutton.active,\n.button.active {\n  box-shadow: inset 0 0.125em 0.375em rgba(0,0,0,0.325);\n}\nbutton:focus,\n.button:focus {\n  outline: none;\n}\nbutton:focus:before,\n.button:focus:before {\n  content: \"\";\n  position: absolute;\n  z-index: 1;\n  top: 2px;\n  right: 2px;\n  bottom: 2px;\n  left: 2px;\n  border-radius: 0.1em;\n  box-shadow: inset 0 0 0 1px #fff;\n  pointer-events: none;\n  -webkit-transition: opacity 0.3s ease-in-out;\n  transition: opacity 0.3s ease-in-out;\n}\nbutton:focus:active:before,\n.button:focus:active:before {\n  opacity: 0;\n  -ms-filter: \"progid:DXImageTransform.Microsoft.Alpha(Opacity=0)\";\n  filter: alpha(opacity=0);\n}\nbutton.primary,\n.button.primary {\n  background: #000;\n  color: #fff;\n}\nbutton.transparent,\n.button.transparent {\n  font-weight: 400;\n}\nbutton.transparent:not(:hover):not(:active):not(.active):not(:focus),\n.button.transparent:not(:hover):not(:active):not(.active):not(:focus) {\n  background: transparent;\n  box-shadow: inset 0 0 0 1px lightLineGrayRGBA;\n  color: rgba(0,0,0,0.55);\n}\nbutton.small,\n.button.small {\n  font-size: 0.9em;\n  border-radius: 0.2083em;\n  letter-spacing: 0.06em;\n  text-indent: 0.06em;\n}\nbutton.large,\n.button.large {\n  font-size: 1.25em;\n}\nbutton.with-spinner-icon,\n.button.with-spinner-icon {\n  position: relative;\n}\nbutton.with-spinner-icon .icon.spinner-icon,\n.button.with-spinner-icon .icon.spinner-icon {\n  display: none;\n}\nbutton.with-spinner-icon.showing-spinner-icon .button-content,\n.button.with-spinner-icon.showing-spinner-icon .button-content {\n  opacity: 0;\n  -ms-filter: \"progid:DXImageTransform.Microsoft.Alpha(Opacity=0)\";\n  filter: alpha(opacity=0);\n  pointer-events: none;\n}\nbutton.with-spinner-icon.showing-spinner-icon .icon.spinner-icon,\n.button.with-spinner-icon.showing-spinner-icon .icon.spinner-icon {\n  position: absolute;\n  display: block;\n  margin: auto;\n  top: 0;\n  right: 0;\n  bottom: 0;\n  left: 0;\n}\nbutton.with-spinner-icon.showing-spinner-icon.more:after,\n.button.with-spinner-icon.showing-spinner-icon.more:after {\n  opacity: 0;\n  -ms-filter: \"progid:DXImageTransform.Microsoft.Alpha(Opacity=0)\";\n  filter: alpha(opacity=0);\n  pointer-events: none;\n}\n.buttons-group span.buttons-group-message {\n  display: inline-block;\n  padding: 0.6em 0;\n}\n.buttons-group span.buttons-group-message.small {\n  font-size: 0.9em;\n}\n.buttons-group span.buttons-group-message.large {\n  font-size: 1.25em;\n}\n@media (min-width: 569px) {\n  .buttons-group button,\n  .buttons-group .button,\n  .buttons-group span.buttons-group-message {\n    margin-right: 1em;\n  }\n  .buttons-group button:last-child,\n  .buttons-group .button:last-child,\n  .buttons-group span.buttons-group-message:last-child {\n    margin-right: 0;\n  }\n}\n@media (max-width: 568px) {\n  .buttons-group button,\n  .buttons-group .button,\n  .buttons-group span.buttons-group-message {\n    display: block;\n    margin-bottom: 1em;\n  }\n  .buttons-group button:last-child,\n  .buttons-group .button:last-child,\n  .buttons-group span.buttons-group-message:last-child {\n    margin-bottom: 0;\n  }\n}\n@media (max-width: 568px) {\n  .buttons-group button {\n    width: 100%;\n  }\n}\n\n@font-face {\n  font-family: \"embed-box-icons\";\n  font-style: normal;\n  font-weight: normal;\n  src: url(data:application/x-font-woff;charset=utf-8;base64,d09GRk9UVE8AAAQQAAoAAAAABewAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAABDRkYgAAAA9AAAARQAAAEw7LPuDUZGVE0AAAIIAAAAGgAAABx04jsnT1MvMgAAAiQAAABLAAAAYGFpBYRjbWFwAAACcAAAAEcAAAFOP7UHcGhlYWQAAAK4AAAALwAAADYGoUQqaGhlYQAAAugAAAAfAAAAJAe/AetobXR4AAADCAAAABAAAAAQCwoAAG1heHAAAAMYAAAABgAAAAYABFAAbmFtZQAAAyAAAADaAAABsE3GDFBwb3N0AAAD/AAAABMAAAAg/50AZnicTY69S8NQFMXvbV5aLI/4GXEIzSJYAh0dXPwXLNpgVymvH6AtpMHJsWglk06CuPXvEPyg9E9wt2SVt/huk2exWUo5HPgdONx7EBgDROTioiWCSqfR6/YBc4BwTKUcuQbtsTo3JGelIrBh2Y2iJfBCFM5GydB04GXdAdhwYLTpwJqDB1tgZjfysA0ueHAYdq5EP+i02mGl0RbXQa97KZpLXvm9OgMA73CI98AQ90+aN+onkgmXKCVpacjd2ST5+pvk5TywE056zgsW+XRrq281rX2m0zROYxXXTtU0zRS/n6lFVhl9mBY90sDW5/RUrZOnhV547JvWLw0Y+fp5/KbLJMgjUX1dlB92Zkd2xIv/gw+CN3icY2BgYGQAggsF9tdA9CWLvytgNABOBQe1AAB4nGNgZopgnMDAysDBasw6k4GBUQ5CM19nSGMSYgACVgYIaGBgYGJAAgFprikMDgzXFazY0v6lMexg/sIgDhRmhCtQAEJGABgTC0oAeJxjYGBgZoBgGQZGBhDwAPIYwXwWBh0gzQakGRmYGK4rWP3/D+RfV7D8//+/FpAFUsUC1s0E5LAxQA0YnoCZibAaAF3eCGYAeJxjYGRgYADisx3H/eL5bb4ycHMwgMAli78rEPT/l8wCzF+AXA4GJpAoAFzJDHkAeJxjYGRgYP7y/yXDDmYBBoZ/b4EkUAQFsAAAloYFrwAEAAAAAf0AAAH9AAADEAAAAABQAAAEAAB4nI2PvQ3CMBCFXyCJxI8oEaULJCpHTiRSMEBKSvoIWVGaWHKYgREYgzEYgDEYgJoXc0UKCizZ/u7euzsbwBI3RBhWhAU2whMkMMJT7HAVjul5CCfkl3CKRbSiM4pnzKxD1cATzLEVnuKIUjim5y6ckJ/CKfkNixoNTw+NFmc4dOgBWzfW6/bsOgajvGSqEF/C7UO9QoGM/1A4cP/u+tVK5nI6NSsMac92rrtUzjdWFZlRBzWazqjUudGFyWn857WnoPfUB1VxwvAunKzvW9epPDN/9fkAFF9DNgAAeJxjYGYAg/+zGNIYsAAALpkCAwA=) format(\"woff\");\n}\na.more:after,\nbutton.more:after,\n.with-more-icon-after:after {\n  font-family: \"embed-box-icons\";\n  position: relative;\n  display: inline-block;\n  vertical-align: baseline;\n  color: inherit;\n  font-style: normal;\n  font-weight: inherit;\n  font-size: 1em;\n  line-height: 1;\n  text-decoration: none;\n  content: \"\\203A\";\n  padding-left: 0.3em;\n}\na.before:before,\n.with-before-icon-before:before {\n  font-family: \"embed-box-icons\";\n  position: relative;\n  display: inline-block;\n  vertical-align: baseline;\n  color: inherit;\n  font-style: normal;\n  font-weight: inherit;\n  font-size: 1em;\n  line-height: 1;\n  text-decoration: none;\n  content: \"\\2039\";\n  padding-right: 0.3em;\n}\nhtml,\nbody {\n  width: 100%;\n  height: 100%;\n}\nbody {\n  margin: 0;\n}\ndiv,\nfooter,\nheader,\nmain,\nsection {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: box;\n  display: flex;\n}\n[data-column] {\n  -webkit-box-orient: vertical;\n  -moz-box-orient: vertical;\n  -o-box-orient: vertical;\n  -webkit-box-lines: single;\n  -moz-box-lines: single;\n  -o-box-lines: single;\n  -ms-flex-flow: column nowrap;\n  flex-flow: column nowrap;\n}\n[data-action] {\n  cursor: pointer;\n}\n[data-visibility=\"hidden\"] {\n  visibility: hidden;\n}\n[data-selectable],\n[contenteditable] {\n  cursor: text;\n  -webkit-user-select: text;\n  -moz-user-select: text;\n  -ms-user-select: text;\n  user-select: text;\n}\nhtml,\nbody {\n  overflow: hidden;\n}\nhtml {\n  background: transparent;\n}\nmain {\n  width: 100%;\n  height: 100%;\n  overflow: hidden;\n}\nbody {\n  background: rgba(0,0,0,0.4);\n  cursor: default;\n  -webkit-user-select: none;\n  -moz-user-select: none;\n  -ms-user-select: none;\n  user-select: none;\n}\n", ""]);
 
 // exports
 
@@ -2835,7 +2830,7 @@ function match(el, selector) {
 
 var pug = __webpack_require__(0);
 
-function template(locals) {var pug_html = "", pug_mixins = {}, pug_interp;;var locals_for_with = (locals || {});(function (label) {pug_html = pug_html + "\u003Cmain data-column data-component=\"application\" role=\"main\"\u003E\u003Cdiv class=\"modal\" data-column\u003E\u003Cheader class=\"modal-header\" role=\"menubar\"\u003E\u003Cbutton data-action=\"previous\" data-ref=\"previousPageButton\" tabindex=\"1\" role=\"menuitem\"\u003E\u003C\u002Fbutton\u003E\u003Cspan class=\"title\"\u003E" + (pug.escape(null == (pug_interp = label("title")) ? "" : pug_interp)) + "\u003C\u002Fspan\u003E\u003Cbutton data-action=\"close\" data-ref=\"closeModalButton\" tabindex=\"2\" role=\"menuitem\"\u003E\u003C\u002Fbutton\u003E\u003C\u002Fheader\u003E\u003Cdiv class=\"content\" data-ref=\"content\"\u003E\u003C\u002Fdiv\u003E\u003C\u002Fdiv\u003E\u003C\u002Fmain\u003E";}.call(this,"label" in locals_for_with?locals_for_with.label:typeof label!=="undefined"?label:undefined));;return pug_html;};
+function template(locals) {var pug_html = "", pug_mixins = {}, pug_interp;;var locals_for_with = (locals || {});(function (label) {pug_html = pug_html + "\u003Cmain data-column data-component=\"application\" role=\"main\"\u003E\u003Cdiv class=\"modal\" data-column\u003E\u003Cheader class=\"modal-header\" role=\"menubar\"\u003E\u003Cbutton data-action=\"previous\" data-ref=\"previousButton\" tabindex=\"1\" role=\"menuitem\"\u003E\u003C\u002Fbutton\u003E\u003Cspan class=\"title\"\u003E" + (pug.escape(null == (pug_interp = label("title")) ? "" : pug_interp)) + "\u003C\u002Fspan\u003E\u003Cbutton data-action=\"close\" data-ref=\"closeModalButton\" tabindex=\"2\" role=\"menuitem\"\u003E\u003C\u002Fbutton\u003E\u003C\u002Fheader\u003E\u003Cdiv class=\"content\" data-ref=\"content\"\u003E\u003C\u002Fdiv\u003E\u003C\u002Fdiv\u003E\u003C\u002Fmain\u003E";}.call(this,"label" in locals_for_with?locals_for_with.label:typeof label!=="undefined"?label:undefined));;return pug_html;};
 module.exports = template;
 
 /***/ },
@@ -2844,11 +2839,20 @@ module.exports = template;
 
 var pug = __webpack_require__(0);
 
-function template(locals) {var pug_html = "", pug_mixins = {}, pug_interp;;var locals_for_with = (locals || {});(function (label) {pug_html = pug_html + "\u003Csection data-column data-component=\"page-wrapper\"\u003E\u003Cdiv class=\"page-mount\" data-ref=\"pageMount\" tabindex=\"3\"\u003E\u003C\u002Fdiv\u003E\u003Cfooter class=\"modal-footer\"\u003E\u003Cbutton class=\"primary slim\" data-action=\"close\" data-ref=\"doneButton\" tabindex=\"5\"\u003E" + (pug.escape(null == (pug_interp = label("done")) ? "" : pug_interp)) + "\u003C\u002Fbutton\u003E\u003C\u002Ffooter\u003E\u003C\u002Fsection\u003E";}.call(this,"label" in locals_for_with?locals_for_with.label:typeof label!=="undefined"?label:undefined));;return pug_html;};
+function template(locals) {var pug_html = "", pug_mixins = {}, pug_interp;;var locals_for_with = (locals || {});(function (label) {pug_html = pug_html + "\u003Csection data-column data-component=\"site-type-search\" data-event-receiver\u003E\u003Cheader class=\"header\"\u003E\u003Cinput" + (" class=\"search\""+" autofocus data-ref=\"search\""+pug.attr("placeholder", label("searchPlaceholder"), true, true)+" tabindex=\"3\" type=\"text\"") + "\u003E\u003C\u002Fheader\u003E\u003Cdiv class=\"types\" data-column data-ref=\"typesContainer\"\u003E\u003C\u002Fdiv\u003E\u003Cfooter class=\"modal-footer\"\u003E\u003Cbutton class=\"primary slim more\" data-action=\"next\" data-ref=\"nextButton\" tabindex=\"5\"\u003E" + (pug.escape(null == (pug_interp = label("next")) ? "" : pug_interp)) + "\u003C\u002Fbutton\u003E\u003C\u002Ffooter\u003E\u003C\u002Fsection\u003E";}.call(this,"label" in locals_for_with?locals_for_with.label:typeof label!=="undefined"?label:undefined));;return pug_html;};
 module.exports = template;
 
 /***/ },
 /* 37 */
+/***/ function(module, exports, __webpack_require__) {
+
+var pug = __webpack_require__(0);
+
+function template(locals) {var pug_html = "", pug_mixins = {}, pug_interp;;var locals_for_with = (locals || {});(function (label) {pug_html = pug_html + "\u003Csection data-column data-component=\"target-wrapper\"\u003E\u003Cdiv class=\"target-mount\" data-ref=\"targetMount\" tabindex=\"3\"\u003E\u003C\u002Fdiv\u003E\u003Cfooter class=\"modal-footer\"\u003E\u003Cbutton class=\"primary slim\" data-action=\"close\" data-ref=\"doneButton\" tabindex=\"5\"\u003E" + (pug.escape(null == (pug_interp = label("done")) ? "" : pug_interp)) + "\u003C\u002Fbutton\u003E\u003C\u002Ffooter\u003E\u003C\u002Fsection\u003E";}.call(this,"label" in locals_for_with?locals_for_with.label:typeof label!=="undefined"?label:undefined));;return pug_html;};
+module.exports = template;
+
+/***/ },
+/* 38 */
 /***/ function(module, exports, __webpack_require__) {
 
 var pug = __webpack_require__(0);
@@ -2873,7 +2877,7 @@ pug_html = pug_html + "\u003C\u002Fsection\u003E";}.call(this,"config" in locals
 module.exports = template;
 
 /***/ },
-/* 38 */
+/* 39 */
 /***/ function(module, exports, __webpack_require__) {
 
 var pug = __webpack_require__(0);
@@ -2903,7 +2907,7 @@ pug_html = pug_html + "\u003C\u002Fsection\u003E";}.call(this,"config" in locals
 module.exports = template;
 
 /***/ },
-/* 39 */
+/* 40 */
 /***/ function(module, exports, __webpack_require__) {
 
 var pug = __webpack_require__(0);
@@ -2935,7 +2939,7 @@ pug_html = pug_html + "\u003C\u002Fsection\u003E";}.call(this,"config" in locals
 module.exports = template;
 
 /***/ },
-/* 40 */
+/* 41 */
 /***/ function(module, exports, __webpack_require__) {
 
 var pug = __webpack_require__(0);
@@ -2957,15 +2961,6 @@ if (config.afterContent) {
 pug_html = pug_html + "\u003Cdiv data-content-slot=\"after\"\u003E" + (null == (pug_interp = config.afterContent) ? "" : pug_interp) + "\u003C\u002Fdiv\u003E";
 }
 pug_html = pug_html + "\u003C\u002Fsection\u003E";}.call(this,"config" in locals_for_with?locals_for_with.config:typeof config!=="undefined"?config:undefined));;return pug_html;};
-module.exports = template;
-
-/***/ },
-/* 41 */
-/***/ function(module, exports, __webpack_require__) {
-
-var pug = __webpack_require__(0);
-
-function template(locals) {var pug_html = "", pug_mixins = {}, pug_interp;;var locals_for_with = (locals || {});(function (label) {pug_html = pug_html + "\u003Csection data-column data-component=\"site-type-search\" data-event-receiver\u003E\u003Cheader class=\"header\"\u003E\u003Cinput" + (" class=\"search\""+" autofocus data-ref=\"search\""+pug.attr("placeholder", label("searchPlaceholder"), true, true)+" tabindex=\"3\" type=\"text\"") + "\u003E\u003C\u002Fheader\u003E\u003Cdiv class=\"types\" data-column data-ref=\"typesContainer\"\u003E\u003C\u002Fdiv\u003E\u003Cfooter class=\"modal-footer\"\u003E\u003Cbutton class=\"primary slim more\" data-action=\"next\" data-ref=\"nextPageButton\" tabindex=\"5\"\u003E" + (pug.escape(null == (pug_interp = label("next")) ? "" : pug_interp)) + "\u003C\u002Fbutton\u003E\u003C\u002Ffooter\u003E\u003C\u002Fsection\u003E";}.call(this,"label" in locals_for_with?locals_for_with.label:typeof label!=="undefined"?label:undefined));;return pug_html;};
 module.exports = template;
 
 /***/ },
@@ -3207,14 +3202,14 @@ module.exports = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAABD8AAAIWCAYAAABQ
 /* eslint-env node, es6 */
 
 var EmbedBoxBase = __webpack_require__(9).default;
-var pages = __webpack_require__(8);
+var targets = __webpack_require__(8);
 
 module.exports = function EmbedBox() {
   var spec = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
 
-  spec.pages = spec.pages || [];
+  spec.targets = spec.targets || [];
 
-  spec.pages.push(pages.wordpress, pages.drupal, pages.joomla, pages.generic);
+  spec.targets.push(targets.wordpress, targets.drupal, targets.joomla, targets.generic);
 
   for (var _len = arguments.length, args = Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
     args[_key - 1] = arguments[_key];
