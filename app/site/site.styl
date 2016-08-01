@@ -84,271 +84,271 @@ html
   &.full
     min-height 100vh
 
-  &.hero
-    flex-flow row
-    position relative
-    padding-bottom 0 !important
-    z-index 1
+.slide.hero
+  flex-flow row
+  position relative
+  padding-bottom 0 !important
+  z-index 1
 
-    @media mobileMaxWidthQuery
-      + .slide
-        margin-top -1px
+  @media mobileMaxWidthQuery
+    + .slide
+      margin-top -1px
+
+  @media embedBoxMobileMaxWidthQuery
+    display block
+
+  .figure
+    border-radius .5em
+    width 32em
+    max-width 100%
+    position relative
+
+    &:after
+      pointer-events none
+      display block
+      content ""
+      position absolute
+      top 0
+      right 0
+      bottom 0
+      left 0
+      border 1px solid lightLineGrayRGBA
+      border-radius .5em
 
     @media embedBoxMobileMaxWidthQuery
       display block
-
-    .figure
-      border-radius .5em
-      width 32em
-      max-width 100%
-      position relative
-
-      &:after
-        pointer-events none
-        display block
-        content ""
-        position absolute
-        top 0
-        right 0
-        bottom 0
-        left 0
-        border 1px solid lightLineGrayRGBA
-        border-radius .5em
-
-      @media embedBoxMobileMaxWidthQuery
-        display block
-        height calc(100vh - 10em)
-        max-height 31em
-        margin 0 auto
-
-      @media embedBoxDesktopMinWidthQuery
-        flex 0 1 auto
-        height 32em
-        margin 0 0 0 4em
-
-      @media largeDesktopMinWidthQuery
-        margin-right -2em
-
-    .content
-      width 20em
-      max-width 100%
-
-      @media embedBoxMobileMaxWidthQuery
-        display block
-        margin 0 auto 2em
-        text-align center
-
-      @media embedBoxDesktopMinWidthQuery
-        flex 0 1 auto
-        height 12em
-
-    h1.logo-text
-      font-size 3.2em
-      font-weight bold
-      margin 0 0 .25em
-
-      @media iPhoneMaxWidthQuery
-        font-size 2em
-
-    p
-      font-size 1.3em
-      max-width 100%
+      height calc(100vh - 10em)
+      max-height 31em
       margin 0 auto
 
-  &.features
-    div
+    @media embedBoxDesktopMinWidthQuery
+      flex 0 1 auto
+      height 32em
+      margin 0 0 0 4em
+
+    @media largeDesktopMinWidthQuery
+      margin-right -2em
+
+  .content
+    width 20em
+    max-width 100%
+
+    @media embedBoxMobileMaxWidthQuery
       display block
+      margin 0 auto 2em
+      text-align center
 
-    ul.features-list
-      antialiasedFonts()
-      font-family sansSerifFonts
-      list-style none
-      margin 0
-      max-width 100%
-      padding 0
-      width centeredPageWidth
+    @media embedBoxDesktopMinWidthQuery
+      flex 0 1 auto
+      height 12em
 
-      > li
-        align-items center
-        justify-content space-between
-        display flex
-        position relative
+  h1.logo-text
+    font-size 3.2em
+    font-weight bold
+    margin 0 0 .25em
+
+    @media iPhoneMaxWidthQuery
+      font-size 2em
+
+  p
+    font-size 1.3em
+    max-width 100%
+    margin 0 auto
+
+.slide.features
+  div
+    display block
+
+  ul.features-list
+    antialiasedFonts()
+    font-family sansSerifFonts
+    list-style none
+    margin 0
+    max-width 100%
+    padding 0
+    width centeredPageWidth
+
+    > li
+      align-items center
+      justify-content space-between
+      display flex
+      position relative
+
+      &:not(:last-child)
+        margin-bottom 4em
+
+      .content
+        flex 0 1 auto
+
+        h3
+          font-size 1.17em
+
+        p
+          color #808080
+          letter-spacing .0125em
+
+          &:last-child
+            margin-bottom 0
+
+      .image
+        display block
+        flex 0 1 auto
+        max-width 100%
+        width 300px
+
+      @media desktopMinWidthQuery
+        &:not(:last-child)
+          margin-bottom 8em
+
+        .content
+          h3
+            margin-top 0
+            font-size 1.7em
+            margin-bottom .5em
+            font-weight 600
+
+          p
+            font-size 1.125em
+            margin 0 0 .7em
+
+        .content, .image
+          width 44%
+
+        &:nth-child(even)
+          flex-direction row-reverse
+
+      @media mobileMaxWidthQuery
+        flex-flow column
 
         &:not(:last-child)
           margin-bottom 4em
 
+          &:before
+            background lighterLineGrayRGBA
+            content ""
+            display block
+            height .0625em
+            margin-top 2em
+            pointer-events none
+            position absolute
+            top 100%
+            width 100%
+
+        .content, .image
+          width auto
+
         .content
-          flex 0 1 auto
+          margin-bottom 2em
 
-          h3
-            font-size 1.17em
+.slide.docs
+  antialiasedFonts()
+  position relative
+  background #1e1e1e
+  color #f8f8f2
+  display block
+  width 74em
+  max-width 100%
+  margin-left auto
+  margin-right auto
+  overflow hidden
 
-          p
-            color #808080
-            letter-spacing .0125em
+  > *:first-child
+    margin-top 0
 
-            &:last-child
-              margin-bottom 0
+  > *:last-child
+    margin-bottom 0
 
-        .image
-          display block
-          flex 0 1 auto
-          max-width 100%
-          width 300px
+  > h1:first-child
+    text-align center
+    font-size 1em
+    text-transform uppercase
+    letter-spacing .045em
+    text-indent @letter-spacing
+    line-height 1
+    margin-bottom 3em
+    color #e6db74
 
-        @media desktopMinWidthQuery
-          &:not(:last-child)
-            margin-bottom 8em
-
-          .content
-            h3
-              margin-top 0
-              font-size 1.7em
-              margin-bottom .5em
-              font-weight 600
-
-            p
-              font-size 1.125em
-              margin 0 0 .7em
-
-          .content, .image
-            width 44%
-
-          &:nth-child(even)
-            flex-direction row-reverse
-
-        @media mobileMaxWidthQuery
-          flex-flow column
-
-          &:not(:last-child)
-            margin-bottom 4em
-
-            &:before
-              background lighterLineGrayRGBA
-              content ""
-              display block
-              height .0625em
-              margin-top 2em
-              pointer-events none
-              position absolute
-              top 100%
-              width 100%
-
-          .content, .image
-            width auto
-
-          .content
-            margin-bottom 2em
-
-  &.docs
-    antialiasedFonts()
-    position relative
-    background #1e1e1e
-    color #f8f8f2
-    display block
-    width 74em
-    max-width 100%
-    margin-left auto
-    margin-right auto
-    overflow hidden
-
-    > *:first-child
+    + h2
       margin-top 0
 
-    > *:last-child
-      margin-bottom 0
-
-    > h1:first-child
-      text-align center
-      font-size 1em
-      text-transform uppercase
-      letter-spacing .045em
-      text-indent @letter-spacing
-      line-height 1
-      margin-bottom 3em
-      color #e6db74
-
-      + h2
-        margin-top 0
-
-      @media embedBoxDesktopMinWidthQuery
-        display none
-
-    > *:not(.embedbox-figure):not(h1)
-      width 50%
-
-      @media embedBoxMobileMaxWidthQuery
-        width 100%
-
     @media embedBoxDesktopMinWidthQuery
-      h2
-        font-size 1.6em
+      display none
 
-      h3
-        font-size 1.25em
+  > *:not(.embedbox-figure):not(h1)
+    width 50%
 
+    @media embedBoxMobileMaxWidthQuery
+      width 100%
+
+  @media embedBoxDesktopMinWidthQuery
     h2
-      margin-top 4.5rem
+      font-size 1.6em
 
-      @media mobileMaxWidthQuery
-        margin-top 3.5rem
+    h3
+      font-size 1.25em
 
-      @media iPhoneMaxWidthQuery
-        margin-top 2.5rem
+  h2
+    margin-top 4.5rem
 
-    *:not(h2) + h3
+    @media mobileMaxWidthQuery
       margin-top 3.5rem
-      margin-bottom 0
 
-      @media mobileMaxWidthQuery
-        margin-top 2.5rem
+    @media iPhoneMaxWidthQuery
+      margin-top 2.5rem
 
-    a[href]:not(.without-underline)
-      linkUnderlines #1e1e1e, #e6db74
+  *:not(h2) + h3
+    margin-top 3.5rem
+    margin-bottom 0
 
-    > .figure.floating-figure
-      position absolute
-      background #fff
-      top 20.1em // set by JS
-      bottom 0
-      height 31em
-      margin 0
-      right 4em
-      left 55%
+    @media mobileMaxWidthQuery
+      margin-top 2.5rem
 
-      @media embedBoxMobileMaxWidthQuery
-        display none
+  a[href]:not(.without-underline)
+    linkUnderlines #1e1e1e, #e6db74
 
-      iframe
-        background #232323
+  > .figure.floating-figure
+    position absolute
+    background #fff
+    top 20.1em // set by JS
+    bottom 0
+    height 31em
+    margin 0
+    right 4em
+    left 55%
 
-  &.made-by
-    antialiasedFonts()
-    background #1e1e1e
-    color #f8f8f2
-    padding-top 0 !important
+    @media embedBoxMobileMaxWidthQuery
+      display none
 
-    .label
-      font-size .9em
-      font-weight 100
-      text-transform uppercase
-      letter-spacing .1em
-      text-indent @letter-spacing
-      margin-bottom 1em
-      opacity .5
+    iframe
+      background #232323
 
-    .logo-link
-      display block
-      width 9em
-      height 4em
-      color #e6db74
+.slide.made-by
+  antialiasedFonts()
+  background #1e1e1e
+  color #f8f8f2
+  padding-top 0 !important
 
-      > svg
-        height 100%
-        width 100%
+  .label
+    font-size .9em
+    font-weight 100
+    text-transform uppercase
+    letter-spacing .1em
+    text-indent @letter-spacing
+    margin-bottom 1em
+    opacity .5
 
-        path
-          fill currentColor
+  .logo-link
+    display block
+    width 9em
+    height 4em
+    color #e6db74
+
+    > svg
+      height 100%
+      width 100%
+
+      path
+        fill currentColor
 
 button.run
   background #e6db74
