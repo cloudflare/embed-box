@@ -4,11 +4,12 @@
   "ignore": [
     "deploy.yaml",
     "circle.yml",
-    "examples/",
-    "node_modules/",
-    "media/",
-    "targets/",
+    "webpack.config.js",
+    "webpack.site.js",
     "test/",
+    "media/",
+    "scripts/",
+    "examples/",
     "app/site/"
   ]
 }

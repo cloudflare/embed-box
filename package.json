@@ -10,11 +10,11 @@
   },
   "scripts": {
     "start": "babel-node scripts/watch.js",
-    "build-distributions": "NODE_ENV=production babel-node scripts/build-distributions.js",
+    "build-dist": "NODE_ENV=production babel-node scripts/build-dist.js",
     "build-site": "NODE_ENV=production babel-node scripts/build-site.js",
     "lint": "eslint ./app",
     "lint:fix": "eslint --fix ./app",
-    "prepare-publish": "npm run lint && npm run build-distributions"
+    "prepare-publish": "npm run lint && npm run build-dist"
   },
   "homepage": "https://github.com/EagerIO/EmbedBox",
   "main": "embed-box.js",

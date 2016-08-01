@@ -21,4 +21,5 @@ const server = new WebpackDevServer(webpack(config), {
 
 server.listen(port, hostname, () => {
   console.log(`Listening on ${protocol}://${hostname}:${port}`)
+  console.log("Starting server...")
 })

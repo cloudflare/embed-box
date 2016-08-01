@@ -1,5 +1,5 @@
-import EmbedBox from "../../embed-box"
-import EmbedBoxCustom from "../../custom"
-import EmbedBoxCustomTarget from "../../custom-target"
+import EmbedBox from "../../modules/embed-box"
+import EmbedBoxCustom from "../../modules/custom"
+import EmbedBoxCustomTarget from "../../modules/custom-target"
 
 Object.assign(window, {EmbedBox, EmbedBoxCustom, EmbedBoxCustomTarget})

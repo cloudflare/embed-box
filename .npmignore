@@ -1,8 +1,9 @@
+deploy.yaml
+circle.yml
+webpack.config.js
+webpack.site.js
 test/
 media/
 scripts/
 examples/
-dist/
 app/site/
-webpack.config.js
-webpack.site.js
