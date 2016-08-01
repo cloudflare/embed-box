@@ -83,7 +83,7 @@ module.exports = function createWebpackConfig(overrides = {}) {
       $.entry.unshift(devServerClient)
     }
     else {
-      Object.assign($.entry, {devServerClient})
+      $.entry["dev-server-client"] = devServerClient
     }
   }
 

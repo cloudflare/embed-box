@@ -9,5 +9,6 @@
     "media/",
     "targets/",
     "test/",
+    "app/site/"
   ]
 }

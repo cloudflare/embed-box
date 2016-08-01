@@ -12,8 +12,8 @@ module.exports = createWebpackConfig({
   buildDirectory: "site-deploy",
 
   entry: {
-    site: "./app/site.js",
-    "site-demo-frame": "./app/site-demo-frame.js"
+    site: "./app/site/index.js",
+    "demo-frame": "./app/site/demo-frame.js"
   },
 
   loaders: [
@@ -36,7 +36,7 @@ module.exports = createWebpackConfig({
     new HtmlWebpackPlugin({
       title: "EmbedBox install UI by Eager",
       description: "An open-source UI which makes it easy for your users to install your embed code.",
-      template: "app/index.pug"
+      template: "app/site/index.pug"
     })
   ]
 })

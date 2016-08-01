@@ -4,7 +4,7 @@ import "./site.external-styl"
 import {getStore} from "lib/store"
 import {runDemo} from "lib/user-simulator"
 
-const DEMO_FRAME_PATH = "/site-demo-frame.js"
+const DEMO_FRAME_PATH = "/demo-frame.js"
 
 function loadDemoScript({contentDocument}, onLoad = () => {}) {
   const demoScript = contentDocument.createElement("script")
