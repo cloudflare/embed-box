@@ -7,6 +7,13 @@ const TARGET_ENTRIES = [
   "Any site"
 ]
 
+const downloadURLs = {
+  wordpress: "about:blank",
+  joomla: "about:blank",
+  drupal: "about:blank",
+  generic: "about:blank"
+}
+
 let sequence = []
 
 const toKeyDown = () => ({entity: keyMap.down, eventType: "keydown"})
@@ -25,36 +32,36 @@ sequence = sequence.concat(
 sequence.push({eventType: "scroll"})
 
 
-export function runDemo({contentWindow}, onComplete = () => {}) {
-  function createEmbedBox() {
-    return new contentWindow.EmbedBox({
-      downloadURLs: {
-        wordpress: "about:blank",
-        joomla: "about:blank",
-        drupal: "about:blank",
-        generic: "about:blank"
+export function runDemo(iframe, onComplete = () => {}) {
+  const {EmbedBox} = iframe.contentWindow
+  const barrier = iframe.parentNode.querySelector(".barrier")
+  let running = true
+  let embedBox
+
+  function createInteractiveDemo() {
+    running = false
+    if (embedBox) embedBox.destroy()
+
+    embedBox = new EmbedBox({
+      downloadURLs,
+      events: {
+        visibilityChange(visibility) {
+          if (visibility !== "hidden") return
+
+          setTimeout(createInteractiveDemo, 2500)
+        }
       }
     })
   }
 
-  let running = true
-  let embedBox = createEmbedBox()
+  embedBox = new EmbedBox({downloadURLs})
+
+  barrier.addEventListener("click", () => {
+    createInteractiveDemo()
+    barrier.style.display = "none"
+  })
 
   const iframeDocument = embedBox.iframe.document
-
-  function cancelDemo() {
-    if (!running) return
-
-    running = false
-    embedBox.destroy()
-
-    embedBox = createEmbedBox()
-  }
-
-  iframeDocument.addEventListener("mouseover", cancelDemo)
-  iframeDocument.addEventListener("click", cancelDemo)
-  iframeDocument.addEventListener("touchend", cancelDemo)
-
   const searchComponent = iframeDocument.querySelector("[data-component='site-type-search']")
   const input = searchComponent.querySelector(".search")
 

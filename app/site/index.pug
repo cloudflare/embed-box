@@ -30,7 +30,12 @@ html.no-js(lang="en" xmlns:og="http://ogp.me/ns#" xmlns:fb="http://www.facebook.
           p= htmlWebpackPlugin.options.description
 
         .figure.frame-container
+          .logo-container(data-column)
+            != require("./assets/eager-logo.svg")
+            div ...
+
           iframe#automated-frame(allowTransparency frameBorder="0" seamless)
+          .barrier
 
       noscript.slide.no-js-info
         p This website requires JavaScript to retrieve content.

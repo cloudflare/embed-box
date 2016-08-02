@@ -49,6 +49,7 @@ export default class EmbedBoxBase {
     iframe.element.addEventListener("transitionend", this.handleTransitionEnd)
 
     this.iframe = iframe
+    this.events = spec.events || {}
     this.theme = {...theme, ...(spec.theme || {})}
     this.style = document.createElement("style")
 
@@ -73,8 +74,11 @@ export default class EmbedBoxBase {
     const {element} = this.iframe
 
     element.style.display = value === "hidden" ? "none" : ""
+    this.iframe.element.setAttribute(STATE_ATTRIBUTE, value)
 
-    return this.iframe.element.setAttribute(STATE_ATTRIBUTE, value)
+    if (this.events.visibilityChange) this.events.visibilityChange(value)
+
+    return value
   }
 
   @autobind
@@ -111,6 +115,8 @@ export default class EmbedBoxBase {
     removeElement(this.iframe.element)
     removeElement(this.style)
     destroyStore()
+
+    this.container.style.overflow = this.containerPreviousOverflow
   }
 
   // Forces browser to compute transitions on elements inserted in current frame.

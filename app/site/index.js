@@ -27,6 +27,7 @@ document.addEventListener("DOMContentLoaded", () => {
   function loopRunDemo() {
     runDemo(automatedFrame, loopRunDemo)
   }
+
   loadDemoScript(exampleFrame)
   loadDemoScript(automatedFrame, loopRunDemo)
 
