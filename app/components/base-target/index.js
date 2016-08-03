@@ -58,7 +58,13 @@ export default class BaseTarget extends BaseComponent {
   }
 
   get location() {
-    return this.config.location || getStore().location
+    const targetUsesHead = this.config.insertInHead
+    const storeUsesHead = getStore().insertInHead
+
+    // Respect target specific falsey values.
+    const insertInHead = typeof targetUsesHead !== "undefined" ? targetUsesHead : storeUsesHead
+
+    return insertInHead ? "head" : "body"
   }
 
   get id() {

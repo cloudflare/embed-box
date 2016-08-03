@@ -33,7 +33,7 @@ export function initializeStore(instance, spec = {}) {
       ...labels
     },
 
-    location: spec.insertInHead ? "head" : "body"
+    insertInHead: spec.insertInHead || false
   }
 
   return window.EmbedBoxStore
