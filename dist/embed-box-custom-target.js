@@ -91,7 +91,9 @@ function initializeStore(instance) {
     beforeContent: spec.beforeContent || "",
     afterContent: spec.afterContent || "",
 
-    downloadURLs: spec.downloadURLs || {},
+    downloadURL: spec.downloadURL || "",
+
+    embedCode: spec.embedCode || "",
 
     iframe: {
       element: iframe,
@@ -110,7 +112,9 @@ function initializeStore(instance) {
       title: function title(config) {
         return "Add " + config.name + " to your site";
       }
-    }, labels)
+    }, labels),
+
+    location: spec.insertInHead ? "head" : "body"
   };
 
   return window.EmbedBoxStore;
@@ -200,14 +204,9 @@ var BaseTarget = (_class = (_temp = _class2 = function (_BaseComponent) {
   _createClass(BaseTarget, [{
     key: "compileTemplate",
     value: function compileTemplate() {
-      var _constructor = this.constructor;
-      var id = _constructor.id;
-      var templateVars = _constructor.templateVars;
+      __WEBPACK_IMPORTED_MODULE_0_components_base_component__["a" /* default */].prototype.compileTemplate.call(this, this.templateVars);
 
-
-      __WEBPACK_IMPORTED_MODULE_0_components_base_component__["a" /* default */].prototype.compileTemplate.call(this, templateVars);
-
-      this.element.setAttribute("data-component", id + "-target");
+      this.element.setAttribute("data-component", this.id + "-target");
       this.element.setAttribute("data-column", "");
       this.element.setAttribute("autofocus", "");
       this.element.className = "markdown instructions " + (this.element.className || "");
@@ -239,9 +238,16 @@ var BaseTarget = (_class = (_temp = _class2 = function (_BaseComponent) {
           selection.addRange(range);
         });
 
-        new __WEBPACK_IMPORTED_MODULE_1_clipboard___default.a(copyButton, { text: function text() {
+        var clipboard = new __WEBPACK_IMPORTED_MODULE_1_clipboard___default.a(copyButton, { text: function text() {
             return copyableContent.textContent;
-          } }); // eslint-disable-line no-new
+          } });
+
+        clipboard.on("success", function () {
+          copyButton.setAttribute("data-status", "copied");
+          setTimeout(function () {
+            return copyButton.removeAttribute("data-status");
+          }, 600);
+        });
       });
 
       if (autoDownload && this.downloadURL) {
@@ -267,12 +273,45 @@ var BaseTarget = (_class = (_temp = _class2 = function (_BaseComponent) {
   }, {
     key: "downloadLabel",
     get: function get() {
-      return "Download the " + this.constructor.label + " plugin";
+      return "Download the " + this.label + " plugin";
     }
   }, {
     key: "downloadURL",
     get: function get() {
-      return __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2_lib_store__["a" /* getStore */])().downloadURLs[this.constructor.id] || "";
+      return this.config.downloadURL || __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2_lib_store__["a" /* getStore */])().downloadURL;
+    }
+  }, {
+    key: "copyText",
+    get: function get() {
+      if (this.downloadURL) return "<script src=\"" + this.downloadURL + "\"></script>";
+
+      return this.config.embedCode || __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2_lib_store__["a" /* getStore */])().embedCode;
+    }
+  }, {
+    key: "fallback",
+    get: function get() {
+      // TODO: move this to global config.
+      return this.constructor.fallback;
+    }
+  }, {
+    key: "label",
+    get: function get() {
+      return this.constructor.label;
+    }
+  }, {
+    key: "location",
+    get: function get() {
+      return this.config.location || __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2_lib_store__["a" /* getStore */])().location;
+    }
+  }, {
+    key: "id",
+    get: function get() {
+      return this.constructor.id;
+    }
+  }, {
+    key: "templateVars",
+    get: function get() {
+      return this.constructor.templateVars;
     }
   }]);
 

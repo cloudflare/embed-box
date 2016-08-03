@@ -91,7 +91,9 @@ function initializeStore(instance) {
     beforeContent: spec.beforeContent || "",
     afterContent: spec.afterContent || "",
 
-    downloadURLs: spec.downloadURLs || {},
+    downloadURL: spec.downloadURL || "",
+
+    embedCode: spec.embedCode || "",
 
     iframe: {
       element: iframe,
@@ -110,7 +112,9 @@ function initializeStore(instance) {
       title: function title(config) {
         return "Add " + config.name + " to your site";
       }
-    }, labels)
+    }, labels),
+
+    location: spec.insertInHead ? "head" : "body"
   };
 
   return window.EmbedBoxStore;
@@ -169,7 +173,7 @@ var GenericTarget = (_temp = _class = function (_BaseTarget) {
   }]);
 
   return GenericTarget;
-}(__WEBPACK_IMPORTED_MODULE_1_components_base_target__["a" /* default */]), _class.fallback = true, _class.id = "generic", _class.label = "Another CMS", _class.template = __WEBPACK_IMPORTED_MODULE_0__generic_pug___default.a, _temp);
+}(__WEBPACK_IMPORTED_MODULE_1_components_base_target__["a" /* default */]), _class.fallback = true, _class.id = "generic", _class.label = "Any other site", _class.template = __WEBPACK_IMPORTED_MODULE_0__generic_pug___default.a, _temp);
 
 
 /***/ },
@@ -493,14 +497,9 @@ var BaseTarget = (_class = (_temp = _class2 = function (_BaseComponent) {
   _createClass(BaseTarget, [{
     key: "compileTemplate",
     value: function compileTemplate() {
-      var _constructor = this.constructor;
-      var id = _constructor.id;
-      var templateVars = _constructor.templateVars;
+      __WEBPACK_IMPORTED_MODULE_0_components_base_component__["a" /* default */].prototype.compileTemplate.call(this, this.templateVars);
 
-
-      __WEBPACK_IMPORTED_MODULE_0_components_base_component__["a" /* default */].prototype.compileTemplate.call(this, templateVars);
-
-      this.element.setAttribute("data-component", id + "-target");
+      this.element.setAttribute("data-component", this.id + "-target");
       this.element.setAttribute("data-column", "");
       this.element.setAttribute("autofocus", "");
       this.element.className = "markdown instructions " + (this.element.className || "");
@@ -532,9 +531,16 @@ var BaseTarget = (_class = (_temp = _class2 = function (_BaseComponent) {
           selection.addRange(range);
         });
 
-        new __WEBPACK_IMPORTED_MODULE_1_clipboard___default.a(copyButton, { text: function text() {
+        var clipboard = new __WEBPACK_IMPORTED_MODULE_1_clipboard___default.a(copyButton, { text: function text() {
             return copyableContent.textContent;
-          } }); // eslint-disable-line no-new
+          } });
+
+        clipboard.on("success", function () {
+          copyButton.setAttribute("data-status", "copied");
+          setTimeout(function () {
+            return copyButton.removeAttribute("data-status");
+          }, 600);
+        });
       });
 
       if (autoDownload && this.downloadURL) {
@@ -560,12 +566,45 @@ var BaseTarget = (_class = (_temp = _class2 = function (_BaseComponent) {
   }, {
     key: "downloadLabel",
     get: function get() {
-      return "Download the " + this.constructor.label + " plugin";
+      return "Download the " + this.label + " plugin";
     }
   }, {
     key: "downloadURL",
     get: function get() {
-      return __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2_lib_store__["a" /* getStore */])().downloadURLs[this.constructor.id] || "";
+      return this.config.downloadURL || __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2_lib_store__["a" /* getStore */])().downloadURL;
+    }
+  }, {
+    key: "copyText",
+    get: function get() {
+      if (this.downloadURL) return "<script src=\"" + this.downloadURL + "\"></script>";
+
+      return this.config.embedCode || __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2_lib_store__["a" /* getStore */])().embedCode;
+    }
+  }, {
+    key: "fallback",
+    get: function get() {
+      // TODO: move this to global config.
+      return this.constructor.fallback;
+    }
+  }, {
+    key: "label",
+    get: function get() {
+      return this.constructor.label;
+    }
+  }, {
+    key: "location",
+    get: function get() {
+      return this.config.location || __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2_lib_store__["a" /* getStore */])().location;
+    }
+  }, {
+    key: "id",
+    get: function get() {
+      return this.constructor.id;
+    }
+  }, {
+    key: "templateVars",
+    get: function get() {
+      return this.constructor.templateVars;
     }
   }]);
 
@@ -1266,26 +1305,17 @@ function match(el, selector) {
 
 var pug = __webpack_require__(13);
 
-function template(locals) {var pug_html = "", pug_mixins = {}, pug_interp;;var locals_for_with = (locals || {});(function (config) {var count = 0
-pug_html = pug_html + "\u003Csection\u003E\u003Ch1\u003EInstalling " + (pug.escape(null == (pug_interp = config.name) ? "" : pug_interp)) + " on a CMS\u003C\u002Fh1\u003E";
-if (config.beforeContent) {
-pug_html = pug_html + "\u003Cdiv data-content-slot=\"before\"\u003E" + (null == (pug_interp = config.beforeContent) ? "" : pug_interp) + "\u003C\u002Fdiv\u003E";
+function template(locals) {var pug_html = "", pug_mixins = {}, pug_interp;;var locals_for_with = (locals || {});(function (config) {pug_html = pug_html + "\u003Csection\u003E\u003Ch1\u003EInstalling " + (pug.escape(null == (pug_interp = config.name) ? "" : pug_interp)) + "\u003C\u002Fh1\u003E";
+if (config.beforeContent || this.config.beforeContent) {
+pug_html = pug_html + "\u003Cdiv data-content-slot=\"before\"\u003E\u003Cp\u003E" + (null == (pug_interp = config.beforeContent) ? "" : pug_interp) + "\u003C\u002Fp\u003E\u003Cp\u003E" + (null == (pug_interp = this.config.beforeContent) ? "" : pug_interp) + "\u003C\u002Fp\u003E\u003C\u002Fdiv\u003E";
 }
+pug_html = pug_html + "\u003Col class=\"steps\"\u003E";
 if (this.downloadURL) {
-count++
-pug_html = pug_html + "\u003Ch2\u003E\u003Cspan class=\"step-number accent-background-color\"\u003E" + (pug.escape(null == (pug_interp = count) ? "" : pug_interp)) + "\u003C\u002Fspan\u003E\u003Cspan\u003E\u003Ca" + (" class=\"more\""+" target=\"_blank\""+pug.attr("href", this.downloadURL, true, true)) + "\u003E" + (pug.escape(null == (pug_interp = this.downloadLabel) ? "" : pug_interp)) + "\u003C\u002Fa\u003E\u003Cdiv\u003E" + (pug.escape(null == (pug_interp = this.autoDownloadLabel) ? "" : pug_interp)) + "\u003C\u002Fdiv\u003E\u003C\u002Fspan\u003E\u003C\u002Fh2\u003E";
-count++
-pug_html = pug_html + "\u003Ch2\u003E\u003Cspan class=\"step-number accent-background-color\"\u003E" + (pug.escape(null == (pug_interp = count) ? "" : pug_interp)) + "\u003C\u002Fspan\u003E\u003Cspan\u003ECopy script tag \u003Chead\u003E of your page.\u003C\u002Fspan\u003E";
-if (this.downloadURL) {
-pug_html = pug_html + "\u003Cdiv class=\"copy-container\"\u003E\u003Cbutton class=\"primary run\" data-ref=\"copyButtons[]\"\u003ECopy\u003C\u002Fbutton\u003E\u003Cdiv class=\"copyable\" contenteditable\u003E&lt;script src=\"" + (pug.escape(null == (pug_interp = this.downloadURL) ? "" : pug_interp)) + "\"&gt;&lt;\u002Fscript&gt;\u003C\u002Fdiv\u003E\u003C\u002Fdiv\u003E";
+pug_html = pug_html + "\u003Cli\u003E\u003Ch2\u003E\u003Ca" + (" class=\"more\""+" target=\"_blank\""+pug.attr("href", this.downloadURL, true, true)) + "\u003E" + (pug.escape(null == (pug_interp = this.downloadLabel) ? "" : pug_interp)) + "\u003C\u002Fa\u003E\u003Cdiv\u003E" + (pug.escape(null == (pug_interp = this.autoDownloadLabel) ? "" : pug_interp)) + "\u003C\u002Fdiv\u003E\u003C\u002Fh2\u003E\u003C\u002Fli\u003E";
 }
-pug_html = pug_html + "\u003C\u002Fh2\u003E";
-}
-pug_html = pug_html + "\u003Cfigure\u003E\u003Cimg" + (pug.attr("src", __webpack_require__(16), true, true)) + "\u003E\u003C\u002Ffigure\u003E";
-count++
-pug_html = pug_html + "\u003Ch2\u003E\u003Cspan class=\"step-number accent-background-color\"\u003E" + (pug.escape(null == (pug_interp = count) ? "" : pug_interp)) + "\u003C\u002Fspan\u003E\u003Cspan\u003EVisit your site\u003C\u002Fspan\u003E\u003C\u002Fh2\u003E\u003Cp\u003EAfter saving the changes you made, visit your site in the browser.\u003C\u002Fp\u003E\u003Cp\u003EYou should see a welcome message letting you know the installation worked.\u003C\u002Fp\u003E";
-if (config.afterContent) {
-pug_html = pug_html + "\u003Cdiv data-content-slot=\"after\"\u003E" + (null == (pug_interp = config.afterContent) ? "" : pug_interp) + "\u003C\u002Fdiv\u003E";
+pug_html = pug_html + "\u003Cli\u003E\u003Ch2\u003ECopy the code to your site's &lt;" + (pug.escape(null == (pug_interp = this.location) ? "" : pug_interp)) + "&gt; tag.\u003C\u002Fh2\u003E\u003Cdiv class=\"copy-container\"\u003E\u003Cbutton class=\"primary run\" data-ref=\"copyButtons[]\"\u003ECopy\u003C\u002Fbutton\u003E\u003Cdiv class=\"copyable\" contenteditable\u003E" + (pug.escape(null == (pug_interp = this.copyText) ? "" : pug_interp)) + "\u003C\u002Fdiv\u003E\u003C\u002Fdiv\u003E\u003Cfigure\u003E\u003Cimg" + (pug.attr("src", __webpack_require__(16), true, true)) + "\u003E\u003C\u002Ffigure\u003E\u003C\u002Fli\u003E\u003Cli\u003E\u003Ch2\u003EVisit your site\u003C\u002Fh2\u003E\u003Cp\u003EAfter saving the changes you made, visit your site in the browser.\u003C\u002Fp\u003E\u003Cp\u003EYou’re done!\u003C\u002Fp\u003E\u003C\u002Fli\u003E\u003C\u002Fol\u003E";
+if (config.afterContent || this.afterContent) {
+pug_html = pug_html + "\u003Cdiv data-content-slot=\"after\"\u003E\u003Cp\u003E" + (null == (pug_interp = config.afterContent) ? "" : pug_interp) + "\u003C\u002Fp\u003E\u003Cp\u003E" + (null == (pug_interp = this.config.afterContent) ? "" : pug_interp) + "\u003C\u002Fp\u003E\u003C\u002Fdiv\u003E";
 }
 pug_html = pug_html + "\u003C\u002Fsection\u003E";}.call(this,"config" in locals_for_with?locals_for_with.config:typeof config!=="undefined"?config:undefined));;return pug_html;};
 module.exports = template;

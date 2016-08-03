@@ -293,7 +293,9 @@ function initializeStore(instance) {
     beforeContent: spec.beforeContent || "",
     afterContent: spec.afterContent || "",
 
-    downloadURLs: spec.downloadURLs || {},
+    downloadURL: spec.downloadURL || "",
+
+    embedCode: spec.embedCode || "",
 
     iframe: {
       element: iframe,
@@ -312,7 +314,9 @@ function initializeStore(instance) {
       title: function title(config) {
         return "Add " + config.name + " to your site";
       }
-    }, labels)
+    }, labels),
+
+    location: spec.insertInHead ? "head" : "body"
   };
 
   return window.EmbedBoxStore;
@@ -894,10 +898,15 @@ var EmbedBoxBase = (_class = (_temp = _class2 = function () {
 
     var _spec$autoShow = spec.autoShow;
     var autoShow = _spec$autoShow === undefined ? true : _spec$autoShow;
+    var _spec$customTargets = spec.customTargets;
+    var customTargets = _spec$customTargets === undefined ? [] : _spec$customTargets;
+    var _spec$targets = spec.targets;
+    var targetConfigs = _spec$targets === undefined ? {} : _spec$targets;
+    var _spec$theme = spec.theme;
+    var theme = _spec$theme === undefined ? {} : _spec$theme;
     var _constructor = this.constructor;
     var iframeAttributes = _constructor.iframeAttributes;
     var stylesheet = _constructor.stylesheet;
-    var theme = _constructor.theme;
 
     var store = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_5_lib_store__["b" /* initializeStore */])(this, spec);
     var iframe = store.iframe;
@@ -915,7 +924,8 @@ var EmbedBoxBase = (_class = (_temp = _class2 = function () {
     iframe.element.addEventListener("transitionend", this.handleTransitionEnd);
 
     this.iframe = iframe;
-    this.theme = _extends({}, theme, spec.theme || {});
+    this.events = spec.events || {};
+    this.theme = _extends({}, this.constructor.theme, theme);
     this.style = document.createElement("style");
 
     this.style.innerHTML = stylesheet;
@@ -923,9 +933,15 @@ var EmbedBoxBase = (_class = (_temp = _class2 = function () {
 
     this.appendModalStylesheet();
 
+    var targetConstructors = customTargets.concat(this.constructor.fetchedTargets);
+    var targetToComponent = function targetToComponent(Target) {
+      return new Target({ config: targetConfigs[Target.id] || {} });
+    };
+
     this.application = new __WEBPACK_IMPORTED_MODULE_3_components_application__["a" /* default */](this.iframe.document.body, {
+      initialTarget: spec.initialTarget,
       onClose: this.hide,
-      targets: spec.targets || []
+      targets: targetConstructors.map(targetToComponent)
     });
 
     if (autoShow) this.show();
@@ -944,16 +960,20 @@ var EmbedBoxBase = (_class = (_temp = _class2 = function () {
 
       var style = this.iframe.document.createElement("style");
 
-      style.innerHTML = modalStylesheet + ("\n      [data-component=\"application\"] .modal {\n        background-color: " + theme.backgroundColor + " !important;\n        color: " + theme.textColor + " !important;\n      }\n\n      a, .accent-color {\n        color: " + theme.accentColor + " !important;\n      }\n\n      .button.primary, button.primary,\n      [data-component=\"site-type-search\"] .types .type[data-selected],\n      .accent-background-color {\n        background: " + theme.accentColor + " !important;\n      }\n    ");
+      style.innerHTML = modalStylesheet + ("\n      [data-component=\"application\"] .modal {\n        background-color: " + theme.backgroundColor + " !important;\n        color: " + theme.textColor + " !important;\n      }\n\n      a, .accent-color {\n        color: " + theme.accentColor + " !important;\n      }\n\n      .button.primary, button.primary,\n      [data-component=\"site-type-search\"] .types .type[data-selected],\n      .accent-background-color {\n        background: " + theme.accentColor + " !important;\n      }\n\n      .instructions .steps li::before {\n        background: " + theme.accentColor + " !important;\n      }\n    ");
 
       this.iframe.document.head.appendChild(style);
     }
   }, {
     key: "destroy",
     value: function destroy() {
+      Array.from(document.querySelectorAll(".embed-box-download-iframe")).forEach(removeElement);
+
       removeElement(this.iframe.element);
       removeElement(this.style);
       __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_5_lib_store__["c" /* destroyStore */])();
+
+      this.container.style.overflow = this.containerPreviousOverflow;
     }
 
     // Forces browser to compute transitions on elements inserted in current frame.
@@ -994,13 +1014,16 @@ var EmbedBoxBase = (_class = (_temp = _class2 = function () {
 
 
       element.style.display = value === "hidden" ? "none" : "";
+      this.iframe.element.setAttribute(STATE_ATTRIBUTE, value);
 
-      return this.iframe.element.setAttribute(STATE_ATTRIBUTE, value);
+      if (this.events.visibilityChange) this.events.visibilityChange(value);
+
+      return value;
     }
   }]);
 
   return EmbedBoxBase;
-}(), _class2.stylesheet = __WEBPACK_IMPORTED_MODULE_0__embed_box_styl___default.a, _class2.modalStylesheet = __WEBPACK_IMPORTED_MODULE_1__iframe_styl___default.a, _class2.iframeAttributes = (_class2$iframeAttribu = {
+}(), _class2.stylesheet = __WEBPACK_IMPORTED_MODULE_0__embed_box_styl___default.a, _class2.modalStylesheet = __WEBPACK_IMPORTED_MODULE_1__iframe_styl___default.a, _class2.fetchedTargets = [], _class2.iframeAttributes = (_class2$iframeAttribu = {
   allowTransparency: ""
 }, _defineProperty(_class2$iframeAttribu, STATE_ATTRIBUTE, "hidden"), _defineProperty(_class2$iframeAttribu, "frameBorder", "0"), _defineProperty(_class2$iframeAttribu, "seamless", "seamless"), _class2$iframeAttribu), _class2.theme = {
   accentColor: "#2d88f3",
@@ -1091,7 +1114,6 @@ var Application = (_class = (_temp = _class2 = function (_BaseComponent) {
     var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Application).call(this, options));
 
     _this.transitioning = false;
-    _this.route = "home";
 
     var element = _this.compileTemplate();
 
@@ -1120,7 +1142,14 @@ var Application = (_class = (_temp = _class2 = function (_BaseComponent) {
 
     previousButton.addEventListener("click", _this.navigateToHome);
 
-    _this.navigateToHome();
+    if (options.initialTarget) {
+      _this.route = options.initialTarget;
+      _this.navigateToTarget();
+    } else {
+      _this.route = "home";
+      _this.navigateToHome();
+    }
+
     mountPoint.appendChild(_this.element);
     return _this;
   }
@@ -1221,33 +1250,35 @@ var Application = (_class = (_temp = _class2 = function (_BaseComponent) {
       var content = this.refs.content;
       var firstChild = content.firstChild;
 
-      var _targets$filter = this.targets.filter(function (route) {
-        return route.id === _this3.route;
+      var _targets$filter = this.targets.filter(function (target) {
+        return target.id === _this3.route;
       });
 
       var _targets$filter2 = _slicedToArray(_targets$filter, 1);
 
-      var Target = _targets$filter2[0];
+      var target = _targets$filter2[0];
 
       var targetWrapper = new __WEBPACK_IMPORTED_MODULE_8_components_target_wrapper__["a" /* default */]({
         onDone: this.closeModal,
-        target: new Target()
+        target: target
       }).render();
 
       content.appendChild(targetWrapper);
 
-      firstChild.addEventListener("transitionend", function () {
-        _this3.removeElement(firstChild);
-        _this3.autofocus();
-        _this3.element.setAttribute("data-route", _this3.route);
-        _this3.transitioning = false;
+      if (firstChild) {
+        firstChild.addEventListener("transitionend", function () {
+          _this3.removeElement(firstChild);
+          _this3.autofocus();
+          _this3.element.setAttribute("data-route", _this3.route);
+          _this3.transitioning = false;
 
-        targetWrapper.firstChild.focus();
-      });
+          targetWrapper.firstChild.focus();
+        });
 
-      requestAnimationFrame(function () {
-        return firstChild.setAttribute("data-transition", "hidden-left");
-      });
+        requestAnimationFrame(function () {
+          return firstChild.setAttribute("data-transition", "hidden-left");
+        });
+      }
     }
   }]);
 
@@ -1274,9 +1305,7 @@ var Application = (_class = (_temp = _class2 = function (_BaseComponent) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_lib_key_map__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_lib_store__ = __webpack_require__(2);
 
-/* harmony export */ __webpack_require__.d(exports, "a", function() { return SiteTypeSearch; });var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
+/* harmony export */ __webpack_require__.d(exports, "a", function() { return SiteTypeSearch; });var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -1557,14 +1586,14 @@ var SiteTypeSearch = (_class = (_temp2 = _class2 = function (_BaseComponent) {
       var targets = this.targets;
 
 
-      if (!query) return targets;
+      return targets.map(function (_ref6) {
+        var id = _ref6.id;
+        var label = _ref6.label;
+        var fallback = _ref6.fallback;
 
-      return targets.map(function (target) {
-        var label = target.label.toLowerCase();
+        var hidden = query && label.toLowerCase().indexOf(query) === -1 && !fallback;
 
-        return _extends({}, target, {
-          hidden: label.indexOf(query) === -1 && !target.fallback
-        });
+        return { id: id, label: label, hidden: hidden };
       });
     }
   }]);
@@ -1696,7 +1725,7 @@ exports = module.exports = __webpack_require__(0)();
 
 
 // module
-exports.push([module.i, "[data-component$=\"-target\"] {\n  -webkit-box-flex: 1;\n  -o-box-flex: 1;\n  box-flex: 1;\n  -ms-flex: 1 1 auto;\n  flex: 1 1 auto;\n  overflow: auto;\n  -webkit-overflow-scrolling: touch;\n  overflow-scrolling: touch;\n}\n[data-component$=\"-target\"]:focus {\n  outline: none;\n}\n[data-component$=\"-target\"] .copy-container {\n  font-size: 0.8em;\n  background: rgba(0,0,0,0.045);\n  position: relative;\n}\n[data-component$=\"-target\"] .copy-container button.run {\n  margin: 0;\n  padding: 0.3em 1em;\n  position: absolute;\n  left: 1.5em;\n  top: 1.5em;\n}\n[data-component$=\"-target\"] .copy-container > .copyable {\n  background-color: transparent;\n  border: none;\n  display: block;\n  font-family: Monaco, \"Bitstream Vera Sans Mono\", \"Lucida Console\", Terminal, monospace;\n  margin: 0;\n  padding: 1.3em;\n  padding-top: 4.3em;\n  resize: none;\n  white-space: pre-wrap;\n  width: 100%;\n  word-wrap: break-word;\n}\n[data-component$=\"-target\"] .copy-container > .copyable:focus {\n  outline: none;\n}\n.instructions.markdown {\n  cursor: auto;\n  display: block;\n  padding: 3em 2em 3em 4em;\n  -webkit-user-select: text;\n  -moz-user-select: text;\n  -ms-user-select: text;\n  user-select: text;\n}\n.instructions.markdown [data-content-slot] {\n  background: rgba(0,0,0,0.045);\n  padding: 1em;\n  border-radius: 3px;\n  margin-left: -2em;\n}\n.instructions.markdown div,\n.instructions.markdown footer,\n.instructions.markdown header,\n.instructions.markdown section {\n  display: block;\n}\n.instructions.markdown figure > img {\n  max-width: 100%;\n}\n.instructions.markdown h1 {\n  font-size: 1.25em;\n  font-weight: 300;\n  margin-top: 2em;\n  margin-bottom: 2em;\n  text-align: center;\n  padding-right: 2em;\n}\n.instructions.markdown h2 {\n  font-size: 1em;\n  font-weight: 500;\n  margin-top: 3em;\n}\n.instructions.markdown h2 .step-number {\n  border-radius: 50%;\n  cursor: default;\n  display: inline-block;\n  height: 2em;\n  line-height: 2em;\n  margin-left: -3em;\n  margin-right: 1em;\n  text-align: center;\n  -webkit-user-select: none;\n  -moz-user-select: none;\n  -ms-user-select: none;\n  user-select: none;\n  vertical-align: baseline;\n  width: 2em;\n}\n.instructions.markdown h2 .step-number:not(.accent-background-color) {\n  background: rgba(0,0,0,0.045);\n}\n.instructions.markdown h2 .step-number.accent-background-color {\n  color: #fff;\n}\n.instructions.markdown p {\n  color: rgba(0,0,0,0.43);\n}\n.instructions.markdown > *:first-child {\n  margin-top: 0;\n}\n.instructions.markdown > *:last-child {\n  margin-bottom: 0;\n}\n", ""]);
+exports.push([module.i, "[data-component$=\"-target\"] {\n  -webkit-box-flex: 1;\n  -o-box-flex: 1;\n  box-flex: 1;\n  -ms-flex: 1 1 auto;\n  flex: 1 1 auto;\n  overflow: auto;\n  -webkit-overflow-scrolling: touch;\n  overflow-scrolling: touch;\n}\n[data-component$=\"-target\"]:focus {\n  outline: none;\n}\n[data-component$=\"-target\"] .copy-container {\n  font-size: 0.8em;\n  background: rgba(0,0,0,0.045);\n  margin-bottom: 1em;\n  position: relative;\n}\n[data-component$=\"-target\"] .copy-container button.run {\n  margin: 0;\n  padding: 0.3em 1em;\n  position: absolute;\n  left: 1.5em;\n  top: 1.5em;\n}\n[data-component$=\"-target\"] .copy-container button.run::after {\n  color: #000;\n  content: \"Copied\";\n  display: inline-block;\n  left: 100%;\n  margin-left: 0.5em;\n  opacity: 0;\n  -ms-filter: \"progid:DXImageTransform.Microsoft.Alpha(Opacity=0)\";\n  filter: alpha(opacity=0);\n  position: absolute;\n}\n[data-component$=\"-target\"] .copy-container button.run[data-status=\"copied\"]::after {\n  -webkit-animation: copied 400ms linear;\n  animation: copied 400ms linear;\n  -webkit-animation-fill-mode: forwards;\n  animation-fill-mode: forwards;\n  opacity: 1;\n  -ms-filter: none;\n  -webkit-filter: none;\n          filter: none;\n}\n[data-component$=\"-target\"] .copy-container > .copyable {\n  display: block;\n  font-family: Monaco, \"Bitstream Vera Sans Mono\", \"Lucida Console\", Terminal, monospace;\n  margin: 0;\n  padding: 1.3em;\n  padding-top: 4.3em;\n  white-space: pre-wrap;\n  width: 100%;\n  word-wrap: break-word;\n}\n[data-component$=\"-target\"] .copy-container > .copyable:focus {\n  outline: none;\n}\n.instructions.markdown {\n  cursor: auto;\n  display: block;\n  padding: 3em 2em 3em 4em;\n  -webkit-user-select: text;\n  -moz-user-select: text;\n  -ms-user-select: text;\n  user-select: text;\n}\n.instructions.markdown [data-content-slot] {\n  background: rgba(0,0,0,0.045);\n  padding: 1em;\n  border-radius: 3px;\n  margin-left: -2em;\n}\n.instructions.markdown ol.steps {\n  counter-reset: item 0;\n  list-style: none;\n  margin: 0;\n  padding: 0;\n}\n.instructions.markdown ol.steps li {\n  counter-increment: item;\n  position: relative;\n}\n.instructions.markdown ol.steps li::before {\n  background: rgba(0,0,0,0.045);\n  border-radius: 50%;\n  color: #fff;\n  content: counter(item);\n  display: inline-block;\n  line-height: 2em;\n  margin-right: 1em;\n  position: absolute;\n  right: 100%;\n  text-align: center;\n  top: 0;\n  width: 2em;\n}\n.instructions.markdown div,\n.instructions.markdown footer,\n.instructions.markdown header,\n.instructions.markdown section {\n  display: block;\n}\n.instructions.markdown figure > img {\n  max-width: 100%;\n}\n.instructions.markdown h1 {\n  font-size: 1.25em;\n  font-weight: 300;\n  margin-top: 2em;\n  margin-bottom: 2em;\n  text-align: center;\n  padding-right: 2em;\n}\n.instructions.markdown h2 {\n  font-size: 1em;\n  font-weight: 500;\n  margin-top: 3em;\n}\n.instructions.markdown > *:first-child {\n  margin-top: 0;\n}\n.instructions.markdown > *:last-child {\n  margin-bottom: 0;\n}\n@-webkit-keyframes copied {\n  0%, 100% {\n    opacity: 0;\n    -ms-filter: \"progid:DXImageTransform.Microsoft.Alpha(Opacity=0)\";\n    filter: alpha(opacity=0);\n  }\n  50% {\n    opacity: 1;\n    -ms-filter: none;\n    -webkit-filter: none;\n            filter: none;\n    -webkit-transform: translate3d(0, -1.8em, 0);\n    transform: translate3d(0, -1.8em, 0);\n  }\n  100% {\n    -webkit-transform: translate3d(0, -1.8em, 0);\n    transform: translate3d(0, -1.8em, 0);\n  }\n}\n@keyframes copied {\n  0%, 100% {\n    opacity: 0;\n    -ms-filter: \"progid:DXImageTransform.Microsoft.Alpha(Opacity=0)\";\n    filter: alpha(opacity=0);\n  }\n  50% {\n    opacity: 1;\n    -ms-filter: none;\n    -webkit-filter: none;\n            filter: none;\n    -webkit-transform: translate3d(0, -1.8em, 0);\n    transform: translate3d(0, -1.8em, 0);\n  }\n  100% {\n    -webkit-transform: translate3d(0, -1.8em, 0);\n    transform: translate3d(0, -1.8em, 0);\n  }\n}\n", ""]);
 
 // exports
 
@@ -1897,23 +1926,9 @@ module.exports = "<svg viewBox=\"0 0 123 123\" version=\"1.1\"><path d=\"M61.262
 
 var EmbedBoxBase = __webpack_require__(7).default;
 
-function EmbedBoxCustom() {
-  var spec = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
-  var fetchedTargets = this.constructor.fetchedTargets;
+EmbedBoxBase.fetchedTargets = [];
 
-
-  spec.targets = fetchedTargets.concat(spec.targets || []);
-
-  for (var _len = arguments.length, args = Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
-    args[_key - 1] = arguments[_key];
-  }
-
-  return new (Function.prototype.bind.apply(EmbedBoxBase, [null].concat([spec], args)))();
-}
-
-EmbedBoxCustom.fetchedTargets = [];
-
-module.exports = EmbedBoxCustom;
+module.exports = EmbedBoxBase;
 
 /***/ }
 /******/ ])
