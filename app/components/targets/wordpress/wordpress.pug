@@ -1,47 +1,73 @@
-- var count = 0
-
 section
   h1 Installing #{config.name} onto a WordPress site
 
-  if config.beforeContent
+  if config.beforeContent || this.config.beforeContent
     div(data-content-slot="before")
-      != config.beforeContent
+      p!= config.beforeContent
+      p!= this.config.beforeContent
 
-  if this.downloadURL
-    - count++
-    h2
-      span.step-number.accent-background-color= count
+  ol.steps
+    if this.downloadURL
+      li
+        h2
+          a.more(target="_blank" href=this.downloadURL)= this.downloadLabel
+          div= this.autoDownloadLabel
 
-      span
-        a.more(target="_blank" href=this.downloadURL)= this.downloadLabel
-        div= this.autoDownloadLabel
+      p After downloading, don’t unzip the file.
 
-    p After downloading, don’t unzip the file.
+      li
+        h2 Upload the plugin to your WordPress Admin site
 
-  - count++
-  h2
-    span.step-number.accent-background-color= count
-    span Upload the plugin to your WordPress Admin site
+        figure
+          img(src=require("./upload-plugin.png"))
 
-  figure
-    img(src=require("./upload-plugin.png"))
+        p In your WordPress Admin, navigate to: <strong>Plugins &gt; Add New &gt; Upload Plugin</strong>.
+        p Click “Choose File” and select the file you just downloaded.</p>
 
-  p In your WordPress Admin, navigate to: <strong>Plugins &gt; Add New &gt; Upload Plugin</strong>.
+      li
+        h2 Activate the plugin and view your site
 
-  p Click “Choose File” and select the file you just downloaded.</p>
+        figure
+          img(src=require("./activate-plugin.png"))
 
-  - count++
-  h2
-    span.step-number.accent-background-color= count
-    span Activate the plugin and view your site
+        p Click “Activate Plugin”.
+        p After it activates you’ll see a welcome message letting you know the installation was successful!
 
-  figure
-    img(src=require("./activate-plugin.png"))
+    else
+      li
+        h2 In your WordPress Admin, navigate to: <strong>Appearance &gt; Editor</strong>.
 
-  p Click “Activate Plugin”.
+        p Navigate to the Theme Editor from the menu on the left side.
 
-  p After it activates you’ll see a welcome message letting you know the installation was successful!
+      li
+        h2 Copy the code to your site's &lt;#{this.location}&gt; tag.
 
-  if config.afterContent
+        .copy-container
+          button.primary.run(type="button" data-ref="copyButtons[]") Copy
+          div.copyable(contenteditable)= this.copyText
+
+        if this.location === "head"
+          p Locate the <code>header.php</code> file from the menu on the right side.
+
+          p
+            | Carefully search for the <code>&lt;head&gt;</code> tag.
+            | There will be other similar tags, but you only want the one with that exact name.
+            | It should be near the beginning of the file. Insert the embed code just <strong>after</strong> that tag.
+
+        else
+          p Locate the <code>footer.php</code> file from the menu on the right side.
+
+          p
+            | Carefully search for the <code>&lt;/body&gt;</code> tag.
+            | There will be other similar tags, but you only want the one with that exact name.
+            | It should be near the end of the file.
+            | Insert the embed code just <strong>before</strong> that tag.
+      li
+        h2 Click “Update File”
+
+        p You’re done!
+
+  if config.afterContent || this.config.afterContent
     div(data-content-slot="after")
-      != config.afterContent
+      p!= config.afterContent
+      p!= this.config.afterContent

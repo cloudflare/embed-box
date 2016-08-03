@@ -2,6 +2,11 @@
 new EmbedBox({
   beforeContent: "Having some trouble? " +
     "Call us at <strong>(555)-123-4567</strong>",
-  afterContent: "You should receive an email with your account password."
+  afterContent: "You should receive an email with your account password.",
+  targets: {
+    wordpress: {
+      beforeContent: "Make sure to use WordPress 4.0 or higher!"
+    }
+  }
 })
 ```

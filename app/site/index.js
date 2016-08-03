@@ -4,14 +4,27 @@ import "./site.external-styl"
 import {getStore} from "lib/store"
 import {runDemo} from "lib/user-simulator"
 
-const DEMO_FRAME_PATH = "/demo-frame.js"
+const LIBRARY_SCRIPTS = [
+  "./embed-box.js",
+  "./embed-box-custom.js",
+  "./embed-box-custom-target.js"
+]
 
-function loadDemoScript({contentDocument}, onLoad = () => {}) {
-  const demoScript = contentDocument.createElement("script")
+function loadDemoScripts({contentDocument}, onLoad = () => {}) {
+  let {length} = LIBRARY_SCRIPTS
 
-  demoScript.onload = onLoad
-  demoScript.src = DEMO_FRAME_PATH
-  contentDocument.head.appendChild(demoScript)
+  function onScriptLoad() {
+    length--
+    if (length === 0) onLoad()
+  }
+
+  LIBRARY_SCRIPTS.forEach(path => {
+    const script = contentDocument.createElement("script")
+
+    script.onload = onScriptLoad
+    script.src = path
+    contentDocument.head.appendChild(script)
+  })
 }
 
 function alignWithElement(element, referenceElement) {
@@ -28,8 +41,8 @@ document.addEventListener("DOMContentLoaded", () => {
     runDemo(automatedFrame, loopRunDemo)
   }
 
-  loadDemoScript(exampleFrame)
-  loadDemoScript(automatedFrame, loopRunDemo)
+  loadDemoScripts(exampleFrame)
+  loadDemoScripts(automatedFrame, loopRunDemo)
 
   function handleRunClick({target: {parentElement}}) {
     const {instance} = getStore(exampleFrame.contentWindow) || {}
@@ -37,11 +50,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (instance) instance.destroy()
 
-    exampleFrame.contentWindow.eval(example)
+    loadDemoScripts(exampleFrame, () => {
+      exampleFrame.contentWindow.eval(example)
+    })
 
-    const {downloadURLs} = getStore(exampleFrame.contentWindow)
-
-    Object.keys(downloadURLs).forEach(key => downloadURLs[key] = "about:blank")
     alignWithElement(docsFloatingFigure, parentElement)
   }
 

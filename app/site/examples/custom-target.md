@@ -19,6 +19,6 @@ var CustomTarget = EmbedBoxCustomTarget.extend({
 
 new EmbedBoxCustom({
   name: "Custom Target Example",
-  targets: [CustomTarget]
+  customTargets: [CustomTarget]
 })
 ```

@@ -17,7 +17,6 @@ export default class Application extends BaseComponent {
     super(options)
 
     this.transitioning = false
-    this.route = "home"
 
     const element = this.compileTemplate()
 
@@ -43,7 +42,15 @@ export default class Application extends BaseComponent {
 
     previousButton.addEventListener("click", this.navigateToHome)
 
-    this.navigateToHome()
+    if (options.initialTarget) {
+      this.route = options.initialTarget
+      this.navigateToTarget()
+    }
+    else {
+      this.route = "home"
+      this.navigateToHome()
+    }
+
     mountPoint.appendChild(this.element)
   }
 
@@ -133,24 +140,26 @@ export default class Application extends BaseComponent {
 
     const {content} = this.refs
     const {firstChild} = content
-    const [Target] = this.targets.filter(route => route.id === this.route)
+    const [target] = this.targets.filter(target => target.id === this.route)
     const targetWrapper = new TargetWrapper({
       onDone: this.closeModal,
-      target: new Target()
+      target
     }).render()
 
     content.appendChild(targetWrapper)
 
-    firstChild.addEventListener("transitionend", () => {
-      this.removeElement(firstChild)
-      this.autofocus()
-      this.element.setAttribute("data-route", this.route)
-      this.transitioning = false
+    if (firstChild) {
+      firstChild.addEventListener("transitionend", () => {
+        this.removeElement(firstChild)
+        this.autofocus()
+        this.element.setAttribute("data-route", this.route)
+        this.transitioning = false
 
-      targetWrapper.firstChild.focus()
-    })
+        targetWrapper.firstChild.focus()
+      })
 
-    requestAnimationFrame(() => firstChild.setAttribute("data-transition", "hidden-left"))
+      requestAnimationFrame(() => firstChild.setAttribute("data-transition", "hidden-left"))
+    }
   }
 }
 

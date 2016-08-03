@@ -11,7 +11,9 @@ export function initializeStore(instance, spec = {}) {
     beforeContent: spec.beforeContent || "",
     afterContent: spec.afterContent || "",
 
-    downloadURLs: spec.downloadURLs || {},
+    downloadURL: spec.downloadURL || "",
+
+    embedCode: spec.embedCode || "",
 
     iframe: {
       element: iframe,
@@ -29,7 +31,9 @@ export function initializeStore(instance, spec = {}) {
       next: "Next",
       title: config => `Add ${config.name} to your site`,
       ...labels
-    }
+    },
+
+    location: spec.insertInHead ? "head" : "body"
   }
 
   return window.EmbedBoxStore

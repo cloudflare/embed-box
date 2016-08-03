@@ -1,100 +1,86 @@
-- var count = 0
-
 section
   h1 Installing #{config.name} onto a Joomla site
 
-  if config.beforeContent
+  if config.beforeContent || this.config.beforeContent
     div(data-content-slot="before")
-      != config.beforeContent
+      p!= config.beforeContent
+      p!= this.config.beforeContent
 
-  if this.downloadURL
-    h2
-      span.step-number.accent-background-color= ++count
+  ol.steps
+    if this.downloadURL
+      li
+        h2
+          a.more(target="_blank" href=this.downloadURL)= this.downloadLabel
+          div= this.autoDownloadLabel
 
-      span
-        a.more(target="_blank" href=this.downloadURL)= this.downloadLabel
-        div= this.autoDownloadLabel
+        p After downloading, don’t unzip the file.
 
-    p After downloading, don’t unzip the file.
+      li
+        h2 Upload the plugin to your Joomla Admin site
 
-    h2
-      span.step-number.accent-background-color= ++count
-      span Upload the plugin to your Joomla Admin site
+        figure: img(src=require("./upload-plugin.png"))
 
-    figure
-      img(src=require("./upload-plugin.png"))
+        p In your Joomla Admin, navigate to: <strong>Extensions &gt; Install &gt; Upload Package File</strong>.
+        p Click “Choose File” and select the file you just downloaded.</p>
 
-    p In your Joomla Admin, navigate to: <strong>Extensions &gt; Install &gt; Upload Package File</strong>.
+      li
+        h2 Activate the plugin and view your site
 
-    p Click “Choose File” and select the file you just downloaded.</p>
+        figure: img(src=require("./activate-plugin.png"))
 
-    - count++
-    h2
-      span.step-number.accent-background-color= count
-      span Activate the plugin and view your site
+        p On the <strong>Extensions &gt; Manage</strong> page, search for #{config.name ? "“" + config.name + "”" : "the plugin"}.
+        p When you’ve found the plugin, click the red “×” to enable the extension.
+        p Congrats, the installation is done!
 
-    figure
-      img(src=require("./activate-plugin.png"))
-
-      p On the <strong>Extensions &gt; Manage</strong> page, search for #{config.name ? "“" + config.name + "”" : "the plugin"}.
-
-    p When you’ve found the plugin, click the red “×” to enable the extension.
-
-    p Congrats, the installation is done!
-
-  else
-    h2
-      span.step-number.accent-background-color= ++count
-      span In your Joomla Admin, navigate to: <strong>Extensions &gt; Templates &gt; Templates</strong>.
-
-    figure
-      img(src=require("./open-templates.png"))
-
-    h2
-      span.step-number.accent-background-color= ++count
-      span
-        | Choose the template which is currently being used to power your site.
-        | If you’re not sure which template this is you can add this embed code to all of your templates by repeating this process.
-
-    figure
-      img(src=require("./choose-template.png"))
-
-    h2
-      span.step-number.accent-background-color= ++count
-      span Select the “index.php” file.
-
-    figure
-      img(src=require("./choose-file.png"))
-
-    if this.insertIntoHead
-      h2
-        span.step-number.accent-background-color= ++count
-        span
-          | Carefully search for the “<code>&lt;head&gt;</code>” tag.
-          | There will be other similar tags, but you only want the one with that exact name.
-          | It should be near the beginning of the file.  Insert the embed code just <strong>after</strong> that tag.
-
-      figure
-        img(src=require("./insert-code-head.png"))
     else
-      h2
-        span.step-number.accent-background-color= ++count
-        span
-          | Carefully search for the “<code>&lt;/body&gt;</code>” tag.
-          | There will be other similar tags, but you only want the one with that exact name.
-          | It should be near the end of the file.
-          | Insert the embed code just <strong>before</strong> that tag.
+      li
+        h2 In your Joomla Admin, navigate to: <strong>Extensions &gt; Templates &gt; Templates</strong>.
 
-      figure
-        img(src=require("./insert-code-body.png"))
+        figure: img(src=require("./open-templates.png"))
 
-    h2
-      span.step-number.accent-background-color= ++count
-      span Click “Save &amp; Close”.  You’re done!
+      li
+        h2 Choose the template which is currently being used to power your site.
+        p If you’re not sure which template this is you can add this embed code to all of your templates by repeating this process.
 
-    figure
-      img(src=require("./save.png"))
+        figure: img(src=require("./choose-template.png"))
 
-  if config.afterContent
+      li
+        h2 Select the “index.php” file.
+
+        figure: img(src=require("./choose-file.png"))
+
+      li
+        h2 Copy the code to your site's &lt;#{this.location}&gt; tag.
+
+        .copy-container
+          button.primary.run(data-ref="copyButtons[]") Copy
+          div.copyable(contenteditable)= this.copyText
+
+        if this.location === "head"
+          p
+            | Carefully search for the <code>&lt;head&gt;</code> tag.
+            | There will be other similar tags, but you only want the one with that exact name.
+            | It should be near the beginning of the file. Insert the embed code just <strong>after</strong> that tag.
+
+          figure: img(src=require("./insert-code-head.png"))
+
+        else
+          p
+            | Carefully search for the <code>&lt;/body&gt;</code> tag.
+            | There will be other similar tags, but you only want the one with that exact name.
+            | It should be near the end of the file.
+            | Insert the embed code just <strong>before</strong> that tag.
+
+          figure: img(src=require("./insert-code-body.png"))
+
+      li
+        h2 Click “Save &amp; Close”.
+
+        figure: img(src=require("./save.png"))
+
+        p You’re done!
+
+  if config.afterContent || this.config.afterContent
     div(data-content-slot="after")
-      != config.afterContent
+      p!= config.afterContent
+      p!= this.config.afterContent

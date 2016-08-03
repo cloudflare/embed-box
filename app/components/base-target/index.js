@@ -20,11 +20,9 @@ export default class BaseTarget extends BaseComponent {
   };
 
   compileTemplate() {
-    const {id, templateVars} = this.constructor
+    BaseComponent.prototype.compileTemplate.call(this, this.templateVars)
 
-    BaseComponent.prototype.compileTemplate.call(this, templateVars)
-
-    this.element.setAttribute("data-component", `${id}-target`)
+    this.element.setAttribute("data-component", `${this.id}-target`)
     this.element.setAttribute("data-column", "")
     this.element.setAttribute("autofocus", "")
     this.element.className = `markdown instructions ${this.element.className || ""}`
@@ -37,11 +35,38 @@ export default class BaseTarget extends BaseComponent {
   }
 
   get downloadLabel() {
-    return `Download the ${this.constructor.label} plugin`
+    return `Download the ${this.label} plugin`
   }
 
   get downloadURL() {
-    return getStore().downloadURLs[this.constructor.id] || ""
+    return this.config.downloadURL || getStore().downloadURL
+  }
+
+  get copyText() {
+    if (this.downloadURL) return `<script src="${this.downloadURL}"></script>`
+
+    return this.config.embedCode || getStore().embedCode
+  }
+
+  get fallback() {
+    // TODO: move this to global config.
+    return this.constructor.fallback
+  }
+
+  get label() {
+    return this.constructor.label
+  }
+
+  get location() {
+    return this.config.location || getStore().location
+  }
+
+  get id() {
+    return this.constructor.id
+  }
+
+  get templateVars() {
+    return this.constructor.templateVars
   }
 
   render() {
@@ -62,7 +87,12 @@ export default class BaseTarget extends BaseComponent {
         selection.addRange(range)
       })
 
-      new Clipboard(copyButton, {text: () => copyableContent.textContent}) // eslint-disable-line no-new
+      const clipboard = new Clipboard(copyButton, {text: () => copyableContent.textContent})
+
+      clipboard.on("success", () => {
+        copyButton.setAttribute("data-status", "copied")
+        setTimeout(() => copyButton.removeAttribute("data-status"), 600)
+      })
     })
 
     if (autoDownload && this.downloadURL) {

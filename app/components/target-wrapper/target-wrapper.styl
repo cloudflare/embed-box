@@ -1,6 +1,17 @@
 @import "~styl/colors"
 @import "~styl/fonts"
 
+@keyframes copied
+  0%, 100%
+    opacity 0
+
+  50%
+    opacity 1
+    transform translate3d(0, -1.8em, 0)
+
+  100%
+    transform translate3d(0, -1.8em, 0)
+
 [data-component$="-target"]
   flex 1 1 auto
   overflow auto
@@ -12,6 +23,7 @@
   .copy-container
     font-size .8em
     background lightGrayRGBA
+    margin-bottom 1em
     position relative
 
     button.run
@@ -21,15 +33,26 @@
       left 1.5em
       top 1.5em
 
+      &::after
+        color black
+        content "Copied"
+        display inline-block
+        left 100%
+        margin-left 0.5em
+        opacity 0
+        position absolute
+
+      &[data-status="copied"]::after
+        animation copied 400ms linear
+        animation-fill-mode forwards
+        opacity 1
+
     > .copyable
-      background-color transparent
-      border none
       display block
       font-family monospaceFonts
       margin 0
       padding 1.3em
       padding-top 4.3em
-      resize none
       white-space pre-wrap
       width 100%
       word-wrap break-word
@@ -49,6 +72,30 @@
     border-radius 3px
     margin-left -2em
 
+  ol.steps
+    counter-reset item 0
+    list-style none
+    margin 0
+    padding 0
+
+    li
+      counter-increment item
+      position relative
+
+      &::before
+        background lightGrayRGBA
+        border-radius 50%
+        color #fff
+        content counter(item)
+        display inline-block
+        line-height 2em
+        margin-right 1em
+        position absolute
+        right 100%
+        text-align center
+        top 0
+        width 2em
+
   div, footer, header, section
     display block
 
@@ -67,28 +114,6 @@
     font-size 1em
     font-weight 500
     margin-top 3em
-
-    .step-number
-      border-radius 50%
-      cursor default
-      display inline-block
-      height 2em
-      line-height 2em
-      margin-left -3em
-      margin-right 1em
-      text-align center
-      user-select: none
-      vertical-align baseline
-      width 2em
-
-      &:not(.accent-background-color)
-        background lightGrayRGBA
-
-      &.accent-background-color
-        color #fff
-
-  p
-    color subtleTextRGBA
 
   > *:first-child
     margin-top 0

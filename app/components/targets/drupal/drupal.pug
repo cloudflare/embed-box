@@ -1,50 +1,61 @@
-- var count = 0
-
 section
   h1 Installing #{config.name} onto a Drupal site
 
-  if config.beforeContent
+  if config.beforeContent || this.config.beforeContent
     div(data-content-slot="before")
-      != config.beforeContent
+      p!= config.beforeContent
+      p!= this.config.beforeContent
 
-  if this.downloadURL
-    - count++
-    h2
-      span.step-number.accent-background-color= count
+  ol.steps
+    if this.downloadURL
+      li
+        h2
+          a.more(target="_blank" href=this.downloadURL)= this.downloadLabel
+          div= this.autoDownloadLabel
 
-      span
-        a.more(target="_blank" href=this.downloadURL)= this.downloadLabel
-        div= this.autoDownloadLabel
+        p After downloading, don’t unzip the file.
 
-    p After downloading, don’t unzip the file.
+      li
+        h2 Move the contents to <code>/sites/all/modules</code>
 
-  - count++
-  h2
-    span.step-number.accent-background-color= count
-    span
-      | Move the contents to <code>/sites/all/modules</code>
+        figure: img(src=require("./upload-plugin.png"))
 
-  figure
-    img(src=require("./upload-plugin.png"))
+        p Unzip the file and move it into the <strong>sites &gt; all &gt; modules</strong> folder inside your Drupal installation.
+        p If you don’t have access to these files, please <a href="https://eager.io/contact">contact</a> us for help.
 
-  p Unzip the file and move it into the <strong>sites &gt; all &gt; modules</strong> folder inside your Drupal installation.
+      li
+        h2 Activate the plugin and view your site
 
-  p If you don’t have access to these files, please <a href="https://eager.io/contact">contact</a> us for help.
+        figure: img(src=require("./activate-plugin.png"))
 
-  - count++
-  h2
-    span.step-number.accent-background-color= count
-    span Activate the plugin and view your site
+        p On the Modules page, scroll down to find the new “Eager” plugin.
+        p Check the “Enabled” checkbox to activate the plugin, and click “Save configuration”.
+        p After it activates, visit your site to see a welcome message letting you know the installation was successful!
 
-  figure
-    img(src=require("./activate-plugin.png"))
+    else
+      li
+        h2 In your WordPress Admin, navigate to: <strong>Appearance &gt; Editor</strong>.
 
-  p On the Modules page, scroll down to find the new “Eager” plugin.
+        p Navigate to the Theme Editor from the menu on the left side.
 
-  p Check the “Enabled” checkbox to activate the plugin, and click “Save configuration”.
+      li
+        h2 Copy the code to your site's &lt;#{this.location}&gt; tag.
 
-  p After it activates, visit your site to see a welcome message letting you know the installation was successful!
+        .copy-container
+          button.primary.run(data-ref="copyButtons[]") Copy
+          div.copyable(contenteditable)= this.copyText
 
-  if config.afterContent
+        if this.location === "head"
+          p <code>drupal_add_html_head</code>
+        else
+          p <code>drupal_add_js("???", 'inline')</code>
+
+      li
+        h2 Click “Update File”
+
+        p You’re done!
+
+  if config.afterContent || this.config.afterContent
     div(data-content-slot="after")
-      != config.afterContent
+      p!= config.afterContent
+      p!= this.config.afterContent

@@ -1,46 +1,35 @@
-- var count = 0
-
 section
-  h1 Installing #{config.name} on a CMS
+  h1 Installing #{config.name}
 
-  if config.beforeContent
+  if config.beforeContent || this.config.beforeContent
     div(data-content-slot="before")
-      != config.beforeContent
+      p!= config.beforeContent
+      p!= this.config.beforeContent
 
-  if this.downloadURL
-    - count++
-    h2
-      span.step-number.accent-background-color= count
+  ol.steps
+    if this.downloadURL
+      li
+        h2
+          a.more(target="_blank" href=this.downloadURL)= this.downloadLabel
+          div= this.autoDownloadLabel
 
-      span
-        a.more(target="_blank" href=this.downloadURL)= this.downloadLabel
-        div= this.autoDownloadLabel
+    li
+      h2 Copy the code to your site's &lt;#{this.location}&gt; tag.
 
-    - count++
-    h2
-      span.step-number.accent-background-color= count
-      span
-        | Copy script tag <head> of your page.
+      .copy-container
+        button.primary.run(data-ref="copyButtons[]") Copy
+        div.copyable(contenteditable)= this.copyText
 
-      if this.downloadURL
-        .copy-container
-          button.primary.run(data-ref="copyButtons[]")
-            | Copy
+      figure
+        img(src=require("./installing-eager.gif"))
 
-          div.copyable(contenteditable)
-            | &lt;script src="#{this.downloadURL}"&gt;&lt;/script&gt;
+    li
+      h2 Visit your site
 
-  figure
-    img(src=require("./installing-eager.gif"))
+      p After saving the changes you made, visit your site in the browser.
+      p You’re done!
 
-  - count++
-  h2
-    span.step-number.accent-background-color= count
-    span Visit your site
-
-  p After saving the changes you made, visit your site in the browser.
-  p You should see a welcome message letting you know the installation worked.
-
-  if config.afterContent
+  if config.afterContent || this.afterContent
     div(data-content-slot="after")
-      != config.afterContent
+      p!= config.afterContent
+      p!= this.config.afterContent

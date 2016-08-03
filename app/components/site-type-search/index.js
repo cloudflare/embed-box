@@ -22,15 +22,10 @@ export default class SiteTypeSearch extends BaseComponent {
   get types() {
     const {query, targets} = this
 
-    if (!query) return targets
+    return targets.map(({id, label, fallback}) => {
+      const hidden = query && label.toLowerCase().indexOf(query) === -1 && !fallback
 
-    return targets.map(target => {
-      const label = target.label.toLowerCase()
-
-      return {
-        ...target,
-        hidden: label.indexOf(query) === -1 && !target.fallback
-      }
+      return {id, label, hidden}
     })
   }
 

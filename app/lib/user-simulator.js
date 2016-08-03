@@ -7,12 +7,7 @@ const TARGET_ENTRIES = [
   "Any site"
 ]
 
-const downloadURLs = {
-  wordpress: "about:blank",
-  joomla: "about:blank",
-  drupal: "about:blank",
-  generic: "about:blank"
-}
+const downloadURL = "about:blank"
 
 let sequence = []
 
@@ -43,7 +38,7 @@ export function runDemo(iframe, onComplete = () => {}) {
     if (embedBox) embedBox.destroy()
 
     embedBox = new EmbedBox({
-      downloadURLs,
+      downloadURL,
       events: {
         visibilityChange(visibility) {
           if (visibility !== "hidden") return
@@ -54,7 +49,7 @@ export function runDemo(iframe, onComplete = () => {}) {
     })
   }
 
-  embedBox = new EmbedBox({downloadURLs})
+  embedBox = new EmbedBox({downloadURL})
 
   barrier.addEventListener("click", () => {
     createInteractiveDemo()

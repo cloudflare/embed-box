@@ -13,7 +13,9 @@ module.exports = createWebpackConfig({
 
   entry: {
     site: "./app/site/index.js",
-    "demo-frame": "./app/site/demo-frame.js"
+    "embed-box": "./app/site/globals/embed-box.js",
+    "embed-box-custom": "./app/site/globals/embed-box-custom.js",
+    "embed-box-custom-target": "./app/site/globals/embed-box-custom-target.js"
   },
 
   loaders: [

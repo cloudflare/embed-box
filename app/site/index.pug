@@ -73,6 +73,7 @@ html.no-js(lang="en" xmlns:og="http://ogp.me/ns#" xmlns:fb="http://www.facebook.
 
         +anchored("h2", "How to use")
 
+        :marked
           Download the <a href="#">latest release</a> and add this to your page:
 
         .code-example
@@ -81,6 +82,15 @@ html.no-js(lang="en" xmlns:og="http://ogp.me/ns#" xmlns:fb="http://www.facebook.
         .code-example.has-run-button
           button.run Run
           != require("./examples/basic.md")
+
+
+        :marked
+          A `downloadURL` can be used instead of `embedCode`.
+          Targets can have specific downloads as well!
+
+        .code-example.has-run-button
+          button.run Run
+          != require("./examples/download-url.md")
 
         +anchored("h2", "Customization")
         +anchored("h3", "Themes")
@@ -92,13 +102,16 @@ html.no-js(lang="en" xmlns:og="http://ogp.me/ns#" xmlns:fb="http://www.facebook.
         :marked
           If the `theme` configuration option is too coarse, the modal stylesheet can be altered or replaced.
 
-        .code-example
+        .code-example.has-run-button
+          button.run Run
           != require("./examples/custom-modal-stylesheet.md")
 
         +anchored("h3", "Content slots")
 
         :marked
           Content can be inserted before and after the target instructions.
+
+          Target specific slots can be included as well.
 
         .code-example.has-run-button
           button.run Run

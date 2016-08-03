@@ -18,6 +18,8 @@ export default class EmbedBoxBase {
   static stylesheet = stylesheet;
   static modalStylesheet = modalStylesheet;
 
+  static fetchedTargets = []
+
   static iframeAttributes = {
     allowTransparency: "",
     [STATE_ATTRIBUTE]: "hidden",
@@ -32,8 +34,8 @@ export default class EmbedBoxBase {
   };
 
   constructor(spec = {}) {
-    const {autoShow = true} = spec
-    const {iframeAttributes, stylesheet, theme} = this.constructor
+    const {autoShow = true, customTargets = [], targets: targetConfigs = {}, theme = {}} = spec
+    const {iframeAttributes, stylesheet} = this.constructor
     const store = initializeStore(this, spec)
     const {iframe} = store
 
@@ -50,7 +52,7 @@ export default class EmbedBoxBase {
 
     this.iframe = iframe
     this.events = spec.events || {}
-    this.theme = {...theme, ...(spec.theme || {})}
+    this.theme = {...this.constructor.theme, ...theme}
     this.style = document.createElement("style")
 
     this.style.innerHTML = stylesheet
@@ -58,9 +60,13 @@ export default class EmbedBoxBase {
 
     this.appendModalStylesheet()
 
+    const targetConstructors = customTargets.concat(this.constructor.fetchedTargets)
+    const targetToComponent = Target => new Target({config: targetConfigs[Target.id] || {}})
+
     this.application = new Application(this.iframe.document.body, {
+      initialTarget: spec.initialTarget,
       onClose: this.hide,
-      targets: spec.targets || []
+      targets: targetConstructors.map(targetToComponent)
     })
 
     if (autoShow) this.show()
@@ -106,15 +112,24 @@ export default class EmbedBoxBase {
       .accent-background-color {
         background: ${theme.accentColor} !important;
       }
+
+      .instructions .steps li::before {
+        background: ${theme.accentColor} !important;
+      }
     `
 
     this.iframe.document.head.appendChild(style)
   }
 
   destroy() {
+    Array
+      .from(document.querySelectorAll(".embed-box-download-iframe"))
+      .forEach(removeElement)
+
     removeElement(this.iframe.element)
     removeElement(this.style)
     destroyStore()
+
 
     this.container.style.overflow = this.containerPreviousOverflow
   }
