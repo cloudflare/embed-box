@@ -10,6 +10,7 @@ const TARGET_ENTRIES = [
 const downloadURL = "about:blank"
 
 let sequence = []
+let embedBox
 
 const toKeyDown = () => ({entity: keyMap.down, eventType: "keydown"})
 
@@ -26,12 +27,10 @@ sequence = sequence.concat(
 
 sequence.push({eventType: "scroll"})
 
-
 export function runDemo(iframe, onComplete = () => {}) {
   const {EmbedBox} = iframe.contentWindow
   const barrier = iframe.parentNode.querySelector(".barrier")
   let running = true
-  let embedBox
 
   function createInteractiveDemo() {
     running = false
@@ -49,6 +48,7 @@ export function runDemo(iframe, onComplete = () => {}) {
     })
   }
 
+  if (embedBox) embedBox.destroy()
   embedBox = new EmbedBox({downloadURL})
 
   barrier.addEventListener("click", () => {
