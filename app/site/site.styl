@@ -74,7 +74,6 @@ html
 
   .figure.frame-container
     position relative
-    overflow hidden
     z-index 1
 
     .placeholder, .barrier
@@ -138,6 +137,7 @@ html
     width 32em
     max-width 100%
     position relative
+    overflow hidden
 
     &:after
       pointer-events none
@@ -342,20 +342,48 @@ html
     linkUnderlines #1e1e1e, #e6db74
 
   > .figure.floating-figure
-    position absolute
-    background #fff
-    top 20.1em // set by JS
+    background #232323
     bottom 0
     height 31em
-    margin 0
-    right 4em
     left 55%
+    margin 0
+    position absolute
+    right 4em
+    top 20.1em // set by JS
+
+    .fullscreen-toggle
+      cursor pointer
+      display none
+      height 1.4em
+      left 100%
+      margin-left 0.6em
+      margin-top 1.1em
+      opacity .7
+      position absolute
+      top 0
+      transition opacity 100ms ease-in-out
+
+      &:hover
+        opacity 1
+
+      > svg
+        fill white
+        display block
+        height 100%
+
+    &[data-layout="fullscreen"]
+      background transparent
+      bottom 0
+      left 0
+      position fixed
+      right 0
+      top 0 !important
+
+    &[data-layout="inline"] .fullscreen-toggle
+      display inline-block
 
     @media embedBoxMobileMaxWidthQuery
       display none
-
-    iframe
-      background #232323
 
 .slide.made-by
   antialiasedFonts()

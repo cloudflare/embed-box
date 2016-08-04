@@ -36,7 +36,16 @@ document.addEventListener("DOMContentLoaded", () => {
   const exampleFrame = document.getElementById("example-frame")
   const docs = document.querySelector(".slide.docs")
   const docsFloatingFigure = docs.querySelector(".floating-figure")
+  const fullscreenToggle = docsFloatingFigure.querySelector(".fullscreen-toggle")
   let createInteractiveDemo
+
+  function setFloatingFigureLayout(layout) {
+    document.body.style.overflow = layout === "fullscreen" ? "hidden" : ""
+
+    docsFloatingFigure.setAttribute("data-layout", layout)
+  }
+
+  fullscreenToggle.addEventListener("click", setFloatingFigureLayout.bind(null, "fullscreen"))
 
   function loopRunDemo() {
     createInteractiveDemo = runDemo(automatedFrame, loopRunDemo)
@@ -46,10 +55,10 @@ document.addEventListener("DOMContentLoaded", () => {
   loadDemoScripts(automatedFrame, loopRunDemo)
 
   function handleRunClick({target: {parentElement}}) {
-    const {instance} = getStore(exampleFrame.contentWindow) || {}
+    const {instance: previousInstance} = getStore(exampleFrame.contentWindow) || {}
     const {innerText: example} = parentElement.querySelector("code")
 
-    if (instance) instance.destroy()
+    if (previousInstance) previousInstance.destroy()
 
     if (createInteractiveDemo) {
       // The hero automated demo takes focus from other inputs.
@@ -60,6 +69,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
     loadDemoScripts(exampleFrame, () => {
       exampleFrame.contentWindow.eval(example)
+      setFloatingFigureLayout("inline")
+      const {instance} = getStore(exampleFrame.contentWindow)
+
+      instance.events.visibilityChange = visibility => {
+        if (visibility !== "hidden") return
+        setFloatingFigureLayout("standby")
+      }
     })
 
     alignWithElement(docsFloatingFigure, parentElement)

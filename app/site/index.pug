@@ -154,7 +154,9 @@ html.no-js(lang="en" xmlns:og="http://ogp.me/ns#" xmlns:fb="http://www.facebook.
           Please do, we would love for this to become a project of the community.
           Feel free to open an issue, submit a PR or contribute to the wiki.
 
-        .figure.embedbox-figure.floating-figure.frame-container
+        .figure.embedbox-figure.floating-figure.frame-container(data-layout="standby")
+          .fullscreen-toggle!= require("./assets/expand.svg")
+
           iframe#example-frame(allowTransparency frameBorder="0" seamless)
 
       .slide.made-by
