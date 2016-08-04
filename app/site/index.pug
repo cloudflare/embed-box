@@ -88,7 +88,6 @@ html.no-js(lang="en" xmlns:og="http://ogp.me/ns#" xmlns:fb="http://www.facebook.
           button.run Run
           != require("./examples/basic.md")
 
-
         :marked
           A `downloadURL` can be used instead of `embedCode`.
           Targets can have specific downloads as well!
@@ -135,6 +134,23 @@ html.no-js(lang="en" xmlns:og="http://ogp.me/ns#" xmlns:fb="http://www.facebook.
           button.run Run
           != require("./examples/labels.md")
 
+
+        +anchored("h3", "Ordering visible targets")
+
+        :marked
+          Targets can be limited to a specific set and order with an array of target IDs.
+          Consult `EmbedBox.getTargetIDs()` for a list of IDs.
+
+        .code-example.has-run-button
+          button.run Run
+          != require("./examples/visible-targets.md")
+
+        :marked
+          If `visibleTargets` only has one entry, the target search will be skipped.
+
+        .code-example.has-run-button
+          button.run Run
+          != require("./examples/single-target.md")
 
         +anchored("h3", "Custom targets")
 

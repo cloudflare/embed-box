@@ -42,7 +42,11 @@ export default class Application extends BaseComponent {
 
     previousButton.addEventListener("click", this.navigateToHome)
 
-    if (options.initialTarget) {
+    if (this.targets.length === 1) {
+      this.route = this.targets[0].id
+      this.navigateToTarget()
+    }
+    else if (options.initialTarget) {
       this.route = options.initialTarget
       this.navigateToTarget()
     }

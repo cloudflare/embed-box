@@ -18,7 +18,11 @@ export default class EmbedBoxBase {
   static stylesheet = stylesheet;
   static modalStylesheet = modalStylesheet;
 
-  static fetchedTargets = []
+  static fetchedTargets = [];
+
+  static getTargetIDs() {
+    return this.fetchedTargets.map(target => target.id)
+  }
 
   static iframeAttributes = {
     allowTransparency: "",
@@ -60,13 +64,20 @@ export default class EmbedBoxBase {
 
     this.appendModalStylesheet()
 
-    const targetConstructors = customTargets.concat(this.constructor.fetchedTargets)
     const targetToComponent = Target => new Target({config: targetConfigs[Target.id] || {}})
+    const targetConstructors = customTargets.concat(this.constructor.fetchedTargets)
+    let visibleTargets = targetConstructors
+
+    if (spec.visibleTargets) {
+      visibleTargets = spec.visibleTargets.map(id => {
+        return targetConstructors.filter(Target => Target.id === id)[0]
+      })
+    }
 
     this.application = new Application(this.iframe.document.body, {
       initialTarget: spec.initialTarget,
       onClose: this.hide,
-      targets: targetConstructors.map(targetToComponent)
+      targets: visibleTargets.map(targetToComponent)
     })
 
     if (autoShow) this.show()
