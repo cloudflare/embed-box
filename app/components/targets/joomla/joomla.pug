@@ -1,10 +1,7 @@
 section
   h1 Installing #{config.name} onto a Joomla site
 
-  if config.beforeContent || this.config.beforeContent
-    div(data-content-slot="before")
-      p!= config.beforeContent
-      p!= this.config.beforeContent
+  != this.renderBeforeContent()
 
   ol.steps
     if this.downloadURL
@@ -80,7 +77,4 @@ section
 
         p You’re done!
 
-  if config.afterContent || this.config.afterContent
-    div(data-content-slot="after")
-      p!= config.afterContent
-      p!= this.config.afterContent
+  != this.renderAfterContent()

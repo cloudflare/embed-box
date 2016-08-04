@@ -1,10 +1,7 @@
 section
   h1 Installing #{config.name}
 
-  if config.beforeContent || this.config.beforeContent
-    div(data-content-slot="before")
-      p!= config.beforeContent
-      p!= this.config.beforeContent
+  != this.renderBeforeContent()
 
   ol.steps
     if this.downloadURL
@@ -29,7 +26,4 @@ section
       p After saving the changes you made, visit your site in the browser.
       p You’re done!
 
-  if config.afterContent || this.afterContent
-    div(data-content-slot="after")
-      p!= config.afterContent
-      p!= this.config.afterContent
+  != this.renderAfterContent()

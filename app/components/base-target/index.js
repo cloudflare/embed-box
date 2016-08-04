@@ -1,3 +1,6 @@
+import beforeContentTemplate from "./before-content.pug"
+import afterContentTemplate from "./after-content.pug"
+
 import BaseComponent from "components/base-component"
 import Clipboard from "clipboard"
 import {getStore} from "lib/store"
@@ -6,6 +9,9 @@ import autobind from "autobind-decorator"
 const AUTO_DOWNLOAD_DELAY = 3000
 
 export default class BaseTarget extends BaseComponent {
+  static beforeContentTemplate = beforeContentTemplate;
+  static afterContentTemplate = afterContentTemplate;
+
   static extend = function extend({fallback, id, label, template, templateVars} = {}) {
     if (!id) throw new Error("EmbedBox: Target must have `id`")
     if (!label) throw new Error("EmbedBox: Target must have `label`")
@@ -106,6 +112,14 @@ export default class BaseTarget extends BaseComponent {
     }
 
     return this.element
+  }
+
+  renderBeforeContent() {
+    return this.constructor.beforeContentTemplate.call(this, {config: getStore()})
+  }
+
+  renderAfterContent() {
+    return this.constructor.afterContentTemplate.call(this, {config: getStore()})
   }
 
   @autobind
