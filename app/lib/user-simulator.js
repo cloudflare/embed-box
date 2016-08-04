@@ -33,6 +33,8 @@ export function runDemo(iframe, onComplete = () => {}) {
   let running = true
 
   function createInteractiveDemo() {
+    barrier.style.display = "none"
+
     running = false
     if (embedBox) embedBox.destroy()
 
@@ -51,10 +53,7 @@ export function runDemo(iframe, onComplete = () => {}) {
   if (embedBox) embedBox.destroy()
   embedBox = new EmbedBox({downloadURL})
 
-  barrier.addEventListener("click", () => {
-    createInteractiveDemo()
-    barrier.style.display = "none"
-  })
+  barrier.addEventListener("click", createInteractiveDemo)
 
   const iframeDocument = embedBox.iframe.document
   const searchComponent = iframeDocument.querySelector("[data-component='site-type-search']")
@@ -110,4 +109,6 @@ export function runDemo(iframe, onComplete = () => {}) {
   }
 
   setTimeout(simulate, 1000)
+
+  return createInteractiveDemo
 }

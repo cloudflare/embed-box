@@ -36,9 +36,10 @@ document.addEventListener("DOMContentLoaded", () => {
   const exampleFrame = document.getElementById("example-frame")
   const docs = document.querySelector(".slide.docs")
   const docsFloatingFigure = docs.querySelector(".floating-figure")
+  let createInteractiveDemo
 
   function loopRunDemo() {
-    runDemo(automatedFrame, loopRunDemo)
+    createInteractiveDemo = runDemo(automatedFrame, loopRunDemo)
   }
 
   loadDemoScripts(exampleFrame)
@@ -49,6 +50,13 @@ document.addEventListener("DOMContentLoaded", () => {
     const {innerText: example} = parentElement.querySelector("code")
 
     if (instance) instance.destroy()
+
+    if (createInteractiveDemo) {
+      // The hero automated demo takes focus from other inputs.
+      // Switching to the interactive demo prevents this.
+      createInteractiveDemo()
+      createInteractiveDemo = null
+    }
 
     loadDemoScripts(exampleFrame, () => {
       exampleFrame.contentWindow.eval(example)
