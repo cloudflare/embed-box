@@ -29,6 +29,10 @@ html.no-js(lang="en" xmlns:og="http://ogp.me/ns#" xmlns:fb="http://www.facebook.
 
           p= htmlWebpackPlugin.options.description
 
+          .links
+            a.more(href="#how-to-use") Documentation
+            a.more(href="https://github.com/EagerIO/EmbedBox") On GitHub
+
         .figure.frame-container
           .logo-container(data-column)
             != require("./assets/eager-logo.svg")
@@ -40,8 +44,7 @@ html.no-js(lang="en" xmlns:og="http://ogp.me/ns#" xmlns:fb="http://www.facebook.
       noscript.slide.no-js-info
         p This website requires JavaScript to retrieve content.
         p
-          a(href="http://enable-javascript.com", target="_blank")
-            | How to enable JavaScript.
+          a(href="http://enable-javascript.com", target="_blank") How to enable JavaScript.
 
       .slide.padded.features
         ul.features-list

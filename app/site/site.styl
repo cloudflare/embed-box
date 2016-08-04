@@ -124,6 +124,15 @@ html
   padding-bottom 0 !important
   z-index 1
 
+  .links
+    a
+      font-weight 500
+      line-height 3
+      text-decoration none
+
+    a + a
+      margin-left 2.5em
+
   @media mobileMaxWidthQuery
     + .slide
       margin-top -1px
@@ -174,7 +183,6 @@ html
 
     @media embedBoxDesktopMinWidthQuery
       flex 0 1 auto
-      height 12em
 
   h1.logo-text
     font-size 3.2em
