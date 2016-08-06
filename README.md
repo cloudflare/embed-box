@@ -213,6 +213,9 @@ const embedBox = new EmbedBox({
 Please do, we would love for this to become a project of the community.
 Feel free to open an issue, submit a PR or contribute to the wiki.
 
+### Requirements
+Node v5.0.0+
+
 ### Development
 
 ```shell
