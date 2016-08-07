@@ -116,14 +116,18 @@ html
   z-index 1
 
   .links
-    a
-      font-size 1.1em
-      font-weight 500
-      line-height 3
-      text-decoration none
+    clearfix()
+    width 100%
+    display block
+    margin-top 1em
 
-    a + a
-      margin-left 2.5em
+    a
+      float left
+      clear left
+      text-decoration none
+      padding .3em 0
+      font-weight 500
+      color #2d88f3
 
   @media mobileMaxWidthQuery
     + .slide
