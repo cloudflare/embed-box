@@ -360,26 +360,6 @@ html
     right 4em
     top 20.1em // set by JS
 
-    .fullscreen-toggle
-      cursor pointer
-      display none
-      height 1.4em
-      left 100%
-      margin-left .6em
-      margin-top 1.1em
-      opacity .7
-      position absolute
-      top 0
-      transition opacity .1s ease-in-out
-
-      &:hover
-        opacity 1
-
-      > svg
-        fill white
-        display block
-        height 100%
-
     &[data-layout="fullscreen"]
       background transparent
       bottom 0
@@ -422,61 +402,71 @@ html
       path
         fill currentColor
 
-button.run
+button[data-run]
+  align-items center
   background #e6db74
   color #171717
+  display flex
+  flex 0 0 auto
   font-weight 500
   margin 0
-  padding .3em 1em
-  position absolute
-  left 1.5em
-  top 1.5em
+  padding 0.3em 1em 0.3em 0.7em
+
+  & + button[data-run]
+    margin-left 1em
+
+  &::before
+    content ""
+    display inline-block
+    width 0
+    height 0
+    border-style solid
+    border-width 0.4em 0 0.4em 0.65em
+    margin-right 0.5em
+    border-color transparent transparent transparent #000
 
 .code-example
   antialiasedFonts()
-  position relative
-  display block
+  background-color #232323
+  flex-flow row wrap
   max-width 100%
+  position relative
   width 700px
 
-  &.has-run-button
+  button[data-run]
+    margin-top 1.5em
+    margin-left 1.5em
 
-    pre
-      padding-top 1.333em + 3em
-
-    @media mobileMaxWidthQuery
-      pre
-        padding-top 1.333em
-
-      button.run
-        display none
+  @media mobileMaxWidthQuery
+    button[data-run]
+      display none
 
   code, pre
     display block
     font-family monospaceFonts
 
   pre
-    background-color #232323
     color #f6f7ee
-    padding 1.5em
-    overflow-x auto
-    -webkit-overflow-scrolling touch
+    flex 1 0 auto
     line-height 1.4
-    white-space pre
-    word-wrap normal
     margin 0
+    overflow-x auto
+    padding 1.5em
+    -webkit-overflow-scrolling touch
+    white-space pre
     width 100%
+    word-wrap normal
 
   code
-    font-size .9em
-    padding .15625em .3125em
     background lightGrayRGBA
-    white-space nowrap
+    font-size .9em
     font-style normal
+    padding .15625em .3125em
+    white-space nowrap
 
   pre > code
-    font-size .9em
     background transparent
+    font-size .9em
     padding 0
     white-space inherit
 

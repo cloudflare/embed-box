@@ -46,7 +46,7 @@ export default class SiteTypeSearch extends BaseComponent {
     const firstVisibleEl = typesContainer.querySelector(`.type[data-id=${firstVisible.id}]`)
 
     firstVisibleEl.setAttribute("data-first-visible", "")
-    this.selectType(firstVisible.id, {focus: true})
+    this.selectType(firstVisible.id)
   }
 
   @autobind
@@ -73,7 +73,7 @@ export default class SiteTypeSearch extends BaseComponent {
 
     selectedId = types[nextIndex].id
 
-    this.selectType(selectedId, {focus: true})
+    this.selectType(selectedId)
   }
 
   @autobind
@@ -93,7 +93,7 @@ export default class SiteTypeSearch extends BaseComponent {
     this.onSubmit(this.selectedId)
   }
 
-  selectType(selectedId, options = {}) {
+  selectType(selectedId) {
     const {types, typesContainer, search} = this.refs
     const {document: iframeDocument} = getStore().iframe
     const selectedType = typesContainer.querySelector(`.type[data-id="${selectedId}"]`)
@@ -104,10 +104,6 @@ export default class SiteTypeSearch extends BaseComponent {
 
     if (search !== iframeDocument.activeElement) {
       selectedType.focus()
-    }
-
-    if (options.focus) {
-      selectedType.scrollIntoView(true)
     }
 
     this.setNavigationState()
@@ -161,12 +157,12 @@ export default class SiteTypeSearch extends BaseComponent {
       this.updateRefs()
       this.setTypeStyle(typeEl)
 
-      typeEl.addEventListener("click", () => this.selectType($.id, {focus: true}))
+      typeEl.addEventListener("click", () => this.selectType($.id))
 
       typeEl.addEventListener("keydown", event => {
         if (event.keyCode === KM.enter || event.keyCode === KM.spacebar) {
           event.preventDefault()
-          this.selectType($.id, {focus: true})
+          this.selectType($.id)
         }
       })
     })

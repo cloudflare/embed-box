@@ -1,12 +1,12 @@
 import stylesheet from "./embed-box.styl"
-import modalStylesheet from "./iframe.styl"
+import iframeStylesheet from "./iframe.styl"
 
 import autobind from "autobind-decorator"
 import Application from "components/application"
 import polyfillCustomEvent from "lib/custom-event"
 import {destroyStore, initializeStore} from "lib/store"
 
-const STATE_ATTRIBUTE = "data-embed-box"
+const VISIBILITY_ATTRIBUTE = "data-visibility"
 
 function removeElement(element) {
   if (!element || !element.parentNode) return null
@@ -16,7 +16,7 @@ function removeElement(element) {
 
 export default class EmbedBoxBase {
   static stylesheet = stylesheet;
-  static modalStylesheet = modalStylesheet;
+  static iframeStylesheet = iframeStylesheet;
 
   static fetchedTargets = [];
 
@@ -26,7 +26,7 @@ export default class EmbedBoxBase {
 
   static iframeAttributes = {
     allowTransparency: "",
-    [STATE_ATTRIBUTE]: "hidden",
+    [VISIBILITY_ATTRIBUTE]: "hidden",
     frameBorder: "0",
     seamless: "seamless"
   };
@@ -38,20 +38,30 @@ export default class EmbedBoxBase {
   };
 
   constructor(spec = {}) {
-    const {autoShow = true, customTargets = [], targets: targetConfigs = {}, theme = {}} = spec
     const {iframeAttributes, stylesheet} = this.constructor
     const store = initializeStore(this, spec)
     const {iframe} = store
+    const {
+      autoShow = true,
+      className = "",
+      container = document.body,
+      customTargets = [],
+      targets: targetConfigs = {},
+      theme = {}
+    } = spec
 
     Object
       .keys(iframeAttributes)
       .forEach(key => iframe.element.setAttribute(key, iframeAttributes[key]))
 
-    this.container = document.body
-    this.container.appendChild(iframe.element)
+    this.container = typeof container === "string" ? document.querySelector(container) : container
+    const mode = this.container.tagName === "BODY" ? "modal" : "inline"
+
+    iframe.element.className = `embed-box ${className}`
+    iframe.element.setAttribute("data-mode", mode)
+    this.container.appendChild(iframe.element) // iframe window & document is now accessible.
 
     polyfillCustomEvent(iframe)
-
     iframe.element.addEventListener("transitionend", this.handleTransitionEnd)
 
     this.iframe = iframe
@@ -62,7 +72,7 @@ export default class EmbedBoxBase {
     this.style.innerHTML = stylesheet
     document.head.appendChild(this.style)
 
-    this.appendModalStylesheet()
+    this.appendIframeStylesheet(spec.style)
 
     const targetToComponent = Target => new Target({config: targetConfigs[Target.id] || {}})
     const targetConstructors = customTargets.concat(this.constructor.fetchedTargets)
@@ -76,6 +86,7 @@ export default class EmbedBoxBase {
 
     this.application = new Application(this.iframe.document.body, {
       initialTarget: spec.initialTarget,
+      mode,
       onClose: this.hide,
       targets: visibleTargets.map(targetToComponent)
     })
@@ -84,14 +95,14 @@ export default class EmbedBoxBase {
   }
 
   get visibility () {
-    return this.iframe.element.getAttribute(STATE_ATTRIBUTE)
+    return this.iframe.element.getAttribute(VISIBILITY_ATTRIBUTE)
   }
 
   set visibility (value) {
     const {element} = this.iframe
 
     element.style.display = value === "hidden" ? "none" : ""
-    this.iframe.element.setAttribute(STATE_ATTRIBUTE, value)
+    this.iframe.element.setAttribute(VISIBILITY_ATTRIBUTE, value)
 
     if (this.events.visibilityChange) this.events.visibilityChange(value)
 
@@ -104,11 +115,11 @@ export default class EmbedBoxBase {
     else if (this.visibility === "showing") this.visibility = "shown"
   }
 
-  appendModalStylesheet() {
-    const {theme, constructor: {modalStylesheet}} = this
+  appendIframeStylesheet(extension = "") {
+    const {theme, constructor: {iframeStylesheet}} = this
     const style = this.iframe.document.createElement("style")
 
-    style.innerHTML = modalStylesheet + `
+    style.innerHTML = iframeStylesheet + `
       [data-component="application"] .modal {
         background-color: ${theme.backgroundColor} !important;
         color: ${theme.textColor} !important;
@@ -127,7 +138,7 @@ export default class EmbedBoxBase {
       .instructions .steps li::before {
         background: ${theme.accentColor} !important;
       }
-    `
+    ` + extension
 
     this.iframe.document.head.appendChild(style)
   }

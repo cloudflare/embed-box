@@ -1,4 +1,9 @@
-[data-embed-box]
+.embed-box[data-mode="inline"]
+  display block !important
+  height 100%
+  width 100%
+
+.embed-box[data-mode="modal"]
   bottom 0 !important
   height 100vh !important
   left 0 !important
@@ -11,17 +16,17 @@
   width 100vw !important
   z-index 10000 !important
 
-[data-embed-box="hiding"]
-  opacity 0 !important
+  &[data-visibility="hiding"]
+    opacity 0 !important
 
-[data-embed-box="hidden"]
-  opacity 0 !important
+  &[data-visibility="hidden"]
+    opacity 0 !important
 
-[data-embed-box="showing"]
-  opacity .5 !important
+  &[data-visibility="showing"]
+    opacity .5 !important
 
-[data-embed-box="shown"]
-  opacity 1 !important
+  &[data-visibility="shown"]
+    opacity 1 !important
 
 .embed-box-download-iframe
   position fixed

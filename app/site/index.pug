@@ -33,14 +33,15 @@ html.no-js(lang="en" xmlns:og="http://ogp.me/ns#" xmlns:fb="http://www.facebook.
             a.more(href="#how-to-use") Documentation
             a.more(href="https://github.com/EagerIO/EmbedBox") GitHub
 
-        .figure.frame-container
+        .figure.frame-container(data-column)
           .placeholder
             .loading-dots
               i
               i
               i
 
-          iframe#automated-frame(allowTransparency frameBorder="0" seamless)
+          iframe#automated-frame
+
           .barrier
 
       noscript.slide.no-js-info
@@ -88,7 +89,8 @@ html.no-js(lang="en" xmlns:og="http://ogp.me/ns#" xmlns:fb="http://www.facebook.
           != require("./examples/install.md")
 
         .code-example.has-run-button
-          button.run Run
+          button.inset-icon(data-run="inline") Run inline
+          button.inset-icon(data-run="modal") Run as modal
           != require("./examples/basic.md")
 
         :marked
@@ -99,14 +101,31 @@ html.no-js(lang="en" xmlns:og="http://ogp.me/ns#" xmlns:fb="http://www.facebook.
           set `insertInHead` and the instructions will update according.
 
         .code-example.has-run-button
-          button.run Run
+          button.inset-icon(data-run="inline") Run inline
+          button.inset-icon(data-run="modal") Run as modal
           != require("./examples/download-url.md")
+
+        +anchored("h3", "Positioning")
+
+        :marked
+          EmbedBox can appear inline by specifying `container` in the config.
+          This can be a CSS selector.
+
+        .code-example
+          != require("./examples/container-selector.md")
+
+        :marked
+          ...or an HTML element.
+
+        .code-example
+          != require("./examples/container-element.md")
 
         +anchored("h2", "Customization")
         +anchored("h3", "Themes")
 
         .code-example.has-run-button
-          button.run Run
+          button.inset-icon(data-run="inline") Run inline
+          button.inset-icon(data-run="modal") Run as modal
           != require("./examples/custom-theme.md")
 
         :marked
@@ -114,7 +133,8 @@ html.no-js(lang="en" xmlns:og="http://ogp.me/ns#" xmlns:fb="http://www.facebook.
           the modal stylesheet can be altered or replaced.
 
         .code-example.has-run-button
-          button.run Run
+          button.inset-icon(data-run="inline") Run inline
+          button.inset-icon(data-run="modal") Run as modal
           != require("./examples/custom-modal-stylesheet.md")
 
         +anchored("h3", "Content slots")
@@ -125,7 +145,8 @@ html.no-js(lang="en" xmlns:og="http://ogp.me/ns#" xmlns:fb="http://www.facebook.
           Target specific slots can be included as well.
 
         .code-example.has-run-button
-          button.run Run
+          button.inset-icon(data-run="inline") Run inline
+          button.inset-icon(data-run="modal") Run as modal
           != require("./examples/content-slots.md")
 
         +anchored("h3", "Labels")
@@ -135,7 +156,8 @@ html.no-js(lang="en" xmlns:og="http://ogp.me/ns#" xmlns:fb="http://www.facebook.
           The EmbedBox `config` is exposed to label functions.
 
         .code-example.has-run-button
-          button.run Run
+          button.inset-icon(data-run="inline") Run inline
+          button.inset-icon(data-run="modal") Run as modal
           != require("./examples/labels.md")
 
 
@@ -146,14 +168,16 @@ html.no-js(lang="en" xmlns:og="http://ogp.me/ns#" xmlns:fb="http://www.facebook.
           Consult `EmbedBox.getTargetIDs()` for a list of IDs.
 
         .code-example.has-run-button
-          button.run Run
+          button.inset-icon(data-run="inline") Run inline
+          button.inset-icon(data-run="modal") Run as modal
           != require("./examples/visible-targets.md")
 
         :marked
           If `visibleTargets` only has one entry, the target search will be skipped.
 
         .code-example.has-run-button
-          button.run Run
+          button.inset-icon(data-run="inline") Run inline
+          button.inset-icon(data-run="modal") Run as modal
           != require("./examples/single-target.md")
 
         +anchored("h3", "Custom targets")
@@ -165,7 +189,8 @@ html.no-js(lang="en" xmlns:og="http://ogp.me/ns#" xmlns:fb="http://www.facebook.
           != require("./examples/custom-install.md")
 
         .code-example.has-run-button
-          button.run Run
+          button.inset-icon(data-run="inline") Run inline
+          button.inset-icon(data-run="modal") Run as modal
           != require("./examples/custom-target.md")
 
         +anchored("h3", "Contributing")
@@ -174,10 +199,7 @@ html.no-js(lang="en" xmlns:og="http://ogp.me/ns#" xmlns:fb="http://www.facebook.
           Please do, we would love for this to become a project of the community.
           Feel free to open an issue, submit a PR or contribute to the wiki.
 
-        .figure.embedbox-figure.floating-figure.frame-container(data-layout="standby")
-          .fullscreen-toggle!= require("./assets/expand.svg")
-
-          iframe#example-frame(allowTransparency frameBorder="0" seamless)
+        #example-container.figure.embedbox-figure.floating-figure.frame-container
 
       .slide.made-by
         .label Made by

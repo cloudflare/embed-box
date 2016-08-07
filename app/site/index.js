@@ -10,7 +10,13 @@ const LIBRARY_SCRIPTS = [
   "./embed-box-custom-target.js"
 ]
 
-function loadDemoScripts({contentDocument}, onLoad = () => {}) {
+function bindObjectArguments(Constructor, boundSpec = {}) {
+  return spec => {
+    return new Constructor({...boundSpec, ...spec})
+  }
+}
+
+function loadDemoScripts(document, onLoad = () => {}) {
   let {length} = LIBRARY_SCRIPTS
 
   function onScriptLoad() {
@@ -19,11 +25,11 @@ function loadDemoScripts({contentDocument}, onLoad = () => {}) {
   }
 
   LIBRARY_SCRIPTS.forEach(path => {
-    const script = contentDocument.createElement("script")
+    const script = document.createElement("script")
 
     script.onload = onScriptLoad
     script.src = path
-    contentDocument.head.appendChild(script)
+    document.head.appendChild(script)
   })
 }
 
@@ -32,30 +38,27 @@ function alignWithElement(element, referenceElement) {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
+  const PRISTINE_GLOBALS = {
+    EmbedBox: window.EmbedBox,
+    EmbedBoxCustom: window.EmbedBoxCustom
+  }
   const automatedFrame = document.getElementById("automated-frame")
-  const exampleFrame = document.getElementById("example-frame")
+  const exampleContainer = document.getElementById("example-container")
   const docs = document.querySelector(".slide.docs")
   const docsFloatingFigure = docs.querySelector(".floating-figure")
-  const fullscreenToggle = docsFloatingFigure.querySelector(".fullscreen-toggle")
   let createInteractiveDemo
-
-  function setFloatingFigureLayout(layout) {
-    document.body.style.overflow = layout === "fullscreen" ? "hidden" : ""
-
-    docsFloatingFigure.setAttribute("data-layout", layout)
-  }
-
-  fullscreenToggle.addEventListener("click", setFloatingFigureLayout.bind(null, "fullscreen"))
 
   function loopRunDemo() {
     createInteractiveDemo = runDemo(automatedFrame, loopRunDemo)
   }
 
-  loadDemoScripts(exampleFrame)
-  loadDemoScripts(automatedFrame, loopRunDemo)
+  loadDemoScripts(automatedFrame.contentDocument, loopRunDemo)
 
-  function handleRunClick({target: {parentElement}}) {
-    const {instance: previousInstance} = getStore(exampleFrame.contentWindow) || {}
+  function handleRunClick({target}) {
+    const {instance: previousInstance} = getStore() || {}
+    const {parentElement} = target
+    const useModal = target.getAttribute("data-run") === "modal"
+    const container = useModal ? document.body : exampleContainer
     const {innerText: example} = parentElement.querySelector("code")
 
     if (previousInstance) previousInstance.destroy()
@@ -67,23 +70,19 @@ document.addEventListener("DOMContentLoaded", () => {
       createInteractiveDemo = null
     }
 
-    loadDemoScripts(exampleFrame, () => {
-      exampleFrame.contentWindow.eval(example)
-      setFloatingFigureLayout("inline")
-      const {instance} = getStore(exampleFrame.contentWindow)
-
-      instance.events.visibilityChange = visibility => {
-        if (visibility !== "hidden") return
-        setFloatingFigureLayout("standby")
-      }
-    })
-
+    // Demos may alter the constructor and must be reloaded to prevent overlapping changes.
+    docsFloatingFigure.style.display = useModal ? "none" : ""
     alignWithElement(docsFloatingFigure, parentElement)
+
+    Object.keys(PRISTINE_GLOBALS).forEach(key => {
+      window[key] = bindObjectArguments(PRISTINE_GLOBALS[key], {container})
+    })
+    window.eval(example) // eslint-disable-line no-eval
   }
 
   alignWithElement(docsFloatingFigure, docs.querySelector(".code-example.has-run-button"))
 
   Array
-    .from(document.querySelectorAll("button.run"))
+    .from(document.querySelectorAll("button[data-run]"))
     .forEach(element => element.addEventListener("click", handleRunClick))
 })

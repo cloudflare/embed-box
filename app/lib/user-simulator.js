@@ -7,8 +7,6 @@ const TARGET_ENTRIES = [
   "Any site"
 ]
 
-const downloadURL = "about:blank"
-
 let sequence = []
 let embedBox
 
@@ -29,6 +27,9 @@ sequence.push({eventType: "scroll"})
 
 export function runDemo(iframe, onComplete = () => {}) {
   const {EmbedBox} = iframe.contentWindow
+  const DEFAULTS = {
+    downloadURL: "about:blank"
+  }
   const barrier = iframe.parentNode.querySelector(".barrier")
   let running = true
 
@@ -38,8 +39,7 @@ export function runDemo(iframe, onComplete = () => {}) {
     running = false
     if (embedBox) embedBox.destroy()
 
-    embedBox = new EmbedBox({
-      downloadURL,
+    embedBox = new EmbedBox({...DEFAULTS,
       events: {
         visibilityChange(visibility) {
           if (visibility !== "hidden") return
@@ -51,7 +51,7 @@ export function runDemo(iframe, onComplete = () => {}) {
   }
 
   if (embedBox) embedBox.destroy()
-  embedBox = new EmbedBox({downloadURL})
+  embedBox = new EmbedBox(DEFAULTS)
 
   barrier.addEventListener("click", createInteractiveDemo)
 

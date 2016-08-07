@@ -7,12 +7,16 @@
   max-height 100%
   min-height 100%
 
+  @media (max-height 24em)
+    justify-content flex-start
+
   &[data-route="home"], &[data-target-count="1"]
     .modal-header [data-action="previous"]
       visibility hidden
 
-  @media (max-height 24em)
-    justify-content flex-start
+  &[data-mode="inline"] .modal-header [data-action="close"]
+    visibility hidden
+    pointer-events none
 
   .modal
     position relative

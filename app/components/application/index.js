@@ -20,7 +20,7 @@ export default class Application extends BaseComponent {
 
     const element = this.compileTemplate()
 
-    const {window: iframeWindow} = getStore().iframe
+    const iframeWindow = getStore().iframe.window
     const {closeModalButton, previousButton} = this.refs
     const headerButtons = [closeModalButton, previousButton]
 
