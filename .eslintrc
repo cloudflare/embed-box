@@ -39,7 +39,7 @@
     "dot-notation": "warn",
     "eol-last": "warn",
     "eqeqeq": ["error", "allow-null"],
-    "indent": [2, 2, {
+    "indent": ["warn", 2, {
       "SwitchCase": 1,
       "VariableDeclarator": 1
     }],
