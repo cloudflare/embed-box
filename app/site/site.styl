@@ -121,6 +121,12 @@ html
   padding-bottom 0 !important
   z-index 1
 
+  a
+    color brandBlue
+
+    &:hover
+      color darken(brandBlue, 18%)
+
   .links
     font-size 1.3em
     margin-top 1em
@@ -128,7 +134,6 @@ html
 
     a
       align-items center
-      color #2d88f3
       display flex
       font-weight 500
       padding .3em 0
@@ -404,13 +409,16 @@ html
 
 button[data-run]
   align-items center
-  background #e6db74
+  background-color brandYellow
   color #171717
   display flex
   flex 0 0 auto
   font-weight 500
   margin 0
   padding 0.3em 1em 0.3em 0.7em
+
+  &:hover
+    background-color darken(brandYellow, 7%)
 
   & + button[data-run]
     margin-left 1em
