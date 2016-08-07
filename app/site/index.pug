@@ -1,6 +1,6 @@
 mixin anchored(tag, text)
   - var escapedText = text.toLowerCase().replace(/[^\w]+/g, "-")
-  | <#{tag} class="headline-anchor">
+  | <#{tag} class="headline-with-anchor">
   a.without-underline(name=escapedText href=("#" + escapedText))=text
   | </#{tag}>
 

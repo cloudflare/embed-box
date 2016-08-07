@@ -53,21 +53,27 @@ html
     @media mobileMaxWidthQuery
       font-size 1em
 
-  .headline-anchor
+  .headline-with-anchor
+    display block
 
     > a
+      outline none
       color currentColor
-      display block
+      display inline-block
       position relative
       text-decoration none
+      // puts space above anchor when navigating by hash to it
+      margin-top -3em
+      padding-top 3em
 
       &::before
         content "#"
-        display inline-block
-        margin-right 0.2em
-        opacity 0.1
         position absolute
+        display inline-block
         right 100%
+        padding-right .2em
+        opacity .1
+        transition opacity .1s ease-in-out
 
       &:hover::before
         opacity .8
