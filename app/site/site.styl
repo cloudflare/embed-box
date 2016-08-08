@@ -14,7 +14,7 @@ embedBoxDesktopMinWidthQuery = "(min-width: " + embedBoxDesktopMinWidth + ")"
 embedBoxMobileMaxWidthQuery = "(max-width: " + (embedBoxDesktopMinWidth - 1px) + ")"
 
 siteDocsBackgroundColor = #1e1e1e
-siteDocsColor = #f8f8f2
+siteDocsColor = #e2e2de
 siteDocsLinkColor = #e6db74
 
 html
@@ -392,6 +392,16 @@ html
     > *:last-child
       margin-bottom 0
 
+    pre, code
+      font-family monospaceFonts
+
+    *:not(pre) > code
+      font-size .72em
+      padding .1875em .5em .125em
+      margin 0 .125em
+      background #2b2b2b
+      white-space nowrap
+
     h2
       margin-top 4.5rem
       font-size 1.5em
@@ -418,6 +428,10 @@ html
 
     a[href]:not(.without-underline)
       linkUnderlines siteDocsBackgroundColor, siteDocsLinkColor
+
+    *:not(h2):not(h3) > a.without-underline
+      color siteDocsLinkColor
+      text-decoration none
 
 .slide.made-by
   antialiasedFonts()
@@ -491,10 +505,9 @@ button[data-run]
 
   code, pre
     display block
-    font-family monospaceFonts
 
   pre
-    color #f6f7ee
+    color siteDocsColor
     flex 1 0 auto
     line-height 1.4
     margin 0
@@ -505,18 +518,10 @@ button[data-run]
     width 100%
     word-wrap normal
 
-  code
-    background lightGrayRGBA
-    font-size .9em
-    font-style normal
-    padding .15625em .3125em
-    white-space nowrap
-
-  pre > code
-    background transparent
-    font-size .9em
-    padding 0
-    white-space inherit
+    > code
+      font-size .9em
+      padding 0
+      white-space inherit
 
   & + .code-example
     margin-top 1em
