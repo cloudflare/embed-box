@@ -4,6 +4,13 @@ mixin anchored(tag, text)
   a.without-underline(name=escapedText href=("#" + escapedText))=text
   | </#{tag}>
 
+mixin codeExample(runnable)
+  .code-example(class={"has-run-button": runnable})
+    if runnable
+      button.inset-icon(data-run="inline") Run inline
+      button.inset-icon(data-run="modal") Run as modal
+    block
+
 doctype html
 html.no-js(lang="en" xmlns:og="http://ogp.me/ns#" xmlns:fb="http://www.facebook.com/2008/fbml")
   head
@@ -85,12 +92,10 @@ html.no-js(lang="en" xmlns:og="http://ogp.me/ns#" xmlns:fb="http://www.facebook.
         :marked
           Download the <a href="#">latest release</a> and add this to your page:
 
-        .code-example
+        +codeExample
           != require("./examples/install.md")
 
-        .code-example.has-run-button
-          button.inset-icon(data-run="inline") Run inline
-          button.inset-icon(data-run="modal") Run as modal
+        +codeExample(true)
           != require("./examples/basic.md")
 
         :marked
@@ -100,13 +105,10 @@ html.no-js(lang="en" xmlns:og="http://ogp.me/ns#" xmlns:fb="http://www.facebook.
           If your script should be loaded in the `<head>` tag,
           set `insertInHead` and the instructions will update according.
 
-        .code-example.has-run-button
-          button.inset-icon(data-run="inline") Run inline
-          button.inset-icon(data-run="modal") Run as modal
+        +codeExample(true)
           != require("./examples/download-url.md")
 
         +anchored("h3", "Positioning")
-
         :marked
           EmbedBox can appear inline by specifying `container` in the config.
           This can be a CSS selector.
@@ -121,80 +123,60 @@ html.no-js(lang="en" xmlns:og="http://ogp.me/ns#" xmlns:fb="http://www.facebook.
           != require("./examples/container-element.md")
 
         +anchored("h2", "Customization")
-        +anchored("h3", "Themes")
 
-        .code-example.has-run-button
-          button.inset-icon(data-run="inline") Run inline
-          button.inset-icon(data-run="modal") Run as modal
+        +anchored("h3", "Themes")
+        +codeExample(true)
           != require("./examples/custom-theme.md")
 
         :marked
           If the `theme` configuration option is too coarse,
           the modal stylesheet can be altered or replaced.
 
-        .code-example.has-run-button
-          button.inset-icon(data-run="inline") Run inline
-          button.inset-icon(data-run="modal") Run as modal
+        +codeExample(true)
           != require("./examples/custom-modal-stylesheet.md")
 
         +anchored("h3", "Content slots")
-
         :marked
           Content can be inserted before and after the target instructions.
 
           Target specific slots can be included as well.
 
-        .code-example.has-run-button
-          button.inset-icon(data-run="inline") Run inline
-          button.inset-icon(data-run="modal") Run as modal
+        +codeExample(true)
           != require("./examples/content-slots.md")
 
         +anchored("h3", "Labels")
-
         :marked
           Labels can be added as strings or functions.
           The EmbedBox `config` is exposed to label functions.
 
-        .code-example.has-run-button
-          button.inset-icon(data-run="inline") Run inline
-          button.inset-icon(data-run="modal") Run as modal
+        +codeExample(true)
           != require("./examples/labels.md")
 
-
         +anchored("h3", "Ordering visible targets")
-
         :marked
           Targets can be limited to a specific set and order with an array of target IDs.
           Consult `EmbedBox.getTargetIDs()` for a list of IDs.
 
-        .code-example.has-run-button
-          button.inset-icon(data-run="inline") Run inline
-          button.inset-icon(data-run="modal") Run as modal
+        +codeExample(true)
           != require("./examples/visible-targets.md")
 
         :marked
           If `visibleTargets` only has one entry, the target search will be skipped.
 
-        .code-example.has-run-button
-          button.inset-icon(data-run="inline") Run inline
-          button.inset-icon(data-run="modal") Run as modal
+        +codeExample(true)
           != require("./examples/single-target.md")
 
         +anchored("h3", "Custom targets")
-
         :marked
           If the content slots are too coarse, custom targets can be created with the custom build.
 
-        .code-example
+        +codeExample
           != require("./examples/custom-install.md")
 
-        .code-example.has-run-button
-          button.inset-icon(data-run="inline") Run inline
-          button.inset-icon(data-run="modal") Run as modal
+        +codeExample(true)
           != require("./examples/custom-target.md")
 
         +anchored("h3", "Contributing")
-
         :marked
           Please do, we would love for this to become a project of the community.
           Feel free to open an issue, submit a PR or contribute to the wiki.
