@@ -38,6 +38,18 @@ function alignWithElement(element, referenceElement) {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
+  const tocContainer = document.querySelector(".table-of-contents")
+
+  Array
+    .from(document.querySelectorAll("h3.headline-with-anchor [name]"))
+    .forEach(({href, textContent}) => {
+      const anchor = document.createElement("a")
+
+      anchor.href = href
+      anchor.textContent = textContent
+      tocContainer.appendChild(anchor)
+    })
+
   const PRISTINE_GLOBALS = {
     EmbedBox: window.EmbedBox,
     EmbedBoxCustom: window.EmbedBoxCustom

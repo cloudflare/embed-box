@@ -37,7 +37,7 @@ html.no-js(lang="en" xmlns:og="http://ogp.me/ns#" xmlns:fb="http://www.facebook.
           p= htmlWebpackPlugin.options.description
 
           .links(data-column)
-            a.more(href="#how-to-use") Documentation
+            a.more(href="#documentation") Documentation
             a.more(href="https://github.com/EagerIO/EmbedBox") GitHub
 
         .figure.frame-container(data-column)
@@ -82,6 +82,9 @@ html.no-js(lang="en" xmlns:og="http://ogp.me/ns#" xmlns:fb="http://www.facebook.
                 | all inside an interface which is easy to integrate into your site.
 
             img.image(src=require("./assets/got-plugins-feature.png"))
+
+      .slide.table-of-contents
+        h1#documentation.hidden-anchor Documentation
 
       .slide.padded.docs.full.install
         h1 Docs
@@ -136,7 +139,7 @@ html.no-js(lang="en" xmlns:og="http://ogp.me/ns#" xmlns:fb="http://www.facebook.
           != require("./examples/initial-target.md")
 
         :marked
-          Set <a href="#ordering-visible-targets">`visibleTargets`</a>
+          Set <a href="#ordering">`visibleTargets`</a>
           to disable the target search entirely.
 
         +anchored("h3", "Routing")
@@ -160,10 +163,10 @@ html.no-js(lang="en" xmlns:og="http://ogp.me/ns#" xmlns:fb="http://www.facebook.
 
         :marked
           If the `theme` configuration option is too coarse,
-          the modal stylesheet can be altered or replaced.
+          the EmbedBox stylesheet can be extended.
 
         +codeExample(true)
-          != require("./examples/custom-modal-stylesheet.md")
+          != require("./examples/custom-stylesheet.md")
 
         +anchored("h3", "Content slots")
         :marked
@@ -182,7 +185,7 @@ html.no-js(lang="en" xmlns:og="http://ogp.me/ns#" xmlns:fb="http://www.facebook.
         +codeExample(true)
           != require("./examples/labels.md")
 
-        +anchored("h3", "Ordering visible targets")
+        +anchored("h3", "Ordering")
         :marked
           Targets can be limited to a specific set and order with an array of target IDs.
           Consult `EmbedBox.getTargetIDs()` for a list of IDs.
@@ -206,7 +209,7 @@ html.no-js(lang="en" xmlns:og="http://ogp.me/ns#" xmlns:fb="http://www.facebook.
         +codeExample(true)
           != require("./examples/custom-target.md")
 
-        +anchored("h3", "Contributing")
+        +anchored("h2", "Contributing")
         :marked
           Please do, we would love for this to become a project of the community.
           Feel free to open an issue, submit a PR or contribute to the wiki.
