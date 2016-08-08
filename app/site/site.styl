@@ -13,11 +13,15 @@ embedBoxDesktopMinWidth = 1000px
 embedBoxDesktopMinWidthQuery = "(min-width: " + embedBoxDesktopMinWidth + ")"
 embedBoxMobileMaxWidthQuery = "(max-width: " + (embedBoxDesktopMinWidth - 1px) + ")"
 
+siteDocsBackgroundColor = #1e1e1e
+siteDocsColor = #f8f8f2
+siteDocsLinkColor = #e6db74
+
 html
-  background brandBlack
+  background siteDocsBackgroundColor
 
 .slide.no-js-info
-  background-color warnBackgroundColor
+  background warnBackgroundColor
   color warnColor
   display flex
 
@@ -72,9 +76,6 @@ html
       display inline-block
       position relative
       text-decoration none
-      // puts space above anchor when navigating by hash to it
-      margin-top -3em
-      padding-top 3em
 
       &::before
         content "#"
@@ -87,6 +88,15 @@ html
 
       &:hover::before
         opacity .8
+
+    & > a
+      // puts space above anchor when navigating by hash to it
+      margin-top -2.5em
+      padding-top 2.5em
+
+    + .headline-with-anchor > a
+      margin-top -.5em
+      padding-top .5em
 
   .figure.frame-container
     position relative
@@ -131,24 +141,7 @@ html
   padding-bottom 0 !important
   z-index 1
 
-  a
-    color brandBlue
-
-    &:hover
-      color darken(brandBlue, 18%)
-
-  .links
-    font-size 1.3em
-    margin-top 1em
-    text-align left
-
-    a
-      align-items center
-      display flex
-      font-weight 500
-      padding .3em 0
-      text-decoration none
-
+  // Fix small browser render gap glitch
   @media mobileMaxWidthQuery
     + .slide
       margin-top -1px
@@ -210,11 +203,35 @@ html
       font-size 2em
 
   p
+    display block
     font-size 1.3em
-    max-width 100%
-    margin 0 auto
+    width 100%
+    margin 0 auto 1em
+
+  ul.nav
+    display block
+    list-style none
+    font-size 1.3em
+    width 100%
+    margin 0
+    padding 0
+
+    li
+      display block
+      list-style none
+      margin 0 0 .5em
+
+    a.more
+      font-weight 500
+      padding .5em 0
+      text-decoration none
+      color brandBlue
+
+      &:hover
+        color darken(brandBlue, 18%)
 
 .slide.features
+
   div
     display block
 
@@ -252,12 +269,19 @@ html
       .image
         display block
         flex 0 1 auto
-        max-width 100%
-        width 300px
+
+        img
+          max-width 100%
+
+          @media (min-width 2000px)
+            max-width 2000px
 
       @media desktopMinWidthQuery
         &:not(:last-child)
           margin-bottom 8em
+
+        .content, .image
+          width 44%
 
         .content
           h3
@@ -270,11 +294,11 @@ html
             font-size 1.125em
             margin 0 0 .7em
 
-        .content, .image
-          width 44%
-
         &:nth-child(even)
           flex-direction row-reverse
+
+          .image
+            direction rtl
 
       @media mobileMaxWidthQuery
         flex-flow column
@@ -328,8 +352,9 @@ html
 
 .slide.docs
   antialiasedFonts()
-  background brandBlack
-  color #f8f8f2
+  position relative
+  background siteDocsBackgroundColor
+  color siteDocsColor
   display block
   margin-left auto
   margin-right auto
@@ -353,7 +378,7 @@ html
     text-indent @letter-spacing
     line-height 1
     margin-bottom 3em
-    color #e6db74
+    color siteDocsLinkColor
 
     + h2
       margin-top 0
@@ -391,17 +416,14 @@ html
       margin-top 2.5rem
 
   a[href]:not(.without-underline)
-    linkUnderlines brandBlack, #e6db74
+    linkUnderlines siteDocsBackgroundColor, siteDocsLinkColor
 
   > .figure.floating-figure
-    background #232323
-    bottom 0
+    position absolute
     height 31em
     left 55%
-    margin 0
-    position absolute
     right 4em
-    top 20.1em // set by JS
+    margin 0
 
     &[data-layout="fullscreen"]
       background transparent
@@ -419,8 +441,8 @@ html
 
 .slide.made-by
   antialiasedFonts()
-  background brandBlack
-  color #f8f8f2
+  background siteDocsBackgroundColor
+  color siteDocsColor
   padding-top 0 !important
 
   .label
@@ -436,7 +458,7 @@ html
     display block
     width 9em
     height 4em
-    color #e6db74
+    color siteDocsLinkColor
 
     > svg
       height 100%
@@ -447,7 +469,7 @@ html
 
 button[data-run]
   align-items center
-  background-color brandYellow
+  background brandYellow
   color #171717
   display flex
   flex 0 0 auto
@@ -456,7 +478,7 @@ button[data-run]
   padding 0.3em 1em 0.3em 0.7em
 
   &:hover
-    background-color darken(brandYellow, 7%)
+    background darken(brandYellow, 7%)
 
   & + button[data-run]
     margin-left 1em
@@ -473,7 +495,7 @@ button[data-run]
 
 .code-example
   antialiasedFonts()
-  background-color #232323
+  background #232323
   flex-flow row wrap
   max-width 100%
   position relative
@@ -484,7 +506,7 @@ button[data-run]
     margin-left 1.5em
 
   @media mobileMaxWidthQuery
-    button[data-run]
+    button[data-run="inline"]
       display none
 
   code, pre

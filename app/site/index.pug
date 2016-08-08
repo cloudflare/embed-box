@@ -36,9 +36,18 @@ html.no-js(lang="en" xmlns:og="http://ogp.me/ns#" xmlns:fb="http://www.facebook.
 
           p= htmlWebpackPlugin.options.description
 
+<<<<<<< 4cc9a90e5f3752a698306a51f221ec7cd35f4e16
           .links(data-column)
             a.more(href="#documentation") Documentation
             a.more(href="https://github.com/EagerIO/EmbedBox") GitHub
+=======
+          ul.nav
+            li
+              a.more(href="#how-to-use") Documentation
+
+            li
+              a.more(href="https://github.com/EagerIO/EmbedBox") GitHub
+>>>>>>> site fixes
 
         .figure.frame-container(data-column)
           .placeholder
@@ -65,14 +74,16 @@ html.no-js(lang="en" xmlns:og="http://ogp.me/ns#" xmlns:fb="http://www.facebook.
                 | allowing it to blend into any existing site by just picking a few colors.
                 | Need full CSS control? No problem, just include a stylesheet when instantiating.
 
-            img.image(src=require("./assets/customize-feature.png"))
+            .image
+              img(src=require("./assets/customize-feature.png") width="732")
 
           li.roomy-feature
             .content
               h3 Built-in documentation.
-              p EmbedBox includes installation instructions for every major CMS platform.
+              p EmbedBox includes install instructions for every major CMS platform.
 
-            img.image(src=require("./assets/documentation-feature.png"))
+            .image
+              img(src=require("./assets/documentation-feature.png") width="512")
 
           li.roomy-feature
             .content
@@ -81,7 +92,8 @@ html.no-js(lang="en" xmlns:og="http://ogp.me/ns#" xmlns:fb="http://www.facebook.
                 | EmbedBox painlessly showcases your existing CMS plugins,
                 | all inside an interface which is easy to integrate into your site.
 
-            img.image(src=require("./assets/got-plugins-feature.png"))
+            .image
+              img(src=require("./assets/got-plugins-feature.png") width="512")
 
       .slide.table-of-contents
         h1#documentation.hidden-anchor Documentation
