@@ -2,11 +2,11 @@
 	if(typeof exports === 'object' && typeof module === 'object')
 		module.exports = factory();
 	else if(typeof define === 'function' && define.amd)
-		define("EmbedBoxWordpressTarget", [], factory);
+		define("EmbedBoxwordpressTarget", [], factory);
 	else if(typeof exports === 'object')
-		exports["EmbedBoxWordpressTarget"] = factory();
+		exports["EmbedBoxwordpressTarget"] = factory();
 	else
-		root["EmbedBoxWordpressTarget"] = factory();
+		root["EmbedBoxwordpressTarget"] = factory();
 })(this, function() {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache

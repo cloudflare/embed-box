@@ -2,11 +2,11 @@
 	if(typeof exports === 'object' && typeof module === 'object')
 		module.exports = factory();
 	else if(typeof define === 'function' && define.amd)
-		define("EmbedBoxDrupalTarget", [], factory);
+		define("EmbedBoxdrupalTarget", [], factory);
 	else if(typeof exports === 'object')
-		exports["EmbedBoxDrupalTarget"] = factory();
+		exports["EmbedBoxdrupalTarget"] = factory();
 	else
-		root["EmbedBoxDrupalTarget"] = factory();
+		root["EmbedBoxdrupalTarget"] = factory();
 })(this, function() {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
