@@ -488,29 +488,23 @@ html
 
 button[data-run]
   align-items center
-  background brandYellow
   color #171717
   display flex
   flex 0 0 auto
   font-weight 500
   margin 0
-  padding .3em .7em
+  padding .3em .75em .3em 1.85em
+  background brandYellow
+  background-image url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 13 16'><polygon fill='#171717' points='0,0 13,8 0,16'></polygon></svg>")
+  background-repeat no-repeat
+  background-position .7em center
+  background-size .8em .8em
 
   &:hover
-    background darken(brandYellow, 7%)
+    background-color darken(brandYellow, 7%)
 
   & + button[data-run]
     margin-left 1em
-
-  &::before
-    content ""
-    display inline-block
-    width 0
-    height 0
-    border-style solid
-    border-width .4em 0 .4em .65em
-    margin-right .5em
-    border-color transparent transparent transparent currentColor
 
 .code-example
   antialiasedFonts()
