@@ -10,7 +10,9 @@
 @import "../styl/link-underlines"
 
 embedBoxDesktopMinWidth = 1000px
+embedBoxExtraLargeDesktopMinWidth = 1440px
 embedBoxDesktopMinWidthQuery = "(min-width: " + embedBoxDesktopMinWidth + ")"
+embedBoxExtraLargeDesktopMinWidthQuery = "(min-width: " + embedBoxExtraLargeDesktopMinWidth + ")"
 embedBoxMobileMaxWidthQuery = "(max-width: " + (embedBoxDesktopMinWidth - 1px) + ")"
 
 siteDocsBackgroundColor = #1e1e1e
@@ -52,7 +54,7 @@ html
       padding-right @padding-left
 
   p, ul, ol, dl
-    font-size 1.25em
+    font-size 1.125em
 
     ul, ol, dl
       font-size 1em
@@ -321,21 +323,33 @@ html
   antialiasedFonts()
   position relative
   display block
-  width 64em
+  width 60em
   margin 0 auto
   max-width 100%
   background siteDocsBackgroundColor
   color siteDocsColor
-  overflow hidden
   padding-top 4em
 
-  .docs-nav
-    display block
+  @media embedBoxExtraLargeDesktopMinWidthQuery
+    padding-right 36em
+    width 88em
 
+  .docs-nav, .docs-content
     @media embedBoxMobileMaxWidthQuery
       width 40em
       margin 0 auto
       max-width 100%
+
+  .docs-nav
+    display block
+
+    // TODO - @TeffenEllis
+    &.sticky
+      position fixed
+      z-index 1
+      top 6.7em
+      left calc(50% - 40em)
+      width 20em
 
     h1
       margin-top 0
@@ -371,20 +385,10 @@ html
   .docs-content
     display block
     position relative
-    width 40em
-    margin 0 auto
-    max-width 100%
-
-    .figure.embedbox-figure
-
-      iframe
-        margin-top 1em
-        height 40em
-        max-height 80vh
 
     @media embedBoxDesktopMinWidthQuery
-      padding-left 18em
-      width 58em
+      width 32em
+      margin-left auto
 
     > *:first-child
       margin-top 0
@@ -417,7 +421,7 @@ html
 
     h3
       @media embedBoxDesktopMinWidthQuery
-        font-size 1.25em
+        font-size 1.125em
 
     *:not(h2) + h3
       margin-top 3.5rem
@@ -432,6 +436,27 @@ html
     *:not(h2):not(h3) > a.without-underline
       color siteDocsLinkColor
       text-decoration none
+
+    .figure.embedbox-figure
+      display block
+      overflow hidden
+
+      iframe
+        width 100%
+        height 32em
+        max-height 100%
+
+      @media embedBoxExtraLargeDesktopMinWidthQuery
+        position absolute
+        left calc(100% + 2.5em)
+        width 32em
+        height 32em
+        max-height 90vh
+        min-height 20em
+
+        iframe
+          width 100%
+          height 100%
 
 .slide.made-by
   antialiasedFonts()
@@ -494,6 +519,7 @@ button[data-run]
   max-width 100%
   position relative
   width 700px
+  margin-bottom 1em
 
   button[data-run]
     margin-top 1.5em
@@ -522,6 +548,3 @@ button[data-run]
       font-size .9em
       padding 0
       white-space inherit
-
-  & + .code-example
-    margin-top 1em

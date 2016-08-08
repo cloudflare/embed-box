@@ -83,7 +83,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const {innerText: example} = parentElement.querySelector("code")
 
     if (!useModal) {
-      docsContent.insertBefore(runInlineContainer, parentElement.nextSibling)
+      docsContent.insertBefore(runInlineContainer, parentElement)
     }
 
     if (previousInstance) previousInstance.destroy()
