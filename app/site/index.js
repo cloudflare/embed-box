@@ -33,21 +33,30 @@ function loadDemoScripts(document, onLoad = () => {}) {
   })
 }
 
-function alignWithElement(element, referenceElement) {
-  element.style.top = `${referenceElement.offsetTop}px`
-}
-
 document.addEventListener("DOMContentLoaded", () => {
   const tocContainer = document.querySelector(".table-of-contents")
 
   Array
-    .from(document.querySelectorAll("h3.headline-with-anchor [name]"))
-    .forEach(({href, textContent}) => {
-      const anchor = document.createElement("a")
+    .from(document.querySelectorAll("h2.headline-with-anchor [name], h3.headline-with-anchor [name]"))
+    .forEach(({parentNode, href, textContent}) => {
+      let ul = tocContainer
 
-      anchor.href = href
-      anchor.textContent = textContent
-      tocContainer.appendChild(anchor)
+      if (parentNode.tagName === "H3") {
+        ul = tocContainer.lastChild.lastChild
+      }
+
+      const li = document.createElement("li")
+      const a = document.createElement("a")
+
+      a.href = href
+      a.textContent = textContent
+      ul.appendChild(li)
+      li.appendChild(a)
+
+      if (parentNode.tagName === "H2") {
+        const nextUl = document.createElement("ul")
+        li.appendChild(nextUl)
+      }
     })
 
   const PRISTINE_GLOBALS = {
@@ -55,9 +64,9 @@ document.addEventListener("DOMContentLoaded", () => {
     EmbedBoxCustom: window.EmbedBoxCustom
   }
   const automatedFrame = document.getElementById("automated-frame")
-  const exampleContainer = document.getElementById("example-container")
+  const runInlineContainer = document.getElementById("run-inline-container")
   const docs = document.querySelector(".slide.docs")
-  const docsFloatingFigure = docs.querySelector(".floating-figure")
+  const docsContent = docs.querySelector(".docs-content")
   let createInteractiveDemo
 
   function loopRunDemo() {
@@ -70,8 +79,12 @@ document.addEventListener("DOMContentLoaded", () => {
     const {instance: previousInstance} = getStore() || {}
     const {parentElement} = target
     const useModal = target.getAttribute("data-run") === "modal"
-    const container = useModal ? document.body : exampleContainer
+    const container = useModal ? document.body : runInlineContainer
     const {innerText: example} = parentElement.querySelector("code")
+
+    if (!useModal) {
+      docsContent.insertBefore(runInlineContainer, parentElement.nextSibling)
+    }
 
     if (previousInstance) previousInstance.destroy()
 
@@ -82,10 +95,6 @@ document.addEventListener("DOMContentLoaded", () => {
       createInteractiveDemo = null
     }
 
-    // Demos may alter the constructor and must be reloaded to prevent overlapping changes.
-    docsFloatingFigure.style.display = useModal ? "none" : ""
-    alignWithElement(docsFloatingFigure, parentElement)
-
     // Clear previous demo routing.
     window.history.pushState("", "", window.location.pathname)
 
@@ -94,8 +103,6 @@ document.addEventListener("DOMContentLoaded", () => {
     })
     window.eval(example) // eslint-disable-line no-eval
   }
-
-  alignWithElement(docsFloatingFigure, docs.querySelector(".code-example.has-run-button"))
 
   Array
     .from(document.querySelectorAll("button[data-run]"))

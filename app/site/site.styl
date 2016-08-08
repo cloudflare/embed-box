@@ -51,21 +51,14 @@ html
       padding-left 1.5em
       padding-right @padding-left
 
-  p
+  p, ul, ol, dl
     font-size 1.25em
+
+    ul, ol, dl
+      font-size 1em
 
     @media mobileMaxWidthQuery
       font-size 1em
-
-  .hidden-anchor
-    left 0
-    margin 0
-    opacity 0
-    padding 0
-    pointer-events none
-    position absolute
-    top 0
-    z-index -1
 
   .headline-with-anchor
     display block
@@ -242,6 +235,7 @@ html
     margin 0
     max-width 100%
     padding 0
+    font-size 1em
     width centeredPageWidth
 
     > li
@@ -323,121 +317,106 @@ html
         .content
           margin-bottom 2em
 
-.slide.table-of-contents
-  antialiasedFonts()
-  align-items baseline
-  background brandBlack
-  flex-flow row nowrap
-  font-size 1.4em
-  justify-content center
-  min-height 1em
-  padding 1em 3.5em 0
-  text-align center
-
-  @media embedBoxMobileMaxWidthQuery
-    display none
-
-  a
-    color white
-    flex 1 1 auto
-    opacity .5
-    text-decoration none
-    transition opacity .1s ease-in-out
-
-    &:hover
-      opacity .9
-
-  a + a
-    margin-left 1em
-
 .slide.docs
   antialiasedFonts()
   position relative
+  display block
+  width 64em
+  margin 0 auto
+  max-width 100%
   background siteDocsBackgroundColor
   color siteDocsColor
-  display block
-  margin-left auto
-  margin-right auto
-  max-width 100%
   overflow hidden
-  padding-top  4em
-  position relative
-  width 74em
+  padding-top 4em
 
-  > *:first-child
-    margin-top 0
+  .docs-nav
+    display block
 
-  > *:last-child
-    margin-bottom 0
+    @media embedBoxMobileMaxWidthQuery
+      width 40em
+      margin 0 auto
+      max-width 100%
 
-  > h1:first-child
-    text-align center
-    font-size 1em
-    text-transform uppercase
-    letter-spacing .045em
-    text-indent @letter-spacing
-    line-height 1
-    margin-bottom 3em
-    color siteDocsLinkColor
-
-    + h2
+    h1
       margin-top 0
+      font-size 1.5em
+
+      @media embedBoxDesktopMinWidthQuery
+        font-size 1.6em
 
     @media embedBoxDesktopMinWidthQuery
-      display none
+      position absolute // TODO - position sticky?
+      top 4em
+      left 4em
+      width 20em
 
-  > *:not(.embedbox-figure):not(h1)
-    width 50%
+    ul.table-of-contents
+      display block
+      color siteDocsLinkColor
 
-    @media embedBoxMobileMaxWidthQuery
-      width 100%
+      @media embedBoxMobileMaxWidthQuery
+        margin-bottom 2em
 
-  @media embedBoxDesktopMinWidthQuery
+      @media embedBoxDesktopMinWidthQuery
+        padding-left .5em
+
+      ul
+        margin-top 0
+
+      a
+        linkUnderlines siteDocsBackgroundColor, siteDocsLinkColor
+        overflow ellipsis
+
+  .docs-content
+    display block
+    position relative
+    width 40em
+    margin 0 auto
+    max-width 100%
+
+    .figure.embedbox-figure
+
+      iframe
+        margin-top 1em
+        height 40em
+        max-height 80vh
+
+    @media embedBoxDesktopMinWidthQuery
+      padding-left 18em
+      width 58em
+
+    > *:first-child
+      margin-top 0
+
+    > *:last-child
+      margin-bottom 0
+
     h2
-      font-size 1.6em
+      margin-top 4.5rem
+      font-size 1.5em
+
+      @media embedBoxDesktopMinWidthQuery
+        font-size 1.6em
+
+      @media mobileMaxWidthQuery
+        margin-top 3.5rem
+
+      @media iPhoneMaxWidthQuery
+        margin-top 2.5rem
 
     h3
-      font-size 1.25em
+      @media embedBoxDesktopMinWidthQuery
+        font-size 1.25em
 
-  h2
-    margin-top 4.5rem
-
-    @media mobileMaxWidthQuery
+    *:not(h2) + h3
       margin-top 3.5rem
+      margin-bottom 0
 
-    @media iPhoneMaxWidthQuery
-      margin-top 2.5rem
+      @media mobileMaxWidthQuery
+        margin-top 2.5rem
 
-  *:not(h2) + h3
-    margin-top 3.5rem
-    margin-bottom 0
-
-    @media mobileMaxWidthQuery
-      margin-top 2.5rem
-
-  a[href]:not(.without-underline)
-    linkUnderlines siteDocsBackgroundColor, siteDocsLinkColor
-
-  > .figure.floating-figure
-    position absolute
-    height 31em
-    left 55%
-    right 4em
-    margin 0
-
-    &[data-layout="fullscreen"]
-      background transparent
-      bottom 0
-      left 0
-      position fixed
-      right 0
-      top 0 !important
-
-    &[data-layout="inline"] .fullscreen-toggle
-      display inline-block
-
-    @media embedBoxMobileMaxWidthQuery
-      display none
+    a[href]:not(.without-underline)
+      linkUnderlines siteDocsBackgroundColor, siteDocsLinkColor
 
 .slide.made-by
   antialiasedFonts()

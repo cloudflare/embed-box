@@ -89,142 +89,145 @@ html.no-js(lang="en" xmlns:og="http://ogp.me/ns#" xmlns:fb="http://www.facebook.
             .image
               img(src=require("./assets/got-plugins-feature.png") width="512")
 
-      .slide.table-of-contents
-        h1#documentation.hidden-anchor Documentation
-
       .slide.padded.docs.full.install
-        h1 Docs
 
-        +anchored("h2", "How to use")
+        .docs-nav
+          +anchored("h1", "Documentation")
 
-        :marked
-          Download the <a href="#">latest release</a> and add this to your page:
+          ul.table-of-contents
 
-        +codeExample
-          != require("./examples/install.md")
+        .docs-content
+          +anchored("h2", "How to use")
 
-        +codeExample(true)
-          != require("./examples/basic.md")
+          :marked
+            Download the <a href="#">latest release</a> and add this to your page:
 
-        :marked
-          A `downloadURL` can be used instead of `embedCode`.
-          Targets can have specific downloads as well!
+          +codeExample
+            != require("./examples/install.md")
 
-          If your script should be loaded in the `<head>` tag,
-          set `insertInHead` and the instructions will update according.
+          +codeExample(true)
+            != require("./examples/basic.md")
 
-        +codeExample(true)
-          != require("./examples/download-url.md")
+          //- This gets moved by JS
+          #run-inline-container.figure.embedbox-figure.frame-container
 
-        +anchored("h3", "Positioning")
-        :marked
-          EmbedBox can appear inline by specifying `container` in the config.
-          This can be a CSS selector.
+          :marked
+            A `downloadURL` can be used instead of `embedCode`.
+            Targets can have specific downloads as well!
 
-        +codeExample
-          != require("./examples/container-selector.md")
+            If your script should be loaded in the `<head>` tag,
+            set `insertInHead` and the instructions will update according.
 
-        :marked
-          ...or an HTML element.
+          +codeExample(true)
+            != require("./examples/download-url.md")
 
-        +codeExample
-          != require("./examples/container-element.md")
+          +anchored("h3", "Positioning")
+          :marked
+            EmbedBox can appear inline by specifying `container` in the config.
+            This can be a CSS selector.
 
-        +anchored("h3", "Behavior")
-        :marked
-          EmbedBox will automatically appear on creation.
-          This can be disabled with the `autoShow` option.
+          +codeExample
+            != require("./examples/container-selector.md")
 
-        +codeExample(true)
-          != require("./examples/auto-show.md")
+          :marked
+            ...or an HTML element.
 
-        :marked
-          The target search screen can be skipped with `initialTarget`.
+          +codeExample
+            != require("./examples/container-element.md")
 
-        +codeExample(true)
-          != require("./examples/initial-target.md")
+          +anchored("h3", "Behavior")
+          :marked
+            EmbedBox will automatically appear on creation.
+            This can be disabled with the `autoShow` option.
 
-        :marked
-          Set <a href="#ordering">`visibleTargets`</a>
-          to disable the target search entirely.
+          +codeExample(true)
+            != require("./examples/auto-show.md")
 
-        +anchored("h3", "Routing")
-        :marked
-          EmbedBox will look at `#!/embed/:targetID` when created and route accordingly.
+          :marked
+            The target search screen can be skipped with `initialTarget`.
 
-        +codeExample(true)
-          != require("./examples/routing.md")
+          +codeExample(true)
+            != require("./examples/initial-target.md")
 
-        :marked
-          This can be disbled with the `routing` option.
+          :marked
+            Set <a href="#ordering">`visibleTargets`</a>
+            to disable the target search entirely.
 
-        +codeExample(true)
-          != require("./examples/disabled-routing.md")
+          +anchored("h3", "Routing")
+          :marked
+            EmbedBox will look at `#!/embed/:targetID` when created and route accordingly.
 
-        +anchored("h2", "Customization")
+          +codeExample(true)
+            != require("./examples/routing.md")
 
-        +anchored("h3", "Themes")
-        +codeExample(true)
-          != require("./examples/custom-theme.md")
+          :marked
+            This can be disbled with the `routing` option.
 
-        :marked
-          If the `theme` configuration option is too coarse,
-          the EmbedBox stylesheet can be extended.
+          +codeExample(true)
+            != require("./examples/disabled-routing.md")
 
-        +codeExample(true)
-          != require("./examples/custom-stylesheet.md")
+          +anchored("h2", "Customization")
 
-        +anchored("h3", "Content slots")
-        :marked
-          Content can be inserted before and after the target instructions.
+          +anchored("h3", "Themes")
+          +codeExample(true)
+            != require("./examples/custom-theme.md")
 
-          Target specific slots can be included as well.
+          :marked
+            If the `theme` configuration option is too coarse,
+            the EmbedBox stylesheet can be extended.
 
-        +codeExample(true)
-          != require("./examples/content-slots.md")
+          +codeExample(true)
+            != require("./examples/custom-stylesheet.md")
 
-        +anchored("h3", "Labels")
-        :marked
-          Labels can be added as strings or functions.
-          The EmbedBox `config` is exposed to label functions.
+          +anchored("h3", "Content slots")
+          :marked
+            Content can be inserted before and after the target instructions.
 
-        +codeExample(true)
-          != require("./examples/labels.md")
+            Target specific slots can be included as well.
 
-        +anchored("h3", "Ordering")
-        :marked
-          Targets can be limited to a specific set and order with an array of target IDs.
-          Consult `EmbedBox.getTargetIDs()` for a list of IDs.
+          +codeExample(true)
+            != require("./examples/content-slots.md")
 
-        +codeExample(true)
-          != require("./examples/visible-targets.md")
+          +anchored("h3", "Labels")
+          :marked
+            Labels can be added as strings or functions.
+            The EmbedBox `config` is exposed to label functions.
 
-        :marked
-          If `visibleTargets` only has one entry, the target search will be skipped.
+          +codeExample(true)
+            != require("./examples/labels.md")
 
-        +codeExample(true)
-          != require("./examples/single-target.md")
+          +anchored("h3", "Ordering")
+          :marked
+            Targets can be limited to a specific set and order with an array of target IDs.
+            Consult `EmbedBox.getTargetIDs()` for a list of IDs.
 
-        +anchored("h3", "Custom targets")
-        :marked
-          If the content slots are too coarse, custom targets can be created with the custom build.
+          +codeExample(true)
+            != require("./examples/visible-targets.md")
 
-        +codeExample
-          != require("./examples/custom-install.md")
+          :marked
+            If `visibleTargets` only has one entry, the target search will be skipped.
 
-        +codeExample(true)
-          != require("./examples/custom-target.md")
+          +codeExample(true)
+            != require("./examples/single-target.md")
 
-        +anchored("h2", "Contributing")
-        :marked
-          Please do, we would love for this to become a project of the community.
-          Feel free to open an issue, submit a PR or contribute to the docs.
+          +anchored("h3", "Custom targets")
+          :marked
+            If the content slots are too coarse, custom targets can be created with the custom build.
 
-          Is there a CMS target that you'd like to see here?
+          +codeExample
+            != require("./examples/custom-install.md")
 
-          [Check out](https://github.com/EagerIO/EmbedBox/blob/master/docs/new-targets.md) how easy it is to add one!
+          +codeExample(true)
+            != require("./examples/custom-target.md")
 
-        #example-container.figure.embedbox-figure.floating-figure.frame-container
+          +anchored("h2", "Contributing")
+          :marked
+            Please do, we would love for this to become a project of the community.
+            Feel free to open an issue, submit a PR or contribute to the docs.
+
+            Is there a CMS target that you'd like to see here?
+
+            [Check out](https://github.com/EagerIO/EmbedBox/blob/master/docs/new-targets.md) how easy it is to add one!
 
       .slide.made-by
         .label Made by
