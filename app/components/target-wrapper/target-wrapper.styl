@@ -36,7 +36,7 @@
       left 1.5em
       top 1.5em
 
-      &::after
+      &:after
         color black
         content "Copied"
         display inline-block
@@ -45,7 +45,7 @@
         opacity 0
         position absolute
 
-      &[data-status="copied"]::after
+      &[data-status="copied"]:after
         animation copied 400ms linear
         animation-fill-mode forwards
         opacity 1
@@ -85,7 +85,7 @@
       counter-increment item
       position relative
 
-      &::before
+      &:before
         background lightGrayRGBA
         border-radius 50%
         color #fff
