@@ -53,8 +53,7 @@ html.no-js(lang="en" xmlns:og="http://ogp.me/ns#" xmlns:fb="http://www.facebook.
 
       noscript.slide.no-js-info
         p This website requires JavaScript to retrieve content.
-        p
-          a(href="http://enable-javascript.com", target="_blank") How to enable JavaScript.
+        p: a(href="http://enable-javascript.com", target="_blank") How to enable JavaScript.
 
       .slide.padded.features
         ul.features-list
@@ -113,14 +112,21 @@ html.no-js(lang="en" xmlns:og="http://ogp.me/ns#" xmlns:fb="http://www.facebook.
           EmbedBox can appear inline by specifying `container` in the config.
           This can be a CSS selector.
 
-        .code-example
+        +codeExample
           != require("./examples/container-selector.md")
 
         :marked
           ...or an HTML element.
 
-        .code-example
+        +codeExample
           != require("./examples/container-element.md")
+
+        +anchored("h3", "Routing")
+        :marked
+          The target search screen can be skipped with `initialTarget`.
+
+        +codeExample(true)
+          != require("./examples/initial-target.md")
 
         +anchored("h2", "Customization")
 
