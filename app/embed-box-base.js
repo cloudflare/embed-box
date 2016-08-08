@@ -5,6 +5,7 @@ import autobind from "autobind-decorator"
 import Application from "components/application"
 import polyfillCustomEvent from "lib/custom-event"
 import {destroyStore, initializeStore} from "lib/store"
+import {getRoute} from "lib/routing"
 
 const VISIBILITY_ATTRIBUTE = "data-visibility"
 
@@ -46,6 +47,7 @@ export default class EmbedBoxBase {
       className = "",
       container = document.body,
       customTargets = [],
+      routing = true,
       targets: targetConfigs = {},
       theme = {}
     } = spec
@@ -84,9 +86,18 @@ export default class EmbedBoxBase {
       })
     }
 
+    let {initialTarget} = spec
+
+    if (!initialTarget) {
+      initialTarget = getRoute()
+
+      if (!visibleTargets.some(({id}) => id === initialTarget)) initialTarget = null
+    }
+
     this.application = new Application(this.iframe.document.body, {
-      initialTarget: spec.initialTarget,
+      initialTarget,
       mode,
+      routing,
       onClose: this.hide,
       targets: visibleTargets.map(targetToComponent)
     })

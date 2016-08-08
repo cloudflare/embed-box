@@ -74,6 +74,9 @@ document.addEventListener("DOMContentLoaded", () => {
     docsFloatingFigure.style.display = useModal ? "none" : ""
     alignWithElement(docsFloatingFigure, parentElement)
 
+    // Clear previous demo routing.
+    window.history.pushState("", "", window.location.pathname)
+
     Object.keys(PRISTINE_GLOBALS).forEach(key => {
       window[key] = bindObjectArguments(PRISTINE_GLOBALS[key], {container})
     })

@@ -4,6 +4,7 @@ import template from "./application.pug"
 import autobind from "autobind-decorator"
 import BaseComponent from "components/base-component"
 import {getStore} from "lib/store"
+import {setRoute} from "lib/routing"
 import * as icons from "components/icons"
 import KM from "lib/key-map"
 import SiteTypeSearch from "components/site-type-search"
@@ -56,6 +57,20 @@ export default class Application extends BaseComponent {
     }
 
     mountPoint.appendChild(this.element)
+  }
+
+  get route() {
+    return this._route
+  }
+
+  set route(value) {
+    this._route = value
+
+    if (this.routing) {
+      setRoute(value === "home" ? "" : value)
+    }
+
+    return this._route
   }
 
   @autobind

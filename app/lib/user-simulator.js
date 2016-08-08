@@ -28,7 +28,8 @@ sequence.push({eventType: "scroll"})
 export function runDemo(iframe, onComplete = () => {}) {
   const {EmbedBox} = iframe.contentWindow
   const DEFAULTS = {
-    downloadURL: "about:blank"
+    downloadURL: "about:blank",
+    routing: false
   }
   const barrier = iframe.parentNode.querySelector(".barrier")
   let running = true

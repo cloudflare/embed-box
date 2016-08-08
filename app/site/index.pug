@@ -121,12 +121,36 @@ html.no-js(lang="en" xmlns:og="http://ogp.me/ns#" xmlns:fb="http://www.facebook.
         +codeExample
           != require("./examples/container-element.md")
 
-        +anchored("h3", "Routing")
+        +anchored("h3", "Behavior")
+        :marked
+          EmbedBox will automatically appear on creation.
+          This can be disabled with the `autoShow` option.
+
+        +codeExample(true)
+          != require("./examples/auto-show.md")
+
         :marked
           The target search screen can be skipped with `initialTarget`.
 
         +codeExample(true)
           != require("./examples/initial-target.md")
+
+        :marked
+          Set <a href="#ordering-visible-targets">`visibleTargets`</a>
+          to disable the target search entirely.
+
+        +anchored("h3", "Routing")
+        :marked
+          EmbedBox will look at `#!/embed/:targetID` when created and route accordingly.
+
+        +codeExample(true)
+          != require("./examples/routing.md")
+
+        :marked
+          This can be disbled with the `routing` option.
+
+        +codeExample(true)
+          != require("./examples/disabled-routing.md")
 
         +anchored("h2", "Customization")
 
