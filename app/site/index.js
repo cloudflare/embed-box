@@ -107,4 +107,6 @@ document.addEventListener("DOMContentLoaded", () => {
   Array
     .from(document.querySelectorAll("button[data-run]"))
     .forEach(element => element.addEventListener("click", handleRunClick))
+
+  document.querySelector("button[data-run]").click()
 })
