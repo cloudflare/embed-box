@@ -3,7 +3,9 @@
   "version": "0.0.7",
   "license": "MIT",
   "author": "Eager",
-  "engines": {"node": ">=5"},
+  "engines": {
+    "node": ">=5"
+  },
   "description": "Simple install guidance for CMS plugins",
   "repository": {
     "type": "git",
