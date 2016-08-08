@@ -10,10 +10,15 @@ linkUnderlines(backgroundColor, color, lineTop = 87%)
   color color
   text-decoration none
   background-image linear-gradient(backgroundColor, backgroundColor), linear-gradient(backgroundColor, backgroundColor), linear-gradient(color, color)
-  background-size .05em 1px, .05em 1px, 1px 1px
+  background-size .1em 1px, .1em 1px, 1px 1px
   background-repeat no-repeat, no-repeat, repeat-x
   textShadowToCropUnderline backgroundColor
   background-position 0% lineTop, 100% lineTop, 0% lineTop
+
+  @media retinaQuery
+    background-image linear-gradient(transparent 50%, backgroundColor, backgroundColor), linear-gradient(transparent 50%, backgroundColor, backgroundColor), linear-gradient(transparent 50%, color, color)
+    background-size .075em 1px, .075em 1px, 1px 1px
+    background-position 0% (lineTop - 2%), 100% (lineTop - 2%), 0% (lineTop - 2%)
 
   &::selection
     textShadowToCropUnderline selectionColor
