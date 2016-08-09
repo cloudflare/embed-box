@@ -1,83 +1,81 @@
-<!-- Taken from http://example.com -->
+<!-- Based on http://example.com -->
 <!doctype html>
 <html>
-<head>
-  <title>Example Domain</title>
+  <head>
+    <title>Example Domain</title>
 
-  <meta charset="utf-8" />
-  <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <style type="text/css">
-    body {
-      background-color: #f0f0f2;
-      margin: 0;
-      padding: 0;
-      font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
-
-    }
-    div {
-      width: 600px;
-      margin: 5em auto;
-      padding: 50px;
-      background-color: #fff;
-      border-radius: 1em;
-    }
-    a:link, a:visited {
-      color: #38488f;
-      text-decoration: none;
-    }
-    @media (max-width: 700px) {
+    <meta charset="utf-8" />
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style type="text/css">
       body {
-        background-color: #fff;
+        background-color: #f0f0f2;
+        margin: 0;
+        padding: 0;
+        font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+
       }
       div {
-        width: auto;
-        margin: 0 auto;
-        border-radius: 0;
-        padding: 1em;
+        width: 600px;
+        margin: 5em auto;
+        padding: 50px;
+        background-color: #fff;
+        border-radius: 1em;
       }
-    }
-    .button {
-      border-radius: .3125em;
-      padding: .7em 1em;
-      -webkit-font-smoothing: antialiased;
-      display: inline-block;
-      cursor: pointer;
-    }
+      a:link, a:visited {
+        color: #38488f;
+        text-decoration: none;
+      }
+      @media (max-width: 700px) {
+        body {
+          background-color: #fff;
+        }
+        div {
+          width: auto;
+          margin: 0 auto;
+          border-radius: 0;
+          padding: 1em;
+        }
+      }
+      .button {
+        border-radius: .3125em;
+        padding: .7em 1em;
+        -webkit-font-smoothing: antialiased;
+        display: inline-block;
+        cursor: pointer;
+      }
 
-    .button[data-embed-box-brand-color="#2d88f3"] {
-      background: #2d88f3;
-      color: #fff;
-    }
-  </style>
+      .button[data-embed-box-brand-color="#2d88f3"] {
+        background: #2d88f3;
+        color: #fff;
+      }
+    </style>
 
-  <script src="../../dist/embed-box-custom.js"></script>
-  <script src="../../dist/embed-box-target-wordpress.js"></script>
-  <script src="../../dist/embed-box-custom-target.js"></script>
-  <script type="text/javascript">
-    const CustomTarget = window.EmbedBoxCustomTarget.extend({
-      template: "<div>Hello from a custom target!</div>",
-      id: "custom-test",
-      label: "Custom Target"
-    })
-
-
-    document.addEventListener("DOMContentLoaded", () => {
-      const embedBox = new window.EmbedBoxCustom({
-        targets: [CustomTarget]
+    <script src="../../dist/embed-box-custom.js"></script>
+    <script src="../../dist/embed-box-target-wordpress.js"></script>
+    <script src="../../dist/embed-box-custom-target.js"></script>
+    <script type="text/javascript">
+      const CustomTarget = window.EmbedBoxCustomTarget.extend({
+        template: "<div>Hello from a custom target!</div>",
+        id: "custom-test",
+        label: "Custom Target"
       })
 
-      document
-        .querySelector("[data-embed-box-action='modal-open']")
-        .addEventListener("click", () => embedBox.show())
-    })
-  </script>
-</head>
+      document.addEventListener("DOMContentLoaded", () => {
+        const embedBox = new window.EmbedBoxCustom({
+          targets: [CustomTarget]
+        })
 
-<body>
-  <div id="box">
-    <h1>Example Domain</h1>
-    <p>This domain is established to be used for illustrative examples in documents. You may use this
+        document
+          .querySelector("[data-embed-box-action='modal-open']")
+          .addEventListener("click", () => embedBox.show())
+      })
+    </script>
+  </head>
+  <body>
+    <div id="box">
+      <h1>Example Domain</h1>
+      <p>This domain is established to be used for illustrative examples in documents. You may use this
       domain in examples without prior coordination or asking for permission.</p>
       <p class="link-paragraph"><a href="http://www.iana.org/domains/example">More information...</a></p>
       <p>
@@ -86,4 +84,4 @@
       </p>
     </div>
   </body>
-  </html>
+</html>
