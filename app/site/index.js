@@ -34,27 +34,23 @@ function loadDemoScripts(document, onLoad = () => {}) {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-  const tocContainer = document.querySelector(".table-of-contents")
+  const toc = document.querySelector(".table-of-contents")
 
   Array
     .from(document.querySelectorAll("h2.headline-with-anchor [name], h3.headline-with-anchor [name]"))
     .forEach(({parentNode, href, textContent}) => {
-      let ul = tocContainer
-
-      if (parentNode.tagName === "H3") {
-        ul = tocContainer.lastChild.lastChild
-      }
-
+      const ul = parentNode.tagName === "H3" ? toc.lastChild.lastChild : toc
       const li = document.createElement("li")
       const a = document.createElement("a")
 
-      a.href = href
-      a.textContent = textContent
-      ul.appendChild(li)
+      Object.assign(a, {href, textContent})
+
       li.appendChild(a)
+      ul.appendChild(li)
 
       if (parentNode.tagName === "H2") {
         const nextUl = document.createElement("ul")
+
         li.appendChild(nextUl)
       }
     })
@@ -75,10 +71,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
   loadDemoScripts(automatedFrame.contentDocument, loopRunDemo)
 
-  function handleRunClick({target}) {
+  function evalRunButton(button) {
+    const {parentElement} = button
+    const useModal = button.getAttribute("data-run") === "modal"
     const {instance: previousInstance} = getStore() || {}
-    const {parentElement} = target
-    const useModal = target.getAttribute("data-run") === "modal"
     const container = useModal ? document.body : runInlineContainer
     const {innerText: example} = parentElement.querySelector("code")
 
@@ -106,7 +102,5 @@ document.addEventListener("DOMContentLoaded", () => {
 
   Array
     .from(document.querySelectorAll("button[data-run]"))
-    .forEach(element => element.addEventListener("click", handleRunClick))
-
-  document.querySelector("button[data-run]").click()
+    .forEach(element => element.addEventListener("click", evalRunButton.bind(element)))
 })
