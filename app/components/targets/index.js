@@ -1,4 +1,5 @@
 export drupal from "./drupal"
 export generic from "./generic"
 export joomla from "./joomla"
+export weebly from "./weebly"
 export wordpress from "./wordpress"

@@ -40,5 +40,8 @@ export const previous = toComponent(previousSVG)
 import searchSVG from "./search.svg"
 export const search = toComponent(searchSVG)
 
+import weeblySVG from "./weebly.svg"
+export const weebly = toComponent(weeblySVG)
+
 import wordpressSVG from "./wordpress.svg"
 export const wordpress = toComponent(wordpressSVG)
