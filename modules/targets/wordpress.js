@@ -1,14 +1,14 @@
 /* eslint-env node, es6 */
 
-const WordpressTarget = require("../../app/components/targets/wordpress").default
+const WordPressTarget = require("../../app/components/targets/wordpress").default
 
 if (!window) {
-  module.exports = WordpressTarget
+  module.exports = WordPressTarget
 }
 else if (!window.EmbedBoxCustom) {
   throw new Error("EmbedBoxCustom was not found while attaching target `wordpress`")
 }
 else {
-  window.EmbedBoxCustom.fetchedTargets.push(WordpressTarget)
+  window.EmbedBoxCustom.fetchedTargets.push(WordPressTarget)
 }
 
