@@ -9,19 +9,18 @@ const LIBRARY_SCRIPTS = [
   "./embed-box-custom-target.js"
 ]
 
-function loadDemoScripts(document, onLoad = () => {}) {
+function loadDemoScripts(document, onComplete = () => {}) {
   let {length} = LIBRARY_SCRIPTS
 
-  function onScriptLoad() {
+  function onload() {
     length--
-    if (length === 0) onLoad()
+    if (length === 0) onComplete()
   }
 
-  LIBRARY_SCRIPTS.forEach(path => {
+  LIBRARY_SCRIPTS.forEach(src => {
     const script = document.createElement("script")
 
-    script.onload = onScriptLoad
-    script.src = path
+    Object.assign(script, {src, onload})
     document.head.appendChild(script)
   })
 }
@@ -77,7 +76,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const {parentElement} = button
     const useModal = button.getAttribute("data-run") === "modal"
     const container = useModal ? document.body : runInlineContainer
-    const {innerText: example} = parentElement.querySelector("code")
+    const example = parentElement.querySelector("code").innerText
 
     if (!useModal) {
       docsContent.insertBefore(runInlineContainer, parentElement)
