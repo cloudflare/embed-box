@@ -2,9 +2,10 @@ import stylesheet from "./embed-box.styl"
 import iframeStylesheet from "./iframe.styl"
 
 import autobind from "autobind-decorator"
+import BaseComponent from "components/base-component"
 import Application from "components/application"
 import polyfillCustomEvent from "lib/custom-event"
-import {destroyStore, initializeStore} from "lib/store"
+import {createStore} from "lib/store"
 import {getRoute} from "lib/routing"
 
 const VISIBILITY_ATTRIBUTE = "data-visibility"
@@ -40,7 +41,7 @@ export default class EmbedBoxBase {
 
   constructor(spec = {}) {
     const {iframeAttributes, stylesheet} = this.constructor
-    const store = initializeStore(this, spec)
+    const store = createStore(this, spec)
     const {iframe} = store
     const {
       autoShow = true,
@@ -51,6 +52,8 @@ export default class EmbedBoxBase {
       targets: targetConfigs = {},
       theme = {}
     } = spec
+
+    BaseComponent.prototype.store = store
 
     Object
       .keys(iframeAttributes)
@@ -161,8 +164,8 @@ export default class EmbedBoxBase {
 
     removeElement(this.iframe.element)
     removeElement(this.style)
-    destroyStore()
 
+    BaseComponent.prototype.store = null
 
     this.container.style.overflow = this.containerPreviousOverflow
   }

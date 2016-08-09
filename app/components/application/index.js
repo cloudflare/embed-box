@@ -3,7 +3,6 @@ import template from "./application.pug"
 
 import autobind from "autobind-decorator"
 import BaseComponent from "components/base-component"
-import {getStore} from "lib/store"
 import {setRoute} from "lib/routing"
 import * as icons from "components/icons"
 import KM from "lib/key-map"
@@ -21,7 +20,7 @@ export default class Application extends BaseComponent {
 
     const element = this.compileTemplate()
 
-    const iframeWindow = getStore().iframe.window
+    const iframeWindow = this.store.iframe.window
     const {closeModalButton, previousButton} = this.refs
     const headerButtons = [closeModalButton, previousButton]
 

@@ -5,7 +5,6 @@ import BaseComponent from "components/base-component"
 import template from "./site-type-search.pug"
 import * as icons from "components/icons"
 import KM from "lib/key-map"
-import {getStore} from "lib/store"
 
 const {search: SearchIcon} = icons
 
@@ -95,7 +94,7 @@ export default class SiteTypeSearch extends BaseComponent {
 
   selectType(selectedId) {
     const {types, typesContainer, search} = this.refs
-    const {document: iframeDocument} = getStore().iframe
+    const iframeDocument = this.store.iframe.document
     const selectedType = typesContainer.querySelector(`.type[data-id="${selectedId}"]`)
 
     this.selectedId = selectedId

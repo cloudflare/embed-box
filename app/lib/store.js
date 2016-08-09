@@ -1,11 +1,9 @@
-export function initializeStore(instance, spec = {}) {
+export function createStore(spec = {}) {
   const iframe = document.createElement("iframe")
   const {autoDownload = true, labels = {}} = spec
 
-  window.EmbedBoxStore = {
+  return {
     name: spec.name || "a plugin",
-    instance,
-
     autoDownload,
 
     beforeContent: spec.beforeContent || "",
@@ -35,14 +33,4 @@ export function initializeStore(instance, spec = {}) {
 
     insertInHead: spec.insertInHead || false
   }
-
-  return window.EmbedBoxStore
-}
-
-export function getStore(parent = window) {
-  return parent.EmbedBoxStore
-}
-
-export function destroyStore(parent = window) {
-  delete parent.EmbedBoxStore
 }

@@ -3,7 +3,6 @@ import afterContentTemplate from "./after-content.pug"
 
 import BaseComponent from "components/base-component"
 import Clipboard from "clipboard"
-import {getStore} from "lib/store"
 import autobind from "autobind-decorator"
 
 const AUTO_DOWNLOAD_DELAY = 3000
@@ -37,7 +36,7 @@ export default class BaseTarget extends BaseComponent {
   }
 
   get autoDownloadLabel() {
-    return getStore().autoDownload ? "(Your download should begin automatically.)" : ""
+    return this.store.autoDownload ? "(Your download should begin automatically.)" : ""
   }
 
   get downloadLabel() {
@@ -45,13 +44,13 @@ export default class BaseTarget extends BaseComponent {
   }
 
   get downloadURL() {
-    return this.config.downloadURL || getStore().downloadURL
+    return this.config.downloadURL || this.store.downloadURL
   }
 
   get copyText() {
     if (this.downloadURL) return `<script src="${this.downloadURL}"></script>`
 
-    return this.config.embedCode || getStore().embedCode
+    return this.config.embedCode || this.store.embedCode
   }
 
   get fallback() {
@@ -65,7 +64,7 @@ export default class BaseTarget extends BaseComponent {
 
   get location() {
     const targetUsesHead = this.config.insertInHead
-    const storeUsesHead = getStore().insertInHead
+    const storeUsesHead = this.store.insertInHead
 
     // Respect target specific falsey values.
     const insertInHead = typeof targetUsesHead !== "undefined" ? targetUsesHead : storeUsesHead
@@ -84,7 +83,7 @@ export default class BaseTarget extends BaseComponent {
   render() {
     this.compileTemplate()
 
-    const {autoDownload, iframe} = getStore()
+    const {autoDownload, iframe} = this.store
     const {copyButtons = []} = this.refs
 
     copyButtons.forEach(copyButton => {
@@ -115,11 +114,11 @@ export default class BaseTarget extends BaseComponent {
   }
 
   renderBeforeContent() {
-    return this.constructor.beforeContentTemplate.call(this, {config: getStore()})
+    return this.constructor.beforeContentTemplate.call(this, {config: this.store})
   }
 
   renderAfterContent() {
-    return this.constructor.afterContentTemplate.call(this, {config: getStore()})
+    return this.constructor.afterContentTemplate.call(this, {config: this.store})
   }
 
   @autobind

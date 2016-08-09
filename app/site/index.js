@@ -1,7 +1,6 @@
 import "babel-polyfill"
 import "./site.external-styl"
 
-import {getStore} from "lib/store"
 import {runDemo} from "lib/user-simulator"
 
 const LIBRARY_SCRIPTS = [
@@ -9,12 +8,6 @@ const LIBRARY_SCRIPTS = [
   "./embed-box-custom.js",
   "./embed-box-custom-target.js"
 ]
-
-function bindObjectArguments(Constructor, boundSpec = {}) {
-  return spec => {
-    return new Constructor({...boundSpec, ...spec})
-  }
-}
 
 function loadDemoScripts(document, onLoad = () => {}) {
   let {length} = LIBRARY_SCRIPTS
@@ -63,7 +56,16 @@ document.addEventListener("DOMContentLoaded", () => {
   const runInlineContainer = document.getElementById("run-inline-container")
   const docs = document.querySelector(".slide.docs")
   const docsContent = docs.querySelector(".docs-content")
+  let previousInstance = null
   let createInteractiveDemo
+
+  function bindObjectArguments(Constructor, boundSpec = {}) {
+    return spec => {
+      previousInstance = new Constructor({...boundSpec, ...spec})
+
+      return previousInstance
+    }
+  }
 
   function loopRunDemo() {
     createInteractiveDemo = runDemo(automatedFrame, loopRunDemo)
@@ -74,7 +76,6 @@ document.addEventListener("DOMContentLoaded", () => {
   function evalRunButton(button) {
     const {parentElement} = button
     const useModal = button.getAttribute("data-run") === "modal"
-    const {instance: previousInstance} = getStore() || {}
     const container = useModal ? document.body : runInlineContainer
     const {innerText: example} = parentElement.querySelector("code")
 
@@ -102,5 +103,5 @@ document.addEventListener("DOMContentLoaded", () => {
 
   Array
     .from(document.querySelectorAll("button[data-run]"))
-    .forEach(element => element.addEventListener("click", evalRunButton.bind(element)))
+    .forEach(element => element.addEventListener("click", evalRunButton.bind(null, element)))
 })
