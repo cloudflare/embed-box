@@ -8,13 +8,13 @@
 @import "../styl/font-smoothing"
 @import "../styl/media-query-variables"
 @import "../styl/link-underlines"
+@import "../styl/inline-svg"
 
 embedBoxDesktopMinWidth = 1000px
 embedBoxExtraLargeDesktopMinWidth = 1440px
 embedBoxDesktopMinWidthQuery = "(min-width: " + embedBoxDesktopMinWidth + ")"
 embedBoxExtraLargeDesktopMinWidthQuery = "(min-width: " + embedBoxExtraLargeDesktopMinWidth + ")"
 embedBoxMobileMaxWidthQuery = "(max-width: " + (embedBoxDesktopMinWidth - 1px) + ")"
-
 siteDocsBackgroundColor = #1e1e1e
 siteDocsColor = #e2e2de
 siteDocsLinkColor = #e6db74
@@ -487,6 +487,8 @@ html
         fill currentColor
 
 button[data-run]
+  playSVG = SVG.play
+
   align-items center
   color #171717
   display flex
@@ -495,7 +497,7 @@ button[data-run]
   margin 0
   padding .3em .75em .3em 1.85em
   background brandYellow
-  background-image url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 13 16'><polygon fill='#171717' points='0,0 13,8 0,16'></polygon></svg>")
+  background-image url(playSVG)
   background-repeat no-repeat
   background-position .7em center
   background-size .8em .8em
