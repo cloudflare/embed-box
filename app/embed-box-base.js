@@ -9,6 +9,7 @@ import {createStore} from "lib/store"
 import {getRoute} from "lib/routing"
 
 const VISIBILITY_ATTRIBUTE = "data-visibility"
+let storeReceivers
 
 function removeElement(element) {
   if (!element || !element.parentNode) return null
@@ -53,9 +54,16 @@ export default class EmbedBoxBase {
       theme = {}
     } = spec
 
-    Object.defineProperty(BaseComponent.prototype, "store", {
-      configurable: true,
-      get() { return store }
+
+    // HACK: Custom targets have a different BaseComponent instance.
+    // This ensures all components have access to the store.
+    storeReceivers = [BaseComponent, ...customTargets]
+
+    storeReceivers.forEach(Receiver => {
+      Object.defineProperty(Receiver.prototype, "store", {
+        configurable: true,
+        get() { return store }
+      })
     })
 
     Object
@@ -169,7 +177,7 @@ export default class EmbedBoxBase {
     removeElement(this.iframe.element)
     removeElement(this.style)
 
-    delete BaseComponent.prototype.store
+    storeReceivers.forEach(Receiver => delete Receiver.prototype.store)
 
     this.container.style.overflow = this.containerPreviousOverflow
   }
