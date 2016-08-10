@@ -2,6 +2,7 @@ import "babel-polyfill"
 import "./site.external-styl"
 
 import {runDemo} from "lib/user-simulator"
+import createSticky from "stickyfill"
 
 const LIBRARY_SCRIPTS = [
   "./embed-box.js",
@@ -26,7 +27,11 @@ function loadDemoScripts(document, onComplete = () => {}) {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
+  const sticky = createSticky()
   const toc = document.querySelector(".table-of-contents")
+  const docsNav = document.querySelector(".docs-nav > .sticky")
+  const demoWrapper = document.querySelector(".demo-wrapper > .sticky")
+  const runInlineContainer = document.getElementById("run-inline-container")
 
   Array
     .from(document.querySelectorAll("h2.headline-with-anchor [name], h3.headline-with-anchor [name]"))
@@ -47,14 +52,14 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     })
 
+  sticky.add(docsNav)
+  sticky.add(demoWrapper)
+
   const PRISTINE_GLOBALS = {
     EmbedBox: window.EmbedBox,
     EmbedBoxCustom: window.EmbedBoxCustom
   }
   const automatedFrame = document.getElementById("automated-frame")
-  const runInlineContainer = document.getElementById("run-inline-container")
-  const docs = document.querySelector(".slide.docs")
-  const docsContent = docs.querySelector(".docs-content")
   let previousInstance = null
   let createInteractiveDemo
 
@@ -78,9 +83,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const container = useModal ? document.body : runInlineContainer
     const example = parentElement.querySelector("code").innerText
 
-    if (!useModal) {
-      docsContent.insertBefore(runInlineContainer, parentElement)
-    }
 
     if (previousInstance) previousInstance.destroy()
 

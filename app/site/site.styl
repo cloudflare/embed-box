@@ -226,7 +226,6 @@ html
         color darken(brandBlue, 18%)
 
 .slide.features
-
   div
     display block
 
@@ -320,19 +319,64 @@ html
           margin-bottom 2em
 
 .slide.docs
+  topBuffer = 4em
+  navWidth = 15%
+  demoWidth = 36%
+
   antialiasedFonts()
-  position relative
-  display block
-  width 60em
-  margin 0 auto
-  max-width 100%
   background siteDocsBackgroundColor
   color siteDocsColor
-  padding-top 4em
+  display flex
+  max-width 100%
+  padding-top 0
+  position relative
 
-  @media embedBoxExtraLargeDesktopMinWidthQuery
-    padding-right 36em
-    width 88em
+  .wrapper
+    display flex
+    flex 1 0 auto
+    position relative
+    width 100%
+
+    @media embedBoxDesktopMinWidthQuery
+      padding-left "calc(%s + 3em)" % navWidth
+      padding-right "calc(%s + 1em)" % demoWidth
+
+    @media embedBoxMobileMaxWidthQuery
+      flex-flow column
+
+  .demo-wrapper
+    display block
+
+    @media embedBoxDesktopMinWidthQuery
+      bottom 0
+      right 0
+      position absolute
+      top 0
+      width demoWidth
+
+      .sticky
+        display block
+        padding-top 2.5em
+        position sticky
+        top 0
+
+  .figure.embedbox-figure
+    display block
+    overflow hidden
+
+    iframe
+      width 100%
+      height 32em
+      max-height 100%
+
+    @media embedBoxDesktopMinWidthQuery
+      height 32em
+      max-height 90vh
+      min-height 20em
+
+      iframe
+        width 100%
+        height 100%
 
   .docs-nav, .docs-content
     @media embedBoxMobileMaxWidthQuery
@@ -343,31 +387,34 @@ html
   .docs-nav
     display block
 
-    // TODO - @TeffenEllis
-    &.sticky
-      position fixed
-      z-index 1
-      top 6.7em
-      left calc(50% - 40em)
-      width 20em
+    @media embedBoxDesktopMinWidthQuery
+      bottom 0
+      left 0
+      padding-top topBuffer
+      position absolute
+      top 0
+      width navWidth
+
+      .sticky
+        display block
+        padding-top 1.5em
+        position sticky
+        top 0
+
+    @media embedBoxMobileMaxWidthQuery
+      padding-top topBuffer
 
     h1
-      margin-top 0
+      margin 0
       font-size 1.5em
 
       @media embedBoxDesktopMinWidthQuery
         font-size 1.6em
 
-    @media embedBoxDesktopMinWidthQuery
-      position absolute // TODO - position sticky?
-      z-index 1
-      top 4em
-      left 4em
-      width 20em
-
     ul.table-of-contents
       display block
       color siteDocsLinkColor
+      margin 0
 
       @media embedBoxMobileMaxWidthQuery
         margin-bottom 2em
@@ -384,11 +431,12 @@ html
 
   .docs-content
     display block
+    flex 1 1 auto
     position relative
 
     @media embedBoxDesktopMinWidthQuery
-      width 32em
-      margin-left auto
+      padding-top topBuffer
+      width 100%
 
     > *:first-child
       margin-top 0
@@ -436,27 +484,6 @@ html
     *:not(h2):not(h3) > a.without-underline
       color siteDocsLinkColor
       text-decoration none
-
-    .figure.embedbox-figure
-      display block
-      overflow hidden
-
-      iframe
-        width 100%
-        height 32em
-        max-height 100%
-
-      @media embedBoxExtraLargeDesktopMinWidthQuery
-        position absolute
-        left calc(100% + 2.5em)
-        width 32em
-        height 32em
-        max-height 90vh
-        min-height 20em
-
-        iframe
-          width 100%
-          height 100%
 
 .slide.made-by
   antialiasedFonts()
