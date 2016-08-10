@@ -2,11 +2,11 @@ main(
   data-column
   data-component="application"
   data-target-count=this.targets.length
-  data-mode=this.mode
+  data-mode=config.mode
   role="main")
   .modal(data-column)
     header.modal-header(role="menubar")
-      button(
+      .button(
         data-action="previous"
         data-ref="previousButton"
         tabindex="1"
@@ -14,7 +14,7 @@ main(
 
       span.title #{label("title")}
 
-      button(
+      .button(
         data-action="close"
         data-ref="closeModalButton"
         tabindex="2"

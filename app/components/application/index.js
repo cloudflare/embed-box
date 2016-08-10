@@ -114,7 +114,7 @@ export default class Application extends BaseComponent {
     }
   }
 
-  renderSiteTypeSearch() {
+  renderTargetSearch() {
     const {content} = this.refs
     const {firstChild} = content
     const siteTypeSearch = new SiteTypeSearch({
@@ -127,26 +127,29 @@ export default class Application extends BaseComponent {
     }).render()
 
     if (!firstChild) {
+      this.transitioning = false
       content.appendChild(siteTypeSearch)
       return
     }
 
+    siteTypeSearch.setAttribute("data-transition", "hidden-left")
     content.insertBefore(siteTypeSearch, firstChild)
 
-    siteTypeSearch.setAttribute("data-transition", "hidden-left")
-    siteTypeSearch.addEventListener("transitionend", () => {
-      this.removeElement(firstChild)
-      this.transitioning = false
-    })
+    requestAnimationFrame(() => {
+      siteTypeSearch.addEventListener("transitionend", () => {
+        this.removeElement(firstChild)
+        this.transitioning = false
+      })
 
-    requestAnimationFrame(() => siteTypeSearch.setAttribute("data-transition", "visible"))
+      siteTypeSearch.setAttribute("data-transition", "visible")
+    })
   }
 
   @autobind
   navigateToHome() {
-    this.transitioning = false
+    this.transitioning = true
     this.route = "home"
-    this.renderSiteTypeSearch()
+    this.renderTargetSearch()
     this.autofocus()
 
     this.element.setAttribute("data-route", this.route)
@@ -167,16 +170,18 @@ export default class Application extends BaseComponent {
     content.appendChild(targetWrapper)
 
     if (firstChild) {
-      firstChild.addEventListener("transitionend", () => {
-        this.removeElement(firstChild)
-        this.autofocus()
-        this.element.setAttribute("data-route", this.route)
-        this.transitioning = false
+      requestAnimationFrame(() => {
+        firstChild.addEventListener("transitionend", () => {
+          this.removeElement(firstChild)
+          this.autofocus()
+          this.element.setAttribute("data-route", this.route)
+          this.transitioning = false
 
-        targetWrapper.firstChild.focus()
+          targetWrapper.firstChild.focus()
+        })
+
+        firstChild.setAttribute("data-transition", "hidden-left")
       })
-
-      requestAnimationFrame(() => firstChild.setAttribute("data-transition", "hidden-left"))
     }
   }
 }

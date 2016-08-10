@@ -26,6 +26,8 @@ export default class BaseComponent {
   }
 
   autofocus() {
+    if (this.store.mode === "inline") return
+
     const focusElement = this.element.querySelector("[autofocus]")
 
     if (focusElement) focusElement.focus()

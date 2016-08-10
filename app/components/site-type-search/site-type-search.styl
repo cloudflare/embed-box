@@ -40,10 +40,12 @@ searchInputPlaceholder()
         outline none
 
   .types
+    // Fixes Firefox scroll issues. flex-grow will consume the remaining space.
+    height 0
     flex 1 1 auto
     overflow auto
     overflow-scrolling touch
-    z-index 1 // Fix box-shadow translucent stacking artifacts
+    z-index 1 // Fixes box-shadow translucent stacking artifacts
 
     .type
       position relative

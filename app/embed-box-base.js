@@ -41,7 +41,7 @@ export default class EmbedBoxBase {
 
   constructor(spec = {}) {
     const {iframeAttributes, stylesheet} = this.constructor
-    const store = createStore(this, spec)
+    const store = createStore(spec)
     const {iframe} = store
     const {
       autoShow = true,
@@ -53,20 +53,20 @@ export default class EmbedBoxBase {
       theme = {}
     } = spec
 
-    BaseComponent.prototype.store = store
+    Object.defineProperty(BaseComponent.prototype, "store", {
+      configurable: true,
+      get() { return store }
+    })
 
     Object
       .keys(iframeAttributes)
       .forEach(key => iframe.element.setAttribute(key, iframeAttributes[key]))
 
     this.container = typeof container === "string" ? document.querySelector(container) : container
-    const mode = this.container.tagName === "BODY" ? "modal" : "inline"
+    store.mode = this.container.tagName === "BODY" ? "modal" : "inline"
 
     iframe.element.className = `embed-box ${className}`
-    iframe.element.setAttribute("data-mode", mode)
-    this.container.appendChild(iframe.element) // iframe window & document is now accessible.
-
-    polyfillCustomEvent(iframe)
+    iframe.element.setAttribute("data-mode", store.mode)
     iframe.element.addEventListener("transitionend", this.handleTransitionEnd)
 
     this.iframe = iframe
@@ -76,8 +76,6 @@ export default class EmbedBoxBase {
 
     this.style.innerHTML = stylesheet
     document.head.appendChild(this.style)
-
-    this.appendIframeStylesheet(spec.style)
 
     const targetToComponent = Target => new Target({config: targetConfigs[Target.id] || {}})
     const targetConstructors = customTargets.concat(this.constructor.fetchedTargets)
@@ -97,15 +95,21 @@ export default class EmbedBoxBase {
       if (!visibleTargets.some(({id}) => id === initialTarget)) initialTarget = null
     }
 
-    this.application = new Application(this.iframe.document.body, {
-      initialTarget,
-      mode,
-      routing,
-      onClose: this.hide,
-      targets: visibleTargets.map(targetToComponent)
-    })
+    this.iframe.element.onload = () => {
+      this.appendIframeStylesheet(spec.style)
+      polyfillCustomEvent(iframe)
 
-    if (autoShow) this.show()
+      this.application = new Application(this.iframe.document.body, {
+        initialTarget,
+        routing,
+        onClose: this.hide,
+        targets: visibleTargets.map(targetToComponent)
+      })
+
+      if (autoShow) this.show()
+    }
+
+    this.container.appendChild(iframe.element) // iframe window & document is now accessible.
   }
 
   get visibility () {
@@ -165,7 +169,7 @@ export default class EmbedBoxBase {
     removeElement(this.iframe.element)
     removeElement(this.style)
 
-    BaseComponent.prototype.store = null
+    delete BaseComponent.prototype.store
 
     this.container.style.overflow = this.containerPreviousOverflow
   }
@@ -187,8 +191,9 @@ export default class EmbedBoxBase {
   @autobind
   show() {
     this.forceLayout("opacity")
+    const {mode} = BaseComponent.prototype.store
 
-    this.visibility = "showing"
+    this.visibility = mode === "inline" ? "shown" : "showing"
 
     this.containerPreviousOverflow = this.container.style.overflow
     this.container.style.overflow = "hidden"

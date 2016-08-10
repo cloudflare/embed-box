@@ -66,6 +66,9 @@
 .instructions.markdown
   cursor auto
   display block
+  flex 1 1 auto
+  // Fixes Firefox scroll issues. flex-grow will consume the remaining space.
+  height 0
   padding 3em 2em 3em 4em
   user-select text
 

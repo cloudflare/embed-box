@@ -26,8 +26,11 @@ sequence = sequence.concat(
 sequence.push({eventType: "scroll"})
 
 export function runDemo(iframe, onComplete = () => {}) {
+  let completionTimeout
+  let stepTimeout
   const {EmbedBox} = iframe.contentWindow
   const DEFAULTS = {
+    embedCode: "<script src='http://example.com/plugin.js'></script>",
     downloadURL: "about:blank",
     routing: false
   }
@@ -35,9 +38,12 @@ export function runDemo(iframe, onComplete = () => {}) {
   let running = true
 
   function createInteractiveDemo() {
+    clearTimeout(stepTimeout)
+    clearTimeout(completionTimeout)
+    running = false
+
     barrier.style.display = "none"
 
-    running = false
     if (embedBox) embedBox.destroy()
 
     embedBox = new EmbedBox({...DEFAULTS,
@@ -77,7 +83,7 @@ export function runDemo(iframe, onComplete = () => {}) {
         return
       }
 
-      setTimeout(onComplete, 2000)
+      completionTimeout = setTimeout(onComplete, 2000)
     }
 
     let runStep = () => {
@@ -106,7 +112,7 @@ export function runDemo(iframe, onComplete = () => {}) {
       if (next && next.entity === keyMap.backspace) delay = 1100
     }
 
-    setTimeout(runStep, delay)
+    stepTimeout = setTimeout(runStep, delay)
   }
 
   setTimeout(simulate, 1000)
