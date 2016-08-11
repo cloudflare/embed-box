@@ -37,7 +37,6 @@ module.exports = createWebpackConfig({
   plugins: [
     extractCSS,
     new HtmlWebpackPlugin({
-      favicon: "./app/site/assets/favicon.png",
       title: "EmbedBox install UI by Eager",
       description: "An open-source UI which makes it easy for your users to install your embed code.",
       template: "app/site/index.pug"
