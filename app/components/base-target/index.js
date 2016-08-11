@@ -97,12 +97,15 @@ export default class BaseTarget extends BaseComponent {
     const {autoDownload, iframe} = this.store
     const {copyButtons = [], versionSelector} = this.refs
 
-    this.versions.forEach(version => {
-      const option = iframe.document.createElement("option")
+    // Custom targets may not have a version selector.
+    if (versionSelector) {
+      this.versions.forEach(version => {
+        const option = iframe.document.createElement("option")
 
-      option.textContent = version
-      versionSelector.appendChild(option)
-    })
+        option.textContent = version
+        versionSelector.appendChild(option)
+      })
+    }
 
     copyButtons.forEach(copyButton => {
       const copyableContent = copyButton.parentNode.querySelector(".copyable")

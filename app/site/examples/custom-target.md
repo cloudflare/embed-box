@@ -8,7 +8,9 @@ var CustomTarget = EmbedBoxCustomTarget.extend({
   template: function(vars) {
     return ""
     + "<section>"
-    +   "<h1>Installing " + vars.config.name + "</h1>"
+    +   "<header class='target-title' data-column>"
+    +     "<h1>Installing " + vars.config.name + "</h1>"
+    +   "</header>"
     +   "<p>"
     +     "<a href='${vars.registerURL}'>Register an account</a>"
     +     " before installing."
