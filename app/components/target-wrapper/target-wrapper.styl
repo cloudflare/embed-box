@@ -72,6 +72,44 @@
   padding 3em 2em 3em 4em
   user-select text
 
+  .instructions-title:first-child
+    margin -3em -2em 0 -4em
+    padding 2em 4em 1.6em
+    background lightGrayRGBA
+    border-bottom 1px solid lightGrayRGBA
+    text-align center
+
+    svg.icon
+      width 3em
+      margin-bottom 1em
+
+    h1
+      text-align center
+      font-size 1.25em
+      font-weight 300
+      margin 0 0 .5em
+
+    .versions
+      color subtleTextRGBA
+      font-size .9em
+
+      span
+        display inline-block
+        margin-right .5em
+
+      select
+        display inline-block
+        height 2em
+        width 3.5em
+        border 1px solid lightLineGrayRGBA
+        background transparent
+        cursor pointer
+        font-family inherit
+        font-size inherit
+
+        &:hover
+          background #fff
+
   [data-content-slot]
     background lightGrayRGBA
     padding 1em
@@ -110,14 +148,6 @@
 
     > img
       max-width 100%
-
-  h1
-    font-size 1.25em
-    font-weight 300
-    margin-top 2em
-    margin-bottom 2em
-    text-align center
-    padding-right 2em
 
   h2
     font-size 1em

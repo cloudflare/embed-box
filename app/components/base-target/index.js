@@ -1,3 +1,4 @@
+import titleTemplate from "./title.pug"
 import beforeContentTemplate from "./before-content.pug"
 import afterContentTemplate from "./after-content.pug"
 
@@ -8,6 +9,7 @@ import autobind from "autobind-decorator"
 const AUTO_DOWNLOAD_DELAY = 3000
 
 export default class BaseTarget extends BaseComponent {
+  static titleTemplate = titleTemplate;
   static beforeContentTemplate = beforeContentTemplate;
   static afterContentTemplate = afterContentTemplate;
 
@@ -111,6 +113,10 @@ export default class BaseTarget extends BaseComponent {
     }
 
     return this.element
+  }
+
+  renderTitle() {
+    return this.constructor.titleTemplate.call(this, {config: this.store})
   }
 
   renderBeforeContent() {
