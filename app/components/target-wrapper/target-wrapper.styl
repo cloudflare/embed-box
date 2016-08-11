@@ -122,8 +122,8 @@
   ol.steps
     counter-reset item 0
     list-style none
-    margin 0 1.5em
-    padding 3em 2em 3em 4em
+    margin 0
+    padding 2em 2em 2em 4em
 
     div, footer, header, section
       display block
@@ -132,6 +132,12 @@
       counter-increment item
       margin 0
       position relative
+
+      &:first-child > *:first-child
+        margin-top 0
+
+      &:last-child > *:last-child
+        margin-bottom 0
 
       &:before
         background lightGrayRGBA
