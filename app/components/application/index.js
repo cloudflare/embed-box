@@ -115,7 +115,7 @@ export default class Application extends BaseComponent {
   }
 
   renderTargetSearch() {
-    const {content} = this.refs
+    const {content, title} = this.refs
     const {firstChild} = content
     const siteTypeSearch = new SiteTypeSearch({
       targets: this.targets,
@@ -125,6 +125,8 @@ export default class Application extends BaseComponent {
         this.navigateToTarget()
       }
     }).render()
+
+    title.textContent = this.label("title")
 
     if (!firstChild) {
       this.transitioning = false
@@ -159,13 +161,15 @@ export default class Application extends BaseComponent {
   navigateToTarget() {
     this.transitioning = true
 
-    const {content} = this.refs
+    const {content, title} = this.refs
     const {firstChild} = content
     const [target] = this.targets.filter(target => target.id === this.route)
     const targetWrapper = new TargetWrapper({
       onDone: this.closeModal,
       target
     }).render()
+
+    title.textContent = target.title
 
     content.appendChild(targetWrapper)
 

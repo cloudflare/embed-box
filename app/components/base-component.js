@@ -1,3 +1,5 @@
+import autobind from "autobind-decorator"
+
 // Ends with brackets e.g. [data-ref="foo[]"]
 const ARRAY_REF_PATTERN = /([a-zA-Z\d]*)(\[?\]?)/
 
@@ -61,16 +63,13 @@ export default class BaseComponent {
 
   compileTemplate(templateVars = {}) {
     const {template} = this.constructor
-    const config = this.store
-
-    function label(key) {
-      const value = config.labels[key]
-
-      return typeof value === "function" ? value(config) : value
-    }
 
     if (typeof template === "function") {
-      this.serializer.innerHTML = template.call(this, {config, label, ...templateVars})
+      this.serializer.innerHTML = template.call(this, {
+        config: this.store,
+        label: this.label,
+        ...templateVars
+      })
     }
     else {
       this.serializer.innerHTML = template
@@ -80,6 +79,14 @@ export default class BaseComponent {
     this.updateRefs()
 
     return this.element
+  }
+
+  @autobind
+  label(key) {
+    const {store} = this
+    const value = store.labels[key]
+
+    return typeof value === "function" ? value(store) : value
   }
 
   insertBefore(sibling, element) {

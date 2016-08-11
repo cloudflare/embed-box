@@ -11,4 +11,8 @@ export default class GenericTarget extends BaseTarget {
   get downloadLabel() {
     return "Download the plugin"
   }
+
+  get title() {
+    return `Installing ${this.store.name}.`
+  }
 }

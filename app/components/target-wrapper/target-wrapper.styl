@@ -69,38 +69,41 @@
   flex 1 1 auto
   // Fixes Firefox scroll issues. flex-grow will consume the remaining space.
   height 0
-  padding 3em 2em 3em 4em
   user-select text
 
-  .instructions-title:first-child
-    margin -3em -2em 0 -4em
-    padding 2em 4em 1.6em
+  .target-title:first-child
+    align-items center
     background lightGrayRGBA
     border-bottom 1px solid lightGrayRGBA
+    padding 2em 4em 1.6em
     text-align center
 
-    svg.icon
+    .icon
+      height 3em
       width 3em
       margin-bottom 1em
 
+      > svg
+        display block
+        width 100%
+
     h1
-      text-align center
       font-size 1.25em
       font-weight 300
       margin 0 0 .5em
+      text-align center
 
     .versions
+      align-items center
       color subtleTextRGBA
       font-size .9em
 
-      span
-        display inline-block
+      .label
         margin-right .5em
 
       select
         display inline-block
         height 2em
-        width 3.5em
         border 1px solid lightLineGrayRGBA
         background transparent
         cursor pointer
@@ -119,11 +122,15 @@
   ol.steps
     counter-reset item 0
     list-style none
-    margin 0
-    padding 0
+    margin 0 1.5em
+    padding 3em 2em 3em 4em
+
+      div, footer, header, section
+        display block
 
     li
       counter-increment item
+      margin 0
       position relative
 
       &:before
@@ -139,9 +146,6 @@
         text-align center
         top 0
         width 2em
-
-  div, footer, header, section
-    display block
 
   figure
     margin 2em -2em 0 -4em

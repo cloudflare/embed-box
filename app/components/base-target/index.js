@@ -2,9 +2,10 @@ import titleTemplate from "./title.pug"
 import beforeContentTemplate from "./before-content.pug"
 import afterContentTemplate from "./after-content.pug"
 
+import autobind from "autobind-decorator"
 import BaseComponent from "components/base-component"
 import Clipboard from "clipboard"
-import autobind from "autobind-decorator"
+import * as icons from "components/icons"
 
 const AUTO_DOWNLOAD_DELAY = 3000
 
@@ -78,15 +79,30 @@ export default class BaseTarget extends BaseComponent {
     return this.constructor.id
   }
 
+  get versions() {
+    return ["3.0.0", "2.0.0", "1.0.0"]
+  }
+
   get templateVars() {
     return this.constructor.templateVars
+  }
+
+  get title() {
+    return `Installing ${this.store.name} onto a ${this.label} site.`
   }
 
   render() {
     this.compileTemplate()
 
     const {autoDownload, iframe} = this.store
-    const {copyButtons = []} = this.refs
+    const {copyButtons = [], versionSelector} = this.refs
+
+    this.versions.forEach(version => {
+      const option = iframe.document.createElement("option")
+
+      option.textContent = version
+      versionSelector.appendChild(option)
+    })
 
     copyButtons.forEach(copyButton => {
       const copyableContent = copyButton.parentNode.querySelector(".copyable")
@@ -116,7 +132,12 @@ export default class BaseTarget extends BaseComponent {
   }
 
   renderTitle() {
-    return this.constructor.titleTemplate.call(this, {config: this.store})
+    const icon = icons[this.id]
+
+    return this.constructor.titleTemplate.call(this, {
+      config: this.store,
+      icon: icon.template
+    })
   }
 
   renderBeforeContent() {
