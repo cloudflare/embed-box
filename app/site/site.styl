@@ -10,14 +10,17 @@
 @import "../styl/link-underlines"
 @import "../styl/inline-svg"
 
-embedBoxDesktopMinWidth = 1000px
-embedBoxExtraLargeDesktopMinWidth = 1440px
+embedBoxDesktopMinWidth = 1080px
+embedBoxExtraLargeDesktopMinWidth = 1800px
 embedBoxDesktopMinWidthQuery = "(min-width: " + embedBoxDesktopMinWidth + ")"
 embedBoxExtraLargeDesktopMinWidthQuery = "(min-width: " + embedBoxExtraLargeDesktopMinWidth + ")"
 embedBoxMobileMaxWidthQuery = "(max-width: " + (embedBoxDesktopMinWidth - 1px) + ")"
+
 siteDocsBackgroundColor = #1e1e1e
 siteDocsColor = #e2e2de
 siteDocsLinkColor = #e6db74
+
+siteDocsTopBuffer = 3rem
 
 html
   background siteDocsBackgroundColor
@@ -86,12 +89,12 @@ html
 
     & > a
       // puts space above anchor when navigating by hash to it
-      margin-top -2.5em
-      padding-top 2.5em
+      margin-top -1 * siteDocsTopBuffer
+      padding-top siteDocsTopBuffer
 
     + .headline-with-anchor > a
-      margin-top -.5em
-      padding-top .5em
+      margin-top -1.5rem
+      padding-top 1.5rem
 
   .figure.frame-container
     position relative
@@ -319,30 +322,35 @@ html
           margin-bottom 2em
 
 .slide.docs
-  topBuffer = 4em
-  navWidth = 15%
-  demoWidth = 36%
+  gutterWidth = 3em
+  navWidth = 10em
+  demoWidth = calc(2em + 30vw)
+  demoPlusGutterWidth = calc(2em + 30vw + 3em)
+  largeDemoWidth = 34em
 
   antialiasedFonts()
   background siteDocsBackgroundColor
   color siteDocsColor
   display flex
   max-width 100%
-  padding-top 0
+  padding-top 5em
   position relative
 
   .wrapper
     display flex
     flex 1 0 auto
     position relative
-    width 100%
+    width 86em
+    max-width 100%
+    padding 0 demoPlusGutterWidth 0 (gutterWidth + navWidth)
 
-    @media embedBoxDesktopMinWidthQuery
-      padding-left "calc(%s + 3em)" % navWidth
-      padding-right "calc(%s + 1em)" % demoWidth
+    @media embedBoxExtraLargeDesktopMinWidthQuery
+      padding-right largeDemoWidth + gutterWidth
 
     @media embedBoxMobileMaxWidthQuery
       flex-flow column
+      padding-left 0
+      padding-right 0
 
   .demo-wrapper
     display block
@@ -354,9 +362,12 @@ html
       top 0
       width demoWidth
 
+      @media embedBoxExtraLargeDesktopMinWidthQuery
+        width largeDemoWidth
+
       .sticky
         display block
-        padding-top 2.5em
+        padding-top siteDocsTopBuffer
         position sticky
         top 0
 
@@ -390,22 +401,21 @@ html
     @media embedBoxDesktopMinWidthQuery
       bottom 0
       left 0
-      padding-top topBuffer
       position absolute
       top 0
       width navWidth
 
       .sticky
         display block
-        padding-top 1.5em
+        padding-top siteDocsTopBuffer
         position sticky
         top 0
 
     @media embedBoxMobileMaxWidthQuery
-      padding-top topBuffer
+      padding-top 0
 
     h1
-      margin 0
+      margin-top 0
       font-size 1.5em
 
       @media embedBoxDesktopMinWidthQuery
@@ -415,19 +425,32 @@ html
       display block
       color siteDocsLinkColor
       margin 0
+      list-style none
 
       @media embedBoxMobileMaxWidthQuery
         margin-bottom 2em
 
       @media embedBoxDesktopMinWidthQuery
-        padding-left .5em
+        padding-left 0
+
+        ul
+          padding-left 1.5em
+          list-style none
 
       ul
         margin-top 0
+        margin-bottom 0
+
+      > li
+        margin-bottom 1em
 
       a
         linkUnderlines siteDocsBackgroundColor, siteDocsLinkColor
         overflow ellipsis
+
+        &:not(:hover)
+          background none
+          text-shadow none
 
   .docs-content
     display block
@@ -435,7 +458,7 @@ html
     position relative
 
     @media embedBoxDesktopMinWidthQuery
-      padding-top topBuffer
+      padding-top siteDocsTopBuffer
       width 100%
 
     > *:first-child
@@ -539,16 +562,15 @@ button[data-run]
   antialiasedFonts()
   background #232323
   flex-flow row wrap
-  max-width 100%
+  width 100%
   position relative
-  width 700px
   margin-bottom 1em
 
   button[data-run]
     margin-top 1.5em
     margin-left 1.5em
 
-  @media mobileMaxWidthQuery
+  @media embedBoxMobileMaxWidthQuery
     button[data-run="inline"]
       display none
 
