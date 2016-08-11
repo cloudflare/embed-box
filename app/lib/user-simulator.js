@@ -35,6 +35,7 @@ export function runDemo(iframe, onComplete = () => {}) {
     routing: false
   }
   const barrier = iframe.parentNode.querySelector(".barrier")
+  const loadingDots = iframe.parentNode.querySelector(".loading-dots")
   let running = true
 
   function createInteractiveDemo() {
@@ -46,19 +47,28 @@ export function runDemo(iframe, onComplete = () => {}) {
 
     if (embedBox) embedBox.destroy()
 
-    embedBox = new EmbedBox({...DEFAULTS,
+    const config = {...DEFAULTS,
       events: {
         visibilityChange(visibility) {
-          if (visibility !== "hidden") return
+          if (visibility === "shown") {
+            loadingDots.setAttribute("data-state", "loaded")
+          }
 
-          setTimeout(createInteractiveDemo, 2500)
+          if (visibility === "hidden") {
+            loadingDots.setAttribute("data-state", "loading")
+            setTimeout(createInteractiveDemo, 2500)
+          }
         }
       }
-    })
+    }
+
+    loadingDots.setAttribute("data-state", "loading")
+    requestAnimationFrame(() => embedBox = new EmbedBox(config))
   }
 
   if (embedBox) embedBox.destroy()
   embedBox = new EmbedBox(DEFAULTS)
+  loadingDots.setAttribute("data-state", "loaded")
 
   barrier.addEventListener("click", createInteractiveDemo)
 
