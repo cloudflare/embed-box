@@ -131,6 +131,38 @@ html
   &.full
     min-height 100vh
 
+.slide.share-slide
+  padding-top 0
+
+  .share
+    display block
+    width 15em
+    white-space nowrap
+    text-align center
+    max-width 100%
+
+    .share-title
+      display block
+      font-size .9em
+      text-transform uppercase
+      letter-spacing .1em
+      text-indent .1em
+
+    .share-icons
+      display block
+      font-size 0
+
+    a.share-icon
+      display inline-block
+      font-size 1rem
+      width 4em
+      height 4em
+      padding 1em
+      color currentColor
+
+      &:hover svg
+        fill currentColor
+
 .slide.hero
   flex-flow row
   position relative
