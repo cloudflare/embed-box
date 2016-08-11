@@ -53,11 +53,6 @@ module.exports = function createWebpackConfig(overrides = {}) {
 
   $.postcss = () => [autoprefixer({remove: false, browsers: ["last 2 versions", "ie 9"]})]
 
-  $.stylus = {
-    // use: [nib],
-    // import: ["~nib/lib/nib/index.styl"]
-  }
-
   $.module = {
     loaders: loaders.concat([
       {test: /\.md$/, loader: "html!markdown", exclude},
