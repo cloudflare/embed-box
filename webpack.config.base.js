@@ -4,10 +4,10 @@
 const ENVIRONMENT = process.env.NODE_ENV || "development"
 const {resolve} = require("path")
 const route = require("./package.json").routes[ENVIRONMENT]
-const nib = require("nib")()
 const webpack = require("webpack")
 const marked = require("marked")
 const {highlight} = require("highlight.js")
+const autoprefixer = require("autoprefixer")
 
 const exclude = /node_modules/
 
@@ -51,9 +51,11 @@ module.exports = function createWebpackConfig(overrides = {}) {
     modules: [resolve(__dirname, "app"), "node_modules"]
   }
 
+  $.postcss = () => [autoprefixer({remove: false, browsers: ["last 2 versions", "ie 9"]})]
+
   $.stylus = {
-    use: [nib],
-    import: ["~nib/lib/nib/index.styl"]
+    // use: [nib],
+    // import: ["~nib/lib/nib/index.styl"]
   }
 
   $.module = {
@@ -63,7 +65,7 @@ module.exports = function createWebpackConfig(overrides = {}) {
       {test: /\.png|jpe?g|gif$/i, loader: "url?limit=0", exclude},
       {test: /\.js$/, loader: "babel", exclude},
       {test: /\.svg$/, loader: "svg-inline", exclude},
-      {test: /\.styl$/, loader: "css-to-string!css!autoprefixer!stylus-loader?paths=app/resources/"}
+      {test: /\.styl$/, loader: "css-to-string!css!postcss!stylus?paths=app/resources/"}
     ]),
     noParse: /\.min\.js/
   }
