@@ -10,6 +10,8 @@ const LIBRARY_SCRIPTS = [
   "./embed-box-custom-target.js"
 ]
 
+const CONSTRUCTOR_DEFAULTS = {}
+
 function loadDemoScripts(document, onComplete = () => {}) {
   let {length} = LIBRARY_SCRIPTS
 
@@ -94,18 +96,20 @@ document.addEventListener("DOMContentLoaded", () => {
   function evalRunButton(button) {
     const {parentElement} = button
     const useModal = button.getAttribute("data-run") === "modal"
-    const container = useModal ? document.body : runInlineContainer
     const example = parentElement.querySelector("code").innerText
 
     if (demoInstance) demoInstance.destroy()
-
     stopDemoLoop()
 
     // Clear previous demo routing.
-    window.history.pushState("", "", window.location.pathname)
+    if (typeof CONSTRUCTOR_DEFAULTS.routing !== "undefined") {
+      window.history.pushState("", "", window.location.pathname)
+    }
+
+    CONSTRUCTOR_DEFAULTS.container = useModal ? document.body : runInlineContainer
 
     Object.keys(PRISTINE_GLOBALS).forEach(key => {
-      window[key] = bindObjectArguments(PRISTINE_GLOBALS[key], {container})
+      window[key] = bindObjectArguments(PRISTINE_GLOBALS[key], CONSTRUCTOR_DEFAULTS)
     })
     window.eval(example) // eslint-disable-line no-eval
   }
@@ -114,7 +118,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
   buttons.forEach(element => element.addEventListener("click", evalRunButton.bind(null, element)))
 
+  // Prevent first demo from overwriting the URL anchor.
+  CONSTRUCTOR_DEFAULTS.routing = false
   evalRunButton(buttons[0])
+  delete CONSTRUCTOR_DEFAULTS.routing
+
   const instanceElement = demoInstance.application.element
 
   instanceElement.addEventListener("mouseover", stopDemoLoop)
