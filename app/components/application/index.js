@@ -6,7 +6,7 @@ import BaseComponent from "components/base-component"
 import {setRoute} from "lib/routing"
 import * as icons from "components/icons"
 import KM from "lib/key-map"
-import SiteTypeSearch from "components/site-type-search"
+import TargetSearch from "components/target-search"
 import TargetWrapper from "components/target-wrapper"
 
 export default class Application extends BaseComponent {
@@ -117,7 +117,7 @@ export default class Application extends BaseComponent {
   renderTargetSearch() {
     const {content, title} = this.refs
     const {firstChild} = content
-    const siteTypeSearch = new SiteTypeSearch({
+    const targetSearch = new TargetSearch({
       targets: this.targets,
       onSelection: this.setNavigationState,
       onSubmit: selectedId => {
@@ -130,20 +130,20 @@ export default class Application extends BaseComponent {
 
     if (!firstChild) {
       this.transitioning = false
-      content.appendChild(siteTypeSearch)
+      content.appendChild(targetSearch)
       return
     }
 
-    siteTypeSearch.setAttribute("data-transition", "hidden-left")
-    content.insertBefore(siteTypeSearch, firstChild)
+    targetSearch.setAttribute("data-transition", "hidden-left")
+    content.insertBefore(targetSearch, firstChild)
 
     requestAnimationFrame(() => {
-      siteTypeSearch.addEventListener("transitionend", () => {
+      targetSearch.addEventListener("transitionend", () => {
         this.removeElement(firstChild)
         this.transitioning = false
       })
 
-      siteTypeSearch.setAttribute("data-transition", "visible")
+      targetSearch.setAttribute("data-transition", "visible")
     })
   }
 

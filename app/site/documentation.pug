@@ -4,8 +4,8 @@ mixin anchored(tag, text)
   a.without-underline(name=escapedText href=("#" + escapedText))=text
   | </#{tag}>
 
-mixin codeExample(runnable)
-  .code-example(class={"has-run-button": runnable})
+mixin codeExample(runnable, id)
+  .code-example(class={"has-run-button": runnable} data-example-id=id)
     if runnable
       button(data-run="inline") Run inline
       button(data-run="modal") Run as modal
@@ -69,6 +69,17 @@ mixin codeExample(runnable)
 +codeExample(true)!= require("./examples/disabled-routing.md")
 
 +anchored("h2", "Customization")
+:marked
+  A target will use the "global" configuration unless a more specific option is set.
+
+  In this example all targets except Weebly will use the same `embedCode`
+
++codeExample(true)!= require("./examples/advanced.md")
+
+:marked
+  Use `EmbedBox.getTargetIDs()` to programatically get the bundled target IDs.
+
++codeExample(false, "target-ids")!= require("./examples/get-target-ids.md")
 
 +anchored("h3", "Themes")
 +codeExample(true)!= require("./examples/custom-theme.md")
@@ -96,13 +107,13 @@ mixin codeExample(runnable)
 
 +anchored("h3", "Ordering")
 :marked
-  Targets can be limited to a specific set and order with an array of target IDs.
-  Consult `EmbedBox.getTargetIDs()` for a list of IDs.
+  Targets can be limited to a specific set with the `order` option.
+  Set `order: -1` to disable a target entirely.
 
 +codeExample(true)!= require("./examples/visible-targets.md")
 
 :marked
-  If `visibleTargets` only has one entry, the target search will be skipped.
+  The target search will be skipped if only one target is visible.
 
 +codeExample(true)!= require("./examples/single-target.md")
 

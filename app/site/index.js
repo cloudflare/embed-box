@@ -54,7 +54,12 @@ document.addEventListener("DOMContentLoaded", () => {
   sticky.add(docsNav)
   sticky.add(demoWrapper)
 
-  const PRISTINE_GLOBALS = {
+  const targetIDExample = document.querySelector("[data-example-id='target-ids'] .hljs-comment")
+
+  targetIDExample.textContent = targetIDExample.textContent
+    .replace("{{TARGET_IDS}}", `[${window.EmbedBox.getTargetIDs().join(", ")}]`)
+
+  const PRISTINE_GLOBALS = window.PRISTINE_GLOBALS = {
     EmbedBox: window.EmbedBox,
     EmbedBoxCustom: window.EmbedBoxCustom
   }
@@ -64,7 +69,7 @@ document.addEventListener("DOMContentLoaded", () => {
   let createInteractiveDemo
 
   function bindObjectArguments(Constructor, boundSpec = {}) {
-    return spec => {
+    return function BoundConstructor(spec) {
       demoInstance = new Constructor({...boundSpec, ...spec})
 
       return demoInstance

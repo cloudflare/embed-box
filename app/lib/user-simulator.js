@@ -73,7 +73,7 @@ export function runDemo(iframe, onComplete = () => {}) {
   barrier.addEventListener("click", createInteractiveDemo)
 
   const iframeDocument = embedBox.iframe.document
-  const searchComponent = iframeDocument.querySelector("[data-component='site-type-search']")
+  const searchComponent = iframeDocument.querySelector("[data-component='target-search']")
   const input = searchComponent.querySelector(".search")
 
   function simulate(index = 0) {

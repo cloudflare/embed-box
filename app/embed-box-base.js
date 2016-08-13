@@ -85,15 +85,23 @@ export default class EmbedBoxBase {
     this.style.innerHTML = stylesheet
     document.head.appendChild(this.style)
 
-    const targetToComponent = Target => new Target({config: targetConfigs[Target.id] || {}})
+    const getConfig = ({id}) => targetConfigs[id] || {}
+    const targetToComponent = Target => new Target({config: getConfig(Target)})
     const targetConstructors = customTargets.concat(this.constructor.fetchedTargets)
-    let visibleTargets = targetConstructors
+    const visibleTargets = targetConstructors
+      .filter(Target => getConfig(Target).order !== -1)
+      .sort((a, b) => {
+        const orderA = getConfig(a).order
+        const orderB = getConfig(b).order
+        const aDefined = typeof orderA === "number"
+        const bDefined = typeof orderB === "number"
 
-    if (spec.visibleTargets) {
-      visibleTargets = spec.visibleTargets.map(id => {
-        return targetConstructors.filter(Target => Target.id === id)[0]
+        if (aDefined && bDefined) return orderA - orderB // Explicit order between targets
+        else if (aDefined) return -1
+        else if (bDefined) return 1
+
+        return 0 // Implicit order from fetchedTargets
       })
-    }
 
     let {initialTarget} = spec
 
@@ -156,7 +164,7 @@ export default class EmbedBoxBase {
       }
 
       .button.primary, button.primary,
-      [data-component="site-type-search"] .types .type[data-selected],
+      [data-component="target-search"] .entries .entry[data-selected],
       .accent-background-color {
         background: ${theme.accentColor} !important;
       }

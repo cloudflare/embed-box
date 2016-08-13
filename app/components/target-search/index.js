@@ -1,24 +1,21 @@
-import stylesheet from "./site-type-search.styl"
+import stylesheet from "./target-search.styl"
 
 import autobind from "autobind-decorator"
 import BaseComponent from "components/base-component"
-import template from "./site-type-search.pug"
+import template from "./target-search.pug"
 import * as icons from "components/icons"
 import KM from "lib/key-map"
 
 const {search: SearchIcon} = icons
+const entryQuery = id => `.entry[data-id=${id}]`
 
-function setVisibility(element, hidden) {
-  element.style.display = hidden ? "none" : ""
-}
-
-export default class SiteTypeSearch extends BaseComponent {
+export default class TargetSearch extends BaseComponent {
   static template = template;
   static stylesheet = stylesheet;
 
   selectedId = null;
 
-  get types() {
+  get entrySpecs() {
     const {query, targets} = this
 
     return targets.map(({id, label, fallback}) => {
@@ -30,22 +27,11 @@ export default class SiteTypeSearch extends BaseComponent {
 
   @autobind
   handleSearchInput() {
-    const {search, typesContainer} = this.refs
+    const {search} = this.refs
+    const [firstVisible] = this.entrySpecs.filter(({hidden}) => !hidden)
 
     this.query = search.value.toLowerCase()
-
-    this.types.forEach(({id, hidden}) => {
-      const type = typesContainer.querySelector(`.type[data-id=${id}]`)
-
-      type.removeAttribute("data-first-visible")
-      setVisibility(type, hidden)
-    })
-
-    const [firstVisible] = this.types.filter(({hidden}) => !hidden)
-    const firstVisibleEl = typesContainer.querySelector(`.type[data-id=${firstVisible.id}]`)
-
-    firstVisibleEl.setAttribute("data-first-visible", "")
-    this.selectType(firstVisible.id)
+    this.selectEntry(firstVisible ? firstVisible.id : null)
   }
 
   @autobind
@@ -60,19 +46,19 @@ export default class SiteTypeSearch extends BaseComponent {
     if (nativeEvent) nativeEvent.preventDefault()
 
     let {selectedId} = this
-    const types = this.types.filter(type => !type.hidden)
+    const entrySpecs = this.entrySpecs.filter(spec => !spec.hidden)
 
-    if (!types.length) return
+    if (!entrySpecs.length) return
 
-    const {length} = types
-    const currentIndex = types.findIndex(({id}) => id === selectedId) || 0
+    const {length} = entrySpecs
+    const currentIndex = entrySpecs.findIndex(({id}) => id === selectedId) || 0
 
     // Move the index by delta and wrap around the bottom/top.
     const nextIndex = (currentIndex + delta + length) % length
 
-    selectedId = types[nextIndex].id
+    selectedId = entrySpecs[nextIndex].id
 
-    this.selectType(selectedId)
+    this.selectEntry(selectedId)
   }
 
   @autobind
@@ -92,17 +78,28 @@ export default class SiteTypeSearch extends BaseComponent {
     this.onSubmit(this.selectedId)
   }
 
-  selectType(selectedId) {
-    const {types, typesContainer, search} = this.refs
+  selectEntry(selectedId) {
+    const {entrySpecs} = this
+    const {entries, entriesContainer, search} = this.refs
     const iframeDocument = this.store.iframe.document
-    const selectedType = typesContainer.querySelector(`.type[data-id="${selectedId}"]`)
+    const entryEl = entriesContainer.querySelector(entryQuery(selectedId))
+    const visibleSpecs = entrySpecs.filter(entry => !entry.hidden)
 
     this.selectedId = selectedId
 
-    types.forEach(this.setTypeStyle)
+    entries.forEach(entryEl => {
+      entryEl.setAttribute("data-visible-order", -1)
+      this.setEntryStyle(entryEl)
+    })
 
-    if (search !== iframeDocument.activeElement) {
-      selectedType.focus()
+    visibleSpecs.forEach((spec, index) => {
+      const entryEl = entriesContainer.querySelector(entryQuery(spec.id))
+
+      entryEl.setAttribute("data-visible-order", index)
+    })
+
+    if (search !== iframeDocument.activeElement && entryEl) {
+      entryEl.focus()
     }
 
     this.setNavigationState()
@@ -124,7 +121,7 @@ export default class SiteTypeSearch extends BaseComponent {
 
     search.addEventListener("input", this.handleSearchInput)
 
-    this.renderTypes()
+    this.renderEntries()
     this.setNavigationState()
 
     this.element.addEventListener("dispatched-keydown", this.handleDelgatedKeydown)
@@ -135,45 +132,47 @@ export default class SiteTypeSearch extends BaseComponent {
     return this.element
   }
 
-  renderTypes() {
-    const {typesContainer} = this.refs
+  renderEntries() {
+    const {entriesContainer} = this.refs
 
-    this.types.forEach($ => {
-      const Icon = icons[$.id] || icons.generic
+    this.entrySpecs.forEach((spec, index) => {
+      const Icon = icons[spec.id] || icons.generic
       const icon = new Icon()
-      const typeEl = typesContainer.appendChild(document.createElement("div"))
+      const entry = entriesContainer.appendChild(document.createElement("div"))
+      const attributes = {
+        class: "entry",
+        tabindex: 4,
+        "data-action": "",
+        "data-id": spec.id,
+        "data-ref": "entries[]",
+        "data-visible-order": index
+      }
 
-      typeEl.className = "type"
-      typeEl.setAttribute("tabindex", "4")
-      typeEl.setAttribute("data-action", "")
-      typeEl.setAttribute("data-ref", "types[]")
-      typeEl.setAttribute("data-id", $.id)
-      setVisibility(typeEl, $.hidden)
+      Object.keys(attributes).forEach(key => entry.setAttribute(key, attributes[key]))
+      this.setEntryStyle(entry)
 
-      typeEl.appendChild(icon.render())
-      typeEl.appendChild(document.createTextNode($.label))
+      entry.appendChild(icon.render())
+      entry.appendChild(document.createTextNode(spec.label))
 
       this.updateRefs()
-      this.setTypeStyle(typeEl)
 
-      typeEl.addEventListener("click", () => this.selectType($.id))
+      entry.addEventListener("click", () => this.selectEntry(spec.id))
 
-      typeEl.addEventListener("keydown", event => {
+      entry.addEventListener("keydown", event => {
         if (event.keyCode === KM.enter || event.keyCode === KM.spacebar) {
           event.preventDefault()
-          this.selectType($.id)
+          this.selectEntry(spec.id)
         }
       })
     })
   }
 
-  @autobind
-  setTypeStyle(element) {
-    if (element.getAttribute("data-id") === this.selectedId) {
-      element.setAttribute("data-selected", "")
+  setEntryStyle(entryEl) {
+    if (entryEl.getAttribute("data-id") === this.selectedId) {
+      entryEl.setAttribute("data-selected", "")
     }
     else {
-      element.removeAttribute("data-selected")
+      entryEl.removeAttribute("data-selected")
     }
   }
 }

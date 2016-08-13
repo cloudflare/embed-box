@@ -5,7 +5,7 @@ searchInputPlaceholder()
   font-family inherit
   font-size 1em
 
-[data-component="site-type-search"]
+[data-component="target-search"]
   .header
     align-items center
     box-shadow 0 1px lightLineGrayRGBA
@@ -39,7 +39,7 @@ searchInputPlaceholder()
       &:focus
         outline none
 
-  .types
+  .entries
     // Fixes Firefox scroll issues. flex-grow will consume the remaining space.
     height 0
     flex 1 1 auto
@@ -47,7 +47,7 @@ searchInputPlaceholder()
     overflow-scrolling touch
     z-index 1 // Fixes box-shadow translucent stacking artifacts
 
-    .type
+    .entry
       position relative
       cursor pointer
       align-items center
@@ -58,7 +58,10 @@ searchInputPlaceholder()
       border-left 0
       border-right 0
 
-      &:first-child, &[data-first-visible]
+      &[data-visible-order="-1"]
+        display none
+
+      &[data-visible-order="0"]
         border-top-color transparent
 
       &:last-child
