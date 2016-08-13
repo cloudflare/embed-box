@@ -102,7 +102,7 @@ document.addEventListener("DOMContentLoaded", () => {
     stopDemoLoop()
 
     // Clear previous demo routing.
-    if (typeof CONSTRUCTOR_DEFAULTS.routing !== "undefined") {
+    if (typeof CONSTRUCTOR_DEFAULTS.routing === "undefined") {
       window.history.pushState("", "", window.location.pathname)
     }
 
