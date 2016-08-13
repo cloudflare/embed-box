@@ -19,11 +19,11 @@ linkUnderlines(backgroundColor, color, lineTop = 87%)
     background-position 0% (lineTop - 2%), 100% (lineTop - 2%), 0% (lineTop - 2%)
 
   &::selection
-    textShadowToCropUnderline selectionColor
+    text-shadow none
     background selectionColor
 
   &::-moz-selection
-    textShadowToCropUnderline selectionColor
+    text-shadow none
     background selectionColor
 
   &:before, &:after, *, *:before, *:after
