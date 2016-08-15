@@ -5,6 +5,8 @@ import {runDemo} from "site/lib/user-simulator"
 import loadScripts from "site/lib/load-scripts"
 import renderTOC from "site/lib/render-toc"
 
+const DESKTOP_MIN_WIDTH = 1080
+
 const LIBRARY_SCRIPTS = [
   "./embed-box.js",
   "./embed-box-custom.js",
@@ -28,6 +30,22 @@ document.addEventListener("DOMContentLoaded", () => {
   const runInlineContainer = document.getElementById("run-inline-container")
   let demoInstance = null
   let createInteractiveDemo
+
+  window.addEventListener("resize", () => {
+    if (!demoInstance || demoInstance.mode === "modal" && !demoInstance.modeAdjusted) return
+
+    const isDesktop = document.body.clientWidth >= DESKTOP_MIN_WIDTH
+
+    if (isDesktop && demoInstance.mode === "modal") {
+      demoInstance.container = runInlineContainer
+      // Ensure deliberately chosen modal mode is not altered
+      demoInstance.modeAdjusted = true
+    }
+    else if (!isDesktop && demoInstance.mode === "inline") {
+      demoInstance.container = document.body
+      demoInstance.modeAdjusted = true
+    }
+  })
 
   function bindObjectArguments(Constructor, boundSpec = {}) {
     return function BoundConstructor(spec) {
@@ -57,7 +75,10 @@ document.addEventListener("DOMContentLoaded", () => {
     const useModal = button.getAttribute("data-run") === "modal"
     const example = parentElement.querySelector("code").innerText
 
-    if (demoInstance) demoInstance.destroy()
+    if (demoInstance) {
+      demoInstance.destroy()
+      demoInstance = null
+    }
     stopDemoLoop()
 
     // Clear previous demo routing.

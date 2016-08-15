@@ -70,17 +70,16 @@ export default class EmbedBoxBase {
       .keys(iframeAttributes)
       .forEach(key => iframe.element.setAttribute(key, iframeAttributes[key]))
 
-    this.container = typeof container === "string" ? document.querySelector(container) : container
-    store.mode = this.container.tagName === "BODY" ? "modal" : "inline"
-
     iframe.element.className = `embed-box ${className}`
-    iframe.element.setAttribute("data-mode", store.mode)
     iframe.element.addEventListener("transitionend", this.handleTransitionEnd)
 
+    this.destroyed = false
     this.iframe = iframe
     this.events = spec.events || {}
     this.theme = {...this.constructor.theme, ...theme}
     this.style = document.createElement("style")
+
+    this.container = container
 
     this.style.innerHTML = stylesheet
     document.head.appendChild(this.style)
@@ -138,6 +137,35 @@ export default class EmbedBoxBase {
     this.container.appendChild(iframe.element) // iframe window & document is now accessible.
   }
 
+  get container() {
+    return this._container
+  }
+
+  set container(value) {
+    const iframeElement = this.iframe.element
+
+    this._container = typeof value === "string" ? document.querySelector(value) : value
+    const mode = this._container.tagName === "BODY" ? "modal" : "inline"
+
+    this._store.mode = mode
+    iframeElement.setAttribute("data-mode", mode)
+
+    if (iframeElement.parentNode) {
+      this.resetOverflow()
+      this._container.appendChild(iframeElement)
+    }
+
+    return this._container
+  }
+
+  get mode() {
+    return this._store.mode
+  }
+
+  get _store() {
+    return BaseComponent.prototype.store || {}
+  }
+
   get visibility () {
     return this.iframe.element.getAttribute(VISIBILITY_ATTRIBUTE)
   }
@@ -146,7 +174,7 @@ export default class EmbedBoxBase {
     const {element} = this.iframe
 
     element.style.display = value === "hidden" ? "none" : ""
-    this.iframe.element.setAttribute(VISIBILITY_ATTRIBUTE, value)
+    element.setAttribute(VISIBILITY_ATTRIBUTE, value)
 
     if (this.events.visibilityChange) this.events.visibilityChange(value)
 
@@ -188,6 +216,8 @@ export default class EmbedBoxBase {
   }
 
   destroy() {
+    this.destroyed = true
+
     Array
       .from(document.querySelectorAll(".embed-box-download-iframe"))
       .forEach(removeElement)
@@ -197,7 +227,7 @@ export default class EmbedBoxBase {
 
     storeReceivers.forEach(Receiver => delete Receiver.prototype.store)
 
-    this.container.style.overflow = this.containerPreviousOverflow
+    this.resetOverflow()
   }
 
   // Forces browser to compute transitions on elements inserted in current frame.
@@ -205,21 +235,24 @@ export default class EmbedBoxBase {
     return getComputedStyle(this.iframe.element)[attribute]
   }
 
-  @autobind
-  hide() {
-    this.forceLayout("opacity")
-    this.visibility = "hiding"
-
+  resetOverflow() {
     this.container.style.overflow = this.containerPreviousOverflow
     this.containerPreviousOverflow = ""
   }
 
   @autobind
+  hide() {
+    this.forceLayout("opacity")
+    this.visibility = "hiding"
+
+    this.resetOverflow()
+  }
+
+  @autobind
   show() {
     this.forceLayout("opacity")
-    const {mode} = BaseComponent.prototype.store
 
-    this.visibility = mode === "inline" ? "shown" : "showing"
+    this.visibility = this.mode === "inline" ? "shown" : "showing"
 
     this.containerPreviousOverflow = this.container.style.overflow
     this.container.style.overflow = "hidden"
