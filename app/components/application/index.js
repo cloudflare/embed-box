@@ -169,7 +169,7 @@ export default class Application extends BaseComponent {
       target
     }).render()
 
-    title.textContent = target.title
+    title.textContent = target.modalTitle
 
     content.appendChild(targetWrapper)
 

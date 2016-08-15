@@ -5,6 +5,6 @@ header.target-title(data-column)
 
   if this.versions.length > 0
     .versions
-      .label Instructions for #{this.label} version
+      .label!= this.instructionsLabel
 
       select(data-ref="versionSelector")

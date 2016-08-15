@@ -12,6 +12,15 @@ export default class GenericTarget extends BaseTarget {
     return "Download the plugin"
   }
 
+  get modalTitle() {
+    return this.title
+  }
+
+  get versions() {
+    // TODO: Placeholder for real version logic.
+    return []
+  }
+
   get title() {
     return `Installing ${this.store.name}.`
   }

@@ -79,6 +79,14 @@ export default class BaseTarget extends BaseComponent {
     return this.constructor.id
   }
 
+  get instructionsLabel() {
+    return `Instructions for ${this.label} version`
+  }
+
+  get modalTitle() {
+    return `Installing ${this.store.name} › ${this.label}`
+  }
+
   get versions() {
     return ["3.0.0", "2.0.0", "1.0.0"]
   }
