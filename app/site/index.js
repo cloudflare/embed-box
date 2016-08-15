@@ -1,8 +1,9 @@
 import "babel-polyfill"
 import "./site.external-styl"
 
-import {runDemo} from "lib/user-simulator"
-import createSticky from "stickyfill"
+import {runDemo} from "site/lib/user-simulator"
+import loadScripts from "site/lib/load-scripts"
+import renderTOC from "site/lib/render-toc"
 
 const LIBRARY_SCRIPTS = [
   "./embed-box.js",
@@ -12,50 +13,8 @@ const LIBRARY_SCRIPTS = [
 
 const CONSTRUCTOR_DEFAULTS = {}
 
-function loadDemoScripts(document, onComplete = () => {}) {
-  let {length} = LIBRARY_SCRIPTS
-
-  function onload() {
-    length--
-    if (length === 0) onComplete()
-  }
-
-  LIBRARY_SCRIPTS.forEach(src => {
-    const script = document.createElement("script")
-
-    Object.assign(script, {src, onload})
-    document.head.appendChild(script)
-  })
-}
-
 document.addEventListener("DOMContentLoaded", () => {
-  const sticky = createSticky()
-  const toc = document.querySelector(".table-of-contents")
-  const docsNav = document.querySelector(".docs-nav > .sticky")
-  const demoWrapper = document.querySelector(".demo-wrapper > .sticky")
-
-  Array
-    .from(document.querySelectorAll("h2.headline-with-anchor [name], h3.headline-with-anchor [name]"))
-    .forEach(({parentNode, href, textContent}) => {
-      const ul = parentNode.tagName === "H3" ? toc.lastChild.lastChild : toc
-      const li = document.createElement("li")
-      const a = document.createElement("a")
-
-      Object.assign(a, {href, textContent})
-
-      li.appendChild(a)
-      ul.appendChild(li)
-
-      if (parentNode.tagName === "H2") {
-        const nextUl = document.createElement("ul")
-
-        li.appendChild(nextUl)
-      }
-    })
-
-  sticky.add(docsNav)
-  sticky.add(demoWrapper)
-
+  renderTOC()
   const targetIDExample = document.querySelector("[data-example-id='target-ids'] .hljs-comment")
 
   targetIDExample.textContent = targetIDExample.textContent
@@ -82,7 +41,7 @@ document.addEventListener("DOMContentLoaded", () => {
     createInteractiveDemo = runDemo(automatedFrame, loopRunDemo)
   }
 
-  loadDemoScripts(automatedFrame.contentDocument, loopRunDemo)
+  loadScripts(LIBRARY_SCRIPTS, automatedFrame.contentDocument, loopRunDemo)
 
   function stopDemoLoop() {
     if (createInteractiveDemo) {
