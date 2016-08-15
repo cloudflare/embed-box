@@ -23,8 +23,18 @@ export default class BaseTarget extends BaseComponent {
       static label = label;
       static template = template || "";
       static templateVars = templateVars || {}
+      static isConstructable() {
+        return true
+      }
     }
   };
+
+  static isConstructable(config, store) {
+    const hasEmbedCode = !!(config.embedCode || store.embedCode)
+    const hasPluginURL = !!config.pluginURL
+
+    return hasEmbedCode || hasPluginURL
+  }
 
   compileTemplate() {
     BaseComponent.prototype.compileTemplate.call(this, this.templateVars)
@@ -45,12 +55,12 @@ export default class BaseTarget extends BaseComponent {
     return `Download the ${this.label} plugin`
   }
 
-  get downloadURL() {
-    return this.config.downloadURL || this.store.downloadURL
+  get pluginURL() {
+    return this.config.pluginURL
   }
 
   get copyText() {
-    if (this.downloadURL) return `<script src="${this.downloadURL}"></script>`
+    if (this.pluginURL) return `<script src="${this.pluginURL}"></script>`
 
     return this.config.embedCode || this.store.embedCode
   }
@@ -129,7 +139,7 @@ export default class BaseTarget extends BaseComponent {
       })
     })
 
-    if (autoDownload && this.downloadURL) {
+    if (autoDownload && this.pluginURL) {
       setTimeout(this.startDownload, AUTO_DOWNLOAD_DELAY)
     }
 
@@ -137,7 +147,7 @@ export default class BaseTarget extends BaseComponent {
   }
 
   renderTitle() {
-    const icon = icons[this.id]
+    const icon = icons[this.id] || icons.generic
 
     return this.constructor.titleTemplate.call(this, {
       config: this.store,
@@ -158,7 +168,7 @@ export default class BaseTarget extends BaseComponent {
     const downloadIframe = document.createElement("iframe")
 
     downloadIframe.className = "embed-box-download-iframe"
-    downloadIframe.src = this.downloadURL
+    downloadIframe.src = this.pluginURL
     document.body.appendChild(downloadIframe)
   }
 }

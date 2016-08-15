@@ -9,8 +9,6 @@ export function createStore(spec = {}) {
     beforeContent: spec.beforeContent || "",
     afterContent: spec.afterContent || "",
 
-    downloadURL: spec.downloadURL || "",
-
     embedCode: spec.embedCode || "",
 
     fallbackID: typeof spec.fallbackID !== "undefined" ? spec.fallbackID : "generic",
@@ -25,14 +23,14 @@ export function createStore(spec = {}) {
       }
     },
 
+    insertInHead: spec.insertInHead || false,
+
     labels: {
       done: "Done",
       searchPlaceholder: "Select or search the type of website you have...",
       next: "Next",
       title: config => `Add ${config.name} to your site`,
       ...labels
-    },
-
-    insertInHead: spec.insertInHead || false
+    }
   }
 }

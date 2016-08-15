@@ -6,6 +6,7 @@
   "extends": "eslint:recommended",
   "ecmaVersion": 7,
   "globals": {
+    "BASE_URL": null,
     "process": null
   },
   "parser": "babel-eslint",

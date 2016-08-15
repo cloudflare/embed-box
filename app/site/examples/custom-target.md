@@ -8,19 +8,19 @@ var CustomTarget = EmbedBoxCustomTarget.extend({
   template: function(vars) {
     return ""
     + "<section>"
-    +   "<header class='target-title' data-column>"
-    +     "<h1>Installing " + vars.config.name + "</h1>"
-    +   "</header>"
-    +   "<p>"
-    +     "<a href='${vars.registerURL}'>Register an account</a>"
-    +     " before installing."
-    +   "</p>"
+    +   this.renderTitle()
+    +   this.renderBeforeContent()
+    +   "<ol class='steps'>"
+    +     "<li>"
+    +       "<a href='${vars.registerURL}'>Register an account</a> before installing."
+    +     "</li>"
+    +   "</ol>"
+    +   this.renderAfterContent()
     + "</section>"
   }
 })
 
 new EmbedBoxCustom({
-  name: "Custom Target Example",
   customTargets: [CustomTarget]
 })
 ```

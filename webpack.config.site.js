@@ -4,6 +4,7 @@
 const createWebpackConfig = require("./webpack.config.base")
 const HtmlWebpackPlugin = require("html-webpack-plugin")
 const ExtractTextPlugin = require("extract-text-webpack-plugin")
+const CopyWebpackPlugin = require("copy-webpack-plugin")
 
 const extractCSS = new ExtractTextPlugin("site.css")
 
@@ -40,6 +41,9 @@ module.exports = createWebpackConfig({
       title: "EmbedBox install UI by Eager",
       description: "An open-source UI which makes it easy for your users to install your embed code.",
       template: "app/site/index.pug"
-    })
+    }),
+    new CopyWebpackPlugin([
+      {from: "./app/site/assets/examples", to: "examples"}
+    ])
   ]
 })

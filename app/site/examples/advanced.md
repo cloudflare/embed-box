@@ -1,10 +1,10 @@
 ```javascript
 new EmbedBox({
   name: "Example Plugin",
-  embedCode: "<script src='http://example.com/library.js'></script>",
+  embedCode: "<script src='{{BASE_URL}}/examples/library.js'></script>",
   targets: {
     weebly: {
-      embedCode: "<script src='http://example.com/weebly-library.js'></script>",
+      embedCode: "<script src='{{BASE_URL}}/examples/weebly-example-library.js'></script>"
     }
   }
 })

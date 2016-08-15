@@ -36,9 +36,8 @@ export function runDemo(iframe, onComplete = () => {}) {
 
   const {EmbedBox} = iframe.contentWindow
   const sequence = createSequence(EmbedBox)
-  const DEFAULTS = {
-    embedCode: "<script src='http://example.com/plugin.js'></script>",
-    downloadURL: "about:blank",
+  const defaults = {
+    embedCode: `<script src='${BASE_URL}/examples/generic-library.js'></script>`,
     routing: false
   }
   const barrier = iframe.parentNode.querySelector(".barrier")
@@ -56,7 +55,7 @@ export function runDemo(iframe, onComplete = () => {}) {
 
     if (instance) instance.destroy()
 
-    const config = {...DEFAULTS,
+    const config = {...defaults,
       events: {
         visibilityChange(visibility) {
           if (visibility === "shown") {
@@ -76,7 +75,7 @@ export function runDemo(iframe, onComplete = () => {}) {
   }
 
   if (instance) instance.destroy()
-  instance = new EmbedBox(DEFAULTS)
+  instance = new EmbedBox(defaults)
   loadingDots.setAttribute("data-state", "loaded")
 
   barrier.addEventListener("click", createInteractiveDemo)

@@ -86,10 +86,13 @@ export default class EmbedBoxBase {
     document.head.appendChild(this.style)
 
     const getConfig = ({id}) => targetConfigs[id] || {}
-    const targetToComponent = Target => new Target({config: getConfig(Target)})
     const targetConstructors = customTargets.concat(this.constructor.fetchedTargets)
     const visibleTargets = targetConstructors
-      .filter(Target => getConfig(Target).order !== -1)
+      .filter(Target => {
+        const config = getConfig(Target)
+
+        return config.order !== -1 && Target.isConstructable(config, store)
+      })
       .sort((a, b) => {
         const orderA = getConfig(a).order
         const orderB = getConfig(b).order
@@ -102,6 +105,13 @@ export default class EmbedBoxBase {
 
         return 0 // Implicit order from fetchedTargets
       })
+
+    if (visibleTargets.length === 0) {
+      console.error([
+        "EmbedBox: No targets were constructable.",
+        "Is `embedCode` or `pluginURL` specified?"
+      ].join(" "), spec)
+    }
 
     let {initialTarget} = spec
 
@@ -119,7 +129,7 @@ export default class EmbedBoxBase {
         initialTarget,
         routing,
         onClose: this.hide,
-        targets: visibleTargets.map(targetToComponent)
+        targets: visibleTargets.map(Target => new Target({config: getConfig(Target)}))
       })
 
       if (autoShow) this.show()

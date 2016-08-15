@@ -3,10 +3,10 @@ section
   != this.renderBeforeContent()
 
   ol.steps
-    if this.downloadURL
+    if this.pluginURL
       li
         h2
-          a.more(target="_blank" href=this.downloadURL)= this.downloadLabel
+          a.more(target="_blank" href=this.pluginURL)= this.downloadLabel
           div= this.autoDownloadLabel
 
     li

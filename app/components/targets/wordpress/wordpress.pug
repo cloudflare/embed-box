@@ -3,10 +3,10 @@ section
   != this.renderBeforeContent()
 
   ol.steps
-    if this.downloadURL
+    if this.pluginURL
       li
         h2
-          a.more(target="_blank" href=this.downloadURL)= this.downloadLabel
+          a.more(target="_blank" href=this.pluginURL)= this.downloadLabel
           div= this.autoDownloadLabel
 
         p After downloading, don’t unzip the file.
@@ -14,8 +14,7 @@ section
       li
         h2 Upload the plugin to your WordPress Admin site
 
-        figure
-          img(src=require("./upload-plugin.png"))
+        figure: img(src=require("./upload-plugin.png"))
 
         p In your WordPress Admin, navigate to: <strong>Plugins <span class="with-more-icon-after"></span> Add New <span class="with-more-icon-after"></span> Upload Plugin</strong>.
         p Click “Choose File” and select the file you just downloaded.</p>
@@ -23,8 +22,7 @@ section
       li
         h2 Activate the plugin and view your site
 
-        figure
-          img(src=require("./activate-plugin.png"))
+        figure: img(src=require("./activate-plugin.png"))
 
         p Click “Activate Plugin”.
         p After it activates you’ll see a welcome message letting you know the installation was successful!

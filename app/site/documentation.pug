@@ -21,13 +21,29 @@ mixin codeExample(runnable, id)
 +codeExample(true)!= require("./examples/basic.md")
 
 :marked
-  A `downloadURL` can be used instead of `embedCode`.
-  Targets can have specific downloads as well!
-
   If your script should be loaded in the `<head>` tag,
-  set `insertInHead` and the instructions will update according.
+  set `insertInHead: true` and the instructions will update according.
 
-+codeExample(true)!= require("./examples/download-url.md")
++anchored("h3", "Targets")
+:marked
+  A target will use the "global" configuration unless a more specific option is set.
+
+  In this example all targets except Weebly will use the same `embedCode`
+
++codeExample(true)!= require("./examples/advanced.md")
+
+:marked
+  Use `EmbedBox.getTargetIDs()` to programatically get the bundled target IDs.
+
++codeExample(false, "target-ids")!= require("./examples/get-target-ids.md")
+
++anchored("h3", "Plugins")
+:marked
+  A `pluginURL` can be used instead of `embedCode`.
+  Specifying a `pluginURL` will start an automatic download when a target is selected.
+  Set `autoDownload: false` to disable to this behavior.
+
++codeExample(true)!= require("./examples/plugin-url.md")
 
 +anchored("h3", "Positioning")
 :marked
@@ -46,7 +62,7 @@ mixin codeExample(runnable, id)
   EmbedBox will automatically appear on creation.
   This can be disabled with the `autoShow` option.
 
-+codeExample(true)!= require("./examples/auto-show.md")
++codeExample()!= require("./examples/auto-show.md")
 
 :marked
   The target search screen can be skipped with `initialTarget`.
@@ -69,18 +85,6 @@ mixin codeExample(runnable, id)
 +codeExample(true)!= require("./examples/disabled-routing.md")
 
 +anchored("h2", "Customization")
-:marked
-  A target will use the "global" configuration unless a more specific option is set.
-
-  In this example all targets except Weebly will use the same `embedCode`
-
-+codeExample(true)!= require("./examples/advanced.md")
-
-:marked
-  Use `EmbedBox.getTargetIDs()` to programatically get the bundled target IDs.
-
-+codeExample(false, "target-ids")!= require("./examples/get-target-ids.md")
-
 +anchored("h3", "Themes")
 +codeExample(true)!= require("./examples/custom-theme.md")
 
@@ -107,10 +111,11 @@ mixin codeExample(runnable, id)
 
 +anchored("h3", "Ordering")
 :marked
-  Targets can be limited to a specific set with the `order` option.
+  Targets can be sorted with the `order` option.
+  A target will remain in the original order if not specified.
   Set `order: -1` to disable a target entirely.
 
-+codeExample(true)!= require("./examples/visible-targets.md")
++codeExample(true)!= require("./examples/ordering.md")
 
 :marked
   The target search will be skipped if only one target is visible.

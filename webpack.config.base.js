@@ -4,15 +4,19 @@
 const ENVIRONMENT = process.env.NODE_ENV || "development"
 const {resolve} = require("path")
 const route = require("./package.json").routes[ENVIRONMENT]
+const {hostname, port} = route
 const webpack = require("webpack")
 const marked = require("marked")
 const {highlight} = require("highlight.js")
 const autoprefixer = require("autoprefixer")
 
+const BASE_URL = `//${hostname}:${port}`
 const exclude = /node_modules/
 
 marked.setOptions({
   highlight(code, language) {
+    code = code.replace(/\{\{BASE_URL\}\}/g, BASE_URL)
+
     return highlight(language, code).value
   }
 })
@@ -42,6 +46,7 @@ module.exports = function createWebpackConfig(overrides = {}) {
   $.plugins = [
     new webpack.NoErrorsPlugin(),
     new webpack.DefinePlugin({
+      "BASE_URL": JSON.stringify(BASE_URL),
       "process.env.NODE_ENV": JSON.stringify(ENVIRONMENT)
     })
   ].concat(plugins)
@@ -74,7 +79,7 @@ module.exports = function createWebpackConfig(overrides = {}) {
       test: /\.js$/
     }]
 
-    const devServerClient = `webpack-dev-server/client?http://0.0.0.0:${route.port}`
+    const devServerClient = `webpack-dev-server/client?http://0.0.0.0:${port}`
 
     if (Array.isArray($.entry)) {
       $.entry.unshift(devServerClient)
