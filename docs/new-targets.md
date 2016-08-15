@@ -29,7 +29,6 @@ import template from "./wordpress.pug"
 import BaseTarget from "components/base-target"
 
 export default class WordPressTarget extends BaseTarget {
-  static fallback = false;
   static id = "wordpress";
   static label = "WordPress";
   static template = template;
@@ -42,7 +41,6 @@ Templates are compiled to a function during the build process (more on this late
 Every target extends `BaseTarget` to inherit common helper methods.
 The `static` attributes are metadata that inform EmbedBox about the target.
 
-- `fallback` refers to whether the target should always appear when the user searches for an unknown target. This more likely to be used for the "Generic" target.
 - `id` is a unique, dashes-between-words identifier.
 - `label` is the human readable identifier.
 - `template` is an template function common among all instances of the target.
@@ -58,7 +56,6 @@ import template from "./foobar.pug"
 import BaseTarget from "components/base-target"
 
 export default class FoobarTarget extends BaseTarget {
-  static fallback = false;
   static id = "foobar";
   static label = "Foobar";
   static template = template;
