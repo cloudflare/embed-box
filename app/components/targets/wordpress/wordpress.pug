@@ -5,10 +5,7 @@ section
   ol.steps
     if this.downloadURL
       li
-        h2
-          a.more(target="_blank" href=this.downloadURL)= this.downloadLabel
-          div= this.autoDownloadLabel
-
+        != this.renderDownloadLink()
         p After downloading, don’t unzip the file.
 
       li

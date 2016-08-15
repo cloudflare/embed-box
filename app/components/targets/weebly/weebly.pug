@@ -3,6 +3,9 @@ section
   != this.renderBeforeContent()
 
   ol.steps
+    if this.downloadURL
+      li
+        != this.renderDownloadLink()
     li
       h2 Open the Weebly Editor.
 
@@ -13,11 +16,13 @@ section
     li
       h2 From the Weebly Editor, navitate to <strong>Settings <span class="with-more-icon-after"></span> SEO</strong>.
 
-      p In the bar at the top of the page, choose <strong>Settings</strong>. From the gray navigation menu on the left, choose <strong>SEO</strong>.
+      p
+        | In the bar at the top of the page, choose <strong>Settings</strong>.
+        | From the gray navigation menu on the left, choose <strong>SEO</strong>.
 
     li
       h2
-        span Copy the code below and paste it into your site’s <strong>#{ this.location === "head" ? "Header" : "Footer" } Code</strong>
+        span Copy the code below and paste it into your site’s <strong>#{this.location === "head" ? "Header" : "Footer"} Code</strong>
 
       .copy-container
         button.primary.run(type="button" data-ref="copyButtons[]") Copy

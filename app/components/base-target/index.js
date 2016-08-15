@@ -1,4 +1,5 @@
 import titleTemplate from "./title.pug"
+import downloadLinkTemplate from "./download-link.pug"
 import beforeContentTemplate from "./before-content.pug"
 import afterContentTemplate from "./after-content.pug"
 
@@ -13,14 +14,16 @@ export default class BaseTarget extends BaseComponent {
   static titleTemplate = titleTemplate;
   static beforeContentTemplate = beforeContentTemplate;
   static afterContentTemplate = afterContentTemplate;
+  static downloadLinkTemplate = downloadLinkTemplate;
 
-  static extend = function extend({id, label, template, templateVars} = {}) {
+  static extend = function extend({id, label, policy, template, templateVars} = {}) {
     if (!id) throw new Error("EmbedBox: Target must have `id`")
     if (!label) throw new Error("EmbedBox: Target must have `label`")
 
     return class CustomTarget extends BaseTarget {
       static id = id;
       static label = label;
+      static policy = policy || "";
       static template = template || "";
       static templateVars = templateVars || {}
       static isConstructable() {
@@ -30,10 +33,20 @@ export default class BaseTarget extends BaseComponent {
   };
 
   static isConstructable(config, store) {
-    const hasEmbedCode = !!(config.embedCode || store.embedCode)
+    const {policy} = this
+    const hasLocalEmbedCode = !!config.embedCode
+    const hasGlobalEmbedCode = !!store.embedCode
     const hasDownloadURL = !!config.downloadURL
 
-    return hasEmbedCode || hasDownloadURL
+    if (policy === "OR") {
+      return hasLocalEmbedCode || hasGlobalEmbedCode || hasDownloadURL
+    }
+    else if (policy === "NAND") {
+      // A `downloadURL` must be accompanied by an `embedCode`
+      return hasDownloadURL && hasLocalEmbedCode || hasGlobalEmbedCode && !hasDownloadURL
+    }
+
+    return true
   }
 
   compileTemplate() {
@@ -151,6 +164,10 @@ export default class BaseTarget extends BaseComponent {
       config: this.store,
       icon: icon.template
     })
+  }
+
+  renderDownloadLink() {
+    return this.constructor.downloadLinkTemplate.call(this, {config: this.store})
   }
 
   renderBeforeContent() {
