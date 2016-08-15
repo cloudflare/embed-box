@@ -13,6 +13,8 @@ export function createStore(spec = {}) {
 
     embedCode: spec.embedCode || "",
 
+    fallbackID: typeof spec.fallbackID !== "undefined" ? spec.fallbackID : "generic",
+
     iframe: {
       element: iframe,
       get document() {

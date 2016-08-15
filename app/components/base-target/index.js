@@ -14,12 +14,11 @@ export default class BaseTarget extends BaseComponent {
   static beforeContentTemplate = beforeContentTemplate;
   static afterContentTemplate = afterContentTemplate;
 
-  static extend = function extend({fallback, id, label, template, templateVars} = {}) {
+  static extend = function extend({id, label, template, templateVars} = {}) {
     if (!id) throw new Error("EmbedBox: Target must have `id`")
     if (!label) throw new Error("EmbedBox: Target must have `label`")
 
     return class CustomTarget extends BaseTarget {
-      static fallback = fallback || false;
       static id = id;
       static label = label;
       static template = template || "";
@@ -54,11 +53,6 @@ export default class BaseTarget extends BaseComponent {
     if (this.downloadURL) return `<script src="${this.downloadURL}"></script>`
 
     return this.config.embedCode || this.store.embedCode
-  }
-
-  get fallback() {
-    // TODO: move this to global config.
-    return this.constructor.fallback
   }
 
   get label() {

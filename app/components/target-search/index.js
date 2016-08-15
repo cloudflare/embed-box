@@ -17,9 +17,10 @@ export default class TargetSearch extends BaseComponent {
 
   get entrySpecs() {
     const {query, targets} = this
+    const {fallbackID} = this.store
 
-    return targets.map(({id, label, fallback}) => {
-      const hidden = query && label.toLowerCase().indexOf(query) === -1 && !fallback
+    return targets.map(({id, label}) => {
+      const hidden = query && label.toLowerCase().indexOf(query) === -1 && id !== fallbackID
 
       return {id, label, hidden}
     })
