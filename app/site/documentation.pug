@@ -26,7 +26,7 @@ mixin codeExample(runnable, id)
 
 +anchored("h3", "Targets")
 :marked
-  A target will use the "global" configuration unless a more specific option is set.
+  A target will use the "global" configuration unless a more specific "local" option is set.
 
   In this example all targets except Weebly will use the same `embedCode`
 
@@ -37,13 +37,15 @@ mixin codeExample(runnable, id)
 
 +codeExample(false, "target-ids")!= require("./examples/get-target-ids.md")
 
-+anchored("h3", "Plugins")
++anchored("h3", "Downloads")
 :marked
-  A `pluginURL` can be used instead of `embedCode`.
-  Specifying a `pluginURL` will start an automatic download when a target is selected.
+  A `downloadURL` can be used for sending users CMS plugins or libraries.
+  If you'd like to use `downloadURL` with the `generic` target, include a local `embedCode` to guide the user.
+
+  Specifying a `downloadURL` will start an automatic download when a target is selected.
   Set `autoDownload: false` to disable to this behavior.
 
-+codeExample(true)!= require("./examples/plugin-url.md")
++codeExample(true)!= require("./examples/download-url.md")
 
 +anchored("h3", "Positioning")
 :marked

@@ -3,10 +3,10 @@ section
   != this.renderBeforeContent()
 
   ol.steps
-    if this.pluginURL
+    if this.downloadURL
       li
         h2
-          a.more(target="_blank" href=this.pluginURL)= this.downloadLabel
+          a.more(target="_blank" href=this.downloadURL)= this.downloadLabel
           div= this.autoDownloadLabel
 
         p After downloading, don’t unzip the file.

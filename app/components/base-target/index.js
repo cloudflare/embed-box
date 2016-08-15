@@ -31,9 +31,9 @@ export default class BaseTarget extends BaseComponent {
 
   static isConstructable(config, store) {
     const hasEmbedCode = !!(config.embedCode || store.embedCode)
-    const hasPluginURL = !!config.pluginURL
+    const hasDownloadURL = !!config.downloadURL
 
-    return hasEmbedCode || hasPluginURL
+    return hasEmbedCode || hasDownloadURL
   }
 
   compileTemplate() {
@@ -55,13 +55,11 @@ export default class BaseTarget extends BaseComponent {
     return `Download the ${this.label} plugin`
   }
 
-  get pluginURL() {
-    return this.config.pluginURL
+  get downloadURL() {
+    return this.config.downloadURL
   }
 
   get copyText() {
-    if (this.pluginURL) return `<script src="${this.pluginURL}"></script>`
-
     return this.config.embedCode || this.store.embedCode
   }
 
@@ -139,7 +137,7 @@ export default class BaseTarget extends BaseComponent {
       })
     })
 
-    if (autoDownload && this.pluginURL) {
+    if (autoDownload && this.downloadURL) {
       setTimeout(this.startDownload, AUTO_DOWNLOAD_DELAY)
     }
 
@@ -168,7 +166,7 @@ export default class BaseTarget extends BaseComponent {
     const downloadIframe = document.createElement("iframe")
 
     downloadIframe.className = "embed-box-download-iframe"
-    downloadIframe.src = this.pluginURL
+    downloadIframe.src = this.downloadURL
     document.body.appendChild(downloadIframe)
   }
 }

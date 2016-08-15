@@ -11,6 +11,15 @@ export default class GenericTarget extends BaseTarget {
     return "Download the plugin"
   }
 
+  static isConstructable(config, store) {
+    const hasLocalEmbedCode = !!config.embedCode
+    const hasGlobalEmbedCode = !!store.embedCode
+    const hasDownloadURL = !!config.downloadURL
+
+    // A `downloadURL` must be accompanied by an `embedCode`
+    return hasDownloadURL && hasLocalEmbedCode || hasGlobalEmbedCode && !hasDownloadURL
+  }
+
   get modalTitle() {
     return this.title
   }
