@@ -1,10 +1,5 @@
 @import "~styl/colors"
 
-searchInputPlaceholder()
-  color rgba(#000, .3)
-  font-family inherit
-  font-size 1em
-
 [data-component="target-search"]
   .header
     align-items center
@@ -24,17 +19,10 @@ searchInputPlaceholder()
       flex 1 0 auto
       padding 1.5em
 
-      &::-webkit-input-placeholder
-        searchInputPlaceholder()
-
-      &:-moz-placeholder
-        searchInputPlaceholder()
-
-      &::-moz-placeholder
-        searchInputPlaceholder()
-
-      &:-ms-input-placeholder
-        searchInputPlaceholder()
+      &::placeholder
+        color rgba(#000, .3)
+        font-family inherit
+        font-size 1em
 
       &:focus
         outline none
