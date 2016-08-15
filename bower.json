@@ -1,6 +1,6 @@
 {
   "name": "embed-box",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "ignore": [
     "deploy.yaml",
     "circle.yml",
