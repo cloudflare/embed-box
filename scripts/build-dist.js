@@ -4,10 +4,15 @@ const baseConfig = require("../webpack.config.base")()
 const del = require("del")
 const {each} = require("async")
 const webpack = require("webpack")
-const {entries, IDs} = require("../modules")
+const {resolve} = require("path")
+const {entries, IDs, targetIDs} = require("../modules")
 const validate = require("./validate")
+const generateTargetModule = require("./generate-target-module")
+const fs = require("fs")
 
 const {assign} = Object
+const nodeTargetsDirectory = resolve(__dirname, "../targets")
+const buildTargetsDirectory = resolve(__dirname, "../modules/targets")
 
 const optimizePlugins = [
   new webpack.optimize.OccurrenceOrderPlugin(true),
@@ -16,7 +21,16 @@ const optimizePlugins = [
   })
 ]
 
+console.log("Cleaning previous files...")
 del.sync(baseConfig.output.path)
+del.sync(nodeTargetsDirectory)
+del.sync(buildTargetsDirectory)
+
+fs.mkdirSync(nodeTargetsDirectory)
+fs.mkdirSync(buildTargetsDirectory)
+
+console.log("Generating target modules...")
+targetIDs.forEach(generateTargetModule)
 
 function buildEntry(id, next) {
   const {library, path} = entries[id]

@@ -1,14 +1,14 @@
+/* /!\ This file is generated. Changes will not persist! /!\ *\
 /* eslint-env node, es6 */
 
-const DrupalTarget = require("../../app/components/targets/drupal").default
+const Target = require("../../app/components/targets/drupal").default
 
 if (!window) {
-  module.exports = DrupalTarget
+  module.exports = Target
 }
 else if (!window.EmbedBoxCustom) {
   throw new Error("EmbedBoxCustom was not found while attaching target `drupal`")
 }
 else {
-  window.EmbedBoxCustom.fetchedTargets.push(DrupalTarget)
+  window.EmbedBoxCustom.fetchedTargets.push(Target)
 }
-

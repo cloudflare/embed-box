@@ -1,12 +1,14 @@
 /* eslint-env node */
 
 const base = "./modules/"
-const targetsPath = "./modules/targets/"
+const privateTargetsPath = "./app/components/targets/"
+const publicTargetsPath = "./modules/targets/"
 const fs = require("fs")
 
-const IDs = fs
-  .readdirSync(targetsPath)
+const targetIDs = exports.targetIDs = fs
+  .readdirSync(privateTargetsPath)
   .map(entry => entry.split(".js")[0])
+  .filter(id => id !== "index")
 
 const entries = {
   "embed-box": {
@@ -23,10 +25,10 @@ const entries = {
   }
 }
 
-IDs.forEach(id => {
+targetIDs.forEach(id => {
   entries[`embed-box-target-${id}`] = {
     library: `EmbedBox${id}Target`,
-    path: `${targetsPath}${id}.js`
+    path: `${publicTargetsPath}${id}.js`
   }
 })
 

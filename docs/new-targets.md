@@ -62,29 +62,6 @@ export default class FoobarTarget extends BaseTarget {
 }
 ```
 
-This should look pretty familiar. Fleshing out the `foobar.pug` template is easier by consulting an existing similar target. The steps usually follow a pattern.
-
-- A title.
-- The "before content" block.
-- Instructions if using a downloadable plugin.
-- Instructions if using an embed code, and its location.
-- The "after content" block.
-
-Once you've filled out your template, expose the target in the [targets/index.js](https://github.com/EagerIO/EmbedBox/blob/master/app/components/targets/index.js) file.
-
-The `EmbedBoxCustom` flavor lets developers put together a specific collection of targets. We can add our new target by creating a [module builder file](https://github.com/EagerIO/EmbedBox/blob/master/modules/targets/wordpress.js)
-
-Lastly, create [module definition](https://github.com/EagerIO/EmbedBox/blob/master/targets/wordpress.js). This will allow Node.js users to do something like...
-
-```javascript
-import EmbedBoxCustom from "embed-box/custom"
-import WordPressTarget from "embed-box/targets/wordpress"
-
-EmbedBoxCustom.fetchedTargets.push(WordPressTarget)
-```
-
-These are a bit redundant at the moment and may generated in the future.
-
-If everything looks great, then you're ready to submit a PR!
+If everything looks great visually, then you're ready to submit a PR!
 
 Happy hacking!

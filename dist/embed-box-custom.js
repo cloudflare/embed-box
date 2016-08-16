@@ -949,6 +949,7 @@ var EmbedBoxBase = (_class = (_temp = _class2 = function () {
     });
 
     iframe.element.className = "embed-box " + className;
+    iframe.element.style.display = "none";
     iframe.element.addEventListener("transitionend", this.handleTransitionEnd);
 
     this.destroyed = false;
@@ -999,7 +1000,7 @@ var EmbedBoxBase = (_class = (_temp = _class2 = function () {
       })) initialTarget = null;
     }
 
-    this.iframe.element.onload = function () {
+    var onLoad = function onLoad() {
       _this.appendIframeStylesheet(spec.style);
       __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_5_lib_custom_event__["a" /* default */])(iframe);
 
@@ -1013,15 +1014,20 @@ var EmbedBoxBase = (_class = (_temp = _class2 = function () {
       });
 
       if (autoShow) _this.show();
+
+      if (_this.events.onLoad) _this.events.onLoad(_this);
     };
 
+    this.iframe.element.onload = onLoad;
     this.container.appendChild(iframe.element); // iframe window & document is now accessible.
   }
 
   _createClass(EmbedBoxBase, [{
     key: "handleTransitionEnd",
     value: function handleTransitionEnd() {
-      if (this.visibility === "hiding") this.visibility = "hidden";else if (this.visibility === "showing") this.visibility = "shown";
+      var iframeElement = this.iframe.element;
+
+      if (!this.visible) iframeElement.style.display = "none";
     }
   }, {
     key: "appendIframeStylesheet",
@@ -1052,14 +1058,6 @@ var EmbedBoxBase = (_class = (_temp = _class2 = function () {
 
       this.resetOverflow();
     }
-
-    // Forces browser to compute transitions on elements inserted in current frame.
-
-  }, {
-    key: "forceLayout",
-    value: function forceLayout(attribute) {
-      return getComputedStyle(this.iframe.element)[attribute];
-    }
   }, {
     key: "resetOverflow",
     value: function resetOverflow() {
@@ -1069,17 +1067,14 @@ var EmbedBoxBase = (_class = (_temp = _class2 = function () {
   }, {
     key: "hide",
     value: function hide() {
-      this.forceLayout("opacity");
-      this.visibility = "hiding";
+      this.visible = false;
 
       this.resetOverflow();
     }
   }, {
     key: "show",
     value: function show() {
-      this.forceLayout("opacity");
-
-      this.visibility = this.mode === "inline" ? "shown" : "showing";
+      this.visible = true;
 
       this.containerPreviousOverflow = this.container.style.overflow;
       this.container.style.overflow = "hidden";
@@ -1118,27 +1113,34 @@ var EmbedBoxBase = (_class = (_temp = _class2 = function () {
       return __WEBPACK_IMPORTED_MODULE_3_components_base_component__["a" /* default */].prototype.store || {};
     }
   }, {
-    key: "visibility",
+    key: "visible",
     get: function get() {
-      return this.iframe.element.getAttribute(VISIBILITY_ATTRIBUTE);
+      return this._visible;
     },
-    set: function set(value) {
+    set: function set(visible) {
+      var _this2 = this;
+
+      this._visible = visible;
       var element = this.iframe.element;
 
 
-      element.style.display = value === "hidden" ? "none" : "";
-      element.setAttribute(VISIBILITY_ATTRIBUTE, value);
+      if (visible) element.style.display = "";
 
-      if (this.events.visibilityChange) this.events.visibilityChange(value);
+      requestAnimationFrame(function () {
+        element.style.opacity = visible ? 1 : 0;
+        element.setAttribute(VISIBILITY_ATTRIBUTE, visible ? "visible" : "hidden");
 
-      return value;
+        if (_this2.events.visibilityChange) _this2.events.visibilityChange(visible);
+      });
+
+      return visible;
     }
   }]);
 
   return EmbedBoxBase;
 }(), _class2.stylesheet = __WEBPACK_IMPORTED_MODULE_0__embed_box_styl___default.a, _class2.iframeStylesheet = __WEBPACK_IMPORTED_MODULE_1__iframe_styl___default.a, _class2.fetchedTargets = [], _class2.iframeAttributes = (_class2$iframeAttribu = {
   allowTransparency: ""
-}, _defineProperty(_class2$iframeAttribu, VISIBILITY_ATTRIBUTE, "hidden"), _defineProperty(_class2$iframeAttribu, "frameBorder", "0"), _defineProperty(_class2$iframeAttribu, "seamless", "seamless"), _class2$iframeAttribu), _class2.theme = {
+}, _defineProperty(_class2$iframeAttribu, VISIBILITY_ATTRIBUTE, "hidden"), _defineProperty(_class2$iframeAttribu, "frameBorder", "0"), _defineProperty(_class2$iframeAttribu, "seamless", "seamless"), _defineProperty(_class2$iframeAttribu, "srcdoc", "<div data-iframe-loader-shim style='display: none;'></div>"), _defineProperty(_class2$iframeAttribu, "src", "about:blank"), _class2$iframeAttribu), _class2.theme = {
   accentColor: "#2d88f3",
   backgroundColor: "#ffffff",
   textColor: "#000000"
@@ -1911,7 +1913,7 @@ exports = module.exports = __webpack_require__(1)();
 
 
 // module
-exports.push([module.i, "[data-component=\"application\"][data-mode=\"inline\"] [data-component=\"target-wrapper\"] .modal-footer {\n  display: none;\n}\n[data-component$=\"-target\"] {\n  -ms-flex: 1 1 auto;\n      flex: 1 1 auto;\n  overflow: auto;\n  overflow-scrolling: touch;\n}\n[data-component$=\"-target\"]:focus {\n  outline: none;\n}\n[data-component$=\"-target\"] .copy-container {\n  font-size: 0.8em;\n  background: rgba(0,0,0,0.045);\n  margin-bottom: 1em;\n  position: relative;\n}\n[data-component$=\"-target\"] .copy-container button.run {\n  margin: 0;\n  padding: 0.3em 1em;\n  position: absolute;\n  left: 1.5em;\n  top: 1.5em;\n}\n[data-component$=\"-target\"] .copy-container button.run:after {\n  color: #000;\n  content: \"Copied\";\n  display: inline-block;\n  left: 100%;\n  margin-left: 0.5em;\n  opacity: 0;\n  position: absolute;\n}\n[data-component$=\"-target\"] .copy-container button.run[data-status=\"copied\"]:after {\n  animation: copied 400ms linear;\n  animation-fill-mode: forwards;\n  opacity: 1;\n}\n[data-component$=\"-target\"] .copy-container > .copyable {\n  display: block;\n  font-family: Monaco, \"Bitstream Vera Sans Mono\", \"Lucida Console\", Terminal, monospace;\n  margin: 0;\n  padding: 1.3em;\n  padding-top: 4.3em;\n  white-space: pre-wrap;\n  width: 100%;\n  word-wrap: break-word;\n}\n[data-component$=\"-target\"] .copy-container > .copyable:focus {\n  outline: none;\n}\n.instructions.markdown {\n  cursor: auto;\n  display: block;\n  -ms-flex: 1 1 auto;\n      flex: 1 1 auto;\n  height: 0;\n  -webkit-user-select: text;\n     -moz-user-select: text;\n      -ms-user-select: text;\n          user-select: text;\n}\n.instructions.markdown .target-title {\n  -ms-flex-align: center;\n      -ms-grid-row-align: center;\n      align-items: center;\n  background: rgba(0,0,0,0.045);\n  border-bottom: 1px solid rgba(0,0,0,0.045);\n  padding: 2em 4em 1.6em;\n  text-align: center;\n}\n.instructions.markdown .target-title .icon {\n  height: 3em;\n  width: 3em;\n  margin-bottom: 1em;\n}\n.instructions.markdown .target-title .icon > svg {\n  display: block;\n  width: 100%;\n}\n.instructions.markdown .target-title h1 {\n  font-size: 1.25em;\n  font-weight: 300;\n  margin: 0 0 0.5em;\n  text-align: center;\n}\n.instructions.markdown .target-title .versions {\n  -ms-flex-align: center;\n      -ms-grid-row-align: center;\n      align-items: center;\n  color: rgba(0,0,0,0.6);\n  font-size: 0.9em;\n}\n.instructions.markdown .target-title .versions .label {\n  margin-right: 0.5em;\n}\n.instructions.markdown .target-title .versions select {\n  display: inline-block;\n  border: 1px solid rgba(0,0,0,0.21);\n  background: transparent;\n  cursor: pointer;\n  font-family: inherit;\n  font-size: inherit;\n}\n.instructions.markdown .target-title .versions select:focus {\n  outline: none;\n  border: 1px dashed rgba(0,0,0,0.21);\n}\n.instructions.markdown .target-title .versions select:hover {\n  background: #fff;\n}\n.instructions.markdown [data-content-slot] {\n  background: rgba(0,0,0,0.045);\n  padding: 1em;\n  border-radius: 3px;\n  margin-left: -2em;\n}\n.instructions.markdown ol.steps {\n  counter-reset: item 0;\n  list-style: none;\n  margin: 0;\n  padding: 2em 2em 2em 4em;\n}\n.instructions.markdown ol.steps div,\n.instructions.markdown ol.steps footer,\n.instructions.markdown ol.steps header,\n.instructions.markdown ol.steps section {\n  display: block;\n}\n.instructions.markdown ol.steps li {\n  counter-increment: item;\n  margin: 0;\n  position: relative;\n}\n.instructions.markdown ol.steps li:first-child > *:first-child {\n  margin-top: 0;\n}\n.instructions.markdown ol.steps li:last-child > *:last-child {\n  margin-bottom: 0;\n}\n.instructions.markdown ol.steps li:before {\n  background: rgba(0,0,0,0.045);\n  border-radius: 50%;\n  color: #fff;\n  content: counter(item);\n  display: inline-block;\n  line-height: 2em;\n  margin-right: 1em;\n  position: absolute;\n  right: 100%;\n  text-align: center;\n  top: 0;\n  width: 2em;\n}\n.instructions.markdown figure {\n  margin: 2em -2em 0 -4em;\n}\n.instructions.markdown figure > img {\n  max-width: 100%;\n}\n.instructions.markdown h2 {\n  font-size: 1em;\n  font-weight: 500;\n  margin-top: 3em;\n}\n.instructions.markdown > *:first-child {\n  margin-top: 0;\n}\n.instructions.markdown > *:last-child {\n  margin-bottom: 0;\n}\n@-moz-keyframes copied {\n  0%, 100% {\n    opacity: 0;\n  }\n  50% {\n    opacity: 1;\n    transform: translate3d(0, -1.8em, 0);\n  }\n  100% {\n    transform: translate3d(0, -1.8em, 0);\n  }\n}\n@-webkit-keyframes copied {\n  0%, 100% {\n    opacity: 0;\n  }\n  50% {\n    opacity: 1;\n    transform: translate3d(0, -1.8em, 0);\n  }\n  100% {\n    transform: translate3d(0, -1.8em, 0);\n  }\n}\n@-o-keyframes copied {\n  0%, 100% {\n    opacity: 0;\n  }\n  50% {\n    opacity: 1;\n    transform: translate3d(0, -1.8em, 0);\n  }\n  100% {\n    transform: translate3d(0, -1.8em, 0);\n  }\n}\n@keyframes copied {\n  0%, 100% {\n    opacity: 0;\n  }\n  50% {\n    opacity: 1;\n    transform: translate3d(0, -1.8em, 0);\n  }\n  100% {\n    transform: translate3d(0, -1.8em, 0);\n  }\n}\n", ""]);
+exports.push([module.i, "[data-component=\"application\"][data-mode=\"inline\"] [data-component=\"target-wrapper\"] .modal-footer {\n  display: none;\n}\n[data-component$=\"-target\"] {\n  -ms-flex: 1 1 auto;\n      flex: 1 1 auto;\n  overflow: auto;\n  overflow-scrolling: touch;\n}\n[data-component$=\"-target\"]:focus {\n  outline: none;\n}\n[data-component$=\"-target\"] [data-content-slot] {\n  background: rgba(0,0,0,0.045);\n  border-radius: 3px;\n  display: block;\n  margin: 1em;\n  padding: 1em;\n  text-align: center;\n}\n[data-component$=\"-target\"] .copy-container {\n  background: rgba(0,0,0,0.045);\n  border-radius: 3px;\n  font-size: 0.8em;\n  margin-bottom: 1em;\n  position: relative;\n}\n[data-component$=\"-target\"] .copy-container button.run {\n  margin: 0;\n  padding: 0.3em 1em;\n  position: absolute;\n  left: 1.5em;\n  top: 1.5em;\n}\n[data-component$=\"-target\"] .copy-container button.run:after {\n  color: #000;\n  content: \"Copied\";\n  display: inline-block;\n  left: 100%;\n  margin-left: 0.5em;\n  opacity: 0;\n  position: absolute;\n}\n[data-component$=\"-target\"] .copy-container button.run[data-status=\"copied\"]:after {\n  animation: copied 400ms linear;\n  animation-fill-mode: forwards;\n  opacity: 1;\n}\n[data-component$=\"-target\"] .copy-container > .copyable {\n  display: block;\n  font-family: Monaco, \"Bitstream Vera Sans Mono\", \"Lucida Console\", Terminal, monospace;\n  margin: 0;\n  padding: 1.3em;\n  padding-top: 4.3em;\n  white-space: pre-wrap;\n  width: 100%;\n  word-wrap: break-word;\n}\n[data-component$=\"-target\"] .copy-container > .copyable:focus {\n  outline: none;\n}\n.instructions.markdown {\n  cursor: auto;\n  display: block;\n  -ms-flex: 1 1 auto;\n      flex: 1 1 auto;\n  height: 0;\n  padding-bottom: 1em;\n  -webkit-user-select: text;\n     -moz-user-select: text;\n      -ms-user-select: text;\n          user-select: text;\n}\n.instructions.markdown .target-title {\n  -ms-flex-align: center;\n      -ms-grid-row-align: center;\n      align-items: center;\n  background: rgba(0,0,0,0.045);\n  border-bottom: 1px solid rgba(0,0,0,0.045);\n  padding: 2em 4em 1.6em;\n  text-align: center;\n}\n.instructions.markdown .target-title .icon {\n  height: 3em;\n  width: 3em;\n  margin-bottom: 1em;\n}\n.instructions.markdown .target-title .icon > svg {\n  display: block;\n  width: 100%;\n}\n.instructions.markdown .target-title h1 {\n  font-size: 1.25em;\n  font-weight: 300;\n  margin: 0 0 0.5em;\n  text-align: center;\n}\n.instructions.markdown .target-title .versions {\n  -ms-flex-align: center;\n      -ms-grid-row-align: center;\n      align-items: center;\n  color: rgba(0,0,0,0.6);\n  font-size: 0.9em;\n}\n.instructions.markdown .target-title .versions .label {\n  margin-right: 0.5em;\n}\n.instructions.markdown .target-title .versions select {\n  display: inline-block;\n  border: 1px solid rgba(0,0,0,0.21);\n  background: transparent;\n  cursor: pointer;\n  font-family: inherit;\n  font-size: inherit;\n}\n.instructions.markdown .target-title .versions select:focus {\n  outline: none;\n  border: 1px dashed rgba(0,0,0,0.21);\n}\n.instructions.markdown .target-title .versions select:hover {\n  background: #fff;\n}\n.instructions.markdown ol.steps {\n  counter-reset: item 0;\n  list-style: none;\n  margin: 0;\n  padding: 2em 2em 2em 4em;\n}\n.instructions.markdown ol.steps div,\n.instructions.markdown ol.steps footer,\n.instructions.markdown ol.steps header,\n.instructions.markdown ol.steps section {\n  display: block;\n}\n.instructions.markdown ol.steps li {\n  counter-increment: item;\n  margin: 0;\n  position: relative;\n}\n.instructions.markdown ol.steps li:first-child > *:first-child {\n  margin-top: 0;\n}\n.instructions.markdown ol.steps li:last-child > *:last-child {\n  margin-bottom: 0;\n}\n.instructions.markdown ol.steps li:before {\n  background: rgba(0,0,0,0.045);\n  border-radius: 50%;\n  color: #fff;\n  content: counter(item);\n  display: inline-block;\n  line-height: 2em;\n  margin-right: 1em;\n  position: absolute;\n  right: 100%;\n  text-align: center;\n  top: 0;\n  width: 2em;\n}\n.instructions.markdown figure {\n  margin: 2em -2em 0 -4em;\n}\n.instructions.markdown figure > img {\n  max-width: 100%;\n}\n.instructions.markdown h2 {\n  font-size: 1em;\n  font-weight: 500;\n  margin-top: 3em;\n}\n.instructions.markdown > *:first-child {\n  margin-top: 0;\n}\n.instructions.markdown > *:last-child {\n  margin-bottom: 0;\n}\n@-moz-keyframes copied {\n  0%, 100% {\n    opacity: 0;\n  }\n  50% {\n    opacity: 1;\n    transform: translate3d(0, -1.8em, 0);\n  }\n  100% {\n    transform: translate3d(0, -1.8em, 0);\n  }\n}\n@-webkit-keyframes copied {\n  0%, 100% {\n    opacity: 0;\n  }\n  50% {\n    opacity: 1;\n    transform: translate3d(0, -1.8em, 0);\n  }\n  100% {\n    transform: translate3d(0, -1.8em, 0);\n  }\n}\n@-o-keyframes copied {\n  0%, 100% {\n    opacity: 0;\n  }\n  50% {\n    opacity: 1;\n    transform: translate3d(0, -1.8em, 0);\n  }\n  100% {\n    transform: translate3d(0, -1.8em, 0);\n  }\n}\n@keyframes copied {\n  0%, 100% {\n    opacity: 0;\n  }\n  50% {\n    opacity: 1;\n    transform: translate3d(0, -1.8em, 0);\n  }\n  100% {\n    transform: translate3d(0, -1.8em, 0);\n  }\n}\n", ""]);
 
 // exports
 
@@ -1925,7 +1927,7 @@ exports = module.exports = __webpack_require__(1)();
 
 
 // module
-exports.push([module.i, ".embed-box[data-mode=\"inline\"] {\n  display: block !important;\n  height: 100%;\n  width: 100%;\n}\n.embed-box[data-mode=\"modal\"] {\n  bottom: 0 !important;\n  height: 100vh !important;\n  left: 0 !important;\n  opacity: 0 !important;\n  position: fixed !important;\n  right: 0 !important;\n  top: 0 !important;\n  transition: opacity 0.1s linear !important;\n  width: 100vw !important;\n  z-index: 10000 !important;\n}\n.embed-box[data-mode=\"modal\"][data-visibility=\"hiding\"] {\n  opacity: 0 !important;\n}\n.embed-box[data-mode=\"modal\"][data-visibility=\"hidden\"] {\n  opacity: 0 !important;\n}\n.embed-box[data-mode=\"modal\"][data-visibility=\"showing\"] {\n  opacity: 0.5 !important;\n}\n.embed-box[data-mode=\"modal\"][data-visibility=\"shown\"] {\n  opacity: 1 !important;\n}\n.embed-box-download-iframe {\n  position: fixed;\n  visibility: hidden;\n  width: 1px;\n  height: 1px;\n  z-index: -99999;\n}\n", ""]);
+exports.push([module.i, ".embed-box[data-mode=\"inline\"] {\n  display: block !important;\n  height: 100%;\n  width: 100%;\n}\n.embed-box[data-mode=\"modal\"] {\n  bottom: 0 !important;\n  height: 100vh !important;\n  left: 0 !important;\n  opacity: 0;\n  position: fixed !important;\n  right: 0 !important;\n  top: 0 !important;\n  transition: opacity 0.1s linear !important;\n  width: 100vw !important;\n  z-index: 10000 !important;\n}\n.embed-box-download-iframe {\n  position: fixed;\n  visibility: hidden;\n  width: 1px;\n  height: 1px;\n  z-index: -99999;\n}\n", ""]);
 
 // exports
 
@@ -2044,7 +2046,7 @@ module.exports = template;
 
 var pug = __webpack_require__(3);
 
-function template(locals) {var pug_html = "", pug_mixins = {}, pug_interp;;var locals_for_with = (locals || {});(function (label) {pug_html = pug_html + "\u003Csection data-column data-component=\"target-search\" data-event-receiver\u003E\u003Cheader class=\"header\"\u003E\u003Cinput" + (" class=\"search\""+" data-ref=\"search\""+pug.attr("placeholder", label("searchPlaceholder"), true, true)+" tabindex=\"3\" type=\"text\"") + "\u003E\u003C\u002Fheader\u003E\u003Cdiv class=\"entries\" data-column data-ref=\"entriesContainer\"\u003E\u003C\u002Fdiv\u003E\u003Cfooter class=\"modal-footer\"\u003E\u003Cbutton class=\"primary slim more\" data-action=\"next\" data-ref=\"nextButton\" tabindex=\"5\"\u003E" + (pug.escape(null == (pug_interp = label("next")) ? "" : pug_interp)) + "\u003C\u002Fbutton\u003E\u003C\u002Ffooter\u003E\u003C\u002Fsection\u003E";}.call(this,"label" in locals_for_with?locals_for_with.label:typeof label!=="undefined"?label:undefined));;return pug_html;};
+function template(locals) {var pug_html = "", pug_mixins = {}, pug_interp;;var locals_for_with = (locals || {});(function (label) {pug_html = pug_html + "\u003Csection data-column data-component=\"target-search\" data-event-receiver\u003E\u003Cheader class=\"header\"\u003E\u003Cinput" + (" class=\"search\""+" data-ref=\"search\""+pug.attr("placeholder", label("searchPlaceholder"), true, true)+" spellcheck=\"false\" tabindex=\"3\" type=\"text\"") + "\u003E\u003C\u002Fheader\u003E\u003Cdiv class=\"entries\" data-column data-ref=\"entriesContainer\"\u003E\u003C\u002Fdiv\u003E\u003Cfooter class=\"modal-footer\"\u003E\u003Cbutton class=\"primary slim more\" data-action=\"next\" data-ref=\"nextButton\" tabindex=\"5\"\u003E" + (pug.escape(null == (pug_interp = label("next")) ? "" : pug_interp)) + "\u003C\u002Fbutton\u003E\u003C\u002Ffooter\u003E\u003C\u002Fsection\u003E";}.call(this,"label" in locals_for_with?locals_for_with.label:typeof label!=="undefined"?label:undefined));;return pug_html;};
 module.exports = template;
 
 /***/ },

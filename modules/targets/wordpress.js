@@ -1,14 +1,14 @@
+/* /!\ This file is generated. Changes will not persist! /!\ *\
 /* eslint-env node, es6 */
 
-const WordPressTarget = require("../../app/components/targets/wordpress").default
+const Target = require("../../app/components/targets/wordpress").default
 
 if (!window) {
-  module.exports = WordPressTarget
+  module.exports = Target
 }
 else if (!window.EmbedBoxCustom) {
   throw new Error("EmbedBoxCustom was not found while attaching target `wordpress`")
 }
 else {
-  window.EmbedBoxCustom.fetchedTargets.push(WordPressTarget)
+  window.EmbedBoxCustom.fetchedTargets.push(Target)
 }
-
