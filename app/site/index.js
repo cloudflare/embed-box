@@ -100,11 +100,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Prevent first demo from overwriting the URL anchor.
   CONSTRUCTOR_DEFAULTS.routing = false
+  CONSTRUCTOR_DEFAULTS.events = {
+    onLoad(instance) {
+      const instanceElement = instance.application.element
+
+      instanceElement.addEventListener("mouseover", stopDemoLoop)
+      instanceElement.addEventListener("click", stopDemoLoop)
+
+      delete CONSTRUCTOR_DEFAULTS.routing
+      delete CONSTRUCTOR_DEFAULTS.events
+    }
+  }
+
   evalRunButton(buttons[0])
-  delete CONSTRUCTOR_DEFAULTS.routing
-
-  const instanceElement = demoInstance.application.element
-
-  instanceElement.addEventListener("mouseover", stopDemoLoop)
-  instanceElement.addEventListener("click", stopDemoLoop)
 })

@@ -31,7 +31,9 @@ export default class EmbedBoxBase {
     allowTransparency: "",
     [VISIBILITY_ATTRIBUTE]: "hidden",
     frameBorder: "0",
-    seamless: "seamless"
+    seamless: "seamless",
+    srcdoc: "<div data-iframe-loader-shim style='display: none;'></div>",
+    src: "about:blank"
   };
 
   static theme = {
@@ -71,6 +73,7 @@ export default class EmbedBoxBase {
       .forEach(key => iframe.element.setAttribute(key, iframeAttributes[key]))
 
     iframe.element.className = `embed-box ${className}`
+    iframe.element.style.display = "none"
     iframe.element.addEventListener("transitionend", this.handleTransitionEnd)
 
     this.destroyed = false
@@ -120,7 +123,7 @@ export default class EmbedBoxBase {
       if (!visibleTargets.some(({id}) => id === initialTarget)) initialTarget = null
     }
 
-    this.iframe.element.onload = () => {
+    const onLoad = () => {
       this.appendIframeStylesheet(spec.style)
       polyfillCustomEvent(iframe)
 
@@ -132,8 +135,11 @@ export default class EmbedBoxBase {
       })
 
       if (autoShow) this.show()
+
+      if (this.events.onLoad) this.events.onLoad(this)
     }
 
+    this.iframe.element.onload = onLoad
     this.container.appendChild(iframe.element) // iframe window & document is now accessible.
   }
 
@@ -166,25 +172,31 @@ export default class EmbedBoxBase {
     return BaseComponent.prototype.store || {}
   }
 
-  get visibility () {
-    return this.iframe.element.getAttribute(VISIBILITY_ATTRIBUTE)
+  get visible () {
+    return this._visible
   }
 
-  set visibility (value) {
+  set visible (visible) {
+    this._visible = visible
     const {element} = this.iframe
 
-    element.style.display = value === "hidden" ? "none" : ""
-    element.setAttribute(VISIBILITY_ATTRIBUTE, value)
+    if (visible) element.style.display = ""
 
-    if (this.events.visibilityChange) this.events.visibilityChange(value)
+    requestAnimationFrame(() => {
+      element.style.opacity = visible ? 1 : 0
+      element.setAttribute(VISIBILITY_ATTRIBUTE, visible ? "visible" : "hidden")
 
-    return value
+      if (this.events.visibilityChange) this.events.visibilityChange(visible)
+    })
+
+    return visible
   }
 
   @autobind
   handleTransitionEnd() {
-    if (this.visibility === "hiding") this.visibility = "hidden"
-    else if (this.visibility === "showing") this.visibility = "shown"
+    const iframeElement = this.iframe.element
+
+    if (!this.visible) iframeElement.style.display = "none"
   }
 
   appendIframeStylesheet(extension = "") {
@@ -230,11 +242,6 @@ export default class EmbedBoxBase {
     this.resetOverflow()
   }
 
-  // Forces browser to compute transitions on elements inserted in current frame.
-  forceLayout(attribute) {
-    return getComputedStyle(this.iframe.element)[attribute]
-  }
-
   resetOverflow() {
     this.container.style.overflow = this.containerPreviousOverflow
     this.containerPreviousOverflow = ""
@@ -242,17 +249,14 @@ export default class EmbedBoxBase {
 
   @autobind
   hide() {
-    this.forceLayout("opacity")
-    this.visibility = "hiding"
+    this.visible = false
 
     this.resetOverflow()
   }
 
   @autobind
   show() {
-    this.forceLayout("opacity")
-
-    this.visibility = this.mode === "inline" ? "shown" : "showing"
+    this.visible = true
 
     this.containerPreviousOverflow = this.container.style.overflow
     this.container.style.overflow = "hidden"

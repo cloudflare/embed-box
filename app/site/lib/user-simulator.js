@@ -1,4 +1,5 @@
 import keyMap from "lib/key-map"
+import isElementPartiallyInViewport from "lib/is-element-partially-in-viewport"
 import smoothScroll from "smooth-scroll"
 
 function createSequence(EmbedBox) {
@@ -57,12 +58,11 @@ export function runDemo(iframe, onComplete = () => {}) {
 
     const config = {...defaults,
       events: {
-        visibilityChange(visibility) {
-          if (visibility === "shown") {
+        visibilityChange(visible) {
+          if (visible) {
             loadingDots.setAttribute("data-state", "loaded")
           }
-
-          if (visibility === "hidden") {
+          else {
             loadingDots.setAttribute("data-state", "loading")
             setTimeout(createInteractiveDemo, 2500)
           }
@@ -74,33 +74,27 @@ export function runDemo(iframe, onComplete = () => {}) {
     requestAnimationFrame(() => instance = new EmbedBox(config))
   }
 
-  if (instance) instance.destroy()
-  instance = new EmbedBox(defaults)
-  loadingDots.setAttribute("data-state", "loaded")
-
-  barrier.addEventListener("click", createInteractiveDemo)
-
-  const iframeDocument = instance.iframe.document
-  const searchComponent = iframeDocument.querySelector("[data-component='target-search']")
-  const input = searchComponent.querySelector(".search")
-
-  // Prevent input events from scrolling Firefox.
-  input.readOnly = true
+  let iframeDocument
+  let searchComponent
+  let input
 
   function simulate(index = 0) {
     if (!running) return
-    if (["hiding", "hidden"].includes(instance.visibility)) return
+    if (instance && !instance.visible) return
 
     const {entity, eventType} = sequence[index]
     const meta = {}
     const lastIndex = sequence.length - 1
     let delay = 150
 
+    if (!isElementPartiallyInViewport(iframe)) {
+      createInteractiveDemo()
+      return
+    }
+
     function onStep() {
       if (index < lastIndex) {
-        index++
-
-        simulate(index)
+        simulate(++index)
         return
       }
 
@@ -111,6 +105,11 @@ export function runDemo(iframe, onComplete = () => {}) {
       searchComponent.dispatchEvent(new CustomEvent(`dispatched-${eventType}`, meta))
       onStep()
     }
+
+    // Prevent `tabindex` from focusing elements
+    Array
+      .from(instance.application.element.querySelectorAll("[tabindex]"))
+      .forEach(element => element.removeAttribute("tabindex"))
 
     if (entity === keyMap.backspace) {
       input.value = ""
@@ -123,7 +122,11 @@ export function runDemo(iframe, onComplete = () => {}) {
       const container = iframeDocument.querySelector("[data-component='target-wrapper'] .instructions")
       const bottom = container.scrollHeight - container.getBoundingClientRect().height
 
-      runStep = () => smoothScroll(container, bottom, {duration: 3000, onScrolled: onStep})
+      const onScrolled = () => {
+        if (running) onStep()
+      }
+
+      runStep = () => smoothScroll(container, bottom, {duration: 3000, onScrolled})
     }
     else {
       const next = sequence[index + 1]
@@ -136,7 +139,26 @@ export function runDemo(iframe, onComplete = () => {}) {
     stepTimeout = setTimeout(runStep, delay)
   }
 
-  setTimeout(simulate, 1000)
+  if (instance) instance.destroy()
+
+  new EmbedBox({...defaults,
+    events: {
+      onLoad(nextInstance) {
+        instance = nextInstance
+        iframeDocument = instance.iframe.document
+        searchComponent = iframeDocument.querySelector("[data-component='target-search']")
+        input = searchComponent.querySelector(".search")
+
+        // Prevent input events from scrolling Firefox.
+        input.readOnly = true
+        loadingDots.setAttribute("data-state", "loaded")
+
+        barrier.addEventListener("click", createInteractiveDemo)
+
+        setTimeout(simulate, 1000)
+      }
+    }
+  })
 
   return createInteractiveDemo
 }
