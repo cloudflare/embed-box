@@ -16,6 +16,8 @@
   display none
 
 [data-component$="-target"]
+  roundedChildRadius = 3px
+
   flex 1 1 auto
   overflow auto
   overflow-scrolling touch
@@ -23,9 +25,18 @@
   &:focus
     outline none
 
-  .copy-container
-    font-size .8em
+  [data-content-slot]
     background lightGrayRGBA
+    border-radius roundedChildRadius
+    display block
+    margin 1em
+    padding 1em
+    text-align center
+
+  .copy-container
+    background lightGrayRGBA
+    border-radius roundedChildRadius
+    font-size .8em
     margin-bottom 1em
     position relative
 
@@ -69,6 +80,7 @@
   flex 1 1 auto
   // Fixes Firefox scroll issues. flex-grow will consume the remaining space.
   height 0
+  padding-bottom 1em
   user-select text
 
   .target-title
@@ -115,12 +127,6 @@
 
         &:hover
           background #fff
-
-  [data-content-slot]
-    background lightGrayRGBA
-    padding 1em
-    border-radius 3px
-    margin-left -2em
 
   ol.steps
     counter-reset item 0
