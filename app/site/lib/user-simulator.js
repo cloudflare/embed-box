@@ -1,5 +1,5 @@
 import keyMap from "lib/key-map"
-import isElementPartiallyInViewport from "lib/is-element-partially-in-viewport"
+import isElementPartiallyInViewport from "lib/site/is-element-partially-in-viewport"
 import smoothScroll from "smooth-scroll"
 
 function createSequence(EmbedBox) {
