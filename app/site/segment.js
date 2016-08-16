@@ -59,7 +59,7 @@
 
   // Define a method to load Analytics.js from our CDN,
   // and that will be sure to only ever load it once.
-  analytics.load = function(key) {
+  analytics.load = key => {
     // Create an async script element based on your key.
     const script = document.createElement("script")
 
@@ -69,7 +69,7 @@
       `cdn.segment.com/analytics.js/v1/${key}/analytics.min.js`
 
     // Insert our script next to the first script element.
-    const first = document.getElementsByTagName("script")[0]
+    const [first] = document.getElementsByTagName("script")
 
     first.parentNode.insertBefore(script, first)
   }
