@@ -1,0 +1,55 @@
+ol.steps
+  if this.downloadURL
+    li
+      != this.renderDownloadLink()
+      p After downloading, don’t unzip the file.
+
+    li
+      h2 Upload the plugin to your WordPress Admin site
+
+      figure: img(src=require("./upload-plugin.png"))
+
+      p In your WordPress Admin, navigate to: <strong>Plugins <span class="with-more-icon-after"></span> Add New <span class="with-more-icon-after"></span> Upload Plugin</strong>.
+      p Click “Choose File” and select the file you just downloaded.</p>
+
+    li
+      h2 Activate the plugin and view your site
+
+      figure: img(src=require("./activate-plugin.png"))
+
+      p Click “Activate Plugin”.
+      p After it activates you’ll see a welcome message letting you know the installation was successful!
+
+  else
+    li
+      h2 In your WordPress Admin, navigate to: <strong>Appearance <span class="with-more-icon-after"></span> Editor</strong>.
+
+      p Navigate to the Theme Editor from the menu on the left side.
+
+    li
+      h2 Copy the code to your site's &lt;#{this.location}&gt; tag.
+
+      .copy-container
+        button.primary.run(type="button" data-ref="copyButtons[]") Copy
+        div.copyable(contenteditable)= this.copyText
+
+      if this.location === "head"
+        p Locate the <code>header.php</code> file from the menu on the right side.
+
+        p
+          | Carefully search for the <code>&lt;head&gt;</code> tag.
+          | There will be other similar tags, but you only want the one with that exact name.
+          | It should be near the beginning of the file. Insert the embed code just <strong>after</strong> that tag.
+
+      else
+        p Locate the <code>footer.php</code> file from the menu on the right side.
+
+        p
+          | Carefully search for the <code>&lt;/body&gt;</code> tag.
+          | There will be other similar tags, but you only want the one with that exact name.
+          | It should be near the end of the file.
+          | Insert the embed code just <strong>before</strong> that tag.
+    li
+      h2 Click “Update File”
+
+      p You’re done!

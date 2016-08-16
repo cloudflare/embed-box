@@ -1,4 +1,4 @@
-import template from "./generic.pug"
+import genericLatest from "./generic-latest.pug"
 
 import BaseTarget from "components/base-target"
 
@@ -6,7 +6,7 @@ export default class GenericTarget extends BaseTarget {
   static id = "generic";
   static label = "Any other site";
   static policy = "NAND";
-  static template = template;
+  static versions = [{id: "Latest", template: genericLatest}];
 
   get downloadLabel() {
     return "Download the plugin"

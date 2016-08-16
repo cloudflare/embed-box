@@ -11,8 +11,7 @@ export default class BaseComponent {
   constructor(spec = {}) {
     Object.assign(this, {
       element: null,
-      refs: {},
-      serializer: document.createElement("div")
+      refs: {}
     }, spec)
 
     const {stylesheet} = this.constructor
@@ -61,21 +60,28 @@ export default class BaseComponent {
       })
   }
 
-  compileTemplate(templateVars = {}) {
-    const {template} = this.constructor
+  serialize(template, templateVars = {}) {
+    // `document` is used instead of iframe's document to prevent `instanceof` reference errors.
+    const serializer = document.createElement("div")
 
     if (typeof template === "function") {
-      this.serializer.innerHTML = template.call(this, {
+      serializer.innerHTML = template.call(this, {
         config: this.store,
         label: this.label,
         ...templateVars
       })
     }
     else {
-      this.serializer.innerHTML = template
+      serializer.innerHTML = template
     }
 
-    this.element = this.serializer.firstChild
+    return serializer.firstChild
+  }
+
+  compileTemplate(templateVars = {}) {
+    const {template} = this.constructor
+
+    this.element = this.serialize(template, templateVars)
     this.updateRefs()
 
     return this.element

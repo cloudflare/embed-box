@@ -3,8 +3,10 @@ header.target-title(data-column)
 
   h1!= this.title
 
-  if this.versions.length > 0
+  if this.versionIDs.length > 1
     .versions
       .label!= this.instructionsLabel
 
       select(data-ref="versionSelector")
+        each versionID in this.versionIDs
+          option(selected=(versionID === this.versionID))= versionID

@@ -39,6 +39,11 @@ export function runDemo(iframe, onComplete = () => {}) {
   const sequence = createSequence(EmbedBox)
   const defaults = {
     embedCode: `<script src='${BASE_URL}/examples/generic-library.js'></script>`,
+    targets: {
+      drupal: {
+        downloadURL: `${BASE_URL}/examples/drupal-plugin.zip`
+      }
+    },
     routing: false
   }
   const barrier = iframe.parentNode.querySelector(".barrier")

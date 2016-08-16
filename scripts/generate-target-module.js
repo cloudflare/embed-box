@@ -1,7 +1,8 @@
 const fs = require("fs")
+const HEADER = "/* /!\\ This file is generated in `generate-target-module` /!\\ *\\"
 
 function targetModuleInitializerContent(id) {
-  return `/* /!\\ This file is generated. Changes will not persist! /!\\ *\\
+  return `${HEADER}
 /* eslint-env node, es6 */
 
 const Target = require("../../app/components/targets/${id}").default
@@ -18,12 +19,10 @@ else {
 }
 
 function targetNodeModuleContent(id) {
-  return `/* /!\\ This file is generated. Changes will not persist! /!\\ *\\
+  return `${HEADER}
 /* eslint-env node, es6 */
 module.exports = require("../dist/embed-box-target-${id}")\n`
 }
-
-// const publicTargetsPath = "./modules/targets/"
 
 module.exports = function generateTargetModule(id) {
   fs.writeFileSync(`./modules/targets/${id}.js`, targetModuleInitializerContent(id))

@@ -1,0 +1,19 @@
+ol.steps
+  if this.downloadURL
+    li!= this.renderDownloadLink()
+
+  li
+    h2 Copy the code to your site's &lt;#{this.location}&gt; tag.
+
+    .copy-container
+      button.primary.run(data-ref="copyButtons[]") Copy
+      div.copyable(contenteditable)= this.copyText
+
+    figure
+      img(src=require("./installing-eager.gif"))
+
+  li
+    h2 Visit your site
+
+    p After saving the changes you made, visit your site in the browser.
+    p You’re done!

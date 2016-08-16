@@ -1,3 +1,4 @@
+import template from "./base-target.pug"
 import titleTemplate from "./title.pug"
 import downloadLinkTemplate from "./download-link.pug"
 import beforeContentTemplate from "./before-content.pug"
@@ -11,6 +12,7 @@ import * as icons from "components/icons"
 const AUTO_DOWNLOAD_DELAY = 3000
 
 export default class BaseTarget extends BaseComponent {
+  static template = template;
   static titleTemplate = titleTemplate;
   static beforeContentTemplate = beforeContentTemplate;
   static afterContentTemplate = afterContentTemplate;
@@ -38,15 +40,22 @@ export default class BaseTarget extends BaseComponent {
     const hasGlobalEmbedCode = !!store.embedCode
     const hasDownloadURL = !!config.downloadURL
 
-    if (policy === "OR") {
-      return hasLocalEmbedCode || hasGlobalEmbedCode || hasDownloadURL
+    switch (policy) {
+      case "EMBED":
+        return hasDownloadURL
+      case "OR":
+        return hasLocalEmbedCode || hasGlobalEmbedCode || hasDownloadURL
+      case "NAND":
+        // A `downloadURL` must be accompanied by an `embedCode`
+        return hasDownloadURL && hasLocalEmbedCode || hasGlobalEmbedCode && !hasDownloadURL
+      default:
+        return true
     }
-    else if (policy === "NAND") {
-      // A `downloadURL` must be accompanied by an `embedCode`
-      return hasDownloadURL && hasLocalEmbedCode || hasGlobalEmbedCode && !hasDownloadURL
-    }
+  }
 
-    return true
+  constructor(spec = {}) {
+    super(spec)
+    this.versionID = this.config.versionID || this.versionIDs[0]
   }
 
   compileTemplate() {
@@ -102,10 +111,6 @@ export default class BaseTarget extends BaseComponent {
     return `Installing ${this.store.name} › ${this.label}`
   }
 
-  get versions() {
-    return ["3.0.0", "2.0.0", "1.0.0"]
-  }
-
   get templateVars() {
     return this.constructor.templateVars
   }
@@ -114,20 +119,36 @@ export default class BaseTarget extends BaseComponent {
     return `Installing ${this.store.name} onto a ${this.label} site.`
   }
 
+  get versionIDs() {
+    return this.constructor.versions.map(version => version.id)
+  }
+
+  serializeSteps(versionID) {
+    const [version] = this.constructor.versions.filter(version => version.id === versionID)
+
+    return this.serialize(version.template)
+  }
+
+  @autobind
+  handleVersionChange({target: {value}}) {
+    const previousElement = this.element
+
+    this.versionID = value
+    this.replaceElement(previousElement, this.render())
+  }
+
   render() {
+    const stepsElement = this.serializeSteps(this.versionID)
+
     this.compileTemplate()
 
     const {autoDownload, iframe} = this.store
-    const {copyButtons = [], versionSelector} = this.refs
+    const {copyButtons = [], stepsMount, versionSelector} = this.refs
 
-    // Custom targets may not have a version selector.
+    this.replaceElement(stepsMount, stepsElement)
+
     if (versionSelector) {
-      this.versions.forEach(version => {
-        const option = iframe.document.createElement("option")
-
-        option.textContent = version
-        versionSelector.appendChild(option)
-      })
+      versionSelector.addEventListener("change", this.handleVersionChange)
     }
 
     copyButtons.forEach(copyButton => {
