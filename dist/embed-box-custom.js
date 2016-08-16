@@ -126,8 +126,7 @@ var BaseComponent = (_class = (_temp = _class2 = function () {
 
     _extends(this, {
       element: null,
-      refs: {},
-      serializer: document.createElement("div")
+      refs: {}
     }, spec);
 
     var stylesheet = this.constructor.stylesheet;
@@ -187,22 +186,32 @@ var BaseComponent = (_class = (_temp = _class2 = function () {
       });
     }
   }, {
+    key: "serialize",
+    value: function serialize(template) {
+      var templateVars = arguments.length <= 1 || arguments[1] === undefined ? {} : arguments[1];
+
+      // `document` is used instead of iframe's document to prevent `instanceof` reference errors.
+      var serializer = document.createElement("div");
+
+      if (typeof template === "function") {
+        serializer.innerHTML = template.call(this, _extends({
+          config: this.store,
+          label: this.label
+        }, templateVars));
+      } else {
+        serializer.innerHTML = template;
+      }
+
+      return serializer.firstChild;
+    }
+  }, {
     key: "compileTemplate",
     value: function compileTemplate() {
       var templateVars = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
       var template = this.constructor.template;
 
 
-      if (typeof template === "function") {
-        this.serializer.innerHTML = template.call(this, _extends({
-          config: this.store,
-          label: this.label
-        }, templateVars));
-      } else {
-        this.serializer.innerHTML = template;
-      }
-
-      this.element = this.serializer.firstChild;
+      this.element = this.serialize(template, templateVars);
       this.updateRefs();
 
       return this.element;
@@ -1341,16 +1350,26 @@ var Application = (_class = (_temp = _class2 = function (_BaseComponent) {
         return;
       }
 
-      targetSearch.setAttribute("data-transition", "hidden-left");
       content.insertBefore(targetSearch, firstChild);
+      content.style.transform = "translate3d(-100%, 0, 0)";
+
+      this.handleTransition = function (event) {
+        if (event.target !== content) return;
+
+        _this2.removeElement(firstChild);
+        _this2.transitioning = false;
+
+        content.removeEventListener("transitionend", _this2.handleTransition);
+        content.removeAttribute("data-transition-state");
+      };
 
       requestAnimationFrame(function () {
-        targetSearch.addEventListener("transitionend", function () {
-          _this2.removeElement(firstChild);
-          _this2.transitioning = false;
-        });
+        content.setAttribute("data-transition-state", "transitioning");
 
-        targetSearch.setAttribute("data-transition", "visible");
+        requestAnimationFrame(function () {
+          content.addEventListener("transitionend", _this2.handleTransition);
+          content.style.transform = "translate3d(0, 0, 0)";
+        });
       });
     }
   }, {
@@ -1393,18 +1412,25 @@ var Application = (_class = (_temp = _class2 = function (_BaseComponent) {
       content.appendChild(targetWrapper);
 
       if (firstChild) {
-        requestAnimationFrame(function () {
-          firstChild.addEventListener("transitionend", function () {
-            _this3.removeElement(firstChild);
-            _this3.autofocus();
-            _this3.element.setAttribute("data-route", _this3.route);
-            _this3.transitioning = false;
+        this.handleTransition = function (event) {
+          if (event.target !== content) return;
 
-            targetWrapper.firstChild.focus();
-          });
+          _this3.removeElement(firstChild);
+          _this3.autofocus();
+          _this3.element.setAttribute("data-route", _this3.route);
+          _this3.transitioning = false;
 
-          firstChild.setAttribute("data-transition", "hidden-left");
-        });
+          content.removeEventListener("transitionend", _this3.handleTransition);
+          content.removeAttribute("data-transition-state");
+          content.style.transform = "translate3d(0, 0, 0)";
+
+          targetWrapper.firstChild.focus();
+        };
+
+        content.addEventListener("transitionend", this.handleTransition);
+
+        content.setAttribute("data-transition-state", "transitioning");
+        content.style.transform = "translate3d(-100%, 0, 0)";
       }
     }
   }, {
@@ -1885,7 +1911,7 @@ exports = module.exports = __webpack_require__(1)();
 
 
 // module
-exports.push([module.i, "[data-component=\"application\"] {\n  -ms-flex-align: center;\n      -ms-grid-row-align: center;\n      align-items: center;\n  -ms-flex-pack: center;\n      justify-content: center;\n  max-height: 100%;\n  min-height: 100%;\n}\n@media (max-height: 24em) {\n  [data-component=\"application\"] {\n    -ms-flex-pack: start;\n        justify-content: flex-start;\n  }\n}\n[data-component=\"application\"][data-route=\"home\"] .modal-header [data-action=\"previous\"],\n[data-component=\"application\"][data-target-count=\"1\"] .modal-header [data-action=\"previous\"] {\n  visibility: hidden;\n}\n[data-component=\"application\"][data-mode=\"inline\"] .modal-header [data-action=\"close\"] {\n  visibility: hidden;\n  pointer-events: none;\n}\n[data-component=\"application\"] .modal {\n  position: relative;\n  z-index: 1;\n  -ms-flex: 1 1 auto;\n      flex: 1 1 auto;\n  min-height: 18em;\n  max-height: 38em;\n  overflow: hidden;\n  width: 35em;\n  max-width: 100%;\n  background: #fff;\n  border-radius: 0.3125em;\n}\n[data-component=\"application\"] .modal .content {\n  -ms-flex: 1 1 auto;\n      flex: 1 1 auto;\n}\n[data-component=\"application\"] .modal .content > * {\n  margin: 0;\n  -ms-flex: 1 0 auto;\n      flex: 1 0 auto;\n  transition: margin 0.2s ease-in-out;\n  width: 100%;\n}\n[data-component=\"application\"] .modal .content [data-component=\"target-search\"][data-transition=\"hidden-left\"] {\n  margin-left: -100%;\n}\n[data-component=\"application\"] .modal-header {\n  -ms-flex-align: center;\n      -ms-grid-row-align: center;\n      align-items: center;\n  box-shadow: 0 1px rgba(0,0,0,0.21);\n  -ms-flex: 0 0 auto;\n      flex: 0 0 auto;\n  -ms-flex-pack: justify;\n      justify-content: space-between;\n  width: 100%;\n  z-index: 1;\n}\n[data-component=\"application\"] .modal-header .title {\n  text-align: center;\n  line-height: 1.4;\n  padding: 0.8em 0;\n}\n[data-component=\"application\"] .modal-header .button[data-action] {\n  -ms-flex-align: center;\n      align-items: center;\n  -webkit-appearance: none;\n     -moz-appearance: none;\n          appearance: none;\n  background: inherit;\n  border-radius: 0;\n  color: inherit;\n  -ms-flex: 0 0 auto;\n      flex: 0 0 auto;\n  display: -ms-flexbox;\n  display: flex;\n  height: 4em;\n  -ms-flex-pack: center;\n      justify-content: center;\n  padding: 0;\n  margin: 0;\n  opacity: 0.85;\n  width: 4em;\n}\n[data-component=\"application\"] .modal-header .button[data-action]:focus:before {\n  display: none;\n}\n[data-component=\"application\"] .modal-header .button[data-action]:hover,\n[data-component=\"application\"] .modal-header .button[data-action]:focus {\n  background: rgba(0,0,0,0.045);\n  box-shadow: none;\n  opacity: 1;\n}\n[data-component=\"application\"] .modal-header .button[data-action]:not(:hover) {\n  color: rgba(0,0,0,0.6);\n}\n[data-component=\"application\"] .modal-header .button[data-action] > .icon {\n  -ms-flex: 1 0 auto;\n      flex: 1 0 auto;\n  width: 1em;\n  height: 1em;\n  stroke: currentColor;\n}\n[data-component=\"application\"] .modal-footer {\n  -ms-flex-align: center;\n      -ms-grid-row-align: center;\n      align-items: center;\n  box-shadow: 0 -1px rgba(0,0,0,0.21);\n  -ms-flex: 0 0 auto;\n      flex: 0 0 auto;\n  -ms-flex-pack: end;\n      justify-content: flex-end;\n  padding: 1.5em;\n  position: relative;\n  z-index: 1;\n}\n[data-component=\"application\"] .modal-footer button[disabled],\n[data-component=\"application\"] .modal-footer .button[disabled] {\n  background: #e0e0e0;\n}\n@media (min-width: 769px) {\n  [data-component=\"application\"] .modal {\n    box-shadow: 0 2px 8px rgba(0,0,0,0.4);\n    margin: 1.5em 0;\n  }\n}\n@media (max-width: 768px) {\n  [data-component=\"application\"] .modal {\n    border-radius: 0;\n    max-height: 100vh;\n    width: 100%;\n  }\n}\n", ""]);
+exports.push([module.i, "[data-component=\"application\"] {\n  -ms-flex-align: center;\n      -ms-grid-row-align: center;\n      align-items: center;\n  -ms-flex-pack: center;\n      justify-content: center;\n  max-height: 100%;\n  min-height: 100%;\n}\n@media (max-height: 24em) {\n  [data-component=\"application\"] {\n    -ms-flex-pack: start;\n        justify-content: flex-start;\n  }\n}\n[data-component=\"application\"][data-route=\"home\"] .modal-header [data-action=\"previous\"],\n[data-component=\"application\"][data-target-count=\"1\"] .modal-header [data-action=\"previous\"] {\n  visibility: hidden;\n}\n[data-component=\"application\"][data-mode=\"inline\"] .modal-header [data-action=\"close\"] {\n  visibility: hidden;\n  pointer-events: none;\n}\n[data-component=\"application\"] .modal {\n  position: relative;\n  z-index: 1;\n  -ms-flex: 1 1 auto;\n      flex: 1 1 auto;\n  min-height: 18em;\n  max-height: 38em;\n  overflow: hidden;\n  width: 35em;\n  max-width: 100%;\n  background: #fff;\n  border-radius: 0.3125em;\n}\n[data-component=\"application\"] .modal .content {\n  -ms-flex: 1 1 auto;\n      flex: 1 1 auto;\n  transform: translate3d(0, 0, 0);\n}\n[data-component=\"application\"] .modal .content[data-transition-state=\"transitioning\"] {\n  transition: transform 0.2s ease-in-out;\n}\n[data-component=\"application\"] .modal .content > * {\n  margin: 0;\n  -ms-flex: 1 0 auto;\n      flex: 1 0 auto;\n  width: 100%;\n}\n[data-component=\"application\"] .modal-header {\n  -ms-flex-align: center;\n      -ms-grid-row-align: center;\n      align-items: center;\n  box-shadow: 0 1px rgba(0,0,0,0.21);\n  -ms-flex: 0 0 auto;\n      flex: 0 0 auto;\n  -ms-flex-pack: justify;\n      justify-content: space-between;\n  width: 100%;\n  z-index: 1;\n}\n[data-component=\"application\"] .modal-header .title {\n  text-align: center;\n  line-height: 1.4;\n  padding: 0.8em 0;\n}\n[data-component=\"application\"] .modal-header .button[data-action] {\n  -ms-flex-align: center;\n      align-items: center;\n  -webkit-appearance: none;\n     -moz-appearance: none;\n          appearance: none;\n  background: inherit;\n  border-radius: 0;\n  color: inherit;\n  -ms-flex: 0 0 auto;\n      flex: 0 0 auto;\n  display: -ms-flexbox;\n  display: flex;\n  height: 4em;\n  -ms-flex-pack: center;\n      justify-content: center;\n  padding: 0;\n  margin: 0;\n  opacity: 0.85;\n  width: 4em;\n}\n[data-component=\"application\"] .modal-header .button[data-action]:focus:before {\n  display: none;\n}\n[data-component=\"application\"] .modal-header .button[data-action]:hover,\n[data-component=\"application\"] .modal-header .button[data-action]:focus {\n  background: rgba(0,0,0,0.045);\n  box-shadow: none;\n  opacity: 1;\n}\n[data-component=\"application\"] .modal-header .button[data-action]:not(:hover) {\n  color: rgba(0,0,0,0.6);\n}\n[data-component=\"application\"] .modal-header .button[data-action] > .icon {\n  -ms-flex: 1 0 auto;\n      flex: 1 0 auto;\n  width: 1em;\n  height: 1em;\n  stroke: currentColor;\n}\n[data-component=\"application\"] .modal-footer {\n  -ms-flex-align: center;\n      -ms-grid-row-align: center;\n      align-items: center;\n  box-shadow: 0 -1px rgba(0,0,0,0.21);\n  -ms-flex: 0 0 auto;\n      flex: 0 0 auto;\n  -ms-flex-pack: end;\n      justify-content: flex-end;\n  padding: 1.5em;\n  position: relative;\n  z-index: 1;\n}\n[data-component=\"application\"] .modal-footer button[disabled],\n[data-component=\"application\"] .modal-footer .button[disabled] {\n  background: #e0e0e0;\n}\n@media (min-width: 769px) {\n  [data-component=\"application\"] .modal {\n    box-shadow: 0 2px 8px rgba(0,0,0,0.4);\n    margin: 1.5em 0;\n  }\n}\n@media (max-width: 768px) {\n  [data-component=\"application\"] .modal {\n    border-radius: 0;\n    max-height: 100vh;\n    width: 100%;\n  }\n}\n", ""]);
 
 // exports
 
