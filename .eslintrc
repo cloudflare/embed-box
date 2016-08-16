@@ -88,7 +88,7 @@
     "no-multiple-empty-lines": "warn",
     "no-native-reassign": "error",
     "no-nested-ternary": "warn",
-    "no-new": "error",
+    "no-new": "off",
     "no-new-func": "error",
     "no-new-object": "error",
     "no-new-wrappers": "error",
