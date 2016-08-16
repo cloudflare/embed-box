@@ -134,16 +134,26 @@ export default class Application extends BaseComponent {
       return
     }
 
-    targetSearch.setAttribute("data-transition", "hidden-left")
     content.insertBefore(targetSearch, firstChild)
+    content.style.transform = "translate3d(-100%, 0, 0)"
+
+    this.handleTransition = event => {
+      if (event.target !== content) return
+
+      this.removeElement(firstChild)
+      this.transitioning = false
+
+      content.removeEventListener("transitionend", this.handleTransition)
+      content.removeAttribute("data-transition-state")
+    }
 
     requestAnimationFrame(() => {
-      targetSearch.addEventListener("transitionend", () => {
-        this.removeElement(firstChild)
-        this.transitioning = false
-      })
+      content.setAttribute("data-transition-state", "transitioning")
 
-      targetSearch.setAttribute("data-transition", "visible")
+      requestAnimationFrame(() => {
+        content.addEventListener("transitionend", this.handleTransition)
+        content.style.transform = "translate3d(0, 0, 0)"
+      })
     })
   }
 
@@ -174,18 +184,25 @@ export default class Application extends BaseComponent {
     content.appendChild(targetWrapper)
 
     if (firstChild) {
-      requestAnimationFrame(() => {
-        firstChild.addEventListener("transitionend", () => {
-          this.removeElement(firstChild)
-          this.autofocus()
-          this.element.setAttribute("data-route", this.route)
-          this.transitioning = false
+      this.handleTransition = event => {
+        if (event.target !== content) return
 
-          targetWrapper.firstChild.focus()
-        })
+        this.removeElement(firstChild)
+        this.autofocus()
+        this.element.setAttribute("data-route", this.route)
+        this.transitioning = false
 
-        firstChild.setAttribute("data-transition", "hidden-left")
-      })
+        content.removeEventListener("transitionend", this.handleTransition)
+        content.removeAttribute("data-transition-state")
+        content.style.transform = "translate3d(0, 0, 0)"
+
+        targetWrapper.firstChild.focus()
+      }
+
+      content.addEventListener("transitionend", this.handleTransition)
+
+      content.setAttribute("data-transition-state", "transitioning")
+      content.style.transform = "translate3d(-100%, 0, 0)"
     }
   }
 }

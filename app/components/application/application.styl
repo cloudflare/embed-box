@@ -32,15 +32,15 @@
 
     .content
       flex 1 1 auto // Fill center unused space.
+      transform translate3d(0, 0, 0) // Force GPU render.
+
+      &[data-transition-state="transitioning"]
+        transition transform .2s ease-in-out
 
       > *
         margin 0
         flex 1 0 auto
-        transition margin .2s ease-in-out
         width 100%
-
-      [data-component="target-search"][data-transition="hidden-left"]
-        margin-left -100%
 
   .modal-header
     align-items center
