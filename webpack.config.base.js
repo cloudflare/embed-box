@@ -46,7 +46,7 @@ module.exports = function createWebpackConfig(overrides = {}) {
   $.plugins = [
     new webpack.NoErrorsPlugin(),
     new webpack.DefinePlugin({
-      "BASE_URL": JSON.stringify(BASE_URL),
+      BASE_URL: JSON.stringify(BASE_URL),
       "process.env.NODE_ENV": JSON.stringify(ENVIRONMENT)
     })
   ].concat(plugins)
@@ -65,7 +65,7 @@ module.exports = function createWebpackConfig(overrides = {}) {
       {test: /\.png|jpe?g|gif$/i, loader: "url?limit=0", exclude},
       {test: /\.js$/, loader: "babel", exclude},
       {test: /\.svg$/, loader: "svg-inline", exclude},
-      {test: /\.styl$/, loader: "css-to-string!css!postcss!stylus?paths=app/resources/"}
+      {test: /\.styl$/, loader: "css-to-string!css!postcss!stylus?paths=app"}
     ]),
     noParse: /\.min\.js/
   }
