@@ -132,14 +132,15 @@
     counter-reset item 0
     list-style none
     margin 0
-    padding 2em 2em 2em 4em
+    padding 2em 0
 
     div, footer, header, section
       display block
 
     li
       counter-increment item
-      margin 0
+      margin 1em 0
+      padding 0
       position relative
 
       &:first-child > *:first-child
@@ -154,17 +155,25 @@
         color #fff
         content counter(item)
         display inline-block
+        left 0
         line-height 2em
-        margin-right 1em
+        margin-left 1em
         position absolute
-        right 100%
         text-align center
-        top 0
+        top -0.2em
         width 2em
 
-  figure
-    margin 2em -2em 0 -4em
+      & > p, & > h1, & > h2
+        margin 1em 2em 1em 4em
 
+  [data-component="screenshot"]
+    pointer-events none
+    width 100%
+
+  figure, [data-component="screenshot"]
+    margin 2em 0
+
+  figure
     > img
       max-width 100%
 

@@ -1,0 +1,31 @@
+.screenshot
+  .menu
+    .item Dashboard
+    .item Content
+    .item Structure
+    .item Appearance
+    .item People
+    .item.selected.focal-point Modules
+    .item Configuration
+
+  .menu.sub
+    .item Add content
+    .item Find content
+
+  .modules-list(data-column)
+    .title User Interface
+    table.entries
+      thead
+        th ENABLED
+        th NAME
+        th DESCRIPTION
+      tbody
+        td
+          .arrow
+            .relative(style={height: "7em", bottom: "68px", left: "15px"})!= arrowBottomLeft
+          input(type="checkbox" checked)
+        td!= config.name
+        td
+
+  footer
+    button.focal-point Save configuration

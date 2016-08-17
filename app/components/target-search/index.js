@@ -1,8 +1,8 @@
+import template from "./target-search.pug"
 import stylesheet from "./target-search.styl"
 
 import autobind from "autobind-decorator"
 import BaseComponent from "components/base-component"
-import template from "./target-search.pug"
 import * as icons from "components/icons"
 import KM from "lib/key-map"
 

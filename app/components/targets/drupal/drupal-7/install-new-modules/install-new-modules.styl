@@ -1,0 +1,48 @@
+body
+  background #333
+  font-family serif
+  color white
+  padding 0 1em
+
+a
+  text-decoration none
+
+  &.install::before
+    content "+"
+    display inline-block
+    font-weight bold
+    margin 0 .4em
+
+p
+  margin .5em 0
+
+h2
+  color #ebe3c5
+  font-weight normal
+  margin .4em 0
+
+.modal
+  background white
+  color black
+  padding 1.5em 2em
+
+.nav
+  align-items center
+  margin-bottom 1em
+
+  .item
+    & + .item::before
+      content "»"
+      display inline-block
+      margin 0 .4em
+
+.modules
+  border 1px solid #dadada
+  border-radius 5px
+  color #6d6a67
+  font-family sans-serif
+  padding-bottom 4em
+
+  header
+    background #dbdbdb
+    padding .3em .8em

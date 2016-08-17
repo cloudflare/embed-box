@@ -1,0 +1,30 @@
+ol.steps
+  li
+    != this.renderDownloadLink()
+    p After downloading, don’t unzip the file.
+
+  li
+    h2 Login to your Drupal Administrator Dashboard and click “Modules”
+
+    figure(data-ref="screenshotMounts[]" data-screenshot="navigateToModules")
+
+  li
+    h2 Click “Install New Module”
+
+    figure(data-ref="screenshotMounts[]" data-screenshot="installNewModules")
+
+  li
+    h2 Upload the module
+    p Click “Choose File” and select the module you downloaded to your computer.
+
+    figure(data-ref="screenshotMounts[]" data-screenshot="uploadModule")
+
+  li
+    h2 Activate the plugin and view your site
+
+    p On the Modules page, scroll down to find the new “#{config.name}” entry.
+    p Check the “Enabled” checkbox to activate the plugin, and click “Save configuration”.
+
+    figure(data-ref="screenshotMounts[]" data-screenshot="activatePlugin")
+
+    p You’re done!

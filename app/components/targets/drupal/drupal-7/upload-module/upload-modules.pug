@@ -1,0 +1,34 @@
+.screenshot
+  h2 Modules
+
+  .modal(data-column)
+    .nav
+      .item
+        a(href="#-") Home
+      .item
+        a(href="#-") Administration
+      .item
+        a(href="#-") Modules
+
+    .instructions(data-column)
+      p
+        | The following extensions are supported:&nbsp;
+        i zip tar tgz bz2
+
+      p
+        strong Upload a module or theme archive to install
+
+      p
+        .upload
+          .arrow
+            .relative(style={"font-size": "7em", bottom: "100px", left: "103px"})
+              != arrowBottomLeft
+
+          input(type="file")
+
+        .hint For example:&nbsp;
+          i name.tar.zip
+          | &nbsp;from your local computer
+
+      footer
+        button.focal-point Install

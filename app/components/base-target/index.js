@@ -123,33 +123,15 @@ export default class BaseTarget extends BaseComponent {
     return this.constructor.versions.map(version => version.id)
   }
 
-  serializeSteps(versionID) {
-    const [version] = this.constructor.versions.filter(version => version.id === versionID)
-
-    return this.serialize(version.template)
-  }
-
   @autobind
   handleVersionChange({target: {value}}) {
-    const previousElement = this.element
-
     this.versionID = value
-    this.replaceElement(previousElement, this.render())
+    this.render()
   }
 
-  render() {
-    const stepsElement = this.serializeSteps(this.versionID)
-
-    this.compileTemplate()
-
-    const {autoDownload, iframe} = this.store
-    const {copyButtons = [], stepsMount, versionSelector} = this.refs
-
-    this.replaceElement(stepsMount, stepsElement)
-
-    if (versionSelector) {
-      versionSelector.addEventListener("change", this.handleVersionChange)
-    }
+  bindCopyButtons() {
+    const {iframe} = this.store
+    const {copyButtons = []} = this.refs
 
     copyButtons.forEach(copyButton => {
       const copyableContent = copyButton.parentNode.querySelector(".copyable")
@@ -170,10 +152,48 @@ export default class BaseTarget extends BaseComponent {
         setTimeout(() => copyButton.removeAttribute("data-status"), 600)
       })
     })
+  }
+
+  renderSteps() {
+    const {stepsMount} = this.refs
+    const [version] = this.constructor.versions.filter(version => version.id === this.versionID)
+    const stepsElement = this.serialize(version.template)
+
+    this.refs.screenshotMounts = []
+    this.replaceElement(stepsMount, stepsElement)
+    this.updateRefs()
+
+    const {screenshotMounts = []} = this.refs
+
+    screenshotMounts.forEach(screenshotMount => {
+      const Screenshot = version.screenshots[screenshotMount.getAttribute("data-screenshot")]
+      const screenshot = new Screenshot()
+
+      this.replaceElement(screenshotMount, screenshot.render(this.store))
+    })
+  }
+
+  render() {
+    const previousElement = this.element
+
+    this.compileTemplate()
+    this.renderSteps()
+
+    const {autoDownload} = this.store
+    const {versionSelector} = this.refs
+
+    if (versionSelector) {
+      versionSelector.addEventListener("change", this.handleVersionChange)
+    }
+
+    this.bindCopyButtons()
 
     if (autoDownload && this.downloadURL) {
       setTimeout(this.startDownload, AUTO_DOWNLOAD_DELAY)
     }
+
+
+    if (previousElement) this.replaceElement(previousElement, this.element)
 
     return this.element
   }

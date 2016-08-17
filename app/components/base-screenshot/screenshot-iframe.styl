@@ -1,0 +1,37 @@
+@import "~styl/reset"
+@import "~shared"
+@import "~styl/colors"
+
+body
+  font-size 12px
+
+.screenshot
+  flex-flow column
+  position relative
+  width 100%
+
+  .focal-point
+    box-shadow 0 0 4px 2px attentionYellow
+
+  .arrow-parent
+    position relative
+    z-index 10
+
+  .arrow
+    display inline-block
+    height 10em
+    opacity .8
+    position absolute
+    z-index 10
+
+    .relative
+      display block
+      height 100%
+      position relative
+
+    svg
+      display block
+      height 100%
+
+      .inner-stroke
+        fill attentionYellow
