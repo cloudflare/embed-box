@@ -98,19 +98,20 @@ document.addEventListener("DOMContentLoaded", () => {
 
   buttons.forEach(element => element.addEventListener("click", evalRunButton.bind(null, element)))
 
-  // Prevent first demo from overwriting the URL anchor.
-  CONSTRUCTOR_DEFAULTS.routing = false
-  CONSTRUCTOR_DEFAULTS.events = {
-    onLoad(instance) {
-      const instanceElement = instance.application.element
+  if (document.body.clientWidth >= DESKTOP_MIN_WIDTH) {
+    // Prevent first demo from overwriting the URL anchor.
+    CONSTRUCTOR_DEFAULTS.routing = false
+    CONSTRUCTOR_DEFAULTS.events = {
+      onLoad(instance) {
+        const instanceElement = instance.application.element
 
-      instanceElement.addEventListener("mouseover", stopDemoLoop)
-      instanceElement.addEventListener("click", stopDemoLoop)
+        instanceElement.addEventListener("mouseover", stopDemoLoop)
+        instanceElement.addEventListener("click", stopDemoLoop)
 
-      delete CONSTRUCTOR_DEFAULTS.routing
-      delete CONSTRUCTOR_DEFAULTS.events
+        delete CONSTRUCTOR_DEFAULTS.routing
+        delete CONSTRUCTOR_DEFAULTS.events
+      }
     }
+    evalRunButton(buttons[0])
   }
-
-  evalRunButton(buttons[0])
 })
