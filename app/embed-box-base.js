@@ -5,6 +5,7 @@ import autobind from "autobind-decorator"
 import BaseComponent from "components/base-component"
 import Application from "components/application"
 import polyfillCustomEvent from "lib/custom-event"
+import polyfillRequestAnimationFrame from "lib/request-animation-frame"
 import {createStore} from "lib/store"
 import {getRoute} from "lib/routing"
 
@@ -43,6 +44,8 @@ export default class EmbedBoxBase {
   };
 
   constructor(spec = {}) {
+    polyfillRequestAnimationFrame(window)
+
     const {iframeAttributes, stylesheet} = this.constructor
     const store = createStore(spec)
     const {iframe} = store
@@ -55,7 +58,6 @@ export default class EmbedBoxBase {
       targets: targetConfigs = {},
       theme = {}
     } = spec
-
 
     // HACK: Custom targets have a different BaseComponent instance.
     // This ensures all components have access to the store.
