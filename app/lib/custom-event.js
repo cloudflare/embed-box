@@ -1,15 +1,25 @@
-export default function polyfillCustomEvent({document, window}) {
-  if (typeof window.CustomEvent === "function") return false
+export default function polyfillCustomEvent({document: $document, window: $window}) {
+  let supported = true
 
-  function CustomEvent (event, params = {bubbles: false, cancelable: false}) {
-    const shimEvent = document.createEvent("CustomEvent")
+  try {
+    // IE10 will fail to construct a CustomEvent
+    new $window.CustomEvent()
+  }
+  catch (e) {
+    supported = false
+  }
 
-    shimEvent.initCustomEvent(event, params.bubbles, params.cancelable, params.detail)
+  if (supported) return
+
+  function PolyFilledCustomEvent(event, {bubbles = false, cancelable = false, detail} = {}) {
+    const shimEvent = $document.createEvent("CustomEvent")
+
+    shimEvent.initCustomEvent(event, bubbles, cancelable, detail)
 
     return shimEvent
   }
 
-  CustomEvent.prototype = window.Event.prototype
+  PolyFilledCustomEvent.prototype = $window.Event.prototype
 
-  window.CustomEvent = CustomEvent
+  $window.PolyFilledCustomEvent = PolyFilledCustomEvent
 }

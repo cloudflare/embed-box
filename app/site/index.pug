@@ -1,9 +1,7 @@
 doctype html
-html.no-js(lang="en" xmlns:og="http://ogp.me/ns#" xmlns:fb="http://www.facebook.com/2008/fbml")
+html(lang="en" xmlns:og="http://ogp.me/ns#" xmlns:fb="http://www.facebook.com/2008/fbml")
   head
     title= htmlWebpackPlugin.options.title
-    script.
-      document.documentElement.classList.remove("no-js");
 
     link(rel="shortcut icon" href=require("./assets/favicon.png") type="image/x-icon")
 
@@ -13,7 +11,7 @@ html.no-js(lang="en" xmlns:og="http://ogp.me/ns#" xmlns:fb="http://www.facebook.
     meta(property="og:type" content="website")
     meta(property="og:url" content="http://embedbox.io")
     meta(property="og:description" content=htmlWebpackPlugin.options.description)
-    mete(name="description" content=htmlWebpackPlugin.options.description)
+    meta(name="description" content=htmlWebpackPlugin.options.description)
 
   body
     main(data-column)
@@ -39,7 +37,6 @@ html.no-js(lang="en" xmlns:og="http://ogp.me/ns#" xmlns:fb="http://www.facebook.
 
           iframe#automated-frame(
             allowTransparency
-            seamless
             srcdoc="<div style='display: none;'></div>"
             src="about:blank")
 

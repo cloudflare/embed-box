@@ -5,6 +5,7 @@ import autobind from "autobind-decorator"
 import BaseComponent from "components/base-component"
 import * as icons from "components/icons"
 import KM from "lib/key-map"
+import findIndex from "lodash.findindex"
 
 const {search: SearchIcon} = icons
 const entryQuery = id => `.entry[data-id=${id}]`
@@ -52,7 +53,7 @@ export default class TargetSearch extends BaseComponent {
     if (!entrySpecs.length) return
 
     const {length} = entrySpecs
-    const currentIndex = entrySpecs.findIndex(({id}) => id === selectedId) || 0
+    const currentIndex = findIndex(entrySpecs, ({id}) => id === selectedId) || 0
 
     // Move the index by delta and wrap around the bottom/top.
     const nextIndex = (currentIndex + delta + length) % length

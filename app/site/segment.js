@@ -69,7 +69,7 @@
       `cdn.segment.com/analytics.js/v1/${key}/analytics.min.js`
 
     // Insert our script next to the first script element.
-    const [first] = document.getElementsByTagName("script")
+    const first = document.getElementsByTagName("script")[0]
 
     first.parentNode.insertBefore(script, first)
   }

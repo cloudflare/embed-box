@@ -74,16 +74,18 @@ export default class Application extends BaseComponent {
 
   @autobind
   closeModal() {
+    this.route = ""
     this.onClose()
   }
 
   @autobind
   delgateKeyEvent(nativeEvent) {
+    const {PolyFilledCustomEvent} = this.store.iframe.window
     const receiver = this.refs.content.querySelector("[data-event-receiver]")
 
     if (this.transitioning || !receiver) return
 
-    const delgated = new CustomEvent(`dispatched-${nativeEvent.type}`, {
+    const delgated = new PolyFilledCustomEvent(`dispatched-${nativeEvent.type}`, {
       detail: {nativeEvent}
     })
 

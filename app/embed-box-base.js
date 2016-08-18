@@ -32,7 +32,6 @@ export default class EmbedBoxBase {
     allowTransparency: "",
     [VISIBILITY_ATTRIBUTE]: "hidden",
     frameBorder: "0",
-    seamless: "seamless",
     srcdoc: "<div data-iframe-loader-shim style='display: none;'></div>",
     src: "about:blank"
   };

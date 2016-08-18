@@ -22,9 +22,6 @@
   overflow auto
   overflow-scrolling touch
 
-  &:focus
-    outline none
-
   [data-content-slot]
     background lightGrayRGBA
     border-radius roundedChildRadius
@@ -82,6 +79,9 @@
   height 0
   padding-bottom 1em
   user-select text
+
+  &, *:focus
+    outline none
 
   .target-title
     align-items center
@@ -163,7 +163,7 @@
         top -0.2em
         width 2em
 
-      & > p, & > h1, & > h2
+      & > p, & > h1, & > h2, .copy-container
         margin 1em 2em 1em 4em
 
   [data-component="screenshot"]

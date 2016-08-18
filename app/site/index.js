@@ -1,4 +1,3 @@
-import "babel-polyfill"
 import "./site.external-styl"
 
 import {runDemo} from "site/lib/user-simulator"
@@ -73,7 +72,7 @@ document.addEventListener("DOMContentLoaded", () => {
   function evalRunButton(button) {
     const {parentElement} = button
     const useModal = button.getAttribute("data-run") === "modal"
-    const example = parentElement.querySelector("code").innerText
+    const example = parentElement.querySelector("code").textContent
 
     if (demoInstance) {
       demoInstance.destroy()
