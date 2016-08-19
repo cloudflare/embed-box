@@ -4,18 +4,28 @@ ol.steps
     p After downloading, don’t unzip the file.
 
   li
-    h2 Move the contents to <code>/sites/all/modules</code>
+    h2 Login to your Drupal Administrator Dashboard and click “Extend”
 
-    figure: img(src=require("../upload-plugin.png"))
-
-    p Unzip the file and move it into the <strong>sites <span class="with-more-icon-after"></span> all <span class="with-more-icon-after"></span> modules</strong> folder inside your Drupal installation.
-    p If you don’t have access to these files, please <a href="https://eager.io/contact">contact</a> us for help.
+    figure(data-ref="screenshotMounts[]" data-screenshot="navigateToModules")
 
   li
-    h2 Activate the plugin and view your site
+    h2 Click “Install new module”
 
-    figure: img(src=require("../activate-plugin.png"))
+    figure(data-ref="screenshotMounts[]" data-screenshot="installNewModules")
 
-    p On the Modules page, scroll down to find the new “Eager” plugin.
-    p Check the “Enabled” checkbox to activate the plugin, and click “Save configuration”.
-    p After it activates, visit your site to see a welcome message letting you know the installation was successful!
+  li
+    h2 Upload the module
+    p Click “Choose File” and select the module you downloaded to your computer.
+
+    figure(data-ref="screenshotMounts[]" data-screenshot="uploadModule")
+
+  li
+    h2 Activate the module
+
+    p You should see the new module on the “Extend” page.
+    p The module will appear in category set by the author.
+    p Click the checkbox next to the module, then click “Save Configuration”
+
+    figure(data-ref="screenshotMounts[]" data-screenshot="activateModule")
+
+    p You’re done!

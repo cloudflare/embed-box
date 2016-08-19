@@ -1,0 +1,86 @@
+body
+  background #333
+  color white
+  padding 0 1em
+
+a
+  text-decoration none
+
+button
+  &.install
+    background-color #4da5f0
+    border 1px solid #2b69d2
+    border-radius 0.7em
+    color #fff
+    padding .5em 1em .5em .7em
+
+    &::before
+      content "+"
+      display inline-block
+      font-weight bold
+      margin-right .5em
+
+p
+  margin .5em 0
+
+h2
+  align-items center
+  color #fff
+  display flex
+  font-weight normal
+  margin .4em 0
+
+  &::after
+    border 1px solid #fff
+    border-radius 50%
+    content "+"
+    display inline-block
+    font-size 14px
+    font-weight bold
+    height 1em
+    line-height .8
+    margin 0 .4em
+    text-align center
+    width 1em
+
+.with-plus-icon::before
+  content "+"
+  display inline-block
+  font-weight bold
+  margin 0 .4em
+
+.modal
+  background white
+  color black
+  padding 1.5em 2em
+
+.nav
+  align-items center
+  margin-bottom 1em
+
+  .item
+    & + .item::before
+      content "»"
+      display inline-block
+      margin 0 .4em
+
+.modules
+  border 1px solid #dadada
+  font-family sans-serif
+  padding-bottom 4em
+  margin-top 0.5em
+
+  header
+    font-size 1.2em
+    font-weight bold
+    padding .3em .8em
+
+  table
+    width 100%
+    thead, tr
+      background-color #eee
+
+    th, td
+      border 1px solid #fff
+      padding .5em 1em
+      text-align left

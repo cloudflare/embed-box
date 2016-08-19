@@ -8,7 +8,7 @@ export default class DrupalTarget extends BaseTarget {
   static label = "Drupal";
   static policy = "EMBED";
   static versions = [
-    drupal7,
-    drupal8
+    drupal8,
+    drupal7
   ];
 }

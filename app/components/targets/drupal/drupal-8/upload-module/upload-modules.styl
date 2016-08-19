@@ -1,0 +1,57 @@
+body
+  background #333
+  color white
+  padding 0 1em
+
+a
+  text-decoration none
+
+p
+  margin .5em 0
+
+button
+  background-color #ededed
+  border none
+  border-radius 1em
+  font-family serif
+  line-height 2
+  padding 0 .8em
+
+h2
+  align-items center
+  color #fff
+  display flex
+  font-weight normal
+  margin .4em 0
+
+  &::after
+    border 1px solid #fff
+    border-radius 50%
+    content "+"
+    display inline-block
+    font-size 14px
+    font-weight bold
+    height 1em
+    line-height .8
+    margin 0 .4em
+    text-align center
+    width 1em
+
+input[type="file"]
+  width 14em
+
+.modal
+  background white
+  color black
+  padding 1.5em 2em
+
+.nav
+  align-items center
+  margin-bottom 1em
+
+  .item
+    & + .item::before
+      margin 0 .4em
+      display inline-block
+      content "»"
+

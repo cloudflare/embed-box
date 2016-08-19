@@ -1,13 +1,25 @@
 @import "~normalize.css/normalize.css"
 @import "~styl/reset"
-@import "~shared"
+@import "~styl/box-sizing-border-box-all"
 @import "~styl/colors"
 
 baseFontSize = 12px
 
+html, body
+  width 100%
+  height 100%
+
+
 body
   font-size baseFontSize
+  margin 0
   overflow hidden
+
+div, footer, header, main, section
+  display flex
+
+[data-column]
+  flex-flow column nowrap
 
 .screenshot
   flex-flow column

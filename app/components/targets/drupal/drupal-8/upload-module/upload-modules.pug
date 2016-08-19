@@ -1,0 +1,33 @@
+.screenshot
+  h2 Extend
+
+  .modal(data-column)
+    .nav
+      .item
+        a(href="#-") Home
+      .item
+        a(href="#-") Administration
+      .item
+        a(href="#-") Modules
+
+    .instructions(data-column)
+      p
+        | You can find <a href="#-">modules</a> and <a href="#-">themes</a> on <a href="#-">drupal.org</a>
+
+      p
+        | The following extensions are supported:&nbsp;
+        i tar tgz bz2 zip
+
+      p
+        strong Upload a module or theme archive to install
+
+      p
+        .upload(data-arrow="right")
+          input.focal-point(type="file")
+
+        .hint For example:&nbsp;
+          i name.tar.zip
+          | &nbsp;from your local computer
+
+      footer(data-arrow="right")
+        button.focal-point Install
