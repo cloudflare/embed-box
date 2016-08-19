@@ -1,9 +1,11 @@
 ```javascript
 new EmbedBox({
   name: "Acme plugin",
+  embedCode: "<script src='{{BASE_URL}}/examples/library.js'></script>",
   labels: {
     title: function(config) { return `${config.name} install guide` },
-    searchPlaceholder: "Press or enter the type of website you have.",
+    searchHeader: "Press or enter the type of website you have.",
+    searchPlaceholder: "Filter...",
     next: "Continue",
     done: "Finished"
   }

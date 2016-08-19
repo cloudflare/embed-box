@@ -27,7 +27,8 @@ export function createStore(spec = {}) {
 
     labels: {
       done: "Done",
-      searchPlaceholder: "Select or search the type of website you have...",
+      searchHeader: "Select the type of website you have.",
+      searchPlaceholder: "Search...",
       next: "Next",
       title: config => `Add ${config.name} to your site`,
       ...labels
