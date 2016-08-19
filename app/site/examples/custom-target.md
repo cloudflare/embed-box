@@ -7,16 +7,13 @@ var CustomTarget = EmbedBoxCustomTarget.extend({
   },
   template: function(vars) {
     return ""
-    + "<section>"
-    +   this.renderTitle()
-    +   this.renderBeforeContent()
-    +   "<ol class='steps'>"
-    +     "<li>"
+    + "<ol class='steps'>"
+    +   "<li>"
+    +     "<p>"
     +       "<a href='${vars.registerURL}'>Register an account</a> before installing."
-    +     "</li>"
-    +   "</ol>"
-    +   this.renderAfterContent()
-    + "</section>"
+    +     "</p>"
+    +   "</li>"
+    + "</ol>"
   }
 })
 

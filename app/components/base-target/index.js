@@ -26,8 +26,10 @@ export default class BaseTarget extends BaseComponent {
       static id = id;
       static label = label;
       static policy = policy || "";
-      static template = template || "";
-      static templateVars = templateVars || {}
+      static templateVars = templateVars || {};
+      static versions = [
+        {id: `${id}-custom-version`, template}
+      ];
       static isConstructable() {
         return true
       }
@@ -35,7 +37,7 @@ export default class BaseTarget extends BaseComponent {
   };
 
   static isConstructable(config, store) {
-    const {policy} = this
+    const {policy = "OR"} = this
     const hasLocalEmbedCode = !!config.embedCode
     const hasGlobalEmbedCode = !!store.embedCode
     const hasDownloadURL = !!config.downloadURL
@@ -55,6 +57,7 @@ export default class BaseTarget extends BaseComponent {
 
   constructor(spec = {}) {
     super(spec)
+
     this.versionID = this.config.versionID || this.versionIDs[0]
   }
 
