@@ -1,0 +1,17 @@
+.screenshot
+  header
+    h2 Update Manager
+
+  .content(data-column)
+    .alert Installation was completed successfully.
+
+    h4!= config.name
+    ul
+      li Installed <i>“#{config.name}”</i> successfully
+
+    h4 Next steps
+    ul
+      li
+        a(href="#-" data-arrow="right") Enable newly added
+      li
+        a(href="#-") Adminstrator pages

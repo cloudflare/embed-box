@@ -3,8 +3,11 @@
 @import "~shared"
 @import "~styl/colors"
 
+baseFontSize = 12px
+
 body
-  font-size 12px
+  font-size baseFontSize
+  overflow hidden
 
 .screenshot
   flex-flow column
@@ -14,10 +17,43 @@ body
   .focal-point
     box-shadow 0 0 4px 2px attentionYellow
 
-  .arrow-parent
+  a.focal-point
+    background-color attentionYellow
+
+  .arrow-parent, .relative-arrow
     position relative
     z-index 10
 
+  [data-arrow]
+    align-items center
+    display inline-flex
+
+    &::before, &::after
+      color attentionYellow
+      display inline-block
+      font-family sans-serif
+      font-size 4.4em
+      line-height baseFontSize
+      opacity .9
+      text-shadow 0 1px 0 rgba(0,0,0,0.3)
+
+  [data-arrow="left"]::before
+    content "→"
+
+  [data-arrow="right"]::after
+    content "←"
+
+  .relative-arrow
+    &::before, &::after
+      position absolute
+
+  .relative-arrow::before
+    right 100%
+
+  .relative-arrow::after
+    left 100%
+
+  // TODO: Consider removing SVG arrows as they align poorly across browsers.
   .arrow
     display inline-block
     height 10em

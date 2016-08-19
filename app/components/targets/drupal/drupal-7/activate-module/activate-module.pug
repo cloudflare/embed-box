@@ -5,7 +5,7 @@
     .item Structure
     .item Appearance
     .item People
-    .item.selected.focal-point Modules
+    .item.selected.focal-point.relative-arrow(data-arrow="left") Modules
     .item Configuration
 
   .menu.sub
@@ -20,12 +20,12 @@
         th NAME
         th DESCRIPTION
       tbody
-        td
-          .arrow
-            .relative(style={height: "7em", bottom: "68px", left: "15px"})!= arrowBottomLeft
-          input(type="checkbox" checked)
-        td!= config.name
-        td
+        tr
+          td
+            div.relative-arrow(data-arrow="right")
+              input(type="checkbox" checked)
+          td!= config.name
+          td
 
-  footer
+  footer(data-arrow="right")
     button.focal-point Save configuration

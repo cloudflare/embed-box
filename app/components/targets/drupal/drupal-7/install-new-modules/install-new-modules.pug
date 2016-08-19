@@ -9,10 +9,17 @@
         a(href="#-") Administration
 
     .instructions(data-column)
-      p
-        .arrow
-          .relative(style={height: "83px", width: "60px", bottom: "70px", right: "-110px"})!= arrowBottomLeft
-        a.install(href="#-") Install new module
+      p(data-arrow="right")
+        a.install.focal-point(href="#-") Install new module
 
       .modules(data-column)
         header Core
+
+        table
+          thead
+            th Enabled
+            th Name
+            th Version
+            th Description
+            th Operations
+          tbody

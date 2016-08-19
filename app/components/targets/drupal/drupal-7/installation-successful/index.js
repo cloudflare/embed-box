@@ -1,5 +1,5 @@
-import template from "./activate-plugin.pug"
-import stylesheet from "./activate-plugin.styl"
+import template from "./installation-successful.pug"
+import stylesheet from "./installation-successful.styl"
 
 import BaseScreenshot from "components/base-screenshot"
 

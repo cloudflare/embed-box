@@ -19,16 +19,12 @@
         strong Upload a module or theme archive to install
 
       p
-        .upload
-          .arrow
-            .relative(style={height: "115px", bottom: "100px", left: "103px"})
-              != arrowBottomLeft
-
-          input(type="file")
+        .upload(data-arrow="right")
+          input.focal-point(type="file")
 
         .hint For example:&nbsp;
           i name.tar.zip
           | &nbsp;from your local computer
 
-      footer
+      footer(data-arrow="right")
         button.focal-point Install
