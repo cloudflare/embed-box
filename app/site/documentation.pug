@@ -26,7 +26,31 @@ mixin codeExample(runnable, id)
 
 +anchored("h3", "Targets")
 :marked
-  A target will use the "global" configuration unless a more specific "local" option is set.
+  Targets are the instruction pages for each type of CMS.
+  A target's support for `embedCode` and `downloadURL` is dependant on it's internal `policy`.
+
+//- TODO Generate from `fetchedTargets`
+table.targets
+  thead
+    td Target
+    td Download
+    td Embed Code
+  tbody
+    tr
+      td Generic
+      td Optional
+      td Required
+    tr
+      td WordPress
+      td Optional
+      td Optional
+    tr
+      td Drupal
+      td Required
+      td Unsupported
+
+:marked
+  A target will use an option unless a target specific option is set.
 
   In this example all targets except Weebly will use the same `embedCode`
 

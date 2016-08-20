@@ -6,7 +6,7 @@ import BaseTarget from "components/base-target"
 export default class DrupalTarget extends BaseTarget {
   static id = "drupal";
   static label = "Drupal";
-  static policy = "EMBED";
+  static policy = "DOWNLOAD";
   static versions = [
     drupal8,
     drupal7

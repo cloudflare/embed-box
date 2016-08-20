@@ -35,16 +35,19 @@ export default class BaseTarget extends BaseComponent {
   };
 
   static isConstructable(config, store) {
-    const {policy = "OR"} = this
+    const {policy} = this
     const hasLocalEmbedCode = !!config.embedCode
     const hasGlobalEmbedCode = !!store.embedCode
+    const embedCodePresent = hasLocalEmbedCode || hasGlobalEmbedCode
     const hasDownloadURL = !!config.downloadURL
 
     switch (policy) {
       case "EMBED":
+        return embedCodePresent
+      case "DOWNLOAD":
         return hasDownloadURL
       case "OR":
-        return hasLocalEmbedCode || hasGlobalEmbedCode || hasDownloadURL
+        return embedCodePresent && !hasDownloadURL || hasDownloadURL
       case "NAND":
         // A `downloadURL` must be accompanied by an `embedCode`
         return hasDownloadURL && hasLocalEmbedCode || hasGlobalEmbedCode && !hasDownloadURL
