@@ -9,8 +9,6 @@ import BaseComponent from "components/base-component"
 import Clipboard from "clipboard"
 import * as icons from "components/icons"
 
-const AUTO_DOWNLOAD_DELAY = 3000
-
 export default class BaseTarget extends BaseComponent {
   static template = template;
   static titleTemplate = titleTemplate;
@@ -182,7 +180,6 @@ export default class BaseTarget extends BaseComponent {
     this.compileTemplate()
     this.renderSteps()
 
-    const {autoDownload} = this.store
     const {versionSelector} = this.refs
 
     if (versionSelector) {
@@ -190,11 +187,6 @@ export default class BaseTarget extends BaseComponent {
     }
 
     this.bindCopyButtons()
-
-    if (autoDownload && this.downloadURL) {
-      setTimeout(this.startDownload, AUTO_DOWNLOAD_DELAY)
-    }
-
 
     if (previousElement) this.replaceElement(previousElement, this.element)
 

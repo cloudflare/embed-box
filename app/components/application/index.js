@@ -9,6 +9,8 @@ import KM from "lib/key-map"
 import TargetSearch from "components/target-search"
 import TargetWrapper from "components/target-wrapper"
 
+const AUTO_DOWNLOAD_DELAY = 3000
+
 export default class Application extends BaseComponent {
   static template = template;
   static stylesheet = stylesheet;
@@ -173,6 +175,7 @@ export default class Application extends BaseComponent {
   navigateToTarget() {
     this.transitioning = true
 
+    const {autoDownload} = this.store
     const {content, title} = this.refs
     const {firstChild} = content
     const [target] = this.targets.filter(target => target.id === this.route)
@@ -180,6 +183,12 @@ export default class Application extends BaseComponent {
       onDone: this.closeModal,
       target
     }).render()
+
+    function onRender() {
+      if (!autoDownload || !target.downloadURL) return
+
+      setTimeout(target.startDownload, AUTO_DOWNLOAD_DELAY)
+    }
 
     title.textContent = target.modalTitle
 
@@ -199,12 +208,16 @@ export default class Application extends BaseComponent {
         content.style.transform = "translate3d(0, 0, 0)"
 
         targetWrapper.firstChild.focus()
+        onRender()
       }
 
       content.addEventListener("transitionend", this.handleTransition)
 
       content.setAttribute("data-transition-state", "transitioning")
       content.style.transform = "translate3d(-100%, 0, 0)"
+    }
+    else {
+      onRender()
     }
   }
 }
