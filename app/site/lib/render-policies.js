@@ -2,7 +2,7 @@
 const POLICY_CELLS = {
   DOWNLOAD: ["No", "No", "Yes"],
   EMBED: ["Yes", "Yes", "No"],
-  NAND: ["Yes", "Yes", "With local <code>embedCode</code>"],
+  NAND: ["Yes", "Yes", "Yes"],
   OR: ["Yes", "Yes", "Without local <code>embedCode</code>"]
 }
 

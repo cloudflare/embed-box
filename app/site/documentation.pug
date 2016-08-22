@@ -36,7 +36,7 @@ mixin codeExample(runnable, id)
 +codeExample(true)!= require("./examples/advanced.md")
 
 :marked
-  A target's support for `embedCode` and `downloadURL` is dependant on it's internal `policy` property.
+  A target's support for `embedCode` and <a href="#downloads">`downloadURL`</a> is dependant on it's internal `policy` property.
 
 table#target-policies
   thead
@@ -49,6 +49,12 @@ table#target-policies
     tr
 
 :marked
+  While a target may support multiple options, each may have a unqiue behavior.
+
+  Targets that support plugins such as `wordpress` will assume the `downloadURL` is package for the user to install using the CMS.
+
+  Targets like `generic` and `weebly` assume the `downloadURL` is a JavaScript library that is downloaded and installed using an `embedCode`
+
   Targets are populated in the `EmbedBox.fetchedTargets` array.
 
   `EmbedBox.getTargetIDs()` can be used to programatically get the bundled target IDs if desired.
@@ -62,6 +68,8 @@ table#target-policies
 
   Specifying a `downloadURL` will start an automatic download when a target is selected.
   Set `autoDownload: false` to disable to this behavior.
+
+  >Is your download a JavaScript file? Compress it in as a zip file to ensure the download automatically starts in all browsers!
 
 +codeExample(true)!= require("./examples/download-url.md")
 
