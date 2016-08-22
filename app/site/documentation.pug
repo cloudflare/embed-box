@@ -27,37 +27,31 @@ mixin codeExample(runnable, id)
 +anchored("h3", "Targets")
 :marked
   Targets are the instruction pages for each type of CMS.
-  A target's support for `embedCode` and `downloadURL` is dependant on it's internal `policy`.
+  Targets will use broad “global” option unless a target specific “local” option is set.
 
-//- TODO Generate from `fetchedTargets`
-table.targets
-  thead
-    td Target
-    td Download
-    td Embed Code
-  tbody
-    tr
-      td Generic
-      td Optional
-      td Required
-    tr
-      td WordPress
-      td Optional
-      td Optional
-    tr
-      td Drupal
-      td Required
-      td Unsupported
 
 :marked
-  A target will use an option unless a target specific option is set.
-
-  In this example all targets except Weebly will use the same `embedCode`
+  In this example all targets except Weebly will use the same `embedCode`.
 
 +codeExample(true)!= require("./examples/advanced.md")
 
 :marked
-  Use `EmbedBox.getTargetIDs()` to programatically get the bundled target IDs.
+  A target's support for `embedCode` and `downloadURL` is dependant on it's internal `policy` property.
+
+table#target-policies
+  thead
+    tr
+      th.id ID
+      th.global-embed-code Global <code>embedCode</code>
+      th.local-embed-code Local <code>embedCode</code>
+      th.download-url <code>downloadURL</code>
+  tbody
+    tr
+
+:marked
+  Targets are populated in the `EmbedBox.fetchedTargets` array.
+
+  `EmbedBox.getTargetIDs()` can be used to programatically get the bundled target IDs if desired.
 
 +codeExample(false, "target-ids")!= require("./examples/get-target-ids.md")
 

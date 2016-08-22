@@ -42,6 +42,9 @@ html
     padding-top 4em
     padding-bottom @padding-top
 
+  &.full
+    min-height 100vh
+
   &.padded
     padding-left 3em
     padding-right @padding-left
@@ -131,8 +134,24 @@ html
       height 100%
       width 100%
 
-  &.full
-    min-height 100vh
+  table
+    text-align left
+    width 100%
+
+    code
+      background none !important
+
+    th.id
+      width 16%
+    th.global-embed-code
+      width 26%
+    th.local-embed-code
+      width 26%
+    th.download-url
+      width 30%
+
+    tbody tr:nth-child(odd)
+      background-color rgba(255,255,255, 0.05)
 
 .slide.share-slide
   padding-top 0

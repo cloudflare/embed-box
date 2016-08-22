@@ -31,6 +31,7 @@ import BaseTarget from "components/base-target"
 export default class WordPressTarget extends BaseTarget {
   static id = "wordpress";
   static label = "WordPress";
+  static policy = "NAND";
   static versions = [{id: "4.x", template: wordpress4}];
 }
 ```
@@ -43,6 +44,7 @@ The `static` attributes are metadata that inform EmbedBox about the target.
 Unlike the usual project style, `static` attributes require a semicolon after each declaration.
 
 - `id` is a unique, dashes-between-words identifier.
+- `policy` is the used to determine whether the target can render given the [EmbedBox's options](http://embedbox.io/#targets).
 - `label` is the human readable identifier.
 - `versions` is an array of objects for each supported version.
 

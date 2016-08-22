@@ -3,6 +3,7 @@ import "./site.external-styl"
 import {runDemo} from "site/lib/user-simulator"
 import loadScripts from "site/lib/load-scripts"
 import renderTOC from "site/lib/render-toc"
+import renderPolicies from "site/lib/render-policies"
 
 const DESKTOP_MIN_WIDTH = 1080
 
@@ -15,12 +16,7 @@ const LIBRARY_SCRIPTS = [
 const CONSTRUCTOR_DEFAULTS = {}
 
 document.addEventListener("DOMContentLoaded", () => {
-  renderTOC()
   const targetIDExample = document.querySelector("[data-example-id='target-ids'] .hljs-comment")
-
-  targetIDExample.textContent = targetIDExample.textContent
-    .replace("{{TARGET_IDS}}", `[${window.EmbedBox.getTargetIDs().join(", ")}]`)
-
   const PRISTINE_GLOBALS = window.PRISTINE_GLOBALS = {
     EmbedBox: window.EmbedBox,
     EmbedBoxCustom: window.EmbedBoxCustom
@@ -29,6 +25,12 @@ document.addEventListener("DOMContentLoaded", () => {
   const runInlineContainer = document.getElementById("run-inline-container")
   let demoInstance = null
   let createInteractiveDemo
+
+  renderTOC()
+  renderPolicies(window.EmbedBox)
+
+  targetIDExample.textContent = targetIDExample.textContent
+    .replace("{{TARGET_IDS}}", `[${window.EmbedBox.getTargetIDs().join(", ")}]`)
 
   window.addEventListener("resize", () => {
     if (!demoInstance || demoInstance.mode === "modal" && !demoInstance.modeAdjusted) return
