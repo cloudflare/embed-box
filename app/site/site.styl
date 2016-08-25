@@ -186,9 +186,10 @@ html
         fill currentColor
 
 .slide.hero
-  flex-flow row
+  flex-flow row wrap
   position relative
-  padding-bottom 0 !important
+  padding-bottom 0
+  padding-top 0
   z-index 1
 
   // Fix small browser render gap glitch
@@ -199,6 +200,15 @@ html
   @media embedBoxMobileMaxWidthQuery
     display block
 
+  > header
+    align-items center
+    flex 1 0 100%
+    margin 2em 0
+
+    > h1
+      font-weight 900
+      margin 0
+
   .figure
     border-radius .5em
     width 32em
@@ -207,33 +217,35 @@ html
     overflow hidden
 
     &:after
-      pointer-events none
-      display block
-      content ""
-      position absolute
-      top 0
-      right 0
-      bottom 0
-      left 0
       border 1px solid lightLineGrayRGBA
       border-radius .5em
+      bottom 0
+      content ""
+      display block
+      left 0
+      pointer-events none
+      position absolute
+      right 0
+      top 0
 
     @media embedBoxMobileMaxWidthQuery
       display block
       height calc(100vh - 10em)
       max-height 31em
       margin 0 auto
+      min-height 25em
 
     @media embedBoxDesktopMinWidthQuery
       flex 0 1 auto
-      height 32em
+      height 29em
       margin 0 0 0 4em
 
     @media largeDesktopMinWidthQuery
       margin-right -2em
+      height 32em
 
   .content
-    width 20em
+    width 26em
     max-width 100%
 
     @media embedBoxMobileMaxWidthQuery
@@ -244,9 +256,8 @@ html
     @media embedBoxDesktopMinWidthQuery
       flex 0 1 auto
 
-  h1.logo-text
-    font-size 3.2em
-    font-weight bold
+  h2.headline
+    font-weight 500
     margin 0 0 .25em
 
     @media iPhoneMaxWidthQuery

@@ -16,10 +16,16 @@ html(lang="en" xmlns:og="http://ogp.me/ns#" xmlns:fb="http://www.facebook.com/20
   body
     main(data-column)
       .slide.padded.hero
-        .content(data-column)
-          h1.logo-text EmbedBox
+        header(data-column)
+          img(alt="logo" src=require("./assets/logo.png") width="100" height="100")
+          h1 EmbedBox
 
-          p= htmlWebpackPlugin.options.description
+        .content(data-column)
+          h2.headline Get your embed code or web plugin on millions of websites.
+
+          p.description
+            | EmbedBox is a open-source UI you can simply drop in to provide
+            | instructions for installing your embed code or plugins on every major CMS.
 
           ul.nav
             li
