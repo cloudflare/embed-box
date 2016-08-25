@@ -9,7 +9,7 @@ new EmbedBox({
       downloadURL: "{{BASE_URL}}/examples/drupal-plugin.zip"
     },
     generic: {
-      downloadURL: "{{BASE_URL}}/examples/library.js",
+      downloadURL: "{{BASE_URL}}/examples/library.zip",
       embedCode: "<script src='//library.js'></script>"
     }
   }
