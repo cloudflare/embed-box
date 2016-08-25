@@ -576,25 +576,31 @@ html
       color siteDocsLinkColor
       text-decoration none
 
-  blockquote
-    marginLeft = .8em
+    blockquote
+      background-color rgba(brandYellow, 0.1)
+      border-left 2px solid brandYellow
+      color brandYellow
+      font-size .9em
+      margin 0
+      padding 1em 1.5em
 
-    background-color rgba(brandYellow, .1)
-    border-left 2px solid brandYellow
-    color brandYellow
-    font-size .8em
-    margin 0
-    padding .3em .4em .05em marginLeft
-    position relative
+      &:before
+        content "ProTip"
+        display block
+        margin-bottom .6em
+        font-size .7em
+        text-transform uppercase
+        letter-spacing .08em
+        opacity .6
 
-    &::after
-      color siteDocsColor
-      content "ProTip:"
-      font-variant small-caps
-      left 0
-      margin-left marginLeft
-      position absolute
-      top 0
+      > *:first-child
+        margin-top 0
+
+      > *:last-child
+        margin-bottom 0
+
+      > p > code
+        color inherit
 
 .slide.made-by
   antialiasedFonts()
