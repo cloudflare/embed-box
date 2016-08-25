@@ -16,13 +16,15 @@ mixin codeExample(runnable, id)
 :marked
   Download the <a href="#">latest release</a> and add this to your page:
 
-+codeExample!= require("./examples/install.md")
-
-+codeExample(true)!= require("./examples/basic.md")
++codeExample!= require("./examples/install-web.md")
++codeExample(true)!= require("./examples/basic-web.md")
 
 :marked
-  If your script should be loaded in the `<head>` tag,
-  set `insertInHead: true` and the instructions will update according.
+  You can use EmbedBox with bundlers like Webpack and Browserify too!
+
++codeExample!= require("./examples/install-node.md")
++codeExample()!= require("./examples/basic-node.md")
+
 
 +anchored("h3", "Targets")
 :marked
@@ -36,7 +38,13 @@ mixin codeExample(runnable, id)
 +codeExample(true)!= require("./examples/advanced.md")
 
 :marked
-  A target's support for `embedCode` and <a href="#downloads">`downloadURL`</a> is dependant on it's internal `policy` property.
+  >If your script should be loaded in the `<head>` tag,
+  >set `insertInHead: true` and the instructions will update according.
+
+:marked
+  A target's support for `embedCode` and
+  <a href="#downloads" class="without-underline">`downloadURL`</a>
+  is dependant on it's internal `policy` property.
 
 table#target-policies
   thead

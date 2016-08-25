@@ -537,12 +537,12 @@ html
       font-family monospaceFonts
 
     *:not(pre) > code
-      font-size .72em
-      padding .1875em .5em .125em
-      margin 0 .125em
       background #2b2b2b
+      color lighten(siteDocsColor, 30%)
+      font-size .72em
+      margin 0 .125em
+      padding .1875em .35em .125em
       white-space nowrap
-
     h2
       margin-top 4.5rem
       font-size 1.5em
@@ -569,6 +569,8 @@ html
 
     a[href]:not(.without-underline)
       linkUnderlines siteDocsBackgroundColor, siteDocsLinkColor
+    a[href] > code
+      color siteDocsLinkColor
 
     *:not(h2):not(h3) > a.without-underline
       color siteDocsLinkColor
@@ -582,7 +584,7 @@ html
     color brandYellow
     font-size 0.8em
     margin 0
-    padding .1em 0 .1em marginLeft
+    padding .1em .4em .1em marginLeft
     position relative
 
     &::after

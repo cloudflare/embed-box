@@ -17,7 +17,7 @@ module.exports = createWebpackConfig({
     "embed-box": "./app/site/globals/embed-box.js",
     "embed-box-custom": "./app/site/globals/embed-box-custom.js",
     "embed-box-custom-target": "./app/site/globals/embed-box-custom-target.js",
-    segment: "./app/site/segment.js"
+    // segment: "./app/site/segment.js"
   },
 
   loaders: [
