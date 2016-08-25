@@ -5,4 +5,9 @@ var embedBox = new EmbedBox({
 })
 
 embedBox.show()
+
+setTimeout(function () {
+  embedBox.hide()
+  embedBox.destroy()
+}, 5000)
 ```

@@ -77,13 +77,15 @@ export default class EmbedBoxBase {
     iframe.element.style.display = "none"
     iframe.element.addEventListener("transitionend", this.handleTransitionEnd)
 
-    this.destroyed = false
-    this.iframe = iframe
-    this.events = spec.events || {}
-    this.theme = {...this.constructor.theme, ...theme}
-    this.style = document.createElement("style")
-
-    this.container = container
+    Object.assign(this, {
+      destroyed: false,
+      _visible: false,
+      iframe,
+      container,
+      events: spec.events || {},
+      theme: {...this.constructor.theme, ...theme},
+      style: document.createElement("style")
+    })
 
     this.style.innerHTML = stylesheet
     document.head.appendChild(this.style)
@@ -135,7 +137,7 @@ export default class EmbedBoxBase {
         targets: visibleTargets.map(Target => new Target({config: getConfig(Target)}))
       })
 
-      if (autoShow) this.show()
+      if (autoShow || this._pendingShow) this.show()
 
       if (this.events.onLoad) this.events.onLoad(this)
     }
@@ -257,6 +259,11 @@ export default class EmbedBoxBase {
 
   @autobind
   show() {
+    if (!this.application) {
+      this._pendingShow = true
+      return
+    }
+
     this.visible = true
 
     this.containerPreviousOverflow = this.container.style.overflow

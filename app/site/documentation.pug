@@ -25,6 +25,8 @@ mixin codeExample(runnable, id)
 +codeExample!= require("./examples/install-node.md")
 +codeExample()!= require("./examples/basic-node.md")
 
+:marked
+  >EmbedBox supports Chrome, Safari, Firefox, and IE10+!
 
 +anchored("h3", "Targets")
 :marked
@@ -69,6 +71,16 @@ table#target-policies
 
 +codeExample(false, "target-ids")!= require("./examples/get-target-ids.md")
 
+:marked
+  The target search screen can be skipped with `initialTarget`.
+
++codeExample(true)!= require("./examples/initial-target.md")
+
+:marked
+  >Configure <a href="#ordering" class="without-underline">`visibleTargets`</a>
+  to disable the target search screen entirely.
+
+
 +anchored("h3", "Downloads")
 :marked
   A `downloadURL` can be used for sending users CMS plugins or libraries.
@@ -93,21 +105,22 @@ table#target-policies
 
 +codeExample!= require("./examples/container-element.md")
 
-+anchored("h3", "Behavior")
++anchored("h3", "Lifecycle")
 :marked
   EmbedBox will automatically appear on creation.
   This can be disabled with the `autoShow` option.
 
-+codeExample()!= require("./examples/auto-show.md")
+  Capturing the `new EmbedBox()` instance in a variable lets us call the lifecycle methods when needed.
 
++codeExample(true)!= require("./examples/auto-show.md")
+
++anchored("h3", "Events")
 :marked
-  The target search screen can be skipped with `initialTarget`.
+  While the EmbedBox constructor is synchronous, The browser will load the internal iframe asynchronously.
 
-+codeExample(true)!= require("./examples/initial-target.md")
+  The `onLoad` event will fire when ready.
 
-:marked
-  Set <a href="#ordering" class="without-underline">`visibleTargets`</a>
-  to disable the target search entirely.
++codeExample(true)!= require("./examples/events.md")
 
 +anchored("h3", "Routing")
 :marked
