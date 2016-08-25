@@ -161,7 +161,7 @@ export default class TargetSearch extends BaseComponent {
       entry.addEventListener("click", () => this.selectEntry(spec.id))
 
       entry.addEventListener("keydown", event => {
-        if (event.keyCode === KM.enter || event.keyCode === KM.spacebar) {
+        if (event.keyCode === KM.spacebar) {
           event.preventDefault()
           this.selectEntry(spec.id)
         }
