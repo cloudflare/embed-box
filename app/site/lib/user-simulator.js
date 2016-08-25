@@ -3,11 +3,9 @@ import isElementPartiallyInViewport from "site/lib/is-element-partially-in-viewp
 import smoothScroll from "smooth-scroll"
 
 function createSequence(EmbedBox) {
-  const targetLabels = EmbedBox.fetchedTargets.map(Target => Target.label)
-
-  let sequence = []
-
+  const targetLabels = EmbedBox.fetchedTargets.map(Target => Target.label.split(""))
   const toKeyDown = () => ({entity: keyMap.down, eventType: "keydown"})
+  let sequence = []
 
   targetLabels.forEach(phrase => {
     const subSet = [...phrase, keyMap.backspace]
@@ -16,8 +14,9 @@ function createSequence(EmbedBox) {
   })
 
   sequence = sequence.concat(
-    targetLabels.map(toKeyDown),
-    {entity: keyMap.enter, eventType: "keypress"}
+    targetLabels.map(toKeyDown), // Traverse targets
+    toKeyDown(), // Back to start
+    {entity: keyMap.enter, eventType: "keypress"} // Navigate
   )
 
   sequence.push({eventType: "scroll"})
@@ -90,7 +89,7 @@ export function runDemo(iframe, onComplete = () => {}) {
     const {entity, eventType} = sequence[index]
     const meta = {}
     const lastIndex = sequence.length - 1
-    let delay = 150
+    let delay = 100
 
     if (!isElementPartiallyInViewport(iframe)) {
       createInteractiveDemo()
