@@ -57,7 +57,7 @@ In the directory, create template for each version in the format of `id-version.
 
 ```shell
 mkdir app/components/targets/foobar
-mkdir app/components/targets/foobar/index.js
+touch app/components/targets/foobar/index.js
 touch app/components/targets/foobar/foobar-1-2-3.pug
 touch app/components/targets/foobar/foobar-4-5-6.pug
 ```
