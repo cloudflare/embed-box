@@ -190,7 +190,7 @@ export default class Application extends BaseComponent {
       setTimeout(target.startDownload, AUTO_DOWNLOAD_DELAY)
     }
 
-    title.textContent = target.modalTitle
+    title.innerHTML = target.modalTitle
 
     content.appendChild(targetWrapper)
 
