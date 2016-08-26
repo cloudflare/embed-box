@@ -10,7 +10,8 @@ const marked = require("marked")
 const {highlight} = require("highlight.js")
 const autoprefixer = require("autoprefixer")
 
-const BASE_URL = `//${hostname}:${port}`
+const PORT_POSTFIX = port ? `:${port}` : ""
+const BASE_URL = `//${hostname}${PORT_POSTFIX}`
 const exclude = /node_modules/
 
 marked.setOptions({
