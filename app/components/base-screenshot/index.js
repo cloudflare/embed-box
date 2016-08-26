@@ -1,11 +1,6 @@
 import iframeTemplate from "./base-screenshot.pug"
 import iframeStylesheet from "./screenshot-iframe.styl"
 
-import arrowTopLeft from "./arrow-top-left.svg"
-import arrowTopRight from "./arrow-top-right.svg"
-import arrowBottomLeft from "./arrow-bottom-left.svg"
-import arrowBottomRight from "./arrow-bottom-right.svg"
-
 import BaseComponent from "components/base-component"
 
 export default class BaseScreenshot {
@@ -14,7 +9,11 @@ export default class BaseScreenshot {
 
   serialize = BaseComponent.prototype.serialize;
 
-  render(config) {
+  refreshHeight() {
+    this.iframe.style.height = this.iframe.contentDocument.body.scrollHeight + "px"
+  }
+
+  render(target) {
     const {iframeTemplate, iframeStylesheet, stylesheet, template} = this.constructor
 
     const iframe = this.iframe = this.serialize(iframeTemplate)
@@ -30,18 +29,13 @@ export default class BaseScreenshot {
       style.innerHTML = stylesheet
       iframeDocument.head.appendChild(style)
 
-      const element = this.serialize(template, {
-        config,
-        arrowTopLeft,
-        arrowTopRight,
-        arrowBottomLeft,
-        arrowBottomRight
-      })
+      const element = this.serialize.call(target, template)
 
       iframeDocument.body.appendChild(element)
 
       requestAnimationFrame(() => {
-        iframe.style.height = iframe.contentDocument.body.scrollHeight + "px"
+        this.refreshHeight()
+        if (this.componentRendered) this.componentRendered(target)
       })
     }
 
