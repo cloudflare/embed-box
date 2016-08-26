@@ -1,31 +1,96 @@
 ol.steps
-  li
-    != this.renderDownloadLink()
-    p After downloading, don’t unzip the file.
+  if this.downloadURL
+    li
+      != this.renderDownloadLink()
+      p After downloading, don’t unzip the file.
 
-  li
-    h2 Login to your Drupal Administrator Dashboard and click “Extend”
+    li
+      h2 Login to your Drupal Administrator Dashboard and click “Extend”
 
-    figure(data-ref="screenshotMounts[]" data-screenshot="navigateToModules")
+      figure(data-ref="screenshotMounts[]" data-screenshot="navigateToModules")
 
-  li
-    h2 Click “Install new module”
+    li
+      h2 Click “Install new module”
 
-    figure(data-ref="screenshotMounts[]" data-screenshot="installNewModules")
+      figure(data-ref="screenshotMounts[]" data-screenshot="installNewModules")
 
-  li
-    h2 Upload the module
-    p Click “Choose File” and select the module you downloaded to your computer.
+    li
+      h2 Upload the module
+      p Click “Choose File” and select the module you downloaded to your computer.
 
-    figure(data-ref="screenshotMounts[]" data-screenshot="uploadModule")
+      figure(data-ref="screenshotMounts[]" data-screenshot="uploadModule")
 
-  li
-    h2 Activate the module
+    li
+      h2 Activate the module
 
-    p You should see the new module on the “Extend” page.
-    p The module will appear in category set by the author.
-    p Click the checkbox next to the module, then click “Save Configuration”
+      p You should see the new module on the “Extend” page.
+      p The module will appear in category set by the author.
+      p Click the checkbox next to the module, then click “Save Configuration”
 
-    figure(data-ref="screenshotMounts[]" data-screenshot="activateModule")
+      figure(data-ref="screenshotMounts[]" data-screenshot="activateModule")
 
-    p You’re done!
+      p You’re done!
+
+  else
+    if this.location === "body"
+      li
+        h2 In your Drupal site’s Admin interface, click the “Structure” &gt; “Block layout” &gt; “Add custom block” link in the navigation menu at the top of the page
+
+      li
+        h2 Fill out the form
+
+        p As the “Block Description” enter “#{ config.name } Embed”
+
+        p <strong>Before pasting the embed code</strong> as the “Text Format” select “Full HTML”
+
+        p In the “Body” field click the “Source” button inside the editor
+        p Paste this embed code:
+
+        .copy-container
+          button.primary.run(data-ref="copyButtons[]") Copy
+          div.copyable(contenteditable)= this.copyText
+
+        p Click “Save”
+
+        p On the new page that opens, For the “Region” select “Footer first”
+
+      li
+        h2 Click “Save block”, you’re done!
+    else
+      li
+        h2 If you don’t already have it installed, install the “Add to Head” module
+
+        p In your Drupal site’s Admin interface, click the “Modules” link at the top of the page
+        p Click “Install new module”
+        p In the “Install from a URL” field enter:
+
+        .copy-container
+            button.primary.run(data-ref="copyButtons[]") Copy
+            div.copyable(contenteditable) https://ftp.drupal.org/files/projects/add_to_head-7.x-1.2.tar.gz
+
+        p Click “Enable newly install modules”
+        p Scroll down until you find the “Add To Head” module and check the box to the left of the name
+        p Click “Save configuration”
+
+      li
+        h2 Install the embed code into the module
+
+        p Click the “Configuration” button at the top of your Drupal site’s Admin interface
+        p Click the “Add to Head” link on the right side
+        p Click “Add one now”
+
+      li
+        h2 Fill out the form
+
+        p For the “Name” enter “#{ config.name } Embed”
+        p For the “Code” enter:
+
+        .copy-container
+            button.primary.run(data-ref="copyButtons[]") Copy
+            div.copyable(contenteditable)= this.copyText
+
+        p For the “Scope of addition”, select “Head”
+        p No need to change any other fields
+
+      li
+        h2 Click “Save”, you’re done!
