@@ -257,15 +257,23 @@ html
       margin 0 auto 2em
       text-align center
 
+    @media iPhoneMaxWidthQuery
+      text-align left
+
     @media embedBoxDesktopMinWidthQuery
       flex 0 1 auto
 
   h2.headline
     font-weight 400
-    margin 0 0 .25em
+    font-size 1.5em
+    line-height 1.3
+    margin 0 0 .6em
+
+    @media embedBoxDesktopMinWidthQuery
+      font-size 1.9em
 
     @media iPhoneMaxWidthQuery
-      font-size 2em
+      font-size 1.7em
 
   p
     color darken(gray, 55%)
@@ -285,6 +293,16 @@ html
       display block
       list-style none
       margin 0 0 .5em
+
+      @media embedBoxMobileMaxWidthQuery
+        display inline-block
+
+        &:not(:last-child)
+          margin-right 2em
+
+      @media iPhoneMaxWidthQuery
+        display block
+        margin-right 0
 
     a.more
       font-weight 500
