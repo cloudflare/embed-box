@@ -12,7 +12,7 @@ export default class Screenshot extends BaseScreenshot {
     const escaper = this.iframe.contentDocument.createElement("textarea")
 
     escaper.textContent = target.copyText
-    const escapedText = `<div class="embed-code">${escaper.innerHTML}</div>`
+    const escapedText = `<div class="focal-point relative-arrow" data-arrow="above">${escaper.innerHTML}</div>`
 
     body.innerHTML = body.innerHTML.replace(/\{\{EMBED_CODE_SLOT\}\}/g, escapedText)
 

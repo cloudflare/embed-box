@@ -2,7 +2,7 @@
 @import "~styl/reset"
 @import "~styl/box-sizing-border-box-all"
 @import "~styl/colors"
-@import "~styl/code-syntax-highlighting"
+@import "~highlight.js/styles/vs.css"
 
 baseFontSize = 12px
 
@@ -36,6 +36,15 @@ div, footer, header, main, section
     position relative
     z-index 10
 
+  > pre
+    background lightGrayRGBA
+    margin 0
+    padding 1em
+
+    .focal-point
+      color #000
+      font-weight bold
+
   [data-arrow]
     align-items center
     display inline-flex
@@ -44,6 +53,7 @@ div, footer, header, main, section
       color attentionYellow
       display inline-block
       font-family sans-serif
+      font-weight normal
       font-size 4.4em
       line-height baseFontSize
       opacity .9
@@ -54,6 +64,11 @@ div, footer, header, main, section
 
   [data-arrow="right"]::after
     content "←"
+
+  [data-arrow="above"]::before
+    content "↓"
+    right 0 !important
+    top -0.6em
 
   .relative-arrow
     &::before, &::after
