@@ -44,6 +44,8 @@ module.exports = createWebpackConfig({
     }),
     new CopyWebpackPlugin([
       {from: "./app/site/assets/examples", to: "examples"}
-    ])
+    ], {
+      ignore: [".DS_Store"]
+    })
   ]
 })
