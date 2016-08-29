@@ -3,7 +3,7 @@ import titleTemplate from "./title.pug"
 import downloadLinkTemplate from "./download-link.pug"
 import beforeContentTemplate from "./before-content.pug"
 import afterContentTemplate from "./after-content.pug"
-import icon from "./base-target.svg"
+import defaultIcon from "./base-target.svg"
 
 import autobind from "autobind-decorator"
 import BaseComponent from "components/base-component"
@@ -15,7 +15,6 @@ export default class BaseTarget extends BaseComponent {
   static beforeContentTemplate = beforeContentTemplate;
   static afterContentTemplate = afterContentTemplate;
   static downloadLinkTemplate = downloadLinkTemplate;
-  static icon = icon;
 
   static supports = {};
 
@@ -99,7 +98,7 @@ export default class BaseTarget extends BaseComponent {
   }
 
   get icon() {
-    return this.constructor.icon
+    return this.constructor.icon || defaultIcon
   }
 
   get id() {
