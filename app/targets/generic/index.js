@@ -12,11 +12,6 @@ export default class GenericTarget extends BaseTarget {
     return this.title
   }
 
-  get versions() {
-    // TODO: Placeholder for real version logic.
-    return []
-  }
-
   get title() {
     return `Installing ${this.store.name}.`
   }
