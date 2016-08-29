@@ -32,65 +32,26 @@ ol.steps
       p You’re done!
 
   else
-    if this.location === "body"
-      li
-        h2 In your Drupal site’s Admin interface, click the “Structure” &gt; “Block layout” &gt; “Add custom block” link in the navigation menu at the top of the page
+    li
+      h2 In your Drupal site’s Admin interface, click the “Structure” &gt; “Block layout” &gt; “Add custom block” link in the navigation menu at the top of the page
 
-      li
-        h2 Fill out the form
+    li
+      h2 Fill out the form
 
-        p As the “Block Description” enter “#{ config.name } Embed”
+      p As the “Block Description” enter “#{ config.name } Embed”
 
-        p <strong>Before pasting the embed code</strong> as the “Text Format” select “Full HTML”
+      p <strong>Before pasting the embed code</strong> as the “Text Format” select “Full HTML”
 
-        p In the “Body” field click the “Source” button inside the editor
-        p Paste this embed code:
+      p In the “Body” field click the “Source” button inside the editor
+      p Paste this embed code:
 
-        .copy-container
-          button.primary.run(data-ref="copyButtons[]") Copy
-          div.copyable(contenteditable)= this.copyText
+      .copy-container
+        button.primary.run(data-ref="copyButtons[]") Copy
+        div.copyable(contenteditable)= this.copyText
 
-        p Click “Save”
+      p Click “Save”
 
-        p On the new page that opens, For the “Region” select “Footer first”
+      p On the new page that opens, For the “Region” select “Footer first”
 
-      li
-        h2 Click “Save block”, you’re done!
-    else
-      li
-        h2 If you don’t already have it installed, install the “Add to Head” module
-
-        p In your Drupal site’s Admin interface, click the “Modules” link at the top of the page
-        p Click “Install new module”
-        p In the “Install from a URL” field enter:
-
-        .copy-container
-            button.primary.run(data-ref="copyButtons[]") Copy
-            div.copyable(contenteditable) https://ftp.drupal.org/files/projects/add_to_head-7.x-1.2.tar.gz
-
-        p Click “Enable newly install modules”
-        p Scroll down until you find the “Add To Head” module and check the box to the left of the name
-        p Click “Save configuration”
-
-      li
-        h2 Install the embed code into the module
-
-        p Click the “Configuration” button at the top of your Drupal site’s Admin interface
-        p Click the “Add to Head” link on the right side
-        p Click “Add one now”
-
-      li
-        h2 Fill out the form
-
-        p For the “Name” enter “#{ config.name } Embed”
-        p For the “Code” enter:
-
-        .copy-container
-            button.primary.run(data-ref="copyButtons[]") Copy
-            div.copyable(contenteditable)= this.copyText
-
-        p For the “Scope of addition”, select “Head”
-        p No need to change any other fields
-
-      li
-        h2 Click “Save”, you’re done!
+    li
+      h2 Click “Save block”, you’re done!
