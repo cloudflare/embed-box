@@ -50,16 +50,15 @@ mixin codeExample(runnable, id)
 +codeExample(true)!= require("./examples/initial-target.md")
 
 :marked
+  >Configure <a href="#ordering" class="without-underline">`priority`</a>
+  to disable the target search screen entirely.
+
+:marked
   Targets are populated in the `EmbedBox.fetchedTargets` array.
 
   `EmbedBox.getTargetIDs()` can be used to programatically get the bundled target IDs if desired.
 
 +codeExample(false, "target-ids")!= require("./examples/get-target-ids.md")
-
-:marked
-  >Configure <a href="#ordering" class="without-underline">`visibleTargets`</a>
-  to disable the target search screen entirely.
-
 
 +anchored("h3", "Plugins")
 :marked
@@ -151,9 +150,10 @@ table#target-supports
 
 +anchored("h3", "Ordering")
 :marked
-  Targets can be sorted with the `order` option.
+  Targets can be ordered with the `priority` option.
   A target will remain in the original order if not specified.
-  Set `order: -1` to disable a target entirely.
+
+  Set `priority: -1` to disable a target entirely.
 
 +codeExample(true)!= require("./examples/ordering.md")
 

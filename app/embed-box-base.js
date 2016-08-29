@@ -96,19 +96,19 @@ export default class EmbedBoxBase {
       .filter(Target => {
         const config = getConfig(Target)
 
-        return config.order !== -1 && Target.isConstructable(config, store)
+        return config.priority !== -1 && Target.isConstructable(config, store)
       })
       .sort((a, b) => {
-        const orderA = getConfig(a).order
-        const orderB = getConfig(b).order
-        const aDefined = typeof orderA === "number"
-        const bDefined = typeof orderB === "number"
+        const priorityA = getConfig(a).priority
+        const priorityB = getConfig(b).priority
+        const aDefined = typeof priorityA === "number"
+        const bDefined = typeof priorityB === "number"
 
-        if (aDefined && bDefined) return orderA - orderB // Explicit order between targets
+        if (aDefined && bDefined) return priorityA - priorityB // Explicit priority between targets
         else if (aDefined) return -1
         else if (bDefined) return 1
 
-        return 0 // Implicit order from fetchedTargets
+        return 0 // Implicit priority from fetchedTargets
       })
 
     if (visibleTargets.length === 0) {
