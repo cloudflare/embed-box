@@ -50,14 +50,26 @@
       }
     </style>
 
-    <script src="../../dist/embed-box-custom.js"></script>
-    <script src="../../dist/embed-box-target-wordpress.js"></script>
-    <script src="../../dist/embed-box-custom-target.js"></script>
+    <script src="../node_modules/embed-box/dist/embed-box-custom.js"></script>
+    <script src="../node_modules/embed-box/dist/embed-box-target-wordpress.js"></script>
+    <script src="../node_modules/embed-box/dist/embed-box-custom-target.js"></script>
     <script type="text/javascript">
       const CustomTarget = window.EmbedBoxCustomTarget.extend({
-        template: "<div>Hello from a custom target!</div>",
         id: "custom-test",
-        label: "Custom Target"
+        label: "Custom Target",
+        templateVars: {
+          registerURL: "http://example.com/register"
+        },
+        template: function(vars) {
+          return ""
+          + "<ol class='steps'>"
+          +   "<li>"
+          +     "<p>"
+          +       "<a href='${vars.registerURL}'>Register an account</a> before installing."
+          +     "</p>"
+          +   "</li>"
+          + "</ol>"
+        }
       })
 
       document.addEventListener("DOMContentLoaded", () => {
