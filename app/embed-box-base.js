@@ -114,7 +114,7 @@ export default class EmbedBoxBase {
     if (visibleTargets.length === 0) {
       console.error([
         "EmbedBox: No targets were constructable.",
-        "Is `embedCode` or `downloadURL` specified?"
+        "Is `embedCode` or `pluginURL` specified?"
       ].join(" "), spec)
     }
 

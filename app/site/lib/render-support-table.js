@@ -1,8 +1,11 @@
 function targetToRow({supports}) {
-  const {plugin} = supports
+  const {embedCode, plugin} = supports
+  const yes = "Yes"
+  const no = "<strong>No</strong>"
 
   return [
-    plugin ? "Plugin" : "Library with local <code>embedCode</code>"
+    embedCode ? yes : no,
+    plugin ? yes : no
   ]
 }
 

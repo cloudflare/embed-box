@@ -185,7 +185,7 @@ export default class Application extends BaseComponent {
     }).render()
 
     function onRender() {
-      if (!autoDownload || !target.downloadURL) return
+      if (!autoDownload || !target.pluginURL) return
 
       setTimeout(target.startDownload, AUTO_DOWNLOAD_DELAY)
     }

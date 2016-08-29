@@ -61,33 +61,27 @@ mixin codeExample(runnable, id)
   to disable the target search screen entirely.
 
 
-+anchored("h3", "Downloads")
++anchored("h3", "Plugins")
 :marked
-  A `downloadURL` can be used for sending users CMS plugins or libraries.
+  A `pluginURL` can be used for sending users CMS plugins.
 
-+codeExample(true)!= require("./examples/download-url.md")
++codeExample(true)!= require("./examples/plugin-url.md")
 
 :marked
-  >JavaScript and CSS files may not automatically download in all browsers.
+  >Plugins will automatically download when a target is selected.
   >
-  >Compress them as a zip file to ensure the browser prompts the user.
-  >
-  >Set `autoDownload: false` to disable to this behavior entirely.
+  >Set `autoDownload: false` to disable to this behavior.
 
-+anchored("h4", "Plugins")
++anchored("h4", "Compatibility")
 :marked
-  A target's support for local `embedCode` and `downloadURL` is dependant on it's internal `supports` property.
-
-  Targets that support plugins such as `wordpress` will assume the `downloadURL` is package for the user to install using the CMS.
-
-  Targets like `generic` and `weebly` assume the `downloadURL` is a library that is downloaded.
-  The local `embedCode` is used to guide the user on how to embed the downloaded library.
+  A target's support for local `embedCode` and `pluginURL` is dependant on it's internal `supports` property.
 
 table#target-supports
   thead
     tr
       th.id ID
-      th.download-url <code>downloadURL</code>
+      th.embed-code <code>embedCode</code>
+      th.plugin-url <code>pluginUrl</code>
   tbody
 
 +anchored("h3", "Positioning")

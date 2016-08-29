@@ -40,7 +40,7 @@ export function runDemo(iframe, onComplete = () => {}) {
     embedCode: `<script src='${BASE_URL}/examples/generic-library.js'></script>`,
     targets: {
       drupal: {
-        downloadURL: `${BASE_URL}/examples/drupal-plugin.zip`
+        pluginURL: `${BASE_URL}/examples/drupal-plugin.zip`
       }
     },
     routing: false

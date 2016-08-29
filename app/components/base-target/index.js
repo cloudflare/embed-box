@@ -37,15 +37,15 @@ export default class BaseTarget extends BaseComponent {
   };
 
   static isConstructable(config, store) {
-    const {plugin: supportsPlugin} = this.supports
+    const supportsPlugin = this.supports.plugin
     const hasLocalEmbed = !!config.embedCode
     const hasGlobalEmbed = !!store.embedCode
     const embedCodePresent = hasLocalEmbed || hasGlobalEmbed
-    const hasDownloadURL = !!config.downloadURL
+    const hasPluginURL = !!config.pluginURL
 
-    if (supportsPlugin) return hasDownloadURL || embedCodePresent
+    if (supportsPlugin) return hasPluginURL || embedCodePresent
 
-    return hasDownloadURL && hasLocalEmbed || !hasDownloadURL && embedCodePresent
+    return hasPluginURL && hasLocalEmbed || !hasPluginURL && embedCodePresent
   }
 
   constructor(spec = {}) {
@@ -75,8 +75,8 @@ export default class BaseTarget extends BaseComponent {
     return supportsPlugin ? `Download the ${this.label} plugin` : `Download ${this.store.name}`
   }
 
-  get downloadURL() {
-    return this.config.downloadURL
+  get pluginURL() {
+    return this.config.pluginURL
   }
 
   get copyText() {
@@ -217,7 +217,7 @@ export default class BaseTarget extends BaseComponent {
     const downloadIframe = document.createElement("iframe")
 
     downloadIframe.className = "embed-box-download-iframe"
-    downloadIframe.src = this.downloadURL
+    downloadIframe.src = this.pluginURL
     document.body.appendChild(downloadIframe)
   }
 }
