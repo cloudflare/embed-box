@@ -1,0 +1,26 @@
+ol.steps
+  if this.downloadURL
+    li!= this.renderDownloadLink()
+
+  li
+    h2 Login to the <a target="_blank" href="https://www.squarespace.com/login">Squarespace site editor</a>.
+
+  li
+    h2 Navigate to <strong>Settings <span class="with-more-icon-after"></span> Advanced <span class="with-more-icon-after"></span> Code Injection</strong>.
+    p
+      | In the left pane, click <strong>Settings</strong>.
+      | Scroll to the Website section and click <strong>Advanced</strong>.
+      | Then click <strong>Code Injection</strong>
+
+  li
+    h2 Copy the code to the <strong>#{this.location === "head" ? "Header" : "Footer"}</strong> section.
+
+    .copy-container
+      button.primary.run(data-ref="copyButtons[]") Copy
+      div.copyable(contenteditable)= this.copyText
+
+  li
+    h2 Visit your site
+
+    p After saving the changes you made, visit your site in the browser.
+    p You’re done!

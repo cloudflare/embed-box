@@ -8,6 +8,10 @@ new EmbedBox({
     drupal: {
       downloadURL: "{{BASE_URL}}/examples/drupal-plugin.zip"
     },
+    squarespace: {
+      downloadURL: "{{BASE_URL}}/examples/library.zip",
+      embedCode: "<script src='//library.js'></script>"
+    },
     generic: {
       downloadURL: "{{BASE_URL}}/examples/library.zip",
       embedCode: "<script src='//library.js'></script>"

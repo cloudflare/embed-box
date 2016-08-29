@@ -19,7 +19,7 @@ export default class BaseTarget extends BaseComponent {
 
   static supports = {};
 
-  static extend = function extend({icon, id, label, policy, template, templateVars} = {}) {
+  static extend = function extend({icon, id, label, template, templateVars} = {}) {
     if (!id) throw new Error("EmbedBox: Target must have `id`")
     if (!label) throw new Error("EmbedBox: Target must have `label`")
 
@@ -27,7 +27,6 @@ export default class BaseTarget extends BaseComponent {
       static icon = icon;
       static id = id;
       static label = label;
-      static policy = policy || "";
       static templateVars = templateVars || {};
       static versions = [
         {id: `${id}-custom-version`, template}
@@ -72,7 +71,9 @@ export default class BaseTarget extends BaseComponent {
   }
 
   get downloadLabel() {
-    return `Download the ${this.label} plugin`
+    const supportsPlugin = this.constructor.supports.plugin
+
+    return supportsPlugin ? `Download the ${this.label} plugin` : `Download ${this.store.name}`
   }
 
   get downloadURL() {

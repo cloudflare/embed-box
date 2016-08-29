@@ -8,10 +8,6 @@ export default class GenericTarget extends BaseTarget {
   static supports = {embedCode: true};
   static versions = [genericLatest];
 
-  get downloadLabel() {
-    return "Download the plugin"
-  }
-
   get modalTitle() {
     return this.title
   }
