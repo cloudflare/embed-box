@@ -1,0 +1,9 @@
+{
+  "plugins": [
+    "babel-plugin-transform-decorators-legacy",
+    "transform-object-assign",
+    "transform-array-from",
+    "transform-proto-to-assign"
+  ],
+  "presets": [["es2015", {"modules": false, "loose": true}], "stage-0"]
+}
