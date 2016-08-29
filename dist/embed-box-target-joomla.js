@@ -644,7 +644,7 @@ var JoomlaTarget = (_temp = _class = function (_BaseTarget) {
   }
 
   return JoomlaTarget;
-}(__WEBPACK_IMPORTED_MODULE_1_components_base_target__["a" /* default */]), _class.id = "joomla", _class.label = "Joomla", _class.policy = "NAND", _class.versions = [{ id: "3.6.x", template: __WEBPACK_IMPORTED_MODULE_0__joomla_3_6_x_pug___default.a }], _temp);
+}(__WEBPACK_IMPORTED_MODULE_1_components_base_target__["a" /* default */]), _class.id = "joomla", _class.label = "Joomla", _class.supports = { embedCode: true, plugin: true }, _class.versions = [{ id: "3.6.x", template: __WEBPACK_IMPORTED_MODULE_0__joomla_3_6_x_pug___default.a }], _temp);
 
 
 /***/ },
@@ -960,26 +960,16 @@ var BaseTarget = (_class = (_temp = _class2 = function (_BaseComponent) {
   _inherits(BaseTarget, _BaseComponent);
 
   BaseTarget.isConstructable = function isConstructable(config, store) {
-    var policy = this.policy;
+    var supportsPlugin = this.supports.plugin;
 
-    var hasLocalEmbedCode = !!config.embedCode;
-    var hasGlobalEmbedCode = !!store.embedCode;
-    var embedCodePresent = hasLocalEmbedCode || hasGlobalEmbedCode;
+    var hasLocalEmbed = !!config.embedCode;
+    var hasGlobalEmbed = !!store.embedCode;
+    var embedCodePresent = hasLocalEmbed || hasGlobalEmbed;
     var hasDownloadURL = !!config.downloadURL;
 
-    switch (policy) {
-      case "EMBED":
-        return embedCodePresent;
-      case "DOWNLOAD":
-        return hasDownloadURL;
-      case "OR":
-        return embedCodePresent && !hasDownloadURL || hasDownloadURL;
-      case "NAND":
-        // A `downloadURL` must be accompanied by an `embedCode`
-        return hasDownloadURL && hasLocalEmbedCode || hasGlobalEmbedCode && !hasDownloadURL;
-      default:
-        return true;
-    }
+    if (supportsPlugin) return hasDownloadURL || embedCodePresent;
+
+    return hasDownloadURL && hasLocalEmbed || !hasDownloadURL && embedCodePresent;
   };
 
   function BaseTarget() {
@@ -1191,7 +1181,7 @@ var BaseTarget = (_class = (_temp = _class2 = function (_BaseComponent) {
   }]);
 
   return BaseTarget;
-}(__WEBPACK_IMPORTED_MODULE_6_components_base_component__["a" /* default */]), _class2.template = __WEBPACK_IMPORTED_MODULE_0__base_target_pug___default.a, _class2.titleTemplate = __WEBPACK_IMPORTED_MODULE_1__title_pug___default.a, _class2.beforeContentTemplate = __WEBPACK_IMPORTED_MODULE_3__before_content_pug___default.a, _class2.afterContentTemplate = __WEBPACK_IMPORTED_MODULE_4__after_content_pug___default.a, _class2.downloadLinkTemplate = __WEBPACK_IMPORTED_MODULE_2__download_link_pug___default.a, _class2.extend = function extend() {
+}(__WEBPACK_IMPORTED_MODULE_6_components_base_component__["a" /* default */]), _class2.template = __WEBPACK_IMPORTED_MODULE_0__base_target_pug___default.a, _class2.titleTemplate = __WEBPACK_IMPORTED_MODULE_1__title_pug___default.a, _class2.beforeContentTemplate = __WEBPACK_IMPORTED_MODULE_3__before_content_pug___default.a, _class2.afterContentTemplate = __WEBPACK_IMPORTED_MODULE_4__after_content_pug___default.a, _class2.downloadLinkTemplate = __WEBPACK_IMPORTED_MODULE_2__download_link_pug___default.a, _class2.supports = {}, _class2.extend = function extend() {
   var _class3, _temp2;
 
   var _ref2 = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
@@ -2078,7 +2068,7 @@ if (this.downloadURL) {
 pug_html = pug_html + "\u003Cli\u003E" + (null == (pug_interp = this.renderDownloadLink()) ? "" : pug_interp) + "\u003Cp\u003EAfter downloading, don’t unzip the file.\u003C\u002Fp\u003E\u003C\u002Fli\u003E\u003Cli\u003E\u003Ch2\u003EUpload the plugin to your Joomla Admin site\u003C\u002Fh2\u003E\u003Cfigure\u003E\u003Cimg" + (pug.attr("src", __webpack_require__(38), true, true)) + "\u003E\u003C\u002Ffigure\u003E\u003Cp\u003EIn your Joomla Admin, navigate to: \u003Cstrong\u003EExtensions \u003Cspan class=\"with-more-icon-after\"\u003E\u003C\u002Fspan\u003E Install \u003Cspan class=\"with-more-icon-after\"\u003E\u003C\u002Fspan\u003E Upload Package File\u003C\u002Fstrong\u003E.\u003C\u002Fp\u003E\u003Cp\u003EClick “Choose File” and select the file you just downloaded.\u003C\u002Fp\u003E\u003C\u002Fp\u003E\u003C\u002Fli\u003E\u003Cli\u003E\u003Ch2\u003EActivate the plugin and view your site\u003C\u002Fh2\u003E\u003Cfigure\u003E\u003Cimg" + (pug.attr("src", __webpack_require__(31), true, true)) + "\u003E\u003C\u002Ffigure\u003E\u003Cp\u003EOn the \u003Cstrong\u003EExtensions \u003Cspan class=\"with-more-icon-after\"\u003E\u003C\u002Fspan\u003E Manage\u003C\u002Fstrong\u003E page, search for " + (pug.escape(null == (pug_interp = config.name ? "“" + config.name + "”" : "the plugin") ? "" : pug_interp)) + ".\u003C\u002Fp\u003E\u003Cp\u003EWhen you’ve found the plugin, click the red “×” to enable the extension.\u003C\u002Fp\u003E\u003Cp\u003ECongrats, the installation is done!\u003C\u002Fp\u003E\u003C\u002Fli\u003E";
 }
 else {
-pug_html = pug_html + "\u003Cli\u003E\u003Ch2\u003EIn your Joomla Admin, navigate to: \u003Cstrong\u003EExtensions \u003Cspan class=\"with-more-icon-after\"\u003E\u003C\u002Fspan\u003E Templates \u003Cspan class=\"with-more-icon-after\"\u003E\u003C\u002Fspan\u003E Templates\u003C\u002Fstrong\u003E.\u003C\u002Fh2\u003E\u003Cfigure\u003E\u003Cimg" + (pug.attr("src", __webpack_require__(36), true, true)) + "\u003E\u003C\u002Ffigure\u003E\u003C\u002Fli\u003E\u003Cli\u003E\u003Ch2\u003EChoose the template which is currently being used to power your site.\u003C\u002Fh2\u003E\u003Cp\u003EIf you’re not sure which template this is you can add this embed code to all of your templates by repeating this process.\u003C\u002Fp\u003E\u003Cfigure\u003E\u003Cimg" + (pug.attr("src", __webpack_require__(33), true, true)) + "\u003E\u003C\u002Ffigure\u003E\u003C\u002Fli\u003E\u003Cli\u003E\u003Ch2\u003ESelect the “index.php” file.\u003C\u002Fh2\u003E\u003Cfigure\u003E\u003Cimg" + (pug.attr("src", __webpack_require__(32), true, true)) + "\u003E\u003C\u002Ffigure\u003E\u003C\u002Fli\u003E\u003Cli\u003E\u003Ch2\u003ECopy the code to your site's &lt;" + (pug.escape(null == (pug_interp = this.location) ? "" : pug_interp)) + "&gt; tag.\u003C\u002Fh2\u003E\u003Cdiv class=\"copy-container\"\u003E\u003Cbutton class=\"primary run\" data-ref=\"copyButtons[]\"\u003ECopy\u003C\u002Fbutton\u003E\u003Cdiv class=\"copyable\" contenteditable\u003E" + (pug.escape(null == (pug_interp = this.copyText) ? "" : pug_interp)) + "\u003C\u002Fdiv\u003E\u003C\u002Fdiv\u003E";
+pug_html = pug_html + "\u003Cli\u003E\u003Ch2\u003EIn the Admin area of your Joomla site, navigate to: \u003Cstrong\u003EExtensions \u003Cspan class=\"with-more-icon-after\"\u003E\u003C\u002Fspan\u003E Templates \u003Cspan class=\"with-more-icon-after\"\u003E\u003C\u002Fspan\u003E Templates\u003C\u002Fstrong\u003E.\u003C\u002Fh2\u003E\u003Cfigure\u003E\u003Cimg" + (pug.attr("src", __webpack_require__(36), true, true)) + "\u003E\u003C\u002Ffigure\u003E\u003C\u002Fli\u003E\u003Cli\u003E\u003Ch2\u003EChoose the template which is currently being used to power your site.\u003C\u002Fh2\u003E\u003Cp\u003EIf you’re not sure which template this is you can add this embed code to all of your templates by repeating this process.\u003C\u002Fp\u003E\u003Cfigure\u003E\u003Cimg" + (pug.attr("src", __webpack_require__(33), true, true)) + "\u003E\u003C\u002Ffigure\u003E\u003C\u002Fli\u003E\u003Cli\u003E\u003Ch2\u003ESelect the “index.php” file.\u003C\u002Fh2\u003E\u003Cfigure\u003E\u003Cimg" + (pug.attr("src", __webpack_require__(32), true, true)) + "\u003E\u003C\u002Ffigure\u003E\u003C\u002Fli\u003E\u003Cli\u003E\u003Ch2\u003ECopy the code to your site's &lt;" + (pug.escape(null == (pug_interp = this.location) ? "" : pug_interp)) + "&gt; tag.\u003C\u002Fh2\u003E\u003Cdiv class=\"copy-container\"\u003E\u003Cbutton class=\"primary run\" data-ref=\"copyButtons[]\"\u003ECopy\u003C\u002Fbutton\u003E\u003Cdiv class=\"copyable\" contenteditable\u003E" + (pug.escape(null == (pug_interp = this.copyText) ? "" : pug_interp)) + "\u003C\u002Fdiv\u003E\u003C\u002Fdiv\u003E";
 if (this.location === "head") {
 pug_html = pug_html + "\u003Cp\u003ECarefully search for the \u003Ccode\u003E&lt;head&gt;\u003C\u002Fcode\u003E tag.\nThere will be other similar tags, but you only want the one with that exact name.\nIt should be near the beginning of the file. Insert the embed code just \u003Cstrong\u003Eafter\u003C\u002Fstrong\u003E that tag.\u003C\u002Fp\u003E\u003Cfigure\u003E\u003Cimg" + (pug.attr("src", __webpack_require__(35), true, true)) + "\u003E\u003C\u002Ffigure\u003E";
 }

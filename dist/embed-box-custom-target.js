@@ -695,26 +695,16 @@ var BaseTarget = (_class = (_temp = _class2 = function (_BaseComponent) {
   _inherits(BaseTarget, _BaseComponent);
 
   BaseTarget.isConstructable = function isConstructable(config, store) {
-    var policy = this.policy;
+    var supportsPlugin = this.supports.plugin;
 
-    var hasLocalEmbedCode = !!config.embedCode;
-    var hasGlobalEmbedCode = !!store.embedCode;
-    var embedCodePresent = hasLocalEmbedCode || hasGlobalEmbedCode;
+    var hasLocalEmbed = !!config.embedCode;
+    var hasGlobalEmbed = !!store.embedCode;
+    var embedCodePresent = hasLocalEmbed || hasGlobalEmbed;
     var hasDownloadURL = !!config.downloadURL;
 
-    switch (policy) {
-      case "EMBED":
-        return embedCodePresent;
-      case "DOWNLOAD":
-        return hasDownloadURL;
-      case "OR":
-        return embedCodePresent && !hasDownloadURL || hasDownloadURL;
-      case "NAND":
-        // A `downloadURL` must be accompanied by an `embedCode`
-        return hasDownloadURL && hasLocalEmbedCode || hasGlobalEmbedCode && !hasDownloadURL;
-      default:
-        return true;
-    }
+    if (supportsPlugin) return hasDownloadURL || embedCodePresent;
+
+    return hasDownloadURL && hasLocalEmbed || !hasDownloadURL && embedCodePresent;
   };
 
   function BaseTarget() {
@@ -926,7 +916,7 @@ var BaseTarget = (_class = (_temp = _class2 = function (_BaseComponent) {
   }]);
 
   return BaseTarget;
-}(__WEBPACK_IMPORTED_MODULE_6_components_base_component__["a" /* default */]), _class2.template = __WEBPACK_IMPORTED_MODULE_0__base_target_pug___default.a, _class2.titleTemplate = __WEBPACK_IMPORTED_MODULE_1__title_pug___default.a, _class2.beforeContentTemplate = __WEBPACK_IMPORTED_MODULE_3__before_content_pug___default.a, _class2.afterContentTemplate = __WEBPACK_IMPORTED_MODULE_4__after_content_pug___default.a, _class2.downloadLinkTemplate = __WEBPACK_IMPORTED_MODULE_2__download_link_pug___default.a, _class2.extend = function extend() {
+}(__WEBPACK_IMPORTED_MODULE_6_components_base_component__["a" /* default */]), _class2.template = __WEBPACK_IMPORTED_MODULE_0__base_target_pug___default.a, _class2.titleTemplate = __WEBPACK_IMPORTED_MODULE_1__title_pug___default.a, _class2.beforeContentTemplate = __WEBPACK_IMPORTED_MODULE_3__before_content_pug___default.a, _class2.afterContentTemplate = __WEBPACK_IMPORTED_MODULE_4__after_content_pug___default.a, _class2.downloadLinkTemplate = __WEBPACK_IMPORTED_MODULE_2__download_link_pug___default.a, _class2.supports = {}, _class2.extend = function extend() {
   var _class3, _temp2;
 
   var _ref2 = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];

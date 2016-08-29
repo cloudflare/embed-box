@@ -644,7 +644,7 @@ var WeeblyTarget = (_temp = _class = function (_BaseTarget) {
   }
 
   return WeeblyTarget;
-}(__WEBPACK_IMPORTED_MODULE_1_components_base_target__["a" /* default */]), _class.id = "weebly", _class.label = "Weebly", _class.policy = "NAND", _class.versions = [{ id: "Latest", template: __WEBPACK_IMPORTED_MODULE_0__weebly_latest_pug___default.a }], _temp);
+}(__WEBPACK_IMPORTED_MODULE_1_components_base_target__["a" /* default */]), _class.id = "weebly", _class.label = "Weebly", _class.policy = "NAND", _class.supports = { embedCode: true }, _class.versions = [{ id: "Latest", template: __WEBPACK_IMPORTED_MODULE_0__weebly_latest_pug___default.a }], _temp);
 
 
 /***/ },
@@ -960,26 +960,16 @@ var BaseTarget = (_class = (_temp = _class2 = function (_BaseComponent) {
   _inherits(BaseTarget, _BaseComponent);
 
   BaseTarget.isConstructable = function isConstructable(config, store) {
-    var policy = this.policy;
+    var supportsPlugin = this.supports.plugin;
 
-    var hasLocalEmbedCode = !!config.embedCode;
-    var hasGlobalEmbedCode = !!store.embedCode;
-    var embedCodePresent = hasLocalEmbedCode || hasGlobalEmbedCode;
+    var hasLocalEmbed = !!config.embedCode;
+    var hasGlobalEmbed = !!store.embedCode;
+    var embedCodePresent = hasLocalEmbed || hasGlobalEmbed;
     var hasDownloadURL = !!config.downloadURL;
 
-    switch (policy) {
-      case "EMBED":
-        return embedCodePresent;
-      case "DOWNLOAD":
-        return hasDownloadURL;
-      case "OR":
-        return embedCodePresent && !hasDownloadURL || hasDownloadURL;
-      case "NAND":
-        // A `downloadURL` must be accompanied by an `embedCode`
-        return hasDownloadURL && hasLocalEmbedCode || hasGlobalEmbedCode && !hasDownloadURL;
-      default:
-        return true;
-    }
+    if (supportsPlugin) return hasDownloadURL || embedCodePresent;
+
+    return hasDownloadURL && hasLocalEmbed || !hasDownloadURL && embedCodePresent;
   };
 
   function BaseTarget() {
@@ -1191,7 +1181,7 @@ var BaseTarget = (_class = (_temp = _class2 = function (_BaseComponent) {
   }]);
 
   return BaseTarget;
-}(__WEBPACK_IMPORTED_MODULE_6_components_base_component__["a" /* default */]), _class2.template = __WEBPACK_IMPORTED_MODULE_0__base_target_pug___default.a, _class2.titleTemplate = __WEBPACK_IMPORTED_MODULE_1__title_pug___default.a, _class2.beforeContentTemplate = __WEBPACK_IMPORTED_MODULE_3__before_content_pug___default.a, _class2.afterContentTemplate = __WEBPACK_IMPORTED_MODULE_4__after_content_pug___default.a, _class2.downloadLinkTemplate = __WEBPACK_IMPORTED_MODULE_2__download_link_pug___default.a, _class2.extend = function extend() {
+}(__WEBPACK_IMPORTED_MODULE_6_components_base_component__["a" /* default */]), _class2.template = __WEBPACK_IMPORTED_MODULE_0__base_target_pug___default.a, _class2.titleTemplate = __WEBPACK_IMPORTED_MODULE_1__title_pug___default.a, _class2.beforeContentTemplate = __WEBPACK_IMPORTED_MODULE_3__before_content_pug___default.a, _class2.afterContentTemplate = __WEBPACK_IMPORTED_MODULE_4__after_content_pug___default.a, _class2.downloadLinkTemplate = __WEBPACK_IMPORTED_MODULE_2__download_link_pug___default.a, _class2.supports = {}, _class2.extend = function extend() {
   var _class3, _temp2;
 
   var _ref2 = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
@@ -2077,7 +2067,7 @@ function template(locals) {var pug_html = "", pug_mixins = {}, pug_interp;pug_ht
 if (this.downloadURL) {
 pug_html = pug_html + "\u003Cli\u003E" + (null == (pug_interp = this.renderDownloadLink()) ? "" : pug_interp) + "\u003C\u002Fli\u003E";
 }
-pug_html = pug_html + "\u003Cli\u003E\u003Ch2\u003EOpen the Weebly Editor.\u003C\u002Fh2\u003E\u003Cp\u003EVisit \u003Ca target=\"_blank\" href=\"https:\u002F\u002Fwww.weebly.com\u002Fhome\u002F\"\u003EWeebly Home\u003C\u002Fa\u003E and choose \u003Cstrong\u003EEdit Site\u003C\u002Fstrong\u003E.\u003C\u002Fp\u003E\u003Cp\u003EIf you cannot find that, try navigating directly to the \u003Ca target=\"_blank\" href=\"https:\u002F\u002Fwww.weebly.com\u002Feditor\u002Fmain.php\"\u003EWeebly Editor\u003C\u002Fa\u003E.\u003C\u002Fp\u003E\u003C\u002Fli\u003E\u003Cli\u003E\u003Ch2\u003EFrom the Weebly Editor, navitate to \u003Cstrong\u003ESettings \u003Cspan class=\"with-more-icon-after\"\u003E\u003C\u002Fspan\u003E SEO\u003C\u002Fstrong\u003E.\u003C\u002Fh2\u003E\u003Cp\u003EIn the bar at the top of the page, choose \u003Cstrong\u003ESettings\u003C\u002Fstrong\u003E.\nFrom the gray navigation menu on the left, choose \u003Cstrong\u003ESEO\u003C\u002Fstrong\u003E.\u003C\u002Fp\u003E\u003C\u002Fli\u003E\u003Cli\u003E\u003Ch2\u003E\u003Cspan\u003ECopy the code below and paste it into your site’s \u003Cstrong\u003E" + (pug.escape(null == (pug_interp = this.location === "head" ? "Header" : "Footer") ? "" : pug_interp)) + " Code\u003C\u002Fstrong\u003E\u003C\u002Fspan\u003E\u003C\u002Fh2\u003E\u003Cdiv class=\"copy-container\"\u003E\u003Cbutton class=\"primary run\" type=\"button\" data-ref=\"copyButtons[]\"\u003ECopy\u003C\u002Fbutton\u003E\u003Cdiv class=\"copyable\" contenteditable\u003E" + (pug.escape(null == (pug_interp = this.copyText) ? "" : pug_interp)) + "\u003C\u002Fdiv\u003E\u003C\u002Fdiv\u003E\u003Cfigure\u003E";
+pug_html = pug_html + "\u003Cli\u003E\u003Ch2\u003EOpen the Weebly Editor.\u003C\u002Fh2\u003E\u003Cp\u003EVisit \u003Ca target=\"_blank\" href=\"https:\u002F\u002Fwww.weebly.com\u002Fhome\u002F\"\u003EWeebly Home\u003C\u002Fa\u003E and choose \u003Cstrong\u003EEdit Site\u003C\u002Fstrong\u003E.\u003C\u002Fp\u003E\u003Cp\u003EIf you cannot find that, try navigating directly to the \u003Ca target=\"_blank\" href=\"https:\u002F\u002Fwww.weebly.com\u002Feditor\u002Fmain.php\"\u003EWeebly Editor\u003C\u002Fa\u003E.\u003C\u002Fp\u003E\u003C\u002Fli\u003E\u003Cli\u003E\u003Ch2\u003EFrom the Weebly Editor, navigate to \u003Cstrong\u003ESettings \u003Cspan class=\"with-more-icon-after\"\u003E\u003C\u002Fspan\u003E SEO\u003C\u002Fstrong\u003E.\u003C\u002Fh2\u003E\u003Cp\u003EIn the bar at the top of the page, choose \u003Cstrong\u003ESettings\u003C\u002Fstrong\u003E.\nFrom the gray navigation menu on the left, choose \u003Cstrong\u003ESEO\u003C\u002Fstrong\u003E.\u003C\u002Fp\u003E\u003C\u002Fli\u003E\u003Cli\u003E\u003Ch2\u003E\u003Cspan\u003ECopy the code below and paste it into your site’s \u003Cstrong\u003E" + (pug.escape(null == (pug_interp = this.location === "head" ? "Header" : "Footer") ? "" : pug_interp)) + " Code\u003C\u002Fstrong\u003E\u003C\u002Fspan\u003E\u003C\u002Fh2\u003E\u003Cdiv class=\"copy-container\"\u003E\u003Cbutton class=\"primary run\" type=\"button\" data-ref=\"copyButtons[]\"\u003ECopy\u003C\u002Fbutton\u003E\u003Cdiv class=\"copyable\" contenteditable\u003E" + (pug.escape(null == (pug_interp = this.copyText) ? "" : pug_interp)) + "\u003C\u002Fdiv\u003E\u003C\u002Fdiv\u003E\u003Cfigure\u003E";
 if (this.location === "head") {
 pug_html = pug_html + "\u003Cimg" + (pug.attr("src", __webpack_require__(32), true, true)) + "\u003E";
 }
