@@ -59,10 +59,10 @@ Create a new directory named after the `id`.
 In the directory, create template for each version in the format of `id-version.pug`
 
 ```shell
-mkdir app/components/targets/foobar
-touch app/components/targets/foobar/index.js
-touch app/components/targets/foobar/foobar-1-2-3.pug
-touch app/components/targets/foobar/foobar-4-5-6.pug
+mkdir app/targets/foobar
+touch app/targets/foobar/index.js
+touch app/targets/foobar/foobar-1-2-3.pug
+touch app/targets/foobar/foobar-4-5-6.pug
 ```
 
 ```javascript
