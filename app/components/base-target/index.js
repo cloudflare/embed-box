@@ -16,6 +16,8 @@ export default class BaseTarget extends BaseComponent {
   static afterContentTemplate = afterContentTemplate;
   static downloadLinkTemplate = downloadLinkTemplate;
 
+  static supports = {}
+
   static extend = function extend({id, label, policy, template, templateVars} = {}) {
     if (!id) throw new Error("EmbedBox: Target must have `id`")
     if (!label) throw new Error("EmbedBox: Target must have `label`")
@@ -35,25 +37,15 @@ export default class BaseTarget extends BaseComponent {
   };
 
   static isConstructable(config, store) {
-    const {policy} = this
-    const hasLocalEmbedCode = !!config.embedCode
-    const hasGlobalEmbedCode = !!store.embedCode
-    const embedCodePresent = hasLocalEmbedCode || hasGlobalEmbedCode
+    const {plugin: supportsPlugin} = this.supports
+    const hasLocalEmbed = !!config.embedCode
+    const hasGlobalEmbed = !!store.embedCode
+    const embedCodePresent = hasLocalEmbed || hasGlobalEmbed
     const hasDownloadURL = !!config.downloadURL
 
-    switch (policy) {
-      case "EMBED":
-        return embedCodePresent
-      case "DOWNLOAD":
-        return hasDownloadURL
-      case "OR":
-        return embedCodePresent && !hasDownloadURL || hasDownloadURL
-      case "NAND":
-        // A `downloadURL` must be accompanied by an `embedCode`
-        return hasDownloadURL && hasLocalEmbedCode || hasGlobalEmbedCode && !hasDownloadURL
-      default:
-        return true
-    }
+    if (supportsPlugin) return hasDownloadURL || embedCodePresent
+
+    return hasDownloadURL && hasLocalEmbed || !hasDownloadURL && embedCodePresent
   }
 
   constructor(spec = {}) {

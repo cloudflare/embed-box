@@ -3,7 +3,7 @@ import "./site.external-styl"
 import {runDemo} from "site/lib/user-simulator"
 import loadScripts from "site/lib/load-scripts"
 import renderTOC from "site/lib/render-toc"
-import renderPolicies from "site/lib/render-policies"
+import renderSupportTable from "site/lib/render-support-table"
 
 const DESKTOP_MIN_WIDTH = 1080
 
@@ -27,7 +27,7 @@ document.addEventListener("DOMContentLoaded", () => {
   let createInteractiveDemo
 
   renderTOC()
-  renderPolicies(window.EmbedBox)
+  renderSupportTable(window.EmbedBox)
 
   targetIDExample.textContent = targetIDExample.textContent
     .replace("{{TARGET_IDS}}", `[${window.EmbedBox.getTargetIDs().join(", ")}]`)

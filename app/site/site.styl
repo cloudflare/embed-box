@@ -135,6 +135,7 @@ html
       width 100%
 
   table
+    margin 1em 0
     text-align left
     width 100%
 
@@ -142,13 +143,7 @@ html
       background none !important
 
     th.id
-      width 16%
-    th.global-embed-code
-      width 26%
-    th.local-embed-code
-      width 26%
-    th.download-url
-      width 30%
+      width 20%
 
     tbody tr:nth-child(odd)
       background-color rgba(255,255,255, .05)
@@ -594,7 +589,7 @@ html
     a[href] > code
       color siteDocsLinkColor
 
-    *:not(h2):not(h3) > a.without-underline
+    *:not(.headline-with-anchor) > a.without-underline
       color siteDocsLinkColor
       text-decoration none
 

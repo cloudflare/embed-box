@@ -1,6 +1,6 @@
 ```javascript
 new EmbedBox({
-  embedCode: "<script src='http://example.com/plugin.js'></script>",
+  embedCode: "<script src='{{BASE_URL}}/examples/library.js'></script>",
   initialTarget: "wordpress"
 })
 ```
