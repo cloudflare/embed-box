@@ -3,11 +3,11 @@ import titleTemplate from "./title.pug"
 import downloadLinkTemplate from "./download-link.pug"
 import beforeContentTemplate from "./before-content.pug"
 import afterContentTemplate from "./after-content.pug"
+import icon from "./base-target.svg"
 
 import autobind from "autobind-decorator"
 import BaseComponent from "components/base-component"
 import Clipboard from "clipboard"
-import * as icons from "components/icons"
 
 export default class BaseTarget extends BaseComponent {
   static template = template;
@@ -15,14 +15,16 @@ export default class BaseTarget extends BaseComponent {
   static beforeContentTemplate = beforeContentTemplate;
   static afterContentTemplate = afterContentTemplate;
   static downloadLinkTemplate = downloadLinkTemplate;
+  static icon = icon;
 
-  static supports = {}
+  static supports = {};
 
-  static extend = function extend({id, label, policy, template, templateVars} = {}) {
+  static extend = function extend({icon, id, label, policy, template, templateVars} = {}) {
     if (!id) throw new Error("EmbedBox: Target must have `id`")
     if (!label) throw new Error("EmbedBox: Target must have `label`")
 
     return class CustomTarget extends BaseTarget {
+      static icon = icon;
       static id = id;
       static label = label;
       static policy = policy || "";
@@ -93,6 +95,10 @@ export default class BaseTarget extends BaseComponent {
     const insertInHead = typeof targetUsesHead !== "undefined" ? targetUsesHead : storeUsesHead
 
     return insertInHead ? "head" : "body"
+  }
+
+  get icon() {
+    return this.constructor.icon
   }
 
   get id() {
@@ -189,11 +195,8 @@ export default class BaseTarget extends BaseComponent {
   }
 
   renderTitle() {
-    const icon = icons[this.id] || icons.generic
-
     return this.constructor.titleTemplate.call(this, {
-      config: this.store,
-      icon: icon.template
+      config: this.store
     })
   }
 

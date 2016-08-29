@@ -25,10 +25,12 @@ Let's take a look at the WordPress target.
 
 ```javascript
 import wordpress4 from "./wordpress-4.pug"
+import icon from "./wordpress.svg"
 
 import BaseTarget from "components/base-target"
 
 export default class WordPressTarget extends BaseTarget {
+  static icon = icon;
   static id = "wordpress";
   static label = "WordPress";
   static supports = {embedCode: true, plugin: true};
@@ -43,6 +45,7 @@ Every target extends `BaseTarget` to inherit common helper methods.
 The `static` attributes are metadata that inform EmbedBox about the target.
 Unlike the usual project style, `static` attributes require a semicolon after each declaration.
 
+- `icon` is a logo in the format of an SVG string.
 - `id` is a unique, dashes-between-words identifier.
 - `supports` is the used to determine whether the target can render given the [EmbedBox's options](http://embedbox.io/#plugins).
 - `label` is the human readable identifier.

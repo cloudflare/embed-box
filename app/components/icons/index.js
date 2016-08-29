@@ -1,6 +1,6 @@
 import BaseComponent from "components/base-component"
 
-const toComponent = template => {
+export const svgToComponent = template => {
   return class Icon extends BaseComponent {
     static template = template;
 
@@ -23,25 +23,11 @@ const toComponent = template => {
 }
 
 import closeSVG from "./close.svg"
-export const close = toComponent(closeSVG)
-
-import drupalSVG from "./drupal.svg"
-export const drupal = toComponent(drupalSVG)
-
-import genericSVG from "./generic.svg"
-export const generic = toComponent(genericSVG)
-
-import joomlaSVG from "./joomla.svg"
-export const joomla = toComponent(joomlaSVG)
+export const close = svgToComponent(closeSVG)
 
 import previousSVG from "./previous.svg"
-export const previous = toComponent(previousSVG)
+export const previous = svgToComponent(previousSVG)
 
 import searchSVG from "./search.svg"
-export const search = toComponent(searchSVG)
+export const search = svgToComponent(searchSVG)
 
-import weeblySVG from "./weebly.svg"
-export const weebly = toComponent(weeblySVG)
-
-import wordpressSVG from "./wordpress.svg"
-export const wordpress = toComponent(wordpressSVG)

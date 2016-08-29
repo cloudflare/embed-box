@@ -7,7 +7,7 @@ import * as icons from "components/icons"
 import KM from "lib/key-map"
 import findIndex from "lodash.findindex"
 
-const {search: SearchIcon} = icons
+const {svgToComponent, search: SearchIcon} = icons
 const entryQuery = id => `.entry[data-id=${id}]`
 
 export default class TargetSearch extends BaseComponent {
@@ -20,10 +20,10 @@ export default class TargetSearch extends BaseComponent {
     const {query, targets} = this
     const {fallbackID} = this.store
 
-    return targets.map(({id, label}) => {
+    return targets.map(({icon, id, label}) => {
       const hidden = query && label.toLowerCase().indexOf(query) === -1 && id !== fallbackID
 
-      return {id, label, hidden}
+      return {icon, id, label, hidden}
     })
   }
 
@@ -138,7 +138,7 @@ export default class TargetSearch extends BaseComponent {
     const {entriesContainer} = this.refs
 
     this.entrySpecs.forEach((spec, index) => {
-      const Icon = icons[spec.id] || icons.generic
+      const Icon = svgToComponent(spec.icon)
       const icon = new Icon()
       const entry = entriesContainer.appendChild(document.createElement("div"))
       const attributes = {
