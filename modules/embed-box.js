@@ -5,6 +5,7 @@ const targets = require("../app/targets")
 
 EmbedBoxBase.fetchedTargets = [
   targets.wordpress,
+  targets.shopify,
   targets.squarespace,
   targets.weebly,
   targets.drupal,
