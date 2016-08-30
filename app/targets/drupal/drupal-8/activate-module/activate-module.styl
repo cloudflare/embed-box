@@ -7,7 +7,6 @@ a
   text-decoration none
 
 button
-
   &.install
     background-color #4da5f0
     border 1px solid #2b69d2
@@ -15,7 +14,7 @@ button
     color #fff
     padding .5em 1em .5em .7em
 
-    &:before
+    &::before
       content "+"
       display inline-block
       font-weight bold
@@ -31,7 +30,7 @@ h2
   font-weight normal
   margin .4em 0
 
-  &:after
+  &::after
     border 1px solid #fff
     border-radius 50%
     content "+"
@@ -44,7 +43,7 @@ h2
     text-align center
     width 1em
 
-.with-plus-icon:before
+.with-plus-icon::before
   content "+"
   display inline-block
   font-weight bold
@@ -59,10 +58,11 @@ h2
   align-items center
   margin-bottom 1em
 
-  .item + .item:before
-    content "»"
-    display inline-block
-    margin 0 .4em
+  .item
+    & + .item::before
+      content "»"
+      display inline-block
+      margin 0 .4em
 
 .modules
   border 1px solid #dadada

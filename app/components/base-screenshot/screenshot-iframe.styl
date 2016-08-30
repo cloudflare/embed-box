@@ -50,7 +50,7 @@ div, footer, header, main, section
     align-items center
     display inline-flex
 
-    &:before, &:after
+    &::before, &::after
       color attentionYellow
       display inline-block
       font-family sans-serif
@@ -60,26 +60,25 @@ div, footer, header, main, section
       opacity .9
       text-shadow 0 1px 0 rgba(0,0,0,0.3)
 
-  [data-arrow="left"]:before
+  [data-arrow="left"]::before
     content "→"
 
-  [data-arrow="right"]:after
+  [data-arrow="right"]::after
     content "←"
 
-  [data-arrow="above"]:before
+  [data-arrow="above"]::before
     content "↓"
     right 0 !important
     top -0.6em
 
   .relative-arrow
-
-    &:before, &:after
+    &::before, &::after
       position absolute
 
-  .relative-arrow:before
+  .relative-arrow::before
     right 100%
 
-  .relative-arrow:after
+  .relative-arrow::after
     left 100%
 
   // TODO: Consider removing SVG arrows as they align poorly across browsers.

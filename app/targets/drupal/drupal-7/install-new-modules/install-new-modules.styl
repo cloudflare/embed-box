@@ -7,7 +7,7 @@ body
 a
   text-decoration none
 
-  &.install:before
+  &.install::before
     content "+"
     display inline-block
     font-weight bold
@@ -31,7 +31,7 @@ h2
   margin-bottom 1em
 
   .item
-    & + .item:before
+    & + .item::before
       content "»"
       display inline-block
       margin 0 .4em

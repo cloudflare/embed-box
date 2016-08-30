@@ -35,7 +35,9 @@ input[type="file"]
   align-items center
   margin-bottom 1em
 
-  .item + .item:before
-    margin 0 .4em
-    display inline-block
-    content "»"
+  .item
+    & + .item::before
+      margin 0 .4em
+      display inline-block
+      content "»"
+
