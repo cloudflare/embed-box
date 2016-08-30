@@ -252,6 +252,8 @@ export default class EmbedBoxBase {
 
   @autobind
   hide() {
+    if (!this.visible) return
+
     this.visible = false
 
     this.resetOverflow()
@@ -263,6 +265,8 @@ export default class EmbedBoxBase {
       this._pendingShow = true
       return
     }
+
+    if (this.visible) return
 
     this.visible = true
 
