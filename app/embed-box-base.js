@@ -232,6 +232,8 @@ export default class EmbedBoxBase {
 
   destroy() {
     this.destroyed = true
+    this.visible = false
+    this.resetOverflow()
 
     Array
       .from(document.querySelectorAll(".embed-box-download-iframe"))
@@ -242,7 +244,6 @@ export default class EmbedBoxBase {
 
     storeReceivers.forEach(Receiver => delete Receiver.prototype.store)
 
-    this.resetOverflow()
   }
 
   resetOverflow() {

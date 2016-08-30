@@ -33,19 +33,15 @@ document.addEventListener("DOMContentLoaded", () => {
     .replace("{{TARGET_IDS}}", `[${window.EmbedBox.getTargetIDs().join(", ")}]`)
 
   window.addEventListener("resize", () => {
-    if (!demoInstance || demoInstance.mode === "modal" && !demoInstance.modeAdjusted) return
+    if (!demoInstance) return
 
     const isDesktop = document.body.clientWidth >= DESKTOP_MIN_WIDTH
+    const {mode} = demoInstance
 
-    if (isDesktop && demoInstance.mode === "modal") {
-      demoInstance.container = runInlineContainer
-      // Ensure deliberately chosen modal mode is not altered
-      demoInstance.modeAdjusted = true
-    }
-    else if (!isDesktop && demoInstance.mode === "inline") {
-      demoInstance.container = document.body
-      demoInstance.modeAdjusted = true
-    }
+    if (isDesktop && mode === "inline") return
+    if (!isDesktop && mode === "modal") return
+
+    demoInstance.destroy()
   })
 
   function bindObjectArguments(Constructor, boundSpec = {}) {
