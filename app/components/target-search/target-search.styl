@@ -100,10 +100,19 @@
         opacity 0
         stroke currentColor
         width 1em
+        margin-right .25em
 
-      &:hover, &[data-selected]
+      &:hover, &:focus
+
         .icon.next
-          opacity 1
+          opacity .6
+
+      &[data-selected], &:active
+
+        &, &:hover
+
+          .icon.next
+            opacity 1
 
       path.is-light-source-facing
         opacity .75
@@ -111,7 +120,7 @@
       path.is-not-light-source-facing
         opacity 1
 
-      &[data-selected]
+      &[data-selected], &:active
         border-color transparent
 
         &, &:hover
