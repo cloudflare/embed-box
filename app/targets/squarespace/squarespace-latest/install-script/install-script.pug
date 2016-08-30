@@ -1,0 +1,11 @@
+.screenshot
+  h1 CODE INJECTION
+
+  if this.location === "head"
+    p Enter code that will be injected into the 'head' tag on every page of your site.
+
+  else
+    p Enter code that will be injected into the template-defined footer on every page of your site.
+
+  pre
+    code= this.copyText
