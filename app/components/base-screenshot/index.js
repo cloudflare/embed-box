@@ -16,7 +16,8 @@ export default class BaseScreenshot {
   render(target) {
     const {iframeTemplate, iframeStylesheet, stylesheet, template} = this.constructor
 
-    const iframe = this.iframe = this.serialize(iframeTemplate)
+    const root = this.root = this.serialize(iframeTemplate)
+    const iframe = this.iframe = root.querySelector('iframe')
 
     this.iframe.onload = () => {
       const iframeDocument = iframe.contentDocument
@@ -39,6 +40,6 @@ export default class BaseScreenshot {
       })
     }
 
-    return this.iframe
+    return this.root
   }
 }
