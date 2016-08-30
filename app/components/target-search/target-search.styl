@@ -1,6 +1,7 @@
 @import "~styl/colors"
 
 [data-component="target-search"]
+
   .header
     align-items center
     background-color lightGrayRGBA
@@ -83,6 +84,18 @@
         outline none
         background lightGrayRGBA
 
+      .icon
+        fill currentColor
+        height 2em
+        margin-right 1em
+        width 2em
+
+      path.is-light-source-facing
+        opacity .75
+
+      path.is-not-light-source-facing
+        opacity 1
+
       &[data-selected]
         border-color transparent
 
@@ -91,8 +104,8 @@
           color #fff
           box-shadow none !important
 
-      .icon
-        fill currentColor
-        height 2em
-        margin-right 1em
-        width 2em
+          path.is-light-source-facing
+            opacity 1
+
+          path.is-not-light-source-facing
+            opacity .5
