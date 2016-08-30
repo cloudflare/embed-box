@@ -243,7 +243,6 @@ export default class EmbedBoxBase {
     removeElement(this.style)
 
     storeReceivers.forEach(Receiver => delete Receiver.prototype.store)
-
   }
 
   resetOverflow() {
