@@ -17,7 +17,7 @@ export default class BaseScreenshot {
     const {iframeTemplate, iframeStylesheet, stylesheet, template} = this.constructor
 
     const root = this.root = this.serialize(iframeTemplate)
-    const iframe = this.iframe = root.querySelector('iframe')
+    const iframe = this.iframe = root.querySelector("iframe")
 
     this.iframe.onload = () => {
       const iframeDocument = iframe.contentDocument
