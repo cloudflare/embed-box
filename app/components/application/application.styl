@@ -48,9 +48,13 @@
     box-shadow 0 1px lightLineGrayRGBA
     flex 0 0 auto
     justify-content space-between
-    min-height 4.5em
     width 100%
     z-index 1
+
+    > *
+      display flex
+      min-height 4.5em
+      align-items center
 
     .title
       text-align center
@@ -58,7 +62,6 @@
       padding 0.8em 0
 
     .button[data-action]
-      align-items center
       appearance none
       background inherit
       border-radius 0
