@@ -9,5 +9,5 @@ mixin annotation-arrow(direction)
   - var style = ['se', 'es'].indexOf(direction) > -1 ? style + '; transform: scale(-1, -1)': style;
   - var style = ['sw', 'ws'].indexOf(direction) > -1 ? style + '; transform: scale(1, -1)': style;
 
-  svg(annotation-arrow version="1.1" style=style viewBox=viewBox)
+  svg(annotation-arrow version="1.1" viewBox=viewBox style=style)
     path(d=d)
