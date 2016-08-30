@@ -1,3 +1,5 @@
+include ../../components/base-screenshot/mixin-annotation-arrow.pug
+
 ol.steps
   if this.pluginURL
     li
@@ -7,7 +9,10 @@ ol.steps
     li
       h2 Upload the plugin to your Joomla Admin site
 
-      figure: img(src=require("./upload-plugin.png"))
+      figure
+        img(src=require("./upload-plugin.png"))
+        +annotation-arrow('nw')(style="top: 37.4%; left: 14.1%; width: 12.8%")
+        +annotation-arrow('ne')(style="top: 67.5%; left: 56.8%; width: 10%")
 
       p In your Joomla Admin, navigate to: <strong>Extensions <span class="with-more-icon-after"></span> Install <span class="with-more-icon-after"></span> Upload Package File</strong>.
       p Click “Choose File” and select the file you just downloaded.</p>
@@ -15,7 +20,10 @@ ol.steps
     li
       h2 Activate the plugin and view your site
 
-      figure: img(src=require("./activate-plugin.png"))
+      figure
+        img(src=require("./activate-plugin.png"))
+        +annotation-arrow('en')(style="top: 48.2%; left: 14.6%; width: 15.8%")
+        +annotation-arrow('wn')(style="top: 79%; left: 50%; width: 14.1%")
 
       p On the <strong>Extensions <span class="with-more-icon-after"></span> Manage</strong> page, search for #{config.name ? "“" + config.name + "”" : "the plugin"}.
       p When you’ve found the plugin, click the red “×” to enable the extension.
@@ -25,18 +33,24 @@ ol.steps
     li
       h2 In the Admin area of your Joomla site, navigate to: <strong>Extensions <span class="with-more-icon-after"></span> Templates <span class="with-more-icon-after"></span> Templates</strong>.
 
-      figure: img(src=require("./open-templates.png"))
+      figure
+        img(src=require("./open-templates.png"))
+        +annotation-arrow('nw')(style="top: 41.9%; left: 78.4%; width: 12%; transform: rotate(60deg)")
 
     li
       h2 Choose the template which is currently being used to power your site.
       p If you’re not sure which template this is you can add this embed code to all of your templates by repeating this process.
 
-      figure: img(src=require("./choose-template.png"))
+      figure
+        img(src=require("./choose-template.png"))
+        +annotation-arrow('nw')(style="top: 66.8%; left: 66.3%; width: 12%; transform: scale(-1, 1) rotate(60deg)")
 
     li
       h2 Select the “index.php” file.
 
-      figure: img(src=require("./choose-file.png"))
+      figure
+        img(src=require("./choose-file.png"))
+        +annotation-arrow('wn')(style="top: 80.5%; left: 24.1%; width: 24.7%")
 
     li
       h2 Copy the code to your site's &lt;#{this.location}&gt; tag.
@@ -51,7 +65,9 @@ ol.steps
           | There will be other similar tags, but you only want the one with that exact name.
           | It should be near the beginning of the file. Insert the embed code just <strong>after</strong> that tag.
 
-        figure: img(src=require("./insert-code-head.png"))
+        figure
+          img(src=require("./insert-code-head.png"))
+          +annotation-arrow('ws')(style="top: 40.9%; left: 44%; width: 17.7%")
 
       else
         p
@@ -60,11 +76,15 @@ ol.steps
           | It should be near the end of the file.
           | Insert the embed code just <strong>before</strong> that tag.
 
-        figure: img(src=require("./insert-code-body.png"))
+        figure
+          img(src=require("./insert-code-body.png"))
+          +annotation-arrow('wn')(style="top: 78.1%; left: 44%; width: 18.3%")
 
     li
       h2 Click “Save &amp; Close”.
 
-      figure: img(src=require("./save.png"))
+      figure
+        img(src=require("./save.png"))
+        +annotation-arrow('nw')(style="top: 36.6%; left: 31%; width: 14.3%; transform: scale(-1, 1) rotate(60deg)")
 
       p You’re done!
