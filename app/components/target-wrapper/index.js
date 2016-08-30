@@ -11,11 +11,9 @@ export default class TargetWrapper extends BaseComponent {
     this.compileTemplate()
 
     const target = this.target.render()
-    const {doneButton, targetMount} = this.refs
+    const {targetMount} = this.refs
 
     this.replaceElement(targetMount, target)
-
-    doneButton.addEventListener("click", this.onDone)
 
     return this.element
   }

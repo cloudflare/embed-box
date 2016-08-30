@@ -7,7 +7,7 @@ import * as icons from "components/icons"
 import KM from "lib/key-map"
 import findIndex from "lodash.findindex"
 
-const {svgToComponent, search: SearchIcon} = icons
+const {svgToComponent, search: SearchIcon, next: NextIcon} = icons
 const entryQuery = id => `.entry[data-id=${id}]`
 
 export default class TargetSearch extends BaseComponent {
@@ -103,20 +103,12 @@ export default class TargetSearch extends BaseComponent {
     if (search !== iframeDocument.activeElement && entryEl) {
       entryEl.focus()
     }
-
-    this.setNavigationState()
-  }
-
-  setNavigationState() {
-    const {nextButton} = this.refs
-
-    nextButton.disabled = !this.selectedId
   }
 
   render() {
     this.compileTemplate()
 
-    const {nextButton, search} = this.refs
+    const {search} = this.refs
     const searchIcon = new SearchIcon()
 
     this.insertBefore(searchIcon.render(), search)
@@ -124,23 +116,23 @@ export default class TargetSearch extends BaseComponent {
     search.addEventListener("input", this.handleSearchInput)
 
     this.renderEntries()
-    this.setNavigationState()
 
     this.element.addEventListener("dispatched-keydown", this.handleDelgatedKeydown)
     this.element.addEventListener("dispatched-keypress", this.handleDelgatedKeypress)
     this.element.addEventListener("dispatched-input", this.handleSearchInput)
-    nextButton.addEventListener("click", this.submit)
 
     return this.element
   }
 
   renderEntries() {
+    const iframeDocument = this.store.iframe.document
     const {entriesContainer} = this.refs
 
     this.entrySpecs.forEach((spec, index) => {
       const Icon = svgToComponent(spec.icon)
-      const icon = new Icon()
+      const icon = new Icon({class: "icon logo"})
       const entry = entriesContainer.appendChild(document.createElement("div"))
+      const primary = iframeDocument.createElement("div")
       const attributes = {
         class: "entry",
         tabindex: 4,
@@ -153,12 +145,18 @@ export default class TargetSearch extends BaseComponent {
       Object.keys(attributes).forEach(key => entry.setAttribute(key, attributes[key]))
       this.setEntryStyle(entry)
 
-      entry.appendChild(icon.render())
-      entry.appendChild(document.createTextNode(spec.label))
+      primary.className = "primary"
+      primary.appendChild(icon.render())
+      primary.appendChild(document.createTextNode(spec.label))
+      entry.appendChild(primary)
+      entry.appendChild(new NextIcon({class: "icon next"}).render())
 
       this.updateRefs()
 
-      entry.addEventListener("click", () => this.selectEntry(spec.id))
+      entry.addEventListener("click", () => {
+        this.selectedId = spec.id
+        this.submit()
+      })
 
       entry.addEventListener("keydown", event => {
         if (event.keyCode === KM.spacebar) {

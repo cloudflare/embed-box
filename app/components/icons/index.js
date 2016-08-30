@@ -28,6 +28,9 @@ export const close = svgToComponent(closeSVG)
 import previousSVG from "./previous.svg"
 export const previous = svgToComponent(previousSVG)
 
+import nextSVG from "./next.svg"
+export const next = svgToComponent(nextSVG)
+
 import searchSVG from "./search.svg"
 export const search = svgToComponent(searchSVG)
 

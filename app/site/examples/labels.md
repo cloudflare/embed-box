@@ -5,9 +5,7 @@ new EmbedBox({
   labels: {
     title: function(config) { return `${config.name} install guide` },
     searchHeader: "Press or enter the type of website you have.",
-    searchPlaceholder: "Filter...",
-    next: "Continue",
-    done: "Finished"
+    searchPlaceholder: "Filter..."
   }
 })
 ```

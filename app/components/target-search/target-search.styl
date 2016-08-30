@@ -84,11 +84,26 @@
         outline none
         background lightGrayRGBA
 
-      .icon
+      .primary
+        flex 1 1 auto
+        align-items center
+
+      .icon.logo
         fill currentColor
         height 2em
         margin-right 1em
         width 2em
+
+      .icon.next
+        flex 0 0 auto
+        height 1em
+        opacity 0
+        stroke currentColor
+        width 1em
+
+      &:hover, &[data-selected]
+        .icon.next
+          opacity 1
 
       path.is-light-source-facing
         opacity .75

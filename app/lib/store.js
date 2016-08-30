@@ -26,10 +26,8 @@ export function createStore(spec = {}) {
     insertInHead: spec.insertInHead || false,
 
     labels: {
-      done: "Done",
       searchHeader: "Select the type of website you have.",
       searchPlaceholder: "Search...",
-      next: "Next",
       title: config => `Add ${config.name} to your site`,
       ...labels
     }
