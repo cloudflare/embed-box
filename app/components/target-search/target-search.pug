@@ -1,7 +1,7 @@
 section(data-column data-component="target-search" data-event-receiver)
   header.header(data-column)
     label(for="search-input")= label("searchHeader")
-    .input-wrapper
+    .input-wrapper(data-ref="inputWrapper")
       input#search-input.search(
         data-ref="search"
         placeholder=label("searchPlaceholder")

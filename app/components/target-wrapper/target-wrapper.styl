@@ -44,7 +44,7 @@
       left 1.5em
       top 1.5em
 
-      &:after
+      &::after
         color black
         content "Copied"
         display inline-block
@@ -161,7 +161,7 @@
       &:last-child > *:last-child
         margin-bottom 0
 
-      &:before
+      &::before
         background lightGrayRGBA
         border-radius 50%
         color #fff
@@ -189,7 +189,7 @@
     [data-component="screenshot"]
       width 100%
 
-    &:after
+    &::after
       content ""
       display block
       position absolute
@@ -204,11 +204,27 @@
 
     [annotation-arrow]
       position absolute
-      top 0
-      left 0
-      max-width 100%
-      max-height 100%
-      fill attentionYellow
+
+      > div
+        position absolute
+        top 0
+        left 0
+        height 0
+        width 100%
+
+      svg
+        position absolute
+        top 0
+        left 0
+        width 100%
+        height 100%
+        fill attentionYellow
+
+      &[data-svg-view-box="0 0 83 114"] > div
+        padding-bottom 137.35%
+
+      &[data-svg-view-box="0 0 127 73"] > div
+        padding-bottom 57.48%
 
   h2
     font-size 1em

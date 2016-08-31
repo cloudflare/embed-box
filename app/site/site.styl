@@ -76,7 +76,7 @@ html
       position relative
       text-decoration none
 
-      &:before
+      &::before
         content "#"
         position absolute
         display inline-block
@@ -217,7 +217,7 @@ html
     position relative
     overflow hidden
 
-    &:after
+    &::after
       border 1px solid lightLineGrayRGBA
       border-radius .5em
       bottom 0
@@ -386,7 +386,7 @@ html
         &:not(:last-child)
           margin-bottom 4em
 
-          &:before
+          &::before
             background lighterLineGrayRGBA
             content ""
             display block
@@ -603,7 +603,7 @@ html
       margin 0
       padding 1em 1.5em
 
-      &:before
+      &::before
         content "ProTip"
         display block
         margin-bottom .6em

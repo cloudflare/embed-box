@@ -7,7 +7,7 @@
     background-color lightGrayRGBA
     box-shadow 0 1px lightLineGrayRGBA
     flex 0 0 auto
-    padding 1em 0
+    padding 1em
     width 100%
     z-index 2 // Fix box-shadow translucent stacking artifacts
 
@@ -16,22 +16,15 @@
       margin-bottom .5em
 
     .input-wrapper
-      align-items center
-      background-color white
-      border-radius 5em
-      width calc(100% - 3em)
-
-    .icon
-      height 1em
-      stroke subtleTextRGBA
-      margin-left 1em
-      width 1em
+      position relative
+      width 100%
 
     .search
-      background transparent
-      border none
-      flex 1 0 auto
-      padding .5em
+      background #fff
+      border 0
+      width 100%
+      border-radius 5em
+      padding .5em 1em .5em 3em
 
       &::placeholder
         color rgba(#000, .3)
@@ -40,6 +33,19 @@
 
       &:focus
         outline none
+
+    .icon
+      position absolute
+      pointer-events none
+      height 1em
+      width 1em
+      left 1em
+      top 0
+      bottom 0
+      margin-top auto
+      margin-bottom auto
+      stroke subtleTextRGBA
+      opacity .85
 
   .entries
     // Fixes Firefox scroll issues. flex-grow will consume the remaining space.
@@ -87,6 +93,29 @@
       .primary
         flex 1 1 auto
         align-items center
+        position relative
+
+        &::after
+          pointer-events none
+          position absolute
+          right .75em
+          opacity 0
+
+      @media (min-width 400px)
+        &:hover .primary::after
+          content attr(data-click-hint-short)
+          opacity .5
+
+        &[data-selected]:not(:hover) .primary::after
+          content attr(data-submit-hint-short)
+          opacity .5
+
+      @media (min-width 460px)
+        &:hover .primary::after
+          content attr(data-click-hint)
+
+        &[data-selected]:not(:hover) .primary::after
+          content attr(data-submit-hint)
 
       .icon.logo
         fill currentColor
@@ -100,10 +129,19 @@
         opacity 0
         stroke currentColor
         width 1em
+        margin-right .25em
 
-      &:hover, &[data-selected]
+      &:hover, &:focus
+
         .icon.next
-          opacity 1
+          opacity .6
+
+      &[data-selected], &:active
+
+        &, &:hover
+
+          .icon.next
+            opacity 1
 
       path.is-light-source-facing
         opacity .75
@@ -111,7 +149,7 @@
       path.is-not-light-source-facing
         opacity 1
 
-      &[data-selected]
+      &[data-selected], &:active
         border-color transparent
 
         &, &:hover

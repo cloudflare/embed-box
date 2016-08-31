@@ -28,6 +28,10 @@ export function createStore(spec = {}) {
     labels: {
       searchHeader: "Select the type of website you have.",
       searchPlaceholder: "Search...",
+      clickHint: "Click to view intstructions",
+      clickHintShort: "Click to view",
+      submitHint: "Press ENTER to view intstructions",
+      submitHintShort: "Press ENTER",
       title: config => `Add ${config.name} to your site`,
       ...labels
     }

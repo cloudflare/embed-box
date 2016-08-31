@@ -53,13 +53,41 @@
 
     > *
       display flex
-      min-height 4.5em
       align-items center
 
     .title
       text-align center
       line-height 1.4
-      padding 0.8em 0
+      white-space nowrap
+      overflow hidden
+      text-overflow ellipsis
+      max-width 100%
+      display inline-block
+
+      @media (max-width 500px)
+        &[data-title-char-length="long"]
+          font-size .8em
+
+        &[data-title-char-length="medium"]
+          font-size .9em
+
+      @media (max-width 400px)
+        &[data-title-char-length="medium"]
+          font-size .8em
+
+        &[data-title-char-length="short"]
+          font-size .9em
+
+      @media (max-width 360px)
+        &[data-title-char-length="short"]
+          font-size .8em
+
+        &[data-title-char-length="puny"]
+          font-size .9em
+
+      @media (max-width 340px)
+        &[data-title-char-length="puny"]
+          font-size .8em
 
     .button[data-action]
       appearance none

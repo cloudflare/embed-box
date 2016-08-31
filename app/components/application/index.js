@@ -118,8 +118,32 @@ export default class Application extends BaseComponent {
     }
   }
 
+  renderTitle(html) {
+    const {title} = this.refs
+
+    title.innerHTML = html
+
+    const titleCharCount = title.textContent.length
+
+    if (titleCharCount >= 40) {
+      title.setAttribute("data-title-char-length", "long")
+    }
+
+    if (titleCharCount < 40) {
+      title.setAttribute("data-title-char-length", "medium")
+    }
+
+    if (titleCharCount < 30) {
+      title.setAttribute("data-title-char-length", "short")
+    }
+
+    if (titleCharCount < 20) {
+      title.setAttribute("data-title-char-length", "puny")
+    }
+  }
+
   renderTargetSearch() {
-    const {content, title} = this.refs
+    const {content} = this.refs
     const {firstChild} = content
     const targetSearch = new TargetSearch({
       targets: this.targets,
@@ -130,7 +154,7 @@ export default class Application extends BaseComponent {
       }
     }).render()
 
-    title.textContent = this.label("title")
+    this.renderTitle(this.label("title"))
 
     if (!firstChild) {
       this.transitioning = false
@@ -176,7 +200,7 @@ export default class Application extends BaseComponent {
     this.transitioning = true
 
     const {autoDownload} = this.store
-    const {content, title} = this.refs
+    const {content} = this.refs
     const {firstChild} = content
     const [target] = this.targets.filter(target => target.id === this.route)
     const targetWrapper = new TargetWrapper({
@@ -190,7 +214,7 @@ export default class Application extends BaseComponent {
       setTimeout(target.startDownload, AUTO_DOWNLOAD_DELAY)
     }
 
-    title.innerHTML = target.modalTitle
+    this.renderTitle(target.modalTitle)
 
     content.appendChild(targetWrapper)
 
@@ -221,4 +245,3 @@ export default class Application extends BaseComponent {
     }
   }
 }
-

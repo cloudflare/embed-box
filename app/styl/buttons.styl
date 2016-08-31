@@ -57,7 +57,7 @@ button, .button
   &:focus
     outline none
 
-    &:before
+    &::before
       content ""
       position absolute
       z-index 1
@@ -70,7 +70,7 @@ button, .button
       pointer-events none
       transition opacity .3s ease-in-out
 
-    &:active:before
+    &:active::before
       opacity 0
 
   &.primary
