@@ -93,6 +93,29 @@
       .primary
         flex 1 1 auto
         align-items center
+        position relative
+
+        &:after
+          pointer-events none
+          position absolute
+          right .75em
+          opacity 0
+
+      @media (min-width 400px)
+        &:hover .primary:after
+          content "Click to view"
+          opacity .5
+
+        &[data-selected]:not(:hover) .primary:after
+          content "Press ENTER"
+          opacity .5
+
+      @media (min-width 460px)
+        &:hover .primary:after
+          content "Click to view intstructions"
+
+        &[data-selected]:not(:hover) .primary:after
+          content "Press ENTER to view intstructions"
 
       .icon.logo
         fill currentColor
