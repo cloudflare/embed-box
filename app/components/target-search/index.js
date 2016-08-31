@@ -108,10 +108,10 @@ export default class TargetSearch extends BaseComponent {
   render() {
     this.compileTemplate()
 
-    const {search} = this.refs
+    const {search, inputWrapper} = this.refs
     const searchIcon = new SearchIcon()
 
-    this.insertBefore(searchIcon.render(), search)
+    inputWrapper.appendChild(searchIcon.render())
 
     search.addEventListener("input", this.handleSearchInput)
 

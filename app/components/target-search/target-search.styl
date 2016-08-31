@@ -7,7 +7,7 @@
     background-color lightGrayRGBA
     box-shadow 0 1px lightLineGrayRGBA
     flex 0 0 auto
-    padding 1em 0
+    padding 1em
     width 100%
     z-index 2 // Fix box-shadow translucent stacking artifacts
 
@@ -16,23 +16,15 @@
       margin-bottom .5em
 
     .input-wrapper
-      align-items center
-      background-color white
-      border-radius 5em
-      width calc(100% - 3em)
-
-    .icon
-      height 1em
-      stroke subtleTextRGBA
-      margin-left 1em
-      width 1em
-      opacity .85
+      position relative
+      width 100%
 
     .search
-      background transparent
-      border none
-      flex 1 0 auto
-      padding .5em
+      background #fff
+      border 0
+      width 100%
+      border-radius 5em
+      padding .5em 1em .5em 3em
 
       &::placeholder
         color rgba(#000, .3)
@@ -41,6 +33,19 @@
 
       &:focus
         outline none
+
+    .icon
+      position absolute
+      pointer-events none
+      height 1em
+      width 1em
+      left 1em
+      top 0
+      bottom 0
+      margin-top auto
+      margin-bottom auto
+      stroke subtleTextRGBA
+      opacity .85
 
   .entries
     // Fixes Firefox scroll issues. flex-grow will consume the remaining space.
