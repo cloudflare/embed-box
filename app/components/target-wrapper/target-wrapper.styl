@@ -44,7 +44,7 @@
       left 1.5em
       top 1.5em
 
-      &:after
+      &::after
         color black
         content "Copied"
         display inline-block
@@ -161,7 +161,7 @@
       &:last-child > *:last-child
         margin-bottom 0
 
-      &:before
+      &::before
         background lightGrayRGBA
         border-radius 50%
         color #fff
@@ -189,7 +189,7 @@
     [data-component="screenshot"]
       width 100%
 
-    &:after
+    &::after
       content ""
       display block
       position absolute

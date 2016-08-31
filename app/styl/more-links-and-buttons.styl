@@ -21,21 +21,21 @@ chevronIconForMoreLinksAndButtons()
 
 a.more, button.more, .with-more-icon-after
 
-  &:after
+  &::after
     chevronIconForMoreLinksAndButtons()
     content "\203A" // ›
     padding-left .3em
 
 a.before, .with-before-icon-before
 
-  &:before
+  &::before
     chevronIconForMoreLinksAndButtons()
     content "\2039" // ‹
     padding-right .3em
 
-a.more:not(.button):after
+a.more:not(.button)::after
   padding-right .3em
 
-.with-more-icon-after:empty:after
+.with-more-icon-after:empty::after
   padding-left .15em
   padding-right .15em
