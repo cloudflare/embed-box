@@ -131,9 +131,9 @@ export default class TargetSearch extends BaseComponent {
     this.entrySpecs.forEach((spec, index) => {
       const Icon = svgToComponent(spec.icon)
       const icon = new Icon({class: "icon logo"})
+
       const entry = entriesContainer.appendChild(document.createElement("div"))
-      const primary = iframeDocument.createElement("div")
-      const attributes = {
+      const entryAttributes = {
         class: "entry",
         tabindex: 4,
         "data-action": "",
@@ -142,14 +142,23 @@ export default class TargetSearch extends BaseComponent {
         "data-visible-order": index
       }
 
-      Object.keys(attributes).forEach(key => entry.setAttribute(key, attributes[key]))
-      this.setEntryStyle(entry)
+      const primary = iframeDocument.createElement("div")
+      const primaryAttributes = {
+        "data-click-hint": this.label("clickHint"),
+        "data-click-hint-short": this.label("clickHintShort"),
+        "data-submit-hint": this.label("submitHint"),
+        "data-submit-hint-short": this.label("submitHintShort")
+      }
 
       primary.className = "primary"
       primary.appendChild(icon.render())
       primary.appendChild(document.createTextNode(spec.label))
+      Object.keys(primaryAttributes).forEach(key => primary.setAttribute(key, primaryAttributes[key]))
+
       entry.appendChild(primary)
       entry.appendChild(new NextIcon({class: "icon next"}).render())
+      Object.keys(entryAttributes).forEach(key => entry.setAttribute(key, entryAttributes[key]))
+      this.setEntryStyle(entry)
 
       this.updateRefs()
 
