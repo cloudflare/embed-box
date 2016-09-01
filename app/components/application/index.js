@@ -163,7 +163,8 @@ export default class Application extends BaseComponent {
     }
 
     content.insertBefore(targetSearch, firstChild)
-    content.style.transform = "translate3d(-100%, 0, 0)"
+    // -99% forces Safari to reveal the next element and paint it.
+    content.style.transform = "translate3d(-99%, 0, 0)"
 
     this.handleTransition = event => {
       if (event.target !== content) return

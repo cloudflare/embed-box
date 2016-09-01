@@ -1,5 +1,6 @@
 @import "~styl/colors"
 @import "~styl/fonts"
+@import "~styl/media-query-variables"
 
 @keyframes copied
   0%, 100%
@@ -12,8 +13,15 @@
   100%
     transform translate3d(0, -1.8em, 0)
 
-[data-component="application"][data-mode="inline"] [data-component="target-wrapper"] .modal-footer
-  display none
+
+[data-component="target-wrapper"]
+  @media mobileMaxWidthQuery
+    // Spacer for Safari's UI controls
+    &::after
+      content ""
+      display block
+      flex 0 0 auto
+      height iphoneUICompensation
 
 [data-component$="-target"]
   roundedChildRadius = 3px

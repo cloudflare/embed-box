@@ -1,3 +1,8 @@
+@import "./styl/media-query-variables"
+
+.embed-box
+  transform translate3d(0, 0, 0)
+
 .embed-box[data-mode="inline"]
   display inline-block
   height 100%
@@ -24,5 +29,15 @@
   height 1px
   z-index -99999
 
-[data-embed-box-container]
+body[data-embed-box-scroll-state="locked"]
   overflow hidden !important
+
+@media mobileMaxWidthQuery
+  .embed-box[data-mode="modal"]
+    position absolute !important
+
+  body, html
+    &[data-embed-box-scroll-state="locked"]
+      overflow hidden !important
+      position relative !important
+

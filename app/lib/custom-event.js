@@ -9,7 +9,10 @@ export default function polyfillCustomEvent({document: $document, window: $windo
     supported = false
   }
 
-  if (supported) return
+  if (supported) {
+    $window.PolyFilledCustomEvent = $window.CustomEvent
+    return
+  }
 
   function PolyFilledCustomEvent(event, {bubbles = false, cancelable = false, detail} = {}) {
     const shimEvent = $document.createEvent("CustomEvent")

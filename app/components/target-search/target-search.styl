@@ -1,4 +1,5 @@
 @import "~styl/colors"
+@import "~styl/media-query-variables"
 
 [data-component="target-search"]
 
@@ -54,6 +55,14 @@
     overflow auto
     -webkit-overflow-scrolling touch
     z-index 1 // Fixes box-shadow translucent stacking artifacts
+
+    @media mobileMaxWidthQuery
+      // Spacer for Safari's UI controls
+      &::after
+        content ""
+        display block
+        flex 0 0 auto
+        height iphoneUICompensation
 
     .entry
       position relative

@@ -10,7 +10,7 @@ import {createStore} from "lib/store"
 import {getRoute} from "lib/routing"
 
 const VISIBILITY_ATTRIBUTE = "data-visibility"
-const SCROLL_STATE_ATTRIBUTE = "data-embed-box-container"
+const SCROLL_STATE_ATTRIBUTE = "data-embed-box-scroll-state"
 let storeReceivers
 
 function removeElement(element) {
@@ -81,6 +81,7 @@ export default class EmbedBoxBase {
     Object.assign(this, {
       destroyed: false,
       _visible: false,
+      _previousContainerScrollPosition: null,
       iframe,
       container,
       events: spec.events || {},
@@ -180,38 +181,75 @@ export default class EmbedBoxBase {
     return this._visible
   }
 
-  set visible (visible) {
-    this._visible = visible
-    const {element} = this.iframe
+  set visible (willBeVisible) {
+    const currentlyVisible = this._visible
 
-    if (visible) element.style.display = ""
+    const update = () => {
+      this._visible = willBeVisible
+      const {element} = this.iframe
 
-    this._syncScrollState()
+      if (willBeVisible) element.style.display = ""
 
-    requestAnimationFrame(() => {
-      element.style.opacity = visible ? 1 : 0
-      element.setAttribute(VISIBILITY_ATTRIBUTE, visible ? "visible" : "hidden")
+      requestAnimationFrame(() => {
+        element.style.opacity = willBeVisible ? 1 : 0
+        element.setAttribute(VISIBILITY_ATTRIBUTE, willBeVisible ? "visible" : "hidden")
 
-      if (this.events.visibilityChange) this.events.visibilityChange(visible)
-    })
+        if (this.events.visibilityChange) this.events.visibilityChange(willBeVisible)
+      })
+    }
 
-    return visible
+    if (this.destroyed && currentlyVisible || !willBeVisible && currentlyVisible) {
+      this._syncScrollState(willBeVisible, update)
+    }
+    else if (!this.destroyed && !currentlyVisible) {
+      update()
+    }
+
+    return willBeVisible
   }
 
-  _syncScrollState() {
-    if (this.destroyed) {
-      this.container.removeAttribute(SCROLL_STATE_ATTRIBUTE)
+  _syncScrollState(nextVisible, next = () => {}) {
+    // NOTE: The scroll state should be only be synced when the user cannot see
+    // the update. Call this method only while the modal is opaque.
+
+    const {container} = this
+    const {documentElement} = document
+    const nextValue = nextVisible && !this.destroyed ? "locked" : "unlocked"
+
+    const checkLockState = () => {
+      if (nextValue === "unlocked") {
+        container.scrollTop = this._previousContainerScrollPosition
+        this._previousContainerScrollPosition = null
+      }
+
+      next()
+    }
+
+    if (this.destroyed || this.mode !== "modal") {
+      documentElement.removeAttribute(SCROLL_STATE_ATTRIBUTE)
+      container.removeAttribute(SCROLL_STATE_ATTRIBUTE)
+
+      requestAnimationFrame(checkLockState)
       return
     }
 
-    const value = this.visible && this.mode === "modal" ? "scroll-locked" : "scroll-unlocked"
+    if (nextValue === "locked") {
+      this._previousContainerScrollPosition = container.scrollTop
+    }
 
-    this.container.setAttribute(SCROLL_STATE_ATTRIBUTE, value)
+    documentElement.setAttribute(SCROLL_STATE_ATTRIBUTE, nextValue)
+    container.setAttribute(SCROLL_STATE_ATTRIBUTE, nextValue)
+
+    requestAnimationFrame(checkLockState)
   }
 
   @autobind
   _handleTransitionEnd() {
     const iframeElement = this.iframe.element
+
+    if (this.visible) {
+      this._syncScrollState(this.visible)
+    }
 
     if (!this.visible) iframeElement.style.display = "none"
   }
@@ -220,25 +258,27 @@ export default class EmbedBoxBase {
     const {theme, constructor: {iframeStylesheet}} = this
     const style = this.iframe.document.createElement("style")
 
+    const $ = value => `${value} !important`
+
     style.innerHTML = iframeStylesheet + `
       [data-component="application"] .modal {
-        background-color: ${theme.backgroundColor} !important;
-        color: ${theme.textColor} !important;
+        background-color: ${$(theme.backgroundColor)};
+        color: ${$(theme.textColor)};
       }
 
       a, .accent-color {
-        color: ${theme.accentColor} !important;
+        color: ${$(theme.accentColor)};
       }
 
       .button.primary, button.primary,
       [data-component="target-search"] .entries .entry[data-selected],
       [data-component="target-search"] .entries .entry:active,
       .accent-background-color {
-        background: ${theme.accentColor} !important;
+        background: ${$(theme.accentColor)};
       }
 
       .instructions .steps li:before {
-        background: ${theme.accentColor} !important;
+        background: ${$(theme.accentColor)};
       }
     ` + extension
 
@@ -248,8 +288,6 @@ export default class EmbedBoxBase {
   destroy() {
     this.destroyed = true
     this.visible = false
-
-    window.removeEventListener("scroll", this.handleScroll, true)
 
     Array
       .from(document.querySelectorAll(".embed-box-download-iframe"))
