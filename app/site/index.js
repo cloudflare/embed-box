@@ -57,7 +57,9 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function loopRunDemo() {
-    createInteractiveDemo = runDemo(automatedFrame, loopRunDemo)
+    createInteractiveDemo = runDemo(automatedFrame, () => {
+      createInteractiveDemo()
+    })
   }
 
   const style = automatedFrameDocument.createElement("style")
