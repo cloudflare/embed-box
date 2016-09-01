@@ -10,6 +10,7 @@ import {createStore} from "lib/store"
 import {getRoute} from "lib/routing"
 
 const VISIBILITY_ATTRIBUTE = "data-visibility"
+const SCROLL_STATE_ATTRIBUTE = "data-embed-box-container"
 let storeReceivers
 
 function removeElement(element) {
@@ -75,7 +76,7 @@ export default class EmbedBoxBase {
 
     iframe.element.className = `embed-box ${className}`
     iframe.element.style.display = "none"
-    iframe.element.addEventListener("transitionend", this.handleTransitionEnd)
+    iframe.element.addEventListener("transitionend", this._handleTransitionEnd)
 
     Object.assign(this, {
       destroyed: false,
@@ -127,7 +128,7 @@ export default class EmbedBoxBase {
     }
 
     const onLoad = () => {
-      this.appendIframeStylesheet(spec.style)
+      this._appendIframeStylesheet(spec.style)
       polyfillCustomEvent(iframe)
 
       this.application = new Application(this.iframe.document.body, {
@@ -160,7 +161,7 @@ export default class EmbedBoxBase {
     iframeElement.setAttribute("data-mode", mode)
 
     if (iframeElement.parentNode) {
-      this.resetOverflow()
+      this._container.removeAttribute(SCROLL_STATE_ATTRIBUTE)
       this._container.appendChild(iframeElement)
     }
 
@@ -185,8 +186,10 @@ export default class EmbedBoxBase {
 
     if (visible) element.style.display = ""
 
+    this._syncScrollState()
+
     requestAnimationFrame(() => {
-      element.style.opacity = visible ? 1 : 0
+      element.style.opacity = visible ? 0.7 : 0
       element.setAttribute(VISIBILITY_ATTRIBUTE, visible ? "visible" : "hidden")
 
       if (this.events.visibilityChange) this.events.visibilityChange(visible)
@@ -195,14 +198,25 @@ export default class EmbedBoxBase {
     return visible
   }
 
+  _syncScrollState() {
+    if (this.destroyed) {
+      this.container.removeAttribute(SCROLL_STATE_ATTRIBUTE)
+      return
+    }
+
+    const value = this.visible && this.mode === "modal" ? "scroll-locked" : "scroll-unlocked"
+
+    this.container.setAttribute(SCROLL_STATE_ATTRIBUTE, value)
+  }
+
   @autobind
-  handleTransitionEnd() {
+  _handleTransitionEnd() {
     const iframeElement = this.iframe.element
 
     if (!this.visible) iframeElement.style.display = "none"
   }
 
-  appendIframeStylesheet(extension = "") {
+  _appendIframeStylesheet(extension = "") {
     const {theme, constructor: {iframeStylesheet}} = this
     const style = this.iframe.document.createElement("style")
 
@@ -234,7 +248,8 @@ export default class EmbedBoxBase {
   destroy() {
     this.destroyed = true
     this.visible = false
-    this.resetOverflow()
+
+    window.removeEventListener("scroll", this.handleScroll, true)
 
     Array
       .from(document.querySelectorAll(".embed-box-download-iframe"))
@@ -246,18 +261,11 @@ export default class EmbedBoxBase {
     storeReceivers.forEach(Receiver => delete Receiver.prototype.store)
   }
 
-  resetOverflow() {
-    this.container.style.overflow = this.containerPreviousOverflow
-    this.containerPreviousOverflow = ""
-  }
-
   @autobind
   hide() {
     if (!this.visible) return
 
     this.visible = false
-
-    this.resetOverflow()
   }
 
   @autobind
@@ -270,9 +278,6 @@ export default class EmbedBoxBase {
     if (this.visible) return
 
     this.visible = true
-
-    this.containerPreviousOverflow = this.container.style.overflow
-    this.container.style.overflow = "hidden"
 
     this.application.autofocus()
   }

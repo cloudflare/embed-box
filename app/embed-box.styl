@@ -1,10 +1,11 @@
 .embed-box[data-mode="inline"]
-  display block !important
+  display inline-block !important
   height 100%
   width 100%
 
 .embed-box[data-mode="modal"]
   bottom 0 !important
+  display block !important
   height 100vh !important
   left 0 !important
   opacity 0
@@ -14,7 +15,7 @@
   // Use linear timing to maintain smooth transition across visibility states.
   transition opacity .1s linear !important
   width 100vw !important
-  z-index 10000 !important
+  z-index 100000 !important
 
 .embed-box-download-iframe
   position fixed
@@ -22,3 +23,6 @@
   width 1px
   height 1px
   z-index -99999
+
+[data-embed-box-container]
+  overflow hidden !important
