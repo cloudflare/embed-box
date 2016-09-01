@@ -16,6 +16,9 @@ const LIBRARY_SCRIPTS = [
 const CONSTRUCTOR_DEFAULTS = {}
 
 document.addEventListener("DOMContentLoaded", () => {
+  // :active style fix for Safari
+  document.addEventListener("touchstart", () => {}, true)
+
   const targetIDExample = document.querySelector("[data-example-id='target-ids'] .hljs-comment")
   const PRISTINE_GLOBALS = window.PRISTINE_GLOBALS = {
     EmbedBox: window.EmbedBox,

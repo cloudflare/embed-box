@@ -129,6 +129,9 @@ export default class EmbedBoxBase {
     }
 
     const onLoad = () => {
+      // :active style fix for Safari
+      iframe.document.addEventListener("touchstart", () => {}, true)
+
       this._appendIframeStylesheet(spec.style)
       polyfillCustomEvent(iframe)
 
