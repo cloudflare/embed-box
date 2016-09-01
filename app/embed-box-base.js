@@ -189,7 +189,7 @@ export default class EmbedBoxBase {
     this._syncScrollState()
 
     requestAnimationFrame(() => {
-      element.style.opacity = visible ? 0.7 : 0
+      element.style.opacity = visible ? 1 : 0
       element.setAttribute(VISIBILITY_ATTRIBUTE, visible ? "visible" : "hidden")
 
       if (this.events.visibilityChange) this.events.visibilityChange(visible)
