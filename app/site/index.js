@@ -22,6 +22,7 @@ document.addEventListener("DOMContentLoaded", () => {
     EmbedBoxCustom: window.EmbedBoxCustom
   }
   const automatedFrame = document.getElementById("automated-frame")
+  const automatedFrameDocument = automatedFrame.contentDocument
   const runInlineContainer = document.getElementById("run-inline-container")
   let demoInstance = null
   let createInteractiveDemo
@@ -56,7 +57,17 @@ document.addEventListener("DOMContentLoaded", () => {
     createInteractiveDemo = runDemo(automatedFrame, loopRunDemo)
   }
 
-  loadScripts(LIBRARY_SCRIPTS, automatedFrame.contentDocument, loopRunDemo)
+  const style = automatedFrameDocument.createElement("style")
+
+  style.innerHTML = `
+    html, body {
+      margin: 0;
+      padding: 0;
+    }
+  `
+  automatedFrameDocument.head.appendChild(style)
+
+  loadScripts(LIBRARY_SCRIPTS, automatedFrameDocument, loopRunDemo)
 
   function stopDemoLoop() {
     if (createInteractiveDemo) {
