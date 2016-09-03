@@ -44,7 +44,7 @@ export default class BaseScreenshot {
 
     // Blend background with scaled iframe contents for a seamless appearance.
     this.element.style.backgroundColor = backgroundColor
-    iframeDocument.body.background = "transparent" // Fixes Chrome render bug.
+    iframeDocument.body.style.background = "transparent" // Fixes Chrome render bug.
   }
 
   render(target) {
@@ -52,6 +52,7 @@ export default class BaseScreenshot {
 
     const element = this.element = this.serialize(iframeTemplate)
     const iframe = this.iframe = element.querySelector("iframe")
+
 
     this.iframe.onload = () => {
       const iframeDocument = iframe.contentDocument
