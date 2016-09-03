@@ -5,31 +5,31 @@ ol.steps
       p After downloading, don’t unzip the file.
 
     li
-      h2 Login to your Drupal Administrator Dashboard and click “Modules”
+      h2 Login to your Drupal Administrator Dashboard and click <strong>Modules</strong>.
 
       figure(data-ref="screenshotMounts[]" data-screenshot="navigateToModules")
 
     li
-      h2 Click “Install New Module”
+      h2 Click <strong>Install New Module</strong>.
 
       figure(data-ref="screenshotMounts[]" data-screenshot="installNewModules")
 
     li
-      h2 Upload the module
-      p Click “Choose File” and select the module you downloaded to your computer.
+      h2 Upload the module.
+      p Click <strong>Choose File</strong> and select the module you downloaded to your computer.
 
       figure(data-ref="screenshotMounts[]" data-screenshot="uploadModule")
 
     li
-      h2 Click “Enable newly added modules”
+      h2 Click <strong>Enable newly added modules</strong>.
 
       figure(data-ref="screenshotMounts[]" data-screenshot="installationSuccessful")
 
     li
       h2 Activate the plugin and view your site
 
-      p On the Modules page, scroll down to find the new “#{config.name}” entry.
-      p Check the “Enabled” checkbox to activate the plugin, and click “Save configuration”.
+      p On the Modules page, scroll down to find the new <strong>#{config.name}</strong> entry.
+      p Check the <strong>Enabled</strong>. checkbox to activate the plugin, and click <strong>Save configuration</strong>.
 
       figure(data-ref="screenshotMounts[]" data-screenshot="activateModule")
 
@@ -38,67 +38,67 @@ ol.steps
   else
     if this.location === "body"
       li
-        h2 In your Drupal site’s Admin interface, click the “Structure” link at the top of the page.
+        h2 In your Drupal site’s Admin interface, click the <strong>Structure</strong> link at the top of the page.
 
       li
-        h2 Click “Blocks”
+        h2 Click <strong>Blocks</strong>.
 
       li
-        h2 Click “Add Block”
+        h2 Click <strong>Add Block</strong>.
 
       li
         h2 Fill out the form.
 
-        p As the “Block Description” enter “#{ config.name } Embed”
-        p As the “Block Body” paste this embed code:
+        p As the <strong>Block Description</strong> enter “#{ config.name } Embed”
+        p As the <strong>Block Body</strong> paste this embed code:
 
         .copy-container
           button.primary.run(data-ref="copyButtons[]") Copy
           div.copyable(contenteditable)= this.copyText
 
-        p As the “Text Format” select “Full HTML”
+        p As the <strong>Text Format</strong> select “Full HTML”.
 
-        p Under “Region Settings” select “Footer” <strong>for every theme</strong>
+        p Under <strong>Region Settings</strong> select “Footer” <em>for every theme</em>.
 
         p That’s it, there’s no need to select any other options
 
       li
-        h2 Click “Save block”, you’re done!
+        h2 Click <strong>Save block</strong>, you’re done!
     else
       li
-        h2 If you don’t already have it installed, install the “Add to Head” module
+        h2 If you don’t already have it installed, install the <strong>Add to Head</strong> module.
 
-        p In your Drupal site’s Admin interface, click the “Modules” link at the top of the page
-        p Click “Install new module”
-        p In the “Install from a URL” field enter:
+        p In your Drupal site’s Admin interface, click the <strong>Modules</strong> link at the top of the page
+        p Click <strong>Install new module</strong>.
+        p In the <strong>Install from a URL</strong> field enter:
 
         .copy-container
             button.primary.run(data-ref="copyButtons[]") Copy
             div.copyable(contenteditable) https://ftp.drupal.org/files/projects/add_to_head-7.x-1.2.tar.gz
 
-        p Click “Enable newly install modules”
-        p Scroll down until you find the “Add To Head” module and check the box to the left of the name
-        p Click “Save configuration”
+        p Click <strong>Enable newly install modules</strong>.
+        p Scroll down until you find the <strong>Add To Head</strong> module and check the box to the left of the name.
+        p Click <strong>Save configuration</strong>.
 
       li
         h2 Install the embed code into the module
 
-        p Click the “Configuration” button at the top of your Drupal site’s Admin interface
-        p Click the “Add to Head” link on the right side
-        p Click “Add one now”
+        p Click the <strong>Configuration</strong> button at the top of your Drupal site’s Admin interface.
+        p Click the <strong>Add to Head</strong> link on the right side.
+        p Click <strong>Add one now</strong>.
 
       li
         h2 Fill out the form
 
-        p For the “Name” enter “#{ config.name } Embed”
-        p For the “Code” enter:
+        p For the <strong>Name</strong> enter “#{ config.name } Embed”.
+        p For the <strong>Code</strong> enter:
 
         .copy-container
             button.primary.run(data-ref="copyButtons[]") Copy
             div.copyable(contenteditable)= this.copyText
 
-        p For the “Scope of addition”, select “Head”
-        p No need to change any other fields
+        p For the <strong>Scope of addition</strong>, select “Head”.
+        p There is no need to change any other fields.
 
       li
-        h2 Click “Save”, you’re done!
+        h2 Click <strong>Save</strong>, you’re done!
