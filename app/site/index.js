@@ -46,6 +46,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function loopRunDemo() {
+    if (document) return false
     createInteractiveDemo = runDemo(automatedFrame, () => {
       createInteractiveDemo()
     })
@@ -100,7 +101,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   buttons.forEach(element => element.addEventListener("click", evalRunButton.bind(null, element)))
 
-  if (document.body.clientWidth >= DESKTOP_MIN_WIDTH) {
+  if (document.body.clientWidth >= DESKTOP_MIN_WIDTH || true) {
     // Prevent first demo from overwriting the URL anchor.
     CONSTRUCTOR_DEFAULTS.routing = false
     CONSTRUCTOR_DEFAULTS.events = {
@@ -114,6 +115,6 @@ document.addEventListener("DOMContentLoaded", () => {
         delete CONSTRUCTOR_DEFAULTS.events
       }
     }
-    evalRunButton(buttons[0])
+    evalRunButton(buttons[1])
   }
 })

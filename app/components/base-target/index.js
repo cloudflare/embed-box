@@ -60,7 +60,7 @@ export default class BaseTarget extends BaseComponent {
     this.element.setAttribute("data-component", `${this.id}-target`)
     this.element.setAttribute("data-column", "")
     this.element.setAttribute("autofocus", "")
-    this.element.className = `markdown instructions ${this.element.className || ""}`
+    this.element.className = `target-instructions ${this.element.className || ""}`
 
     return this.element
   }

@@ -280,7 +280,7 @@ export default class EmbedBoxBase {
         background: ${$(theme.accentColor)};
       }
 
-      .instructions .steps li:before {
+      .target-instructions .steps li:before {
         background: ${$(theme.accentColor)};
       }
     ` + extension

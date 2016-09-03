@@ -1,0 +1,92 @@
+@import "~styl/colors"
+
+figure
+  margin 2em 0
+  position relative
+
+  img, [data-component="screenshot"]
+    display block
+    max-width 100%
+
+  [data-component="screenshot"]
+    width 100%
+
+  &::after
+    content ""
+    display block
+    position absolute
+    pointer-events none
+    border 1px solid rgba(#000, .2)
+    border-left 0
+    border-right 0
+    top 0
+    right 0
+    bottom 0
+    left 0
+
+  [annotation-arrow]
+    position absolute
+
+    > div
+      position absolute
+      top 0
+      left 0
+      height 0
+      width 100%
+
+    svg
+      position absolute
+      top 0
+      left 0
+      width 100%
+      height 100%
+      fill attentionYellow
+
+    &[data-svg-view-box="0 0 83 114"] > div
+      padding-bottom 137.35%
+
+    &[data-svg-view-box="0 0 127 73"] > div
+      padding-bottom 57.48%
+
+[data-intrinsic]
+  height 0
+  overflow hidden
+  position relative
+  width 100%
+
+  iframe
+    border 0
+    left 0
+    position absolute
+    top 0
+    transform-origin 0 0
+    visibility hidden // Prevent the user from seeing a rescaling.
+
+  &[data-render-state="scaled"]
+    height auto
+
+    iframe
+      visibility visible
+      position static
+
+[data-intrinsic="1"]:not([data-render-state="scaled"])
+  padding-bottom 100%
+
+[data-intrinsic="0.5"]:not([data-render-state="scaled"])
+  padding-bottom 50%
+
+.intrinsic-spacer
+  bottom 0
+  left 0
+  position absolute
+  right 0
+  top 0
+
+
+.shield
+  position absolute
+  top 0
+  right 0
+  bottom 0
+  left 0
+  border 1px solid rgba(0, 0, 0, .2)

@@ -7,7 +7,7 @@ export default class Screenshot extends BaseScreenshot {
   static template = template;
   static stylesheet = stylesheet;
 
-  componentRendered(target) {
+  componentDidMount(target) {
     const {body} = this.iframe.contentDocument
     const escaper = this.iframe.contentDocument.createElement("textarea")
 
@@ -15,7 +15,5 @@ export default class Screenshot extends BaseScreenshot {
     const escapedText = `<div class="focal-point relative-arrow" data-arrow="above">${escaper.innerHTML}</div>`
 
     body.innerHTML = body.innerHTML.replace(/\{\{EMBED_CODE_SLOT\}\}/g, escapedText)
-
-    this.refreshHeight()
   }
 }
