@@ -57,7 +57,7 @@ module.exports = function createWebpackConfig(overrides = {}) {
     modules: [resolve(__dirname, "app"), "node_modules"]
   }
 
-  $.postcss = () => [autoprefixer({remove: false, browsers: ["last 2 versions", "ie 9"]})]
+  $.postcss = () => [autoprefixer({remove: false, browsers: ["last 2 versions", "ie 10"]})]
 
   $.module = {
     loaders: loaders.concat([
