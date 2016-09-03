@@ -18,6 +18,13 @@
     visibility hidden
     pointer-events none
 
+  &[data-transition-state="transitioning"]
+    .modal
+      pointer-events none
+
+    .modal .content
+      transition transform .2s ease-in-out
+
   .modal
     background #fff
     border-radius .3125em
@@ -33,10 +40,6 @@
     .content
       flex 1 1 auto // Fill center unused space.
       transform translate3d(0, 0, 0) // Force GPU render.
-
-      &[data-transition-state="transitioning"]
-        pointer-events none
-        transition transform .2s ease-in-out
 
       > *
         margin 0

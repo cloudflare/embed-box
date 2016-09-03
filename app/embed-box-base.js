@@ -247,7 +247,9 @@ export default class EmbedBoxBase {
   }
 
   @autobind
-  _handleTransitionEnd() {
+  _handleTransitionEnd(event) {
+    if (event.target !== this.iframe.element) return
+
     const iframeElement = this.iframe.element
 
     if (this.visible) {
