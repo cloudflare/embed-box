@@ -76,6 +76,8 @@ export default class Application extends BaseComponent {
 
   @autobind
   closeModal() {
+    if (this.store.mode !== "modal") return
+
     this.route = ""
     this.onClose()
   }
