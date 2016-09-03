@@ -36,17 +36,6 @@ document.addEventListener("DOMContentLoaded", () => {
   targetIDExample.textContent = targetIDExample.textContent
     .replace("{{TARGET_IDS}}", `[${window.EmbedBox.getTargetIDs().join(", ")}]`)
 
-  window.addEventListener("resize", () => {
-    if (!demoInstance) return
-
-    const isDesktop = document.body.clientWidth >= DESKTOP_MIN_WIDTH
-    const {mode} = demoInstance
-
-    if (isDesktop && mode === "inline") return
-    if (!isDesktop && mode === "modal") return
-
-    demoInstance.destroy()
-  })
 
   function bindObjectArguments(Constructor, boundSpec = {}) {
     return function BoundConstructor(spec) {
