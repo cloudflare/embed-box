@@ -159,7 +159,12 @@ export function runDemo(iframe, onComplete = () => {}) {
 
         barrier.addEventListener("click", createInteractiveDemo)
 
-        setTimeout(simulate, 1000)
+        if (!isElementPartiallyInViewport(iframe)) {
+          createInteractiveDemo()
+        }
+        else {
+          setTimeout(simulate, 1000)
+        }
       }
     }
   })
