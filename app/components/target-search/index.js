@@ -164,7 +164,6 @@ export default class TargetSearch extends BaseComponent {
 
       entry.addEventListener("click", () => {
         this.selectEntry(spec.id)
-        this.selectedId = spec.id
         this.submit()
       })
 

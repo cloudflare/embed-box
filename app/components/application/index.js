@@ -239,7 +239,10 @@ export default class Application extends BaseComponent {
       content.addEventListener("transitionend", this.handleTransition)
 
       content.setAttribute("data-transition-state", "transitioning")
-      content.style.transform = "translate3d(-100%, 0, 0)"
+
+      requestAnimationFrame(() => {
+        content.style.transform = "translate3d(-100%, 0, 0)"
+      })
     }
     else {
       onRender()
