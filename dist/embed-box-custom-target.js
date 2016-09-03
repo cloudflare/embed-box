@@ -517,15 +517,14 @@ var BaseTarget = (_class = (_temp = _class2 = function (_BaseComponent) {
 
   BaseTarget.isConstructable = function isConstructable(config, store) {
     var supportsPlugin = this.supports.plugin;
-
     var hasLocalEmbed = !!config.embedCode;
     var hasGlobalEmbed = !!store.embedCode;
     var embedCodePresent = hasLocalEmbed || hasGlobalEmbed;
-    var hasDownloadURL = !!config.downloadURL;
+    var hasPluginURL = !!config.pluginURL;
 
-    if (supportsPlugin) return hasDownloadURL || embedCodePresent;
+    if (supportsPlugin) return hasPluginURL || embedCodePresent;
 
-    return hasDownloadURL && hasLocalEmbed || !hasDownloadURL && embedCodePresent;
+    return hasPluginURL && hasLocalEmbed || !hasPluginURL && embedCodePresent;
   };
 
   function BaseTarget() {
@@ -545,7 +544,7 @@ var BaseTarget = (_class = (_temp = _class2 = function (_BaseComponent) {
     this.element.setAttribute("data-component", this.id + "-target");
     this.element.setAttribute("data-column", "");
     this.element.setAttribute("autofocus", "");
-    this.element.className = "markdown instructions " + (this.element.className || "");
+    this.element.className = "target-instructions " + (this.element.className || "");
 
     return this.element;
   };
@@ -659,7 +658,7 @@ var BaseTarget = (_class = (_temp = _class2 = function (_BaseComponent) {
     var downloadIframe = document.createElement("iframe");
 
     downloadIframe.className = "embed-box-download-iframe";
-    downloadIframe.src = this.downloadURL;
+    downloadIframe.src = this.pluginURL;
     document.body.appendChild(downloadIframe);
   };
 
@@ -676,9 +675,9 @@ var BaseTarget = (_class = (_temp = _class2 = function (_BaseComponent) {
       return supportsPlugin ? "Download the " + this.label + " plugin" : "Download " + this.store.name;
     }
   }, {
-    key: "downloadURL",
+    key: "pluginURL",
     get: function get() {
-      return this.config.downloadURL;
+      return this.config.pluginURL;
     }
   }, {
     key: "copyText",
@@ -704,7 +703,7 @@ var BaseTarget = (_class = (_temp = _class2 = function (_BaseComponent) {
   }, {
     key: "icon",
     get: function get() {
-      return this.constructor.icon;
+      return this.constructor.icon || __WEBPACK_IMPORTED_MODULE_5__base_target_svg___default.a;
     }
   }, {
     key: "id",
@@ -741,7 +740,7 @@ var BaseTarget = (_class = (_temp = _class2 = function (_BaseComponent) {
   }]);
 
   return BaseTarget;
-}(__WEBPACK_IMPORTED_MODULE_7_components_base_component__["a" /* default */]), _class2.template = __WEBPACK_IMPORTED_MODULE_0__base_target_pug___default.a, _class2.titleTemplate = __WEBPACK_IMPORTED_MODULE_1__title_pug___default.a, _class2.beforeContentTemplate = __WEBPACK_IMPORTED_MODULE_3__before_content_pug___default.a, _class2.afterContentTemplate = __WEBPACK_IMPORTED_MODULE_4__after_content_pug___default.a, _class2.downloadLinkTemplate = __WEBPACK_IMPORTED_MODULE_2__download_link_pug___default.a, _class2.icon = __WEBPACK_IMPORTED_MODULE_5__base_target_svg___default.a, _class2.supports = {}, _class2.extend = function extend() {
+}(__WEBPACK_IMPORTED_MODULE_7_components_base_component__["a" /* default */]), _class2.template = __WEBPACK_IMPORTED_MODULE_0__base_target_pug___default.a, _class2.titleTemplate = __WEBPACK_IMPORTED_MODULE_1__title_pug___default.a, _class2.beforeContentTemplate = __WEBPACK_IMPORTED_MODULE_3__before_content_pug___default.a, _class2.afterContentTemplate = __WEBPACK_IMPORTED_MODULE_4__after_content_pug___default.a, _class2.downloadLinkTemplate = __WEBPACK_IMPORTED_MODULE_2__download_link_pug___default.a, _class2.supports = {}, _class2.extend = function extend() {
   var _class3, _temp2;
 
   var _ref2 = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
@@ -1881,7 +1880,7 @@ module.exports = template;
 
 var pug = __webpack_require__(0);
 
-function template(locals) {var pug_html = "", pug_mixins = {}, pug_interp;pug_html = pug_html + "\u003Ch2\u003E\u003Ca" + (" class=\"more\""+pug.attr("href", this.downloadURL, true, true)+" download target=\"_blank\"") + "\u003E" + (pug.escape(null == (pug_interp = this.downloadLabel) ? "" : pug_interp)) + "\u003C\u002Fa\u003E\u003Cdiv\u003E" + (pug.escape(null == (pug_interp = this.autoDownloadLabel) ? "" : pug_interp)) + "\u003C\u002Fdiv\u003E\u003C\u002Fh2\u003E";;return pug_html;};
+function template(locals) {var pug_html = "", pug_mixins = {}, pug_interp;pug_html = pug_html + "\u003Ch2\u003E\u003Ca" + (" class=\"more\""+pug.attr("href", this.pluginURL, true, true)+" download target=\"_blank\"") + "\u003E" + (pug.escape(null == (pug_interp = this.downloadLabel) ? "" : pug_interp)) + "\u003C\u002Fa\u003E\u003Cdiv\u003E" + (pug.escape(null == (pug_interp = this.autoDownloadLabel) ? "" : pug_interp)) + "\u003C\u002Fdiv\u003E\u003C\u002Fh2\u003E";;return pug_html;};
 module.exports = template;
 
 /***/ },
