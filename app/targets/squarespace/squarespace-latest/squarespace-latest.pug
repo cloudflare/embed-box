@@ -13,7 +13,7 @@ ol.steps
     h2 Copy the code to the <strong>#{this.location === "head" ? "Header" : "Footer"}</strong> section.
 
     .copy-container
-      button.primary.run(data-ref="copyButtons[]") Copy
+      button.button.primary.run(data-ref="copyButtons[]") Copy
       div.copyable(contenteditable)= this.copyText
 
     figure(data-ref="screenshotMounts[]" data-screenshot="installScript")

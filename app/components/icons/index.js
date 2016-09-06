@@ -34,3 +34,5 @@ export const next = svgToComponent(nextSVG)
 import searchSVG from "./search.svg"
 export const search = svgToComponent(searchSVG)
 
+import clearSVG from "./clear.svg"
+export const clear = svgToComponent(clearSVG)

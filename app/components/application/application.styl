@@ -13,7 +13,7 @@
   &[data-route="home"], &[data-target-count="1"]
 
     .modal-header [data-action="previous"]
-      visibility hidden
+      opacity 0
       pointer-events none
 
   &[data-mode="inline"] .modal-header [data-action="close"]
@@ -22,7 +22,7 @@
 
   .content
     transform translate3d(0, 0, 0)
-    transition transform .2s ease-in-out
+    transition transform .2s ease
 
   &[data-route]:not([data-route="home"]):not([data-route=""]) .content
     transform translate3d(-100%, 0, 0)
@@ -117,8 +117,8 @@
       justify-content center
       padding 0
       margin 0
-      opacity .85
       width 4em
+      transition opacity .15s ease
 
       &:focus:before
         display none
@@ -126,7 +126,6 @@
       &:hover, &:focus
         background lightGrayRGBA
         box-shadow none
-        opacity 1
 
       &:not(:hover)
         color subtleTextRGBA

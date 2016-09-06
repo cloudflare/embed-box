@@ -7,8 +7,8 @@ mixin anchored(tag, text)
 mixin codeExample(runnable, id)
   .code-example(class={"has-run-button": runnable} data-example-id=id)
     if runnable
-      button(data-run="inline") Run inline
-      button(data-run="modal") Run as modal
+      button.button(data-run="inline") Run inline
+      button.button(data-run="modal") Run as modal
     block
 
 +anchored("h2", "How to use")

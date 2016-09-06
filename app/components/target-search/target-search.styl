@@ -20,13 +20,24 @@
       position relative
       width 100%
 
+      > .icon
+        position absolute
+        pointer-events none
+        height 1em
+        width 1em
+        left 1em
+        top 0
+        bottom 0
+        margin-top auto
+        margin-bottom auto
+        stroke subtleTextRGBA
+
     .search
-      -webkit-appearance none
       background #fff
       border 0
       width 100%
       border-radius 5em
-      padding .5em 1em .5em 3em
+      padding .5em 3em
 
       &::placeholder
         color rgba(#000, .3)
@@ -36,18 +47,40 @@
       &:focus
         outline none
 
-    .icon
+    .search-clear
       position absolute
-      pointer-events none
-      height 1em
-      width 1em
-      left 1em
+      right 0
       top 0
       bottom 0
-      margin-top auto
-      margin-bottom auto
-      stroke subtleTextRGBA
-      opacity .85
+      padding-left 1em
+      width 2.5em
+      padding-right 1em
+      cursor pointer
+      transition opacity .15s ease
+      opacity 0
+      pointer-events none
+
+      &:focus:hover
+        outline none
+
+      .icon
+        position absolute
+        pointer-events none
+        height .75em
+        width .75em
+        right 1em
+        top 0
+        bottom 0
+        margin-top auto
+        margin-bottom auto
+        stroke subtleTextRGBA
+
+      &:hover .icon
+        opacity 1
+
+    .search[data-empty="false"] ~ .search-clear
+      opacity 1
+      pointer-events all
 
   .entries
     // Fixes Firefox scroll issues. flex-grow will consume the remaining space.
