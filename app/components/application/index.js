@@ -72,7 +72,7 @@ export default class Application extends BaseComponent {
       this.element.setAttribute("data-route", this._route)
     }
 
-    if (this.routing) {
+    if (this.store.routing) {
       setRoute(value === "home" ? "" : value)
     }
 
@@ -83,7 +83,6 @@ export default class Application extends BaseComponent {
   closeModal() {
     if (this.store.mode !== "modal") return
 
-    this.route = ""
     this.onClose()
   }
 

@@ -7,7 +7,7 @@ import Application from "components/application"
 import polyfillCustomEvent from "lib/custom-event"
 import polyfillRequestAnimationFrame from "lib/request-animation-frame"
 import {createStore} from "lib/store"
-import {getRoute} from "lib/routing"
+import {getRoute, setRoute} from "lib/routing"
 
 const VISIBILITY_ATTRIBUTE = "data-visibility"
 const SCROLL_STATE_ATTRIBUTE = "data-embed-box-scroll-state"
@@ -48,13 +48,12 @@ export default class EmbedBoxBase {
 
     const {iframeAttributes, stylesheet} = this.constructor
     const store = createStore(spec)
-    const {iframe} = store
+    const {iframe, routing} = store
     const {
       autoShow = true,
       className = "",
       container = document.body,
       customTargets = [],
-      routing = false,
       targets: targetConfigs = {},
       theme = {}
     } = spec
@@ -137,7 +136,6 @@ export default class EmbedBoxBase {
 
       this.application = new Application(this.iframe.document.body, {
         initialTarget,
-        routing,
         onClose: this.hide,
         targets: visibleTargets.map(Target => new Target({config: getConfig(Target)}))
       })
@@ -254,8 +252,10 @@ export default class EmbedBoxBase {
     if (this.visible) {
       this._syncScrollState(this.visible)
     }
-
-    if (!this.visible) iframeElement.style.display = "none"
+    else {
+      iframeElement.style.display = "none"
+      setRoute("")
+    }
   }
 
   _appendIframeStylesheet(extension = "") {

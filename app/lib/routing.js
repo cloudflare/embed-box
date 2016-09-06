@@ -5,8 +5,10 @@ export function getRoute() {
 }
 
 export function setRoute(route = "") {
-  if (route === "" && window.history.pushState) {
-    window.history.pushState("", "", window.location.pathname)
+  const {pathname} = window.location
+
+  if (route === "" && window.history.pushState && pathname !== "srcdoc") {
+    window.history.pushState("", "", pathname)
 
     return
   }

@@ -34,6 +34,8 @@ export function createStore(spec = {}) {
       submitHintShort: "Press ENTER",
       title: config => `Add ${config.name} to your site`,
       ...labels
-    }
+    },
+
+    routing: spec.routing || false
   }
 }
