@@ -278,6 +278,7 @@ export default class EmbedBoxBase {
       .button.primary, button.primary,
       [data-component="target-search"] .entries .entry[data-selected],
       [data-component="target-search"] .entries .entry:active,
+      [data-component="application"][is-touch-device="true"] [data-component="target-search"] .entries .entry:focus,
       .accent-background-color {
         background: ${$(theme.accentColor)};
       }

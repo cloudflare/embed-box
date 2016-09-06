@@ -35,6 +35,7 @@ export default class Application extends BaseComponent {
     iframeWindow.addEventListener("keydown", this.handleKeyNavigation)
     iframeWindow.addEventListener("keypress", this.delgateKeyEvent)
 
+    this.element.setAttribute("is-touch-device", "ontouchstart" in document.documentElement)
     this.element.setAttribute("is-iphone", (!!navigator.userAgent.match(/iPhone/i) || !!navigator.userAgent.match(/iPod/i)) && !!navigator.userAgent.match(/WebKit/i))
 
     closeModalButton.addEventListener("click", this.closeModal)

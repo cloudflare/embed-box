@@ -100,6 +100,10 @@
         outline none
         background lightGrayRGBA
 
+        [data-component="application"][is-touch-device="true"] &
+          // Background color implemented in JS-rendered CSS
+          color #fff
+
       .primary
         flex 1 1 auto
         align-items center
@@ -111,21 +115,23 @@
           right .75em
           opacity 0
 
-      @media (min-width 400px)
-        &:hover .primary::after
-          content attr(data-click-hint-short)
-          opacity .5
+      [data-component="application"][is-touch-device="false"] &
 
-        &[data-selected]:not(:hover) .primary::after
-          content attr(data-submit-hint-short)
-          opacity .5
+        @media (min-width 400px)
+          &:hover .primary::after
+            content attr(data-click-hint-short)
+            opacity .5
 
-      @media (min-width 460px)
-        &:hover .primary::after
-          content attr(data-click-hint)
+          &[data-selected]:not(:hover) .primary::after
+            content attr(data-submit-hint-short)
+            opacity .5
 
-        &[data-selected]:not(:hover) .primary::after
-          content attr(data-submit-hint)
+        @media (min-width 460px)
+          &:hover .primary::after
+            content attr(data-click-hint)
+
+          &[data-selected]:not(:hover) .primary::after
+            content attr(data-submit-hint)
 
       .icon.logo
         fill currentColor
@@ -146,7 +152,7 @@
         .icon.next
           opacity .6
 
-      &[data-selected], &:active
+      &[data-selected], &:active, [data-component="application"][is-touch-device="true"] &:focus
 
         &, &:hover
 
@@ -159,7 +165,7 @@
       path.is-not-light-source-facing
         opacity 1
 
-      &[data-selected], &:active
+      &[data-selected], &:active, [data-component="application"][is-touch-device="true"] &:focus
         border-color transparent
 
         &, &:hover
