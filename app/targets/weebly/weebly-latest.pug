@@ -20,7 +20,7 @@ ol.steps
       span Copy the code below and paste it into your site’s <strong>#{this.location === "head" ? "Header" : "Footer"} Code</strong>.
 
     .copy-container
-      button.primary.run(type="button" data-ref="copyButtons[]") Copy
+      button.button.primary.run(type="button" data-ref="copyButtons[]") Copy
       div.copyable(contenteditable)= this.copyText
 
     figure
