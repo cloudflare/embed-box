@@ -63,7 +63,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   loadScripts(LIBRARY_SCRIPTS, automatedFrameDocument, loopRunDemo)
 
-  function stopDemoLoop() {
+  function stopAutomatedDemo() {
     if (createInteractiveDemo) {
       // The hero automated demo takes focus from other inputs.
       // Switching to the interactive demo prevents this.
@@ -81,10 +81,10 @@ document.addEventListener("DOMContentLoaded", () => {
       demoInstance.destroy()
       demoInstance = null
     }
-    stopDemoLoop()
+    stopAutomatedDemo()
 
     // Clear previous demo routing.
-    if (typeof CONSTRUCTOR_DEFAULTS.routing === "undefined") {
+    if (window.history.pushState) {
       window.history.pushState("", "", window.location.pathname)
     }
 
@@ -101,16 +101,13 @@ document.addEventListener("DOMContentLoaded", () => {
   buttons.forEach(element => element.addEventListener("click", evalRunButton.bind(null, element)))
 
   if (document.body.clientWidth >= DESKTOP_MIN_WIDTH) {
-    // Prevent first demo from overwriting the URL anchor.
-    CONSTRUCTOR_DEFAULTS.routing = false
     CONSTRUCTOR_DEFAULTS.events = {
       onLoad(instance) {
         const instanceElement = instance.application.element
 
-        instanceElement.addEventListener("mouseover", stopDemoLoop)
-        instanceElement.addEventListener("click", stopDemoLoop)
+        instanceElement.addEventListener("mouseover", stopAutomatedDemo)
+        instanceElement.addEventListener("click", stopAutomatedDemo)
 
-        delete CONSTRUCTOR_DEFAULTS.routing
         delete CONSTRUCTOR_DEFAULTS.events
       }
     }

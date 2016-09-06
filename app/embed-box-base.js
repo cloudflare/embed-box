@@ -54,7 +54,7 @@ export default class EmbedBoxBase {
       className = "",
       container = document.body,
       customTargets = [],
-      routing = true,
+      routing = false,
       targets: targetConfigs = {},
       theme = {}
     } = spec
@@ -122,7 +122,7 @@ export default class EmbedBoxBase {
 
     let {initialTarget} = spec
 
-    if (!initialTarget) {
+    if (!initialTarget && routing) {
       initialTarget = getRoute()
 
       if (!visibleTargets.some(({id}) => id === initialTarget)) initialTarget = null

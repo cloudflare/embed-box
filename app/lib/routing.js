@@ -5,5 +5,11 @@ export function getRoute() {
 }
 
 export function setRoute(route = "") {
+  if (route === "" && window.history.pushState) {
+    window.history.pushState("", "", window.location.pathname)
+
+    return
+  }
+
   window.location.hash = ROUTE_PREFIX + route
 }
