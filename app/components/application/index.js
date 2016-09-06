@@ -169,13 +169,11 @@ export default class Application extends BaseComponent {
     this.autofocus()
   }
 
-  @autobind
   navigateToTarget(targetId) {
     this.route = targetId
     this.renderTargetWrapper()
   }
 
-  @autobind
   renderTargetWrapper() {
     const {autoDownload} = this.store
     const {content} = this.refs
