@@ -56,13 +56,14 @@
     -webkit-overflow-scrolling touch
     z-index 1 // Fixes box-shadow translucent stacking artifacts
 
-    @media mobileMaxWidthQuery
-      // Spacer for Safari's UI controls
-      &::after
-        content ""
-        display block
-        flex 0 0 auto
-        height iPhoneUICompensation
+    // Spacer for Safari's UI controls
+    [data-component="application"][is-iphone="true"] &
+      @media mobileMaxWidthQuery
+        &::after
+          content ""
+          display block
+          flex 0 0 auto
+          height iPhoneUICompensation
 
     .entry
       position relative

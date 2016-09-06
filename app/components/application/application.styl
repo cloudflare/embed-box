@@ -11,19 +11,21 @@
     justify-content flex-start
 
   &[data-route="home"], &[data-target-count="1"]
+
     .modal-header [data-action="previous"]
       visibility hidden
-
-  &[data-mode="inline"] .modal-header [data-action="close"]
-    visibility hidden
-    pointer-events none
-
-  &[data-transition-state="transitioning"]
-    .modal
       pointer-events none
 
-    .modal .content
-      transition transform .2s ease-in-out
+  &[data-mode="inline"] .modal-header [data-action="close"]
+    opacity 0
+    pointer-events none
+
+  .content
+    transform translate3d(0, 0, 0)
+    transition transform .2s ease-in-out
+
+  &[data-route]:not([data-route="home"]) .content
+    transform translate3d(-100%, 0, 0)
 
   .modal
     background #fff
@@ -36,6 +38,16 @@
     position relative
     width 35em
     z-index 1 // Fix border radius overflow issues.
+
+    @media desktopMinWidthQuery
+      box-shadow 0 2px 8px rgba(0, 0, 0, .4)
+      margin 1.5em 0
+
+    @media mobileMaxWidthQuery
+      border-radius 0
+      max-height 100vh
+      max-width 100vw
+      width 100%
 
     .content
       flex 1 1 auto // Fill center unused space.
@@ -124,15 +136,3 @@
         width 1em
         height 1em
         stroke currentColor
-
-@media desktopMinWidthQuery
-  [data-component="application"] .modal
-    box-shadow 0 2px 8px rgba(0,0,0,0.4)
-    margin 1.5em 0
-
-@media mobileMaxWidthQuery
-  [data-component="application"] .modal
-    border-radius 0
-    max-height 100vh
-    max-width 100vw
-    width 100%

@@ -18,12 +18,10 @@ export default class Application extends BaseComponent {
   constructor(mountPoint, options) {
     super(options)
 
-    this._transitioning = false
-
     const element = this.compileTemplate()
 
     const iframeWindow = this.store.iframe.window
-    const {content, closeModalButton, previousButton} = this.refs
+    const {closeModalButton, previousButton} = this.refs
     const headerButtons = [closeModalButton, previousButton]
 
     headerButtons.forEach(button => {
@@ -37,6 +35,8 @@ export default class Application extends BaseComponent {
     iframeWindow.addEventListener("keydown", this.handleKeyNavigation)
     iframeWindow.addEventListener("keypress", this.delgateKeyEvent)
 
+    this.element.setAttribute("is-iphone", (!!navigator.userAgent.match(/iPhone/i) || !!navigator.userAgent.match(/iPod/i)) && !!navigator.userAgent.match(/WebKit/i))
+
     closeModalButton.addEventListener("click", this.closeModal)
     element.addEventListener("click", event => {
       if (event.target === element) this.closeModal()
@@ -44,22 +44,20 @@ export default class Application extends BaseComponent {
 
     previousButton.addEventListener("click", this.navigateToHome)
 
+    this.renderTargetSearch()
+    this.renderTargetWrapper()
+
     if (this.targets.length === 1) {
-      this.route = this.targets[0].id
-      this.navigateToTarget()
+      this.navigateToTarget(this.targets[0].id)
     }
     else if (options.initialTarget) {
-      this.route = options.initialTarget
-      this.navigateToTarget()
+      this.navigateToTarget(options.initialTarget)
     }
     else {
-      this.route = "home"
       this.navigateToHome()
     }
 
     mountPoint.appendChild(this.element)
-
-    content.addEventListener("transitionend", this.handleTransition)
   }
 
   get route() {
@@ -80,25 +78,6 @@ export default class Application extends BaseComponent {
     return this._route
   }
 
-  get transitioning() {
-    return this._transitioning
-  }
-
-  set transitioning(value) {
-    clearTimeout(this.transitionTimeout)
-    this._transitioning = value
-
-    if (this._transitioning) {
-      this.element.setAttribute("data-transition-state", "transitioning")
-      this.transitionTimeout = setTimeout(this.handleTransition, 1000)
-    }
-    else {
-      this.element.removeAttribute("data-transition-state")
-    }
-
-    return this._transitioning
-  }
-
   @autobind
   closeModal() {
     if (this.store.mode !== "modal") return
@@ -112,7 +91,7 @@ export default class Application extends BaseComponent {
     const {PolyFilledCustomEvent} = this.store.iframe.window
     const receiver = this.refs.content.querySelector("[data-event-receiver]")
 
-    if (this.transitioning || !receiver) return
+    if (!receiver) return
 
     const delgated = new PolyFilledCustomEvent(`dispatched-${nativeEvent.type}`, {
       detail: {nativeEvent}
@@ -123,8 +102,6 @@ export default class Application extends BaseComponent {
 
   @autobind
   handleKeyNavigation(event) {
-    if (this.transitioning) return
-
     switch (event.keyCode) {
       case KM.esc:
         event.preventDefault()
@@ -160,106 +137,74 @@ export default class Application extends BaseComponent {
     title.setAttribute("data-title-char-length", charLength)
   }
 
-  @autobind
-  handleTransition(event) {
-    const {content} = this.refs
-
-    if (event) clearTimeout(this.transitionTimeout)
-
-    if (event && event.target !== content) return
-    if (this.handlingTransition) return
-
-    this.handlingTransition = true
-
-    const previousChild = this.route === "home" ? content.lastChild : content.firstChild
-
-    requestAnimationFrame(() => {
-      content.style.transform = "translate3d(0, 0, 0)"
-      this.transitioning = false
-      this.removeElement(previousChild)
-
-      if (this.onTransitionEnd) {
-        this.onTransitionEnd()
-        this.onTransitionEnd = null
-      }
-
-      this.handlingTransition = false
-    })
-  }
-
   renderTargetSearch() {
     const {content} = this.refs
     const {firstChild} = content
+    const previousTargetSearch = content.querySelector("[data-component='target-search']")
     const targetSearch = new TargetSearch({
       targets: this.targets,
       onSelection: this.setNavigationState,
       onSubmit: selectedId => {
-        this.route = selectedId
-        this.navigateToTarget()
+        this.navigateToTarget(selectedId)
       }
     }).render()
 
     this.renderTitle(this.label("title"))
 
     if (!firstChild) {
-      this.transitioning = false
       content.appendChild(targetSearch)
-      return
     }
-
-    this.transitioning = false
-    content.insertBefore(targetSearch, firstChild)
-      // -99% forces Safari to reveal the next element and paint it.
-    content.style.transform = "translate3d(-99%, 0, 0)"
-
-    requestAnimationFrame(() => {
-      this.transitioning = true
-      content.style.transform = "translate3d(0, 0, 0)"
-    })
+    else if (previousTargetSearch) {
+      content.replaceChild(targetSearch, previousTargetSearch)
+    }
+    else {
+      content.insertBefore(targetSearch, firstChild)
+    }
   }
 
   @autobind
   navigateToHome() {
-    if (this.handlingTransition || this.transitioning) return
-
     this.route = "home"
-    this.renderTargetSearch()
+    this.renderTitle(this.label("title"))
     this.autofocus()
   }
 
-  @autobind
-  navigateToTarget() {
-    if (this.handlingTransition || this.transitioning) return
+  navigateToTarget(targetId) {
+    this.route = targetId
+    this.renderTargetWrapper()
+  }
 
+  renderTargetWrapper() {
     const {autoDownload} = this.store
     const {content} = this.refs
-    const {firstChild} = content
     const [target] = this.targets.filter(target => target.id === this.route)
-    const targetWrapper = new TargetWrapper({
+    const previousTargetWrapper = content.querySelector("[data-component='target-wrapper']")
+    const targetWrapper = !target ? document.createElement("section") : new TargetWrapper({
       onDone: this.closeModal,
       target
     }).render()
 
     function startDownload() {
+      if (!target) return
       if (!autoDownload || !target.pluginURL) return
 
       setTimeout(target.startDownload, AUTO_DOWNLOAD_DELAY)
     }
 
-    this.renderTitle(target.modalTitle)
-
-    content.appendChild(targetWrapper)
-
-    if (firstChild) {
-      this.onTransitionEnd = startDownload
-      this.transitioning = true
-
-      requestAnimationFrame(() => {
-        content.style.transform = "translate3d(-100%, 0, 0)"
-      })
+    if (!target) {
+      targetWrapper.setAttribute("data-component", "target-wrapper")
     }
     else {
-      startDownload()
+      this.renderTitle(target.modalTitle)
     }
+
+    if (previousTargetWrapper) {
+      content.replaceChild(targetWrapper, previousTargetWrapper)
+    }
+    else {
+      content.appendChild(targetWrapper)
+    }
+
+    startDownload()
   }
 }
