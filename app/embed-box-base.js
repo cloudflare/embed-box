@@ -128,7 +128,7 @@ export default class EmbedBoxBase {
       if (!visibleTargets.some(({id}) => id === initialTarget)) initialTarget = null
     }
 
-    const onLoad = () => {
+    this.iframe.element.onload = () => {
       // :active style fix for Safari
       iframe.document.addEventListener("touchstart", () => {}, true)
 
@@ -144,10 +144,9 @@ export default class EmbedBoxBase {
 
       if (autoShow || this._pendingShow) this.show()
 
-      if (this.events.onLoad) this.events.onLoad(this)
+      if (this.events.onLoad) this.events.onLoad.call(this)
     }
 
-    this.iframe.element.onload = onLoad
     this.container.appendChild(iframe.element) // iframe window & document is now accessible.
   }
 
@@ -197,7 +196,7 @@ export default class EmbedBoxBase {
         element.style.opacity = willBeVisible ? 1 : 0
         element.setAttribute(VISIBILITY_ATTRIBUTE, willBeVisible ? "visible" : "hidden")
 
-        if (this.events.visibilityChange) this.events.visibilityChange(willBeVisible)
+        if (this.events.visibilityChange) this.events.visibilityChange.call(this, willBeVisible)
       })
     }
 

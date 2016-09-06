@@ -62,14 +62,14 @@ export function runDemo(iframe, onComplete = () => {}) {
 
     const config = {...defaults,
       events: {
+        onLoad() {
+          loadingDots.setAttribute("data-state", "loaded")
+        },
         visibilityChange(visible) {
-          if (visible) {
-            loadingDots.setAttribute("data-state", "loaded")
-          }
-          else {
-            loadingDots.setAttribute("data-state", "loading")
-            setTimeout(createInteractiveDemo, 2500)
-          }
+          if (visible || this.destroyed) return
+
+          loadingDots.setAttribute("data-state", "loading")
+          setTimeout(createInteractiveDemo, 1500)
         }
       }
     }
@@ -147,8 +147,8 @@ export function runDemo(iframe, onComplete = () => {}) {
 
   new EmbedBox({...defaults,
     events: {
-      onLoad(nextInstance) {
-        instance = nextInstance
+      onLoad() {
+        instance = this // eslint-disable-line consistent-this
         iframeDocument = instance.iframe.document
         searchComponent = iframeDocument.querySelector("[data-component='target-search']")
         input = searchComponent.querySelector(".search")

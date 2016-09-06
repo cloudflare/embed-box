@@ -45,23 +45,32 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  function loopRunDemo() {
-    createInteractiveDemo = runDemo(automatedFrame, () => {
-      createInteractiveDemo()
-    })
+  function onAutomatedFrameLoaded() {
+    function runDemoSequence() {
+      createInteractiveDemo = runDemo(automatedFrame, () => {
+        createInteractiveDemo()
+      })
+    }
+
+    const style = automatedFrameDocument.createElement("style")
+
+    style.innerHTML = `
+      html, body {
+        margin: 0;
+        padding: 0;
+      }
+    `
+    automatedFrameDocument.head.appendChild(style)
+
+    loadScripts(LIBRARY_SCRIPTS, automatedFrameDocument, runDemoSequence)
   }
 
-  const style = automatedFrameDocument.createElement("style")
-
-  style.innerHTML = `
-    html, body {
-      margin: 0;
-      padding: 0;
-    }
-  `
-  automatedFrameDocument.head.appendChild(style)
-
-  loadScripts(LIBRARY_SCRIPTS, automatedFrameDocument, loopRunDemo)
+  if (automatedFrameDocument.readyState === "complete") {
+    onAutomatedFrameLoaded()
+  }
+  else {
+    automatedFrame.onLoad = onAutomatedFrameLoaded
+  }
 
   function stopAutomatedDemo() {
     if (createInteractiveDemo) {
@@ -102,8 +111,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
   if (document.body.clientWidth >= DESKTOP_MIN_WIDTH) {
     CONSTRUCTOR_DEFAULTS.events = {
-      onLoad(instance) {
-        const instanceElement = instance.application.element
+      onLoad() {
+        const instanceElement = this.application.element
 
         instanceElement.addEventListener("mouseover", stopAutomatedDemo)
         instanceElement.addEventListener("click", stopAutomatedDemo)
