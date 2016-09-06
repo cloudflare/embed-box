@@ -7,7 +7,7 @@ import * as icons from "components/icons"
 import KM from "lib/key-map"
 import findIndex from "lodash.findindex"
 
-const {svgToComponent, search: SearchIcon, next: NextIcon} = icons
+const {svgToComponent, search: SearchIcon, clear: ClearIcon, next: NextIcon} = icons
 const entryQuery = id => `.entry[data-id=${id}]`
 
 export default class TargetSearch extends BaseComponent {
@@ -32,8 +32,20 @@ export default class TargetSearch extends BaseComponent {
     const {search} = this.refs
     const [firstVisible] = this.entrySpecs.filter(({hidden}) => !hidden)
 
+    search.setAttribute("data-empty", search.value === "")
     this.query = search.value.toLowerCase()
     this.selectEntry(firstVisible ? firstVisible.id : null)
+  }
+
+  @autobind
+  handleSearchInputClear() {
+    const {entriesContainer, search} = this.refs
+
+    search.value = ""
+    this.handleSearchInput()
+    this.selectEntry(null)
+    search.focus()
+    entriesContainer.scrollTop = 0
   }
 
   @autobind
@@ -108,12 +120,15 @@ export default class TargetSearch extends BaseComponent {
   render() {
     this.compileTemplate()
 
-    const {search, inputWrapper} = this.refs
+    const {inputWrapper, search, searchClear} = this.refs
     const searchIcon = new SearchIcon()
+    const clearIcon = new ClearIcon()
 
     inputWrapper.appendChild(searchIcon.render())
+    searchClear.appendChild(clearIcon.render())
 
     search.addEventListener("input", this.handleSearchInput)
+    searchClear.addEventListener("click", this.handleSearchInputClear)
 
     this.renderEntries()
 

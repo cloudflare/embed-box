@@ -7,6 +7,9 @@ section(data-column data-component="target-search" data-event-receiver)
         placeholder=label("searchPlaceholder")
         spellcheck="false"
         tabindex="3"
-        type="search")
+        type="text")
+      .search-clear(
+        data-ref="searchClear"
+        tabindex="3")
 
   .entries(data-column data-ref="entriesContainer")
