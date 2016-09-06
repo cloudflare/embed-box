@@ -165,6 +165,7 @@ export default class Application extends BaseComponent {
   @autobind
   navigateToHome() {
     this.route = "home"
+    this.renderTitle(this.label("title"))
     this.autofocus()
   }
 
