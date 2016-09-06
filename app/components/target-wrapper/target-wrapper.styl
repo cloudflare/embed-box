@@ -153,13 +153,14 @@
     margin 0
     padding 2em 0 0
 
-    @media mobileMaxWidthQuery
-      // Spacer for Safari's UI controls
-      &::after
-        content ""
-        display block
-        flex 0 0 auto
-        height iPhoneUICompensation
+    // Spacer for Safari's UI controls
+    [data-component="application"][is-iphone="true"] &
+      @media mobileMaxWidthQuery
+        &::after
+          content ""
+          display block
+          flex 0 0 auto
+          height iPhoneUICompensation
 
     div, footer, header, section
       display block
