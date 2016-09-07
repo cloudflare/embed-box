@@ -1,6 +1,7 @@
 {
   "plugins": [
     "babel-plugin-transform-decorators-legacy",
+    "array-includes",
     "transform-object-assign",
     "transform-array-from",
     "transform-proto-to-assign"

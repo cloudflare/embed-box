@@ -4,6 +4,7 @@ import {runDemo} from "site/lib/user-simulator"
 import loadScripts from "site/lib/load-scripts"
 import renderTOC from "site/lib/render-toc"
 import renderSupportTable from "site/lib/render-support-table"
+import polyfillCustomEvent from "lib/custom-event"
 
 const DESKTOP_MIN_WIDTH = 1080
 
@@ -18,6 +19,7 @@ const CONSTRUCTOR_DEFAULTS = {}
 document.addEventListener("DOMContentLoaded", () => {
   // :active style fix for Safari
   document.addEventListener("touchstart", () => {}, true)
+  polyfillCustomEvent({window, document})
 
   const targetIDExample = document.querySelector("[data-example-id='target-ids'] .hljs-comment")
   const PRISTINE_GLOBALS = window.PRISTINE_GLOBALS = {

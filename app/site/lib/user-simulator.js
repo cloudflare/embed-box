@@ -36,6 +36,7 @@ export function runDemo(iframe, onComplete = () => {}) {
 
   const {EmbedBox} = iframe.contentWindow
   const sequence = createSequence(EmbedBox)
+  const {PolyFilledCustomEvent} = window
   const defaults = {
     embedCode: `<script src='${BASE_URL}/examples/generic-library.js'></script>`,
     targets: {
@@ -106,7 +107,7 @@ export function runDemo(iframe, onComplete = () => {}) {
     }
 
     let runStep = () => {
-      searchComponent.dispatchEvent(new CustomEvent(`dispatched-${eventType}`, meta))
+      searchComponent.dispatchEvent(new PolyFilledCustomEvent(`dispatched-${eventType}`, meta))
       onStep()
     }
 
