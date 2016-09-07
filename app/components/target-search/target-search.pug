@@ -1,5 +1,5 @@
-section(data-column data-component="target-search" data-event-receiver)
-  header.header(data-column)
+section(data-flow="column" data-component="target-search" data-event-receiver)
+  header.header(data-flow="column")
     label(for="search-input")= label("searchHeader")
     .input-wrapper(data-ref="inputWrapper")
       input#search-input.search(
@@ -12,4 +12,4 @@ section(data-column data-component="target-search" data-event-receiver)
         data-ref="searchClear"
         tabindex="3")
 
-  .entries(data-column data-ref="entriesContainer")
+  .entries(data-flow="column" data-ref="entriesContainer")

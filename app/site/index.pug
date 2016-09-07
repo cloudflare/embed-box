@@ -14,14 +14,14 @@ html(lang="en" xmlns:og="http://ogp.me/ns#" xmlns:fb="http://www.facebook.com/20
     meta(name="description" content=htmlWebpackPlugin.options.description)
 
   body
-    main(data-column)
+    main(data-flow="column")
       .slide.padded.hero
-        header(data-column)
+        header(data-flow="column")
           img(alt="logo" src=require("./assets/logo.png") width="100" height="100")
           h1
             a(href="http://embedbox.io/") EmbedBox
 
-        .content(data-column)
+        .content(data-flow="column")
           h2.headline Get your embed code or web plugin on millions of websites.
 
           p.description
@@ -35,7 +35,7 @@ html(lang="en" xmlns:og="http://ogp.me/ns#" xmlns:fb="http://www.facebook.com/20
             li
               a.more(href="https://github.com/EagerIO/EmbedBox") GitHub
 
-        .figure.frame-container(data-column)
+        .figure.frame-container(data-flow="column")
           .placeholder
             .loading-dots(data-state="loading")
               i

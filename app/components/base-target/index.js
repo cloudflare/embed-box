@@ -58,7 +58,7 @@ export default class BaseTarget extends BaseComponent {
     BaseComponent.prototype.compileTemplate.call(this, this.templateVars)
 
     this.element.setAttribute("data-component", `${this.id}-target`)
-    this.element.setAttribute("data-column", "")
+    this.element.setAttribute("data-flow", "column")
     this.element.setAttribute("autofocus", "")
     this.element.className = `target-instructions ${this.element.className || ""}`
 
