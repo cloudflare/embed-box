@@ -21,7 +21,7 @@ export default class Application extends BaseComponent {
     const element = this.compileTemplate()
 
     const iframeWindow = this.store.iframe.window
-    const {closeModalButton, previousButton} = this.refs
+    const {content, closeModalButton, previousButton} = this.refs
     const headerButtons = [closeModalButton, previousButton]
 
     headerButtons.forEach(button => {
@@ -59,6 +59,8 @@ export default class Application extends BaseComponent {
     }
 
     mountPoint.appendChild(this.element)
+
+    content.addEventListener("transitionend", this.handleTransition)
   }
 
   get route() {
@@ -69,7 +71,11 @@ export default class Application extends BaseComponent {
     this._route = value
 
     if (this.element) {
-      this.element.setAttribute("data-route", this._route)
+      this.element.setAttribute("data-transition-state", "transitioning")
+
+      requestAnimationFrame(() => {
+        this.element.setAttribute("data-route", this._route)
+      })
     }
 
     if (this.store.routing) {
@@ -119,6 +125,27 @@ export default class Application extends BaseComponent {
 
       default:
         this.delgateKeyEvent(event)
+    }
+  }
+
+  @autobind
+  handleTransition(event) {
+    const {content} = this.refs
+
+    if (event.target !== content) return
+
+    this.element.setAttribute("data-transition-state", "transitioned")
+
+    const targetWrapper = content.querySelector("[data-component='target-wrapper']")
+    const targetSearch = content.querySelector("[data-component='target-search']")
+
+    if (this.route === "home") {
+      targetSearch.removeAttribute("inert")
+      targetWrapper.setAttribute("inert", "")
+    }
+    else {
+      targetSearch.setAttribute("inert", "")
+      targetWrapper.removeAttribute("inert")
     }
   }
 

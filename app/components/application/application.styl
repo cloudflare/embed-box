@@ -24,8 +24,12 @@
     transform translate3d(0, 0, 0)
     transition transform .2s ease
 
+
   &[data-route]:not([data-route="home"]) .content
     transform translate3d(-100%, 0, 0)
+
+  &[data-transition-state="transitioned"] [inert] > *
+    display none
 
   .modal
     background #fff
