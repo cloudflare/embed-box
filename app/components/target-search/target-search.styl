@@ -130,13 +130,13 @@
         &:hover
           background lightGrayRGBA
 
+          [data-component="application"][is-touch-device="true"] &
+            // Background color implemented in JS-rendered CSS
+            color #fff
+
       &:focus
         outline none
         background lightGrayRGBA
-
-        [data-component="application"][is-touch-device="true"] &
-          // Background color implemented in JS-rendered CSS
-          color #fff
 
       .primary
         flex 1 1 auto
@@ -186,7 +186,7 @@
         .icon.next
           opacity .6
 
-      &[data-selected], &:active, [data-component="application"][is-touch-device="true"] &:focus
+      &[data-selected], &:active, [data-component="application"][is-touch-device="true"] &:hover
 
         &, &:hover
 
@@ -199,7 +199,7 @@
       path.is-not-light-source-facing
         opacity 1
 
-      &[data-selected], &:active, [data-component="application"][is-touch-device="true"] &:focus
+      &[data-selected], &:active, [data-component="application"][is-touch-device="true"] &:hover
         border-color transparent
 
         &, &:hover
