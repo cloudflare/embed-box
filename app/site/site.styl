@@ -57,6 +57,16 @@ html
       padding-left 1.5em
       padding-right @padding-left
 
+  a.more
+    font-weight 500
+    padding .5em 0
+    text-decoration none
+    color brandBlue
+    letter-spacing normal
+
+    &:hover
+      color darken(brandBlue, 18%)
+
   p, ul, ol, dl
     font-size 1.125em
 
@@ -300,15 +310,6 @@ html
       @media iPhoneMaxWidthQuery
         display block
         margin-right 0
-
-    a.more
-      font-weight 500
-      padding .5em 0
-      text-decoration none
-      color brandBlue
-
-      &:hover
-        color darken(brandBlue, 18%)
 
 .slide.features
   div
