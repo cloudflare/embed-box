@@ -123,7 +123,7 @@ export function runDemo(iframe, onComplete = () => {}) {
       delay = 200
     }
     else if (eventType === "scroll") {
-      const container = iframeDocument.querySelector("[data-component='target-wrapper'] .instructions")
+      const container = iframeDocument.querySelector("[data-component='target-wrapper'] .target-instructions")
       const bottom = container.scrollHeight - container.getBoundingClientRect().height
 
       const onScrolled = () => {
