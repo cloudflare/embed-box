@@ -11,40 +11,21 @@ export default class BaseScreenshot {
   serialize = BaseComponent.prototype.serialize;
 
   @autobind
-  refreshScale() {
-    if (this.element.getAttribute("data-render-state") === "scaled") {
-      this.element.setAttribute("data-render-state", "unscaled")
-
-      this.iframe.style.height = ""
-      this.element.style.height = ""
-
-      requestAnimationFrame(this.refreshScale)
-      return
-    }
-
+  setScale() {
     const iframeDocument = this.iframe.contentDocument
-    const {clientWidth} = this.element.querySelector(".intrinsic-spacer")
-    const iframeWidth = parseInt(this.iframe.width, 10)
-    const scale = clientWidth > iframeWidth ? 1 : clientWidth / iframeWidth
+    const {width: widthStyle, height: heightStyle} = iframeDocument.defaultView.getComputedStyle(iframeDocument.body)
+    const width = parseInt(widthStyle)
+    const height = parseInt(heightStyle)
+    const intrinsicRatio = height / width
+    const paddingBottom = `${intrinsicRatio * 100}%`
+    const scale = this.element.clientWidth / width
 
-    // Scale the inner content.
+    this.iframe.setAttribute("width", width)
+    this.iframe.setAttribute("height", height)
+    this.element.style.paddingBottom = paddingBottom
     this.iframe.style.transform = `scale(${scale})`
 
-    const iframeInnerHeight = this.iframe.contentDocument.body.scrollHeight
-
-    // Give the inner content a fixed height to prevent scrolling.
-    this.iframe.style.height = iframeInnerHeight + "px"
-    //
-    // Give the container a scaled height to compensate for the transform.
-    this.element.style.height = iframeInnerHeight * scale + "px"
-
     this.element.setAttribute("data-render-state", "scaled")
-
-    const {backgroundColor} = iframeDocument.defaultView.getComputedStyle(iframeDocument.body)
-
-    // Blend background with scaled iframe contents for a seamless appearance.
-    this.element.style.backgroundColor = backgroundColor
-    iframeDocument.body.style.background = "transparent" // Fixes Chrome render bug.
   }
 
   render(target) {
@@ -71,7 +52,11 @@ export default class BaseScreenshot {
 
       requestAnimationFrame(() => {
         if (this.componentDidMount) this.componentDidMount(target)
-        this.refreshScale()
+        this.setScale()
+      })
+
+      window.addEventListener("resize", () => {
+        this.setScale()
       })
     }
 

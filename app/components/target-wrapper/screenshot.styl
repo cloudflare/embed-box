@@ -4,19 +4,38 @@ figure
   margin 2em 0
   position relative
 
-  img, [data-component="screenshot"]
+  img, &[data-component="screenshot"]
     display block
     max-width 100%
 
-  [data-component="screenshot"]
+  &[data-component="screenshot"]
+    position relative
+    height 0
+    padding-top 0
+    padding-right 0
+    // padding-bottom set by JS
+    padding-left 0
     width 100%
+    overflow hidden
+
+    iframe
+      position absolute
+      top 0
+      left 0
+      border 0
+      transform-origin 0 0
+      opacity 0
+
+    &[data-render-state="scaled"] iframe
+      opacity 1
 
   &::after
     content ""
     display block
     position absolute
-    pointer-events none
+    cursor default
     border 1px solid rgba(#000, .2)
+    z-index 1
     border-left 0
     border-right 0
     top 0
@@ -47,44 +66,3 @@ figure
 
     &[data-svg-view-box="0 0 127 73"] > div
       padding-bottom 57.48%
-
-[data-intrinsic]
-  height 0
-  overflow hidden
-  position relative
-  width 100%
-
-  iframe
-    border 0
-    left 0
-    position absolute
-    top 0
-    transform-origin 0 0
-    visibility hidden // Prevent the user from seeing a rescaling.
-
-  &[data-render-state="scaled"]
-    height auto
-
-    iframe
-      visibility visible
-      position static
-
-[data-intrinsic="1"]:not([data-render-state="scaled"])
-  padding-bottom 100%
-
-[data-intrinsic="0.5"]:not([data-render-state="scaled"])
-  padding-bottom 50%
-
-.intrinsic-spacer
-  position absolute
-  top 0
-  right 0
-  bottom 0
-  left 0
-
-.shield
-  position absolute
-  top 0
-  right 0
-  bottom 0
-  left 0
