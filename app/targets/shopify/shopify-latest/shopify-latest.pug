@@ -14,11 +14,13 @@ ol.steps
       | In the center column under <strong>Layout</strong>, Click <code>theme.liquid</code>.
 
   li
-    h2 Copy the code to your site’s &lt;#{this.location}&gt; tag.
+    h2 Copy the code below.
 
     .copy-container
       button.button.primary.run(data-ref="copyButtons[]") Copy
       div.copyable(contenteditable)= this.copyText
+
+    p Paste this code into your site’s &lt;#{this.location}&gt; tag.
 
     figure(data-ref="screenshotMounts[]" data-screenshot="installScript")
 

@@ -10,11 +10,13 @@ ol.steps
       | Then click <strong>Code Injection</strong>.
 
   li
-    h2 Copy the code to the <strong>#{this.location === "head" ? "Header" : "Footer"}</strong> section.
+    h2 Copy the code below.
 
     .copy-container
       button.button.primary.run(data-ref="copyButtons[]") Copy
       div.copyable(contenteditable)= this.copyText
+
+    p Paste it into the <strong>#{this.location === "head" ? "Header" : "Footer"}</strong> box within the <strong>Code Injection</strong> section.
 
     figure(data-ref="screenshotMounts[]" data-screenshot="installScript")
 
