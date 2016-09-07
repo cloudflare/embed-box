@@ -1,4 +1,5 @@
 @import "~styl/colors"
+@import "~styl/sizes"
 @import "~styl/media-query-variables"
 
 [data-component="application"]
@@ -36,7 +37,7 @@
     min-height 18em
     overflow hidden
     position relative
-    width 35em
+    width targetInstructionsMaxWidth
     z-index 1 // Fix border radius overflow issues.
 
     @media desktopMinWidthQuery

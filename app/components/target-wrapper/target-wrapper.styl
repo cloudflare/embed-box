@@ -1,5 +1,6 @@
 @import "~styl/colors"
 @import "~styl/fonts"
+@import "~styl/sizes"
 @import "~styl/media-query-variables"
 
 @keyframes copied
@@ -148,9 +149,11 @@
           background #fff
 
   ol.steps
+    width targetInstructionsMaxWidth
+    max-width 100%
+    margin 0 auto
     counter-reset item 0
     list-style none
-    margin 0
     padding 2em 0 0
 
     // Spacer for Safari's UI controls
