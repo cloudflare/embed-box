@@ -27,12 +27,12 @@ mixin codeExample(runnable, id)
 
 :marked
   >EmbedBox supports Chrome, Safari, Firefox, and IE10+
-  
+
 +anchored("h3", "Embed Code")
 :marked
   In virtually every installation, things start with your existing HTML embed code.  By providing EmbedBox with this user‘s specific code, it can be included inside
   the docs for each platform.
-  
+
 +codeExample!= require("./examples/install-web.md")
 +codeExample(true)!= require("./examples/basic-web.md")
 
@@ -91,15 +91,15 @@ table#target-supports
 +anchored("h4", "autoDownload")
 :marked
   Plugins will automatically download when a target is selected.
-  
+
   Set `autoDownload: false` to disable to this behavior.
-  
+
 +anchored("h4", "autoShow")
 :marked
   EmbedBox will automatically appear on creation.
-  
+
   Set `autoShow: false` to disable to this behavior.
-  
+
 +anchored("h4", "routing")
 :marked
   EmbedBox can automatically update the hash of the page to allow visitors to link to a specific target’s instructions.
@@ -112,7 +112,7 @@ table#target-supports
 +anchored("h3", "Theme")
 :marked
   The `theme` option allows you to customize the colors used to render the embed box:
-  
+
 +codeExample(true)!= require("./examples/custom-theme.md")
 
 :marked
