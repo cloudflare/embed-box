@@ -70,11 +70,6 @@ mixin codeExample(runnable, id)
 
 +codeExample(true)!= require("./examples/initial-target.md")
 
-+anchored("h4", "priority")
-:marked
-  >Configure <a href="#ordering" class="without-underline">`priority`</a>
-  to disable the target search screen entirely.
-
 +anchored("h4", "pluginURL")
 :marked
   If you have an existing plugin for a CMS, specify it in that targets configuration and the docs will update automatically:
@@ -95,20 +90,20 @@ table#target-supports
 
 +anchored("h4", "autoDownload")
 :marked
-  >Plugins will automatically download when a target is selected.
-  >
-  >Set `autoDownload: false` to disable to this behavior.
+  Plugins will automatically download when a target is selected.
+  
+  Set `autoDownload: false` to disable to this behavior.
   
 +anchored("h4", "autoShow")
 :marked
-  >EmbedBox will automatically appear on creation.
-  >
-  >Set `autoShow: false` to disable to this behavior.
+  EmbedBox will automatically appear on creation.
+  
+  Set `autoShow: false` to disable to this behavior.
   
 +anchored("h4", "routing")
 :marked
   EmbedBox can automatically update the hash of the page to allow visitors to link to a specific target’s instructions.
-  If you use the hash for another purpose, it’s a good idea to disable this by setting `routing: false`.
+  If you don’t use the hash for another purpose, it’s a good idea to enable this by setting `routing: true`.
 
 +codeExample(true)!= require("./examples/routing.md")
 
