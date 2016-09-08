@@ -1,7 +1,7 @@
 function targetToRow({supports}) {
   const {embedCode, plugin} = supports
   const yes = "Yes"
-  const no = "<strong>No</strong>"
+  const no = "No"
 
   return [
     embedCode ? yes : no,
