@@ -64,6 +64,27 @@ html
     color brandBlue
     letter-spacing normal
 
+    &.more-twitter-share
+      font-size .85em
+      padding .5em .75em .5em 1em
+      border-radius .1875em
+      color #fff
+      background brandBlue
+
+      &:hover
+        color #fff
+        background darken(brandBlue, 18%)
+
+      svg
+        fill currentColor
+        display inline-block
+        height 1em
+        width 1em
+        vertical-align middle
+        margin-right .5em
+        position relative
+        top -.15em
+
     &:hover
       color darken(brandBlue, 18%)
 
@@ -313,6 +334,9 @@ html
       display block
       list-style none
       margin 0 0 .5em
+
+      &.space-above
+        padding-top .5em
 
       @media embedBoxMobileMaxWidthQuery
         display inline-block
