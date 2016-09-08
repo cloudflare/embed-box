@@ -1,3 +1,5 @@
+include ../../components/base-screenshot/mixin-annotation-arrow.pug
+
 ol.steps
   if this.pluginURL
     li
@@ -7,7 +9,9 @@ ol.steps
     li
       h2 Upload the plugin to your WordPress Admin site.
 
-      figure: img(src=require("./upload-plugin.jpg"))
+      figure
+        img(src=require("./upload-plugin.jpg"))
+        +annotation-arrow("nw")(style={top: "16%", left: "51.4%", width: "13%"} transform="rotate(76deg)")
 
       p In your WordPress Admin, navigate to: <strong>Plugins <span class="with-more-icon-after"></span> Add New <span class="with-more-icon-after"></span> Upload Plugin</strong>.
       p Click <strong>Choose File</strong> and select the file you just downloaded.
@@ -15,7 +19,10 @@ ol.steps
     li
       h2 Activate the plugin and view your site
 
-      figure: img(src=require("./activate-plugin.jpg"))
+      figure
+        img(src=require("./activate-plugin.jpg"))
+        +annotation-arrow("se")(style={top: "35%", left: "46%", width: "12%"} transform="rotate(87deg)")
+
 
       p Click <strong>Activate Plugin</strong>.
       p After it activates you’ll see a welcome message letting you know the installation was successful!
