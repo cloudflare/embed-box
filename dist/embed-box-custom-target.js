@@ -542,7 +542,7 @@ var BaseTarget = (_class = (_temp = _class2 = function (_BaseComponent) {
     __WEBPACK_IMPORTED_MODULE_7_components_base_component__["a" /* default */].prototype.compileTemplate.call(this, this.templateVars);
 
     this.element.setAttribute("data-component", this.id + "-target");
-    this.element.setAttribute("data-column", "");
+    this.element.setAttribute("data-flow", "column");
     this.element.setAttribute("autofocus", "");
     this.element.className = "target-instructions " + (this.element.className || "");
 
@@ -598,7 +598,7 @@ var BaseTarget = (_class = (_temp = _class2 = function (_BaseComponent) {
 
     var version = _constructor$versions[0];
 
-    var stepsElement = this.serialize(version.template);
+    var stepsElement = this.serialize(version.template, this.templateVars);
 
     this.refs.screenshotMounts = [];
     this.replaceElement(stepsMount, stepsElement);
@@ -1889,7 +1889,7 @@ module.exports = template;
 
 var pug = __webpack_require__(0);
 
-function template(locals) {var pug_html = "", pug_mixins = {}, pug_interp;pug_html = pug_html + "\u003Cheader class=\"target-title\" data-column\u003E\u003Cdiv class=\"icon\"\u003E" + (null == (pug_interp = this.icon) ? "" : pug_interp) + "\u003C\u002Fdiv\u003E\u003Ch1\u003E" + (null == (pug_interp = this.title) ? "" : pug_interp) + "\u003C\u002Fh1\u003E";
+function template(locals) {var pug_html = "", pug_mixins = {}, pug_interp;pug_html = pug_html + "\u003Cheader class=\"target-title\" data-flow=\"column\"\u003E\u003Cdiv class=\"icon\"\u003E" + (null == (pug_interp = this.icon) ? "" : pug_interp) + "\u003C\u002Fdiv\u003E\u003Ch1\u003E" + (null == (pug_interp = this.title) ? "" : pug_interp) + "\u003C\u002Fh1\u003E";
 if (this.versionIDs.length > 1) {
 pug_html = pug_html + "\u003Cdiv class=\"versions\"\u003E\u003Cdiv class=\"label\"\u003E" + (null == (pug_interp = this.instructionsLabel) ? "" : pug_interp) + "\u003C\u002Fdiv\u003E\u003Cselect data-ref=\"versionSelector\"\u003E";
 // iterate this.versionIDs
