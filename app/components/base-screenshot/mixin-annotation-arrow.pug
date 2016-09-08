@@ -1,16 +1,23 @@
 mixin annotation-arrow(direction)
   - var firstDirection = direction.substr(0, 1)
-  - var isNS = ['n', 's'].indexOf(firstDirection) > -1;
-  - var viewBox = isNS ? '0 0 83 114' : '0 0 127 73';
-  - var d = isNS ? 'M39.3 5.4L0.9 0C0.3-0.1-0.1 0.3 0 0.9L9.1 37.8C9.2 38.4 9.7 38.5 10.1 38.1 10.1 38.1 18 29.8 19.8 27.9 19.9 27.7 20.1 27.4 20.5 27.4 20.9 27.3 21.3 27.4 21.4 27.5 68.7 64.9 76 103.8 77.1 109.6 78.2 115.4 84 114.4 82.9 108.6 81.8 102.8 75.7 53.3 30 17.7 29.9 17.6 29.6 17.4 29.6 17.1 29.6 16.9 29.9 16.6 30 16.5L39.6 6.4C40.1 5.9 39.9 5.5 39.3 5.4Z' : 'M37.3 0.7C37.4 0.1 37.1-0.1 36.5 0.1L0.5 14.6C-0.1 14.9-0.2 15.4 0.3 15.8L26.5 43.2C27 43.7 27.4 43.6 27.6 43 27.6 43 30.2 31.8 30.8 29.3 30.9 29.1 30.9 28.7 31.2 28.5 31.5 28.3 31.9 28.1 32 28.2 91.7 36.9 117.5 67 121.4 71.4 125.2 75.9 129.7 72.1 125.8 67.6 122 63.1 92 23.4 34.6 15.4 34.5 15.4 34.1 15.3 33.9 15.1 33.8 14.9 34 14.5 34 14.3 35.2 9.4 37.3 0.7 37.3 0.7Z';
+  - var isNS = ["n", "s"].indexOf(firstDirection) !== -1
+  - var viewBox = isNS ? "0 0 83 114" : "0 0 127 73"
+  - var d = isNS ? "M39.3 5.4L0.9 0C0.3-0.1-0.1 0.3 0 0.9L9.1 37.8C9.2 38.4 9.7 38.5 10.1 38.1 10.1 38.1 18 29.8 19.8 27.9 19.9 27.7 20.1 27.4 20.5 27.4 20.9 27.3 21.3 27.4 21.4 27.5 68.7 64.9 76 103.8 77.1 109.6 78.2 115.4 84 114.4 82.9 108.6 81.8 102.8 75.7 53.3 30 17.7 29.9 17.6 29.6 17.4 29.6 17.1 29.6 16.9 29.9 16.6 30 16.5L39.6 6.4C40.1 5.9 39.9 5.5 39.3 5.4Z" : "M37.3 0.7C37.4 0.1 37.1-0.1 36.5 0.1L0.5 14.6C-0.1 14.9-0.2 15.4 0.3 15.8L26.5 43.2C27 43.7 27.4 43.6 27.6 43 27.6 43 30.2 31.8 30.8 29.3 30.9 29.1 30.9 28.7 31.2 28.5 31.5 28.3 31.9 28.1 32 28.2 91.7 36.9 117.5 67 121.4 71.4 125.2 75.9 129.7 72.1 125.8 67.6 122 63.1 92 23.4 34.6 15.4 34.5 15.4 34.1 15.3 33.9 15.1 33.8 14.9 34 14.5 34 14.3 35.2 9.4 37.3 0.7 37.3 0.7Z"
 
-  - var style = attributes.transform ? 'transform: ' + attributes.transform : '';
-  - var style = ['ne', 'en'].indexOf(direction) > -1 ? style + 'transform: scale(-1, 1)': style;
-  - var style = ['se', 'es'].indexOf(direction) > -1 ? style + 'transform: scale(-1, -1)': style;
-  - var style = ['sw', 'ws'].indexOf(direction) > -1 ? style + 'transform: scale(1, -1)': style;
+  - var transform = attributes.transform || ""
+
+  if ["ne", "en"].indexOf(direction) !== -1
+    - transform += " scale(-1, 1)"
+  else if ["se", "es"].indexOf(direction) !== -1
+    - transform += " scale(-1, -1)"
+  else if ["sw", "ws"].indexOf(direction) !== -1
+    - transform += " scale(1, -1)"
+
+  if transform.length === 0
+    - transform = "none"
 
   //- HTML necessary to workaround IE SVG scaling issues
   div(annotation-arrow data-svg-view-box=viewBox style=attributes.style)
     div
-      svg(version="1.1" viewBox=viewBox style=style)
+      svg(version="1.1" viewBox=viewBox style={transform: transform})
         path(d=d)

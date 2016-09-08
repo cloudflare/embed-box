@@ -11,8 +11,8 @@ ol.steps
 
       figure
         img(src=require("./upload-plugin.png"))
-        +annotation-arrow('nw')(style="top: 37.4%; left: 14.1%; width: 12.8%")
-        +annotation-arrow('ne')(style="top: 67.5%; left: 56.8%; width: 10%")
+        +annotation-arrow("nw")(style={top: "37.4%", left: "14.1%", width: "12.8%"})
+        +annotation-arrow("ne")(style={top: "67.5%", left: "56.8%", width: "10%"})
 
       p In your Joomla Admin, navigate to: <strong>Extensions <span class="with-more-icon-after"></span> Install <span class="with-more-icon-after"></span> Upload Package File</strong>.
       p Click <strong>Choose File</strong> and select the file you just downloaded.
@@ -22,8 +22,8 @@ ol.steps
 
       figure
         img(src=require("./activate-plugin.png"))
-        +annotation-arrow('en')(style="top: 48.2%; left: 14.6%; width: 15.8%")
-        +annotation-arrow('wn')(style="top: 79%; left: 50%; width: 14.1%")
+        +annotation-arrow("en")(style={top: "48.2%", left: "14.6%", width: "15.8%"})
+        +annotation-arrow("wn")(style={top: "79%", left: "50%", width: "14.1%"})
 
       p On the <strong>Extensions <span class="with-more-icon-after"></span> Manage</strong> page, search for #{config.name ? "“" + config.name + "”" : "the plugin"}.
       p When you’ve found the plugin, click the red <strong>×</strong> to enable the extension.
@@ -35,7 +35,7 @@ ol.steps
 
       figure
         img(src=require("./open-templates.png"))
-        +annotation-arrow('nw')(style="top: 41.9%; left: 78.4%; width: 12%" transform="rotate(60deg)")
+        +annotation-arrow("nw")(style={top: "41.9%", left: "78.4%", width: "12%"}, transform="rotate(60deg)")
 
     li
       h2 Choose the template which is currently being used to power your site.
@@ -43,14 +43,14 @@ ol.steps
 
       figure
         img(src=require("./choose-template.png"))
-        +annotation-arrow('nw')(style="top: 66.8%; left: 66.3%; width: 12%" transform="scale(-1, 1) rotate(60deg)")
+        +annotation-arrow("nw")(style={top: "66.8%", left: "66.3%", width: "12%"} transform="scale(-1, 1) rotate(60deg)")
 
     li
       h2 Select the <strong>index.php</strong> file.
 
       figure
         img(src=require("./choose-file.png"))
-        +annotation-arrow('wn')(style="top: 80.5%; left: 24.1%; width: 24.7%")
+        +annotation-arrow("wn")(style={top: "80.5%", left: "24.1%", width: "24.7%"})
 
     li
       h2 Copy the code to your site’s &lt;#{this.location}&gt; tag.
@@ -67,7 +67,7 @@ ol.steps
 
         figure
           img(src=require("./insert-code-head.png"))
-          +annotation-arrow('ws')(style="top: 40.9%; left: 44%; width: 17.7%")
+          +annotation-arrow("ws")(style={top: "40.9%", left: "44%", width: "17.7%"})
 
       else
         p
@@ -78,13 +78,13 @@ ol.steps
 
         figure
           img(src=require("./insert-code-body.png"))
-          +annotation-arrow('wn')(style="top: 78.1%; left: 44%; width: 18.3%")
+          +annotation-arrow("wn")(style={top: "78.1%", left: "44%", width: "18.3%"})
 
     li
       h2 Click <strong>Save &amp; Close</strong>.
 
       figure
         img(src=require("./save.png"))
-        +annotation-arrow('nw')(style="top: 36.6%; left: 31%; width: 14.3%" transform="scale(-1, 1) rotate(60deg)")
+        +annotation-arrow("nw")(style={top: "36.6%", left: "31%", width: "14.3%"} transform="scale(-1, 1) rotate(60deg)")
 
       p You’re done!
