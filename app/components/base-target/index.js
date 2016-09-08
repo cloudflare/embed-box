@@ -159,7 +159,7 @@ export default class BaseTarget extends BaseComponent {
   renderSteps() {
     const {stepsMount} = this.refs
     const [version] = this.constructor.versions.filter(version => version.id === this.versionID)
-    const stepsElement = this.serialize(version.template)
+    const stepsElement = this.serialize(version.template, this.templateVars)
 
     this.refs.screenshotMounts = []
     this.replaceElement(stepsMount, stepsElement)

@@ -96,12 +96,14 @@ table#target-supports
 
 +anchored("h3", "Lifecycle")
 :marked
-  EmbedBox will automatically appear on creation.
-  This can be disabled with the `autoShow` option.
-
   Capturing the `new EmbedBox()` instance in a variable lets us call the lifecycle methods when needed.
 
 +codeExample(true)!= require("./examples/auto-show.md")
+
+:marked
+  >EmbedBox will automatically appear on creation.
+  >
+  >Set `autoShow: false` to disable to this behavior.
 
 +anchored("h3", "Events")
 :marked

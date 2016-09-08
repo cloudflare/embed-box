@@ -10,7 +10,7 @@ var CustomTarget = EmbedBoxCustomTarget.extend({
     "<ol class='steps'>" +
     "  <li>" +
     "    <p>" +
-    "      <a href='${vars.registerURL}'>Register an account</a> before installing." +
+    "      <a href='" + vars.registerURL + "'>Register an account</a> before installing." +
     "    </p>" +
     "  </li>" +
     "</ol>"
