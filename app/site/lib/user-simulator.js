@@ -90,7 +90,7 @@ export function runDemo(iframe, onComplete = () => {}) {
     const {entity, eventType} = sequence[index]
     const meta = {}
     const lastIndex = sequence.length - 1
-    let delay = 100
+    let delay = 125
 
     if (!isElementPartiallyInViewport(iframe)) {
       createInteractiveDemo()
@@ -121,7 +121,7 @@ export function runDemo(iframe, onComplete = () => {}) {
     }
     else if (["keypress", "keydown"].includes(eventType)) {
       meta.detail = {keyCode: entity}
-      delay = 200
+      delay = 300
     }
     else if (eventType === "scroll") {
       const container = iframeDocument.querySelector("[data-component='target-wrapper'] .target-instructions")
