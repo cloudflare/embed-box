@@ -1,3 +1,5 @@
+include ../../../components/base-screenshot/mixin-annotation-arrow.pug
+
 ol.steps
   li
     h2 Login to the <a target="_blank" href="https://www.shopify.com/login">Shopify store editor</a>.
@@ -10,8 +12,17 @@ ol.steps
 
     p Then click <strong>Edit HTML/CSS</strong> in the menu that appears.
 
-    p
-      | In the center column under <strong>Layout</strong>, Click <code>theme.liquid</code>.
+    figure
+      img(src=require("./edit-template.jpg"))
+      +annotation-arrow("nw")(style={top: "57%", left: "35.4%", width: "12%"} transform="rotate(60deg)")
+      +annotation-arrow("ne")(style={top: "21%", left: "32.4%", width: "11%"} transform="rotate(41deg)")
+
+  li
+    p In the center column under <strong>Layout</strong>, Click <code>theme.liquid</code>.
+
+    figure
+      img(src=require("./choose-template.jpg"))
+      +annotation-arrow("nw")(style={top: "48%", left: "35%", width: "16%"} transform="rotate(135deg)")
 
   li
     h2 Copy the code below.
