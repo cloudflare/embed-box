@@ -603,6 +603,7 @@ html
       margin 0 .125em
       padding .1875em .35em .125em
       white-space nowrap
+
     h2
       margin-top 4.5rem
       font-size 1.5em
@@ -742,6 +743,22 @@ button[data-run]
     white-space pre
     width 100%
     word-wrap normal
+
+    &::-webkit-scrollbar
+      background transparent
+      border 0
+      height 5px
+      width 5px
+
+    &::-webkit-scrollbar-thumb
+      background rgba(#fff, .1)
+      transition background .35s ease
+
+    &::-webkit-scrollbar-thumb:hover
+      background rgba(#fff, .2)
+
+    &::-webkit-scrollbar-thumb:active
+      background siteDocsLinkColor
 
     > code
       font-size .9em
