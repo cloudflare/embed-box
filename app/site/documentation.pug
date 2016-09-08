@@ -50,9 +50,9 @@ mixin codeExample(runnable, id)
   >If your script should be loaded in the `<head>` tag,
   >set `insertInHead: true` and the instructions will update accordingly.
 
-+anchored("h4", "Settings")
++anchored("h3", "Settings")
 
-+anchored("h5", "container")
++anchored("h4", "container")
 :marked
   EmbedBox can appear inline by specifying `container` in the config.
   This can be a CSS selector.
@@ -64,18 +64,18 @@ mixin codeExample(runnable, id)
 
 +codeExample!= require("./examples/container-element.md")
 
-+anchored("h5", "initialTarget")
++anchored("h4", "initialTarget")
 :marked
   The target search screen can be skipped with `initialTarget`.  Instead the box will render with a specific target already set.
 
 +codeExample(true)!= require("./examples/initial-target.md")
 
-+anchored("h5", "priority")
++anchored("h4", "priority")
 :marked
   >Configure <a href="#ordering" class="without-underline">`priority`</a>
   to disable the target search screen entirely.
 
-+anchored("h5", "pluginURL")
++anchored("h4", "pluginURL")
 :marked
   If you have an existing plugin for a CMS, specify it in that targets configuration and the docs will update automatically:
 
@@ -93,13 +93,13 @@ table#target-supports
       th.plugin-url <code>pluginUrl</code>
   tbody
 
-+anchored("h5", "autoDownload")
++anchored("h4", "autoDownload")
 :marked
   >Plugins will automatically download when a target is selected.
   >
   >Set `autoDownload: false` to disable to this behavior.
   
-+anchored("h5", "autoShow")
++anchored("h4", "autoShow")
 :marked
   >EmbedBox will automatically appear on creation.
   >
