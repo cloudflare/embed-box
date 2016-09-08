@@ -121,12 +121,17 @@ html
 
     & > a
       // puts space above anchor when navigating by hash to it
+      position relative
       margin-top -1 * siteDocsTopBuffer
       padding-top siteDocsTopBuffer
+      z-index 3
 
+    // prevent secondary headers from covering up those above it
     + .headline-with-anchor > a
-      margin-top -1.5rem
-      padding-top 1.5rem
+      z-index 2
+
+    + .headline-with-anchor + .headline-with-anchor  > a
+      z-index 1
 
   .figure.frame-container
     position relative
@@ -621,7 +626,7 @@ html
       @media embedBoxDesktopMinWidthQuery
         font-size 1.125em
 
-    *:not(h2) + h3
+    *:not(h2) + h3, *:not(h3) + h4
       margin-top 3.5rem
       margin-bottom 0
 
@@ -630,6 +635,7 @@ html
 
     a[href]:not(.without-underline)
       linkUnderlines siteDocsBackgroundColor, siteDocsLinkColor
+
     a[href] > code
       color siteDocsLinkColor
 
