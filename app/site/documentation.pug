@@ -20,69 +20,39 @@ mixin codeExample(runnable, id)
 +codeExample(true)!= require("./examples/basic-web.md")
 
 :marked
-  You can use EmbedBox with bundlers like Webpack and Browserify too!
+  You can use EmbedBox with bundlers like Webpack and Browserify too:
 
 +codeExample!= require("./examples/install-node.md")
 +codeExample()!= require("./examples/basic-node.md")
 
 :marked
-  >EmbedBox supports Chrome, Safari, Firefox, and IE10+!
+  >EmbedBox supports Chrome, Safari, Firefox, and IE10+
+  
++anchored("h3", "The Embed Code")
+:marked
+  In virtually every installation, things start with your existing HTML embed code.  By providing EmbedBox with this user‘s specific code, it can be included inside
+  the docs for each platform.
+  
++codeExample!= require("./examples/install-web.md")
++codeExample(true)!= require("./examples/basic-web.md")
 
 +anchored("h3", "Targets")
 :marked
-  Targets are the instruction pages for each type of CMS.
-  Targets will use broad “global” option unless a target specific “local” option is set.
+  Targets are the instruction pages for each type of CMS. For example, the WordPress target is the instructions for installing your tool onto WordPress.
+  Targets default to the global options defined at the top level, but any option can be overridden for a specific target.
 
 :marked
-  In this example all targets except Weebly will use the same `embedCode`.
+  In this example all targets except Weebly will use the same `embedCode`:
 
 +codeExample(true)!= require("./examples/advanced.md")
 
 :marked
   >If your script should be loaded in the `<head>` tag,
-  >set `insertInHead: true` and the instructions will update according.
+  >set `insertInHead: true` and the instructions will update accordingly.
 
-+anchored("h4", "Miscellaneous")
-:marked
-  The target search screen can be skipped with `initialTarget`.
++anchored("h4", "Settings")
 
-+codeExample(true)!= require("./examples/initial-target.md")
-
-:marked
-  >Configure <a href="#ordering" class="without-underline">`priority`</a>
-  to disable the target search screen entirely.
-
-:marked
-  Targets are populated in the `EmbedBox.fetchedTargets` array.
-
-  `EmbedBox.getTargetIDs()` can be used to programatically get the bundled target IDs if desired.
-
-+codeExample(false, "target-ids")!= require("./examples/get-target-ids.md")
-
-+anchored("h3", "Plugins")
-:marked
-  A `pluginURL` can be used for sending users CMS plugins.
-
-+codeExample(true)!= require("./examples/plugin-url.md")
-
-:marked
-  >Plugins will automatically download when a target is selected.
-  >
-  >Set `autoDownload: false` to disable to this behavior.
-
-+anchored("h4", "Compatibility")
-:marked
-  A target's support for local `embedCode` and `pluginURL` is dependant on it's internal `supports` property.
-
-table#target-supports
-  thead
-    tr
-      th.id ID
-      th.embed-code <code>embedCode</code>
-      th.plugin-url <code>pluginUrl</code>
-  tbody
-
-+anchored("h3", "Positioning")
++anchored("h5", "container")
 :marked
   EmbedBox can appear inline by specifying `container` in the config.
   This can be a CSS selector.
@@ -94,53 +64,80 @@ table#target-supports
 
 +codeExample!= require("./examples/container-element.md")
 
-+anchored("h3", "Lifecycle")
++anchored("h5", "initialTarget")
 :marked
-  Capturing the `new EmbedBox()` instance in a variable lets us call the lifecycle methods when needed.
+  The target search screen can be skipped with `initialTarget`.  Instead the box will render with a specific target already set.
 
-+codeExample(true)!= require("./examples/auto-show.md")
++codeExample(true)!= require("./examples/initial-target.md")
 
++anchored("h5", "priority")
+:marked
+  >Configure <a href="#ordering" class="without-underline">`priority`</a>
+  to disable the target search screen entirely.
+
++anchored("h5", "pluginURL")
+:marked
+  If you have an existing plugin for a CMS, specify it in that targets configuration and the docs will update automatically:
+
++codeExample(true)!= require("./examples/plugin-url.md")
+
+:marked
+  > Not every target supports both `embedCode` and `pluginURL` installations.  If, for example,
+  > a given target only supports plugins and you don‘t provide one, that target will be automatically hidden.
+
+table#target-supports
+  thead
+    tr
+      th.id ID
+      th.embed-code <code>embedCode</code>
+      th.plugin-url <code>pluginUrl</code>
+  tbody
+
++anchored("h5", "autoDownload")
+:marked
+  >Plugins will automatically download when a target is selected.
+  >
+  >Set `autoDownload: false` to disable to this behavior.
+  
++anchored("h5", "autoShow")
 :marked
   >EmbedBox will automatically appear on creation.
   >
   >Set `autoShow: false` to disable to this behavior.
-
-+anchored("h3", "Events")
+  
++anchored("h4", "routing")
 :marked
-  While the EmbedBox constructor is synchronous, The browser will load the internal iframe asynchronously.
-
-  The `onLoad` event will fire when ready.
-
-+codeExample(true)!= require("./examples/events.md")
-
-+anchored("h3", "Routing")
-:marked
-  EmbedBox will check `#!/embed/:targetID` when created and route accordingly.
+  EmbedBox can automatically update the hash of the page to allow visitors to link to a specific target’s instructions.
+  If you use the hash for another purpose, it’s a good idea to disable this by setting `routing: false`.
 
 +codeExample(true)!= require("./examples/routing.md")
 
 +anchored("h2", "Customization")
-+anchored("h3", "Themes")
+
++anchored("h3", "Theme")
+:marked
+  The `theme` option allows you to customize the colors used to render the embed box:
+  
 +codeExample(true)!= require("./examples/custom-theme.md")
 
 :marked
-  If the `theme` configuration option is too coarse,
+  If you need more configuration,
   the EmbedBox stylesheet can be extended.
 
 +codeExample(true)!= require("./examples/custom-stylesheet.md")
 
 +anchored("h3", "Content slots")
 :marked
-  Content can be inserted before and after the target instructions.
+  Content can be inserted before and after the target instructions to provide extra instructions to your users.
 
-  Target specific slots can be included as well.
+  You can also include content only for specific targets.
 
 +codeExample(true)!= require("./examples/content-slots.md")
 
 +anchored("h3", "Labels")
 :marked
-  Labels can be added as strings or functions.
-  The EmbedBox `config` is exposed to label functions.
+  The labels used in the EmbedBox UI itself can be customized.
+  They can be added as strings or functions. If you use functions, the EmbedBox `config` is passed to label functions.
 
 +codeExample(true)!= require("./examples/labels.md")
 
@@ -154,15 +151,42 @@ table#target-supports
 +codeExample(true)!= require("./examples/ordering.md")
 
 :marked
-  >The target selection screen will be skipped if only one target is visible.
+  > The target selection screen will be skipped if only one target is visible.
 
 +anchored("h3", "Custom targets")
 :marked
-  If the content slots are too coarse, custom targets can be created with the custom build.
+  If you need to fully customize the targets you can create your own:
 
 +codeExample!= require("./examples/custom-install.md")
 
 +codeExample(true)!= require("./examples/custom-target.md")
+
+:marked
+  > For more information on creating new targets, see the [docs](https://github.com/EagerIO/EmbedBox/blob/master/docs/new-targets.md).
+
++anchored("h3", "API")
+
++anchored("h4", "Lifecycle")
+:marked
+  Capturing the `new EmbedBox()` instance in a variable lets us call the lifecycle methods when needed.
+
++codeExample(true)!= require("./examples/auto-show.md")
+
++anchored("h4", "fetchedTargets")
+:marked
+  Targets are populated in the `EmbedBox.fetchedTargets` array.
+
+  `EmbedBox.getTargetIDs()` can be used to programatically get the bundled target IDs if desired.
+
++codeExample(false, "target-ids")!= require("./examples/get-target-ids.md")
+
++anchored("h4", "Events")
+:marked
+  While the EmbedBox constructor is synchronous, the browser will load the internal iframe asynchronously.
+
+  The `onLoad` event will fire when the full EmbedBox is ready.
+
++codeExample(true)!= require("./examples/events.md")
 
 +anchored("h2", "Contributing")
 :marked
@@ -171,4 +195,4 @@ table#target-supports
 
   Is there a CMS target that you'd like to see here?
 
-  [Check out](https://github.com/EagerIO/EmbedBox/blob/master/docs/new-targets.md) how easy it is to add one!
+  [Read more](https://github.com/EagerIO/EmbedBox/blob/master/docs/new-targets.md) about adding new targets.
