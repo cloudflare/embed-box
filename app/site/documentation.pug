@@ -30,15 +30,16 @@ mixin codeExample(runnable, id)
 
 +anchored("h3", "Embed Code")
 :marked
-  In virtually every installation, things start with your existing HTML embed code.  By providing EmbedBox with this user‘s specific code, it can be included inside
-  the docs for each platform.
+  In virtually every installation, things start with your existing HTML embed code.
+  By providing EmbedBox with this user‘s specific code, it can be included inside the docs for each platform.
 
 +codeExample!= require("./examples/install-web.md")
 +codeExample(true)!= require("./examples/basic-web.md")
 
 +anchored("h3", "Targets")
 :marked
-  Targets are the instruction pages for each type of CMS. For example, the WordPress target is the instructions for installing your tool onto WordPress.
+  Targets are the instruction pages for each type of CMS.
+  For example, the WordPress target is the instructions for installing your tool onto WordPress.
   Targets default to the global options defined at the top level, but any option can be overridden for a specific target.
 
 :marked
@@ -66,7 +67,8 @@ mixin codeExample(runnable, id)
 
 +anchored("h4", "initialTarget")
 :marked
-  The target search screen can be skipped with `initialTarget`.  Instead the box will render with a specific target already set.
+  The target search screen can be skipped with `initialTarget`.
+  Instead the box will render with a specific target already set.
 
 +codeExample(true)!= require("./examples/initial-target.md")
 
@@ -77,8 +79,9 @@ mixin codeExample(runnable, id)
 +codeExample(true)!= require("./examples/plugin-url.md")
 
 :marked
-  > Not every target supports both `embedCode` and `pluginURL` installations.  If, for example,
-  > a given target only supports plugins and you don‘t provide one, that target will be automatically hidden.
+  >Not every target supports both `embedCode` and `pluginURL` installations.
+  >
+  >If, for example, a given target only supports plugins and you don‘t provide one, that target will be automatically hidden.
 
 table#target-supports
   thead
@@ -132,7 +135,8 @@ table#target-supports
 +anchored("h3", "Labels")
 :marked
   The labels used in the EmbedBox UI itself can be customized.
-  They can be added as strings or functions. If you use functions, the EmbedBox `config` is passed to label functions.
+  They can be added as strings or functions.
+  If you use functions, the EmbedBox `config` is passed to label functions.
 
 +codeExample(true)!= require("./examples/labels.md")
 
@@ -146,7 +150,7 @@ table#target-supports
 +codeExample(true)!= require("./examples/ordering.md")
 
 :marked
-  > The target selection screen will be skipped if only one target is visible.
+  >The target selection screen will be skipped if only one target is visible.
 
 +anchored("h3", "Custom targets")
 :marked
@@ -157,7 +161,7 @@ table#target-supports
 +codeExample(true)!= require("./examples/custom-target.md")
 
 :marked
-  > For more information on creating new targets, see the [docs](https://github.com/EagerIO/EmbedBox/blob/master/docs/new-targets.md).
+  >For more information on creating new targets, see the [docs](https://github.com/EagerIO/EmbedBox/blob/master/docs/new-targets.md).
 
 +anchored("h3", "API")
 
