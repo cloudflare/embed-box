@@ -708,10 +708,11 @@ button[data-run]
   background-size .8em .8em
 
   &:hover
-    background-color darken(brandYellow, 7%)
+    background-color lighten(brandYellow, 7%)
 
-  & + button[data-run]
-    margin-left 1em
+  &:hover:active, &.active
+    background-color darken(brandYellow, 8%)
+    box-shadow none
 
 .code-example
   antialiasedFonts()
@@ -720,10 +721,24 @@ button[data-run]
   width 100%
   position relative
   margin-bottom 2.5em
+  margin-top 1em
+
+  *:not(.code-example) + &
+    margin-top 2em
 
   button[data-run]
-    margin-top 1.5em
-    margin-left 1.5em
+    margin-top -1em
+
+  @media embedBoxDesktopMinWidthQuery
+    button[data-run]:first-child
+      margin-right .125em
+      margin-left .75em
+      border-top-right-radius 0
+      border-bottom-right-radius 0
+
+      + button[data-run]
+        border-top-left-radius 0
+        border-bottom-left-radius 0
 
   @media embedBoxMobileMaxWidthQuery
     button[data-run="inline"]
