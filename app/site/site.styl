@@ -112,11 +112,11 @@ html
     z-index 1
 
     .placeholder, .barrier
+      position absolute
+      top 0
+      right 0
       bottom 0
       left 0
-      position absolute
-      right 0
-      top 0
 
     .placeholder
       align-items center
@@ -128,15 +128,28 @@ html
         margin -.5em 0 0 -1.5em
 
     .barrier
-      background-image url(./assets/dotted.png)
-      background-repeat repeat
-      background-size 2px
+      background rgba(#000, .75)
+      color #fff
       cursor pointer
+      transition opacity .15s ease
       opacity 0
-      transition opacity 200ms ease-in-out
+      z-index 5
+
+      &::after
+        content "Click to interact with the demo."
+        position absolute
+        font-size 1.5em
+        top 0
+        right 0
+        bottom 1.5em
+        left 0
+        height 1.5em
+        line-height 1.5em
+        margin auto
+        text-align center
 
       &:hover
-        opacity .3
+        opacity 1
 
     iframe
       border 0
@@ -158,7 +171,7 @@ html
       width 20%
 
     tbody tr:nth-child(odd)
-      background-color rgba(255,255,255, .05)
+      background-color rgba(#fff, .05)
 
 .slide.share-slide
   padding-top 0
