@@ -14,17 +14,13 @@
   100%
     transform translate3d(0, -1.8em, 0)
 
-
 [data-component$="-target"]
-  roundedChildRadius = 3px
-
   flex 1 1 auto
   overflow auto
   -webkit-overflow-scrolling touch
 
   [data-content-slot]
     background lightGrayRGBA
-    border-radius roundedChildRadius
     display block
     margin 1em
     padding 1em
@@ -32,39 +28,42 @@
 
   .copy-container
     background lightGrayRGBA
-    border-radius roundedChildRadius
-    font-size .8em
     margin 2rem 0
     max-width 100vw
     position relative
 
     button.run
-      margin 0
-      padding .3em 1em
       position absolute
-      left 1.5em
-      top 1.5em
+      padding .4em 1.125em
+      margin 0
+      height 2.3em
+      top -1.1em
+      left 50%
+      transform translateX(-50%)
 
       &::after
-        color black
         content "Copied"
+        color #000
         display inline-block
-        left 100%
-        margin-left 0.5em
+        left 0
+        right 0
+        margin auto
         opacity 0
         position absolute
+        pointer-events none
 
       &[data-status="copied"]::after
-        animation copied 400ms linear
+        animation copied 400ms ease
         animation-fill-mode forwards
         opacity 1
 
     > .copyable
       display block
+      font-size .8em
       font-family monospaceFonts
       margin 0
       padding 1.3em
-      padding-top 4.3em
+      padding-top 2.8em
       white-space pre-wrap
       width 100%
       word-wrap break-word

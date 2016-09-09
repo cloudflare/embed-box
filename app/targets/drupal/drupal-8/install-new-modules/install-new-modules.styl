@@ -9,10 +9,11 @@ a
   text-decoration none
 
 button
+
   &.install
     background-color #4da5f0
     border 1px solid #2b69d2
-    border-radius 0.7em
+    border-radius .7em
     color #fff
     padding .5em 1em .5em .7em
 
@@ -60,17 +61,16 @@ h2
   align-items center
   margin-bottom 1em
 
-  .item
-    & + .item::before
-      content "»"
-      display inline-block
-      margin 0 .4em
+  .item + .item::before
+    content "»"
+    display inline-block
+    margin 0 .4em
 
 .modules
   border 1px solid #dadada
   font-family sans-serif
   padding-bottom 4em
-  margin-top 0.5em
+  margin-top .5em
 
   header
     font-size 1.2em
@@ -79,6 +79,7 @@ h2
 
   table
     width 100%
+
     thead, tr
       background-color #eee
 
