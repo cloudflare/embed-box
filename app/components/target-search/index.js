@@ -10,6 +10,11 @@ import findIndex from "lodash.findindex"
 const {svgToComponent, search: SearchIcon, clear: ClearIcon, next: NextIcon} = icons
 const entryQuery = id => `.entry[data-id=${id}]`
 
+const DELTA_LOOKUP = {
+  [KM.up]: -1,
+  [KM.down]: 1
+}
+
 export default class TargetSearch extends BaseComponent {
   static template = template;
   static stylesheet = stylesheet;
@@ -49,12 +54,10 @@ export default class TargetSearch extends BaseComponent {
   }
 
   @autobind
-  handleDelgatedKeydown({detail: {keyCode, nativeEvent}}) {
-    const delta = {
-      [KM.up]: -1,
-      [KM.down]: 1
-    }[keyCode || nativeEvent.keyCode]
+  handleDelgatedKeydown({detail: {keyCode, nativeEvent, route}}) {
+    const delta = DELTA_LOOKUP[keyCode || nativeEvent.keyCode]
 
+    if (route !== "home") return
     if (!delta) return
 
     if (nativeEvent) nativeEvent.preventDefault()
@@ -76,9 +79,10 @@ export default class TargetSearch extends BaseComponent {
   }
 
   @autobind
-  handleDelgatedKeypress({detail: {keyCode, nativeEvent}}) {
+  handleDelgatedKeypress({detail: {keyCode, nativeEvent, route}}) {
     keyCode = keyCode || nativeEvent.keyCode
 
+    if (route !== "home") return
     if (keyCode !== KM.enter) return
     if (nativeEvent) nativeEvent.preventDefault()
 
@@ -180,7 +184,7 @@ export default class TargetSearch extends BaseComponent {
       this.updateRefs()
 
       entry.addEventListener("click", () => {
-        this.selectEntry(spec.id)
+        this.selectEntry(spec.id, {focus: false})
         this.submit()
       })
 
