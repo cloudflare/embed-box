@@ -8,6 +8,7 @@ import polyfillCustomEvent from "lib/custom-event"
 import polyfillRequestAnimationFrame from "lib/request-animation-frame"
 import {createStore} from "lib/store"
 import {getRoute, setRoute} from "lib/routing"
+import createThemeStylesheet from "lib/create-theme-stylesheet"
 
 const VISIBILITY_ATTRIBUTE = "data-visibility"
 const SCROLL_STATE_ATTRIBUTE = "data-embed-box-scroll-state"
@@ -262,30 +263,7 @@ export default class EmbedBoxBase {
     const {theme, constructor: {iframeStylesheet}} = this
     const style = this.iframe.document.createElement("style")
 
-    const $ = value => `${value} !important`
-
-    style.innerHTML = iframeStylesheet + `
-      [data-component="application"] .modal {
-        background-color: ${$(theme.backgroundColor)};
-        color: ${$(theme.textColor)};
-      }
-
-      a, .accent-color {
-        color: ${$(theme.accentColor)};
-      }
-
-      .button.primary, button.primary,
-      [data-component="target-search"] .entries .entry[data-selected],
-      [data-component="target-search"] .entries .entry:active,
-      [data-component="application"][is-touch-device="true"] [data-component="target-search"] .entries .entry:hover,
-      .accent-background-color {
-        background: ${$(theme.accentColor)};
-      }
-
-      .target-instructions .steps li:before {
-        background: ${$(theme.accentColor)};
-      }
-    ` + extension
+    style.innerHTML = [iframeStylesheet, createThemeStylesheet(theme), extension].join("; ")
 
     this.iframe.document.head.appendChild(style)
   }
