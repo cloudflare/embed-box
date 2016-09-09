@@ -31,9 +31,9 @@ export default class Application extends BaseComponent {
       button.appendChild(icon.render())
     })
 
-    iframeWindow.addEventListener("keyup", this.delgateKeyEvent)
+    iframeWindow.addEventListener("keyup", this.delegateKeyEvent)
     iframeWindow.addEventListener("keydown", this.handleKeyNavigation)
-    iframeWindow.addEventListener("keypress", this.delgateKeyEvent)
+    iframeWindow.addEventListener("keypress", this.delegateKeyEvent)
 
     this.element.setAttribute("is-touch-device", "ontouchstart" in document.documentElement)
     this.element.setAttribute("is-iphone", (!!navigator.userAgent.match(/iPhone/i) || !!navigator.userAgent.match(/iPod/i)) && !!navigator.userAgent.match(/WebKit/i))
@@ -93,17 +93,17 @@ export default class Application extends BaseComponent {
   }
 
   @autobind
-  delgateKeyEvent(nativeEvent) {
+  delegateKeyEvent(nativeEvent) {
     const {PolyFilledCustomEvent} = this.store.iframe.window
     const receiver = this.refs.content.querySelector("[data-event-receiver]")
 
     if (!receiver) return
 
-    const delgated = new PolyFilledCustomEvent(`dispatched-${nativeEvent.type}`, {
-      detail: {nativeEvent}
+    const delegated = new PolyFilledCustomEvent(`dispatched-${nativeEvent.type}`, {
+      detail: {nativeEvent, route: this.route}
     })
 
-    receiver.dispatchEvent(delgated)
+    receiver.dispatchEvent(delegated)
   }
 
   @autobind
@@ -124,7 +124,7 @@ export default class Application extends BaseComponent {
         break
 
       default:
-        this.delgateKeyEvent(event)
+        this.delegateKeyEvent(event)
     }
   }
 
