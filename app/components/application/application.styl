@@ -132,11 +132,11 @@
         background lightGrayRGBA
         box-shadow none
 
-      &:not(:hover)
-        color subtleTextRGBA
-
       > .icon
         flex 1 0 auto
         width 1em
         height 1em
         stroke currentColor
+
+      &:not(:hover) .icon
+        stroke-opacity .5

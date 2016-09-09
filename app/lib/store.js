@@ -1,6 +1,17 @@
+const DEFAULT_THEME = {
+  accentColor: "#2d88f3",
+  backgroundColor: "#ffffff",
+  screenshotAnnotationColor: "#fde757",
+  textColor: "#000000"
+}
+
 export function createStore(spec = {}) {
   const iframe = document.createElement("iframe")
   const {autoDownload = true, labels = {}} = spec
+
+  const theme = {...DEFAULT_THEME, ...spec.theme}
+
+  if (!theme.stepNumberColor) theme.stepNumberColor = theme.accentColor
 
   return {
     name: spec.name || "a plugin",
@@ -36,6 +47,8 @@ export function createStore(spec = {}) {
       ...labels
     },
 
-    routing: spec.routing || false
+    routing: spec.routing || false,
+
+    theme
   }
 }

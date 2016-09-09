@@ -8,6 +8,7 @@ import polyfillCustomEvent from "lib/custom-event"
 import polyfillRequestAnimationFrame from "lib/request-animation-frame"
 import {createStore} from "lib/store"
 import {getRoute, setRoute} from "lib/routing"
+import createThemeStylesheet from "lib/create-theme-stylesheet"
 
 const VISIBILITY_ATTRIBUTE = "data-visibility"
 const SCROLL_STATE_ATTRIBUTE = "data-embed-box-scroll-state"
@@ -37,12 +38,6 @@ export default class EmbedBoxBase {
     src: "about:blank"
   };
 
-  static theme = {
-    accentColor: "#2d88f3",
-    backgroundColor: "#ffffff",
-    textColor: "#000000"
-  };
-
   constructor(spec = {}) {
     polyfillRequestAnimationFrame(window)
 
@@ -54,8 +49,7 @@ export default class EmbedBoxBase {
       className = "",
       container = document.body,
       customTargets = [],
-      targets: targetConfigs = {},
-      theme = {}
+      targets: targetConfigs = {}
     } = spec
 
     // HACK: Custom targets have a different BaseComponent instance.
@@ -84,7 +78,6 @@ export default class EmbedBoxBase {
       iframe,
       container,
       events: spec.events || {},
-      theme: {...this.constructor.theme, ...theme},
       style: document.createElement("style")
     })
 
@@ -131,7 +124,7 @@ export default class EmbedBoxBase {
       // :active style fix for Safari
       iframe.document.addEventListener("touchstart", () => {}, true)
 
-      this._appendIframeStylesheet(spec.style)
+      this._applyTheme(spec.style)
       polyfillCustomEvent(iframe)
 
       this.application = new Application(this.iframe.document.body, {
@@ -258,34 +251,12 @@ export default class EmbedBoxBase {
     }
   }
 
-  _appendIframeStylesheet(extension = "") {
-    const {theme, constructor: {iframeStylesheet}} = this
+  _applyTheme(extension = "") {
+    const {iframeStylesheet} = this.constructor
+    const {theme} = this._store
     const style = this.iframe.document.createElement("style")
 
-    const $ = value => `${value} !important`
-
-    style.innerHTML = iframeStylesheet + `
-      [data-component="application"] .modal {
-        background-color: ${$(theme.backgroundColor)};
-        color: ${$(theme.textColor)};
-      }
-
-      a, .accent-color {
-        color: ${$(theme.accentColor)};
-      }
-
-      .button.primary, button.primary,
-      [data-component="target-search"] .entries .entry[data-selected],
-      [data-component="target-search"] .entries .entry:active,
-      [data-component="application"][is-touch-device="true"] [data-component="target-search"] .entries .entry:hover,
-      .accent-background-color {
-        background: ${$(theme.accentColor)};
-      }
-
-      .target-instructions .steps li:before {
-        background: ${$(theme.accentColor)};
-      }
-    ` + extension
+    style.innerHTML = [iframeStylesheet, createThemeStylesheet(theme), extension].join(" ")
 
     this.iframe.document.head.appendChild(style)
   }

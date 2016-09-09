@@ -109,6 +109,7 @@
       > svg
         display block
         width 100%
+        fill currentColor
 
       path.is-light-source-facing
         opacity .75
@@ -127,11 +128,11 @@
 
     .versions
       align-items center
-      color subtleTextRGBA
       font-size .9em
 
       .label
         margin-right .5em
+        opacity .5
 
       select
         display inline-block
@@ -140,13 +141,14 @@
         cursor pointer
         font-family inherit
         font-size inherit
+        color inherit
+
+        &:not(:hover)
+          opacity .5
 
         &:focus
           outline none
-          border 1px dashed lightLineGrayRGBA
-
-        &:hover
-          background #fff
+          border 1px dashed currentColor
 
   ol.steps
     width targetInstructionsMaxWidth

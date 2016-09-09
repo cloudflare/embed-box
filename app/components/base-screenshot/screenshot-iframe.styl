@@ -26,12 +26,6 @@ div, footer, header, main, section
   position relative
   width 100%
 
-  .focal-point
-    box-shadow 0 0 4px 2px attentionYellow
-
-  a.focal-point
-    background-color attentionYellow
-
   .arrow-parent, .relative-arrow
     position relative
     z-index 10
@@ -51,7 +45,6 @@ div, footer, header, main, section
     display inline-flex
 
     &::before, &::after
-      color attentionYellow
       display inline-block
       font-family sans-serif
       font-weight normal
@@ -81,22 +74,3 @@ div, footer, header, main, section
   .relative-arrow::after
     left 100%
 
-  // TODO: Consider removing SVG arrows as they align poorly across browsers.
-  .arrow
-    display inline-block
-    height 10em
-    opacity .8
-    position absolute
-    z-index 10
-
-    .relative
-      display block
-      height 100%
-      position relative
-
-    svg
-      display block
-      height 100%
-
-      .inner-stroke
-        fill attentionYellow

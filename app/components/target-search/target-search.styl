@@ -13,12 +13,14 @@
     z-index 2 // Fix box-shadow translucent stacking artifacts
 
     label
-      color darken(gray, 45%)
+      color inherit
+      opacity .5
       margin-bottom .5em
 
     .input-wrapper
       position relative
       width 100%
+      color #000
 
       > .icon
         position absolute
@@ -30,10 +32,12 @@
         bottom 0
         margin-top auto
         margin-bottom auto
-        stroke subtleTextRGBA
+        stroke currentColor
+        stroke-opacity .5
 
     .search
       background #fff
+      color currentColor
       border 0
       width 100%
       border-radius 5em
@@ -73,7 +77,8 @@
         bottom 0
         margin-top auto
         margin-bottom auto
-        stroke subtleTextRGBA
+        stroke currentColor
+        stroke-opacity .5
 
       &:hover .icon
         opacity 1
