@@ -62,7 +62,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ 	__webpack_require__.p = "/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 38);
+/******/ 	return __webpack_require__(__webpack_require__.s = 40);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -640,7 +640,7 @@ function pug_rethrow(err, filename, lineno, str){
     throw err;
   }
   try {
-    str = str || __webpack_require__(37).readFileSync(filename, 'utf8')
+    str = str || __webpack_require__(39).readFileSync(filename, 'utf8')
   } catch (ex) {
     pug_rethrow(err, null, lineno)
   }
@@ -682,19 +682,19 @@ module.exports = (typeof Array.from === 'function' ?
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_components_base_component__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__close_svg__ = __webpack_require__(31);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__close_svg__ = __webpack_require__(33);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__close_svg___default = __WEBPACK_IMPORTED_MODULE_1__close_svg__ && __WEBPACK_IMPORTED_MODULE_1__close_svg__.__esModule ? function() { return __WEBPACK_IMPORTED_MODULE_1__close_svg__['default'] } : function() { return __WEBPACK_IMPORTED_MODULE_1__close_svg__; };
 /* harmony import */ __webpack_require__.d(__WEBPACK_IMPORTED_MODULE_1__close_svg___default, 'a', __WEBPACK_IMPORTED_MODULE_1__close_svg___default);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__previous_svg__ = __webpack_require__(33);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__previous_svg__ = __webpack_require__(35);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__previous_svg___default = __WEBPACK_IMPORTED_MODULE_2__previous_svg__ && __WEBPACK_IMPORTED_MODULE_2__previous_svg__.__esModule ? function() { return __WEBPACK_IMPORTED_MODULE_2__previous_svg__['default'] } : function() { return __WEBPACK_IMPORTED_MODULE_2__previous_svg__; };
 /* harmony import */ __webpack_require__.d(__WEBPACK_IMPORTED_MODULE_2__previous_svg___default, 'a', __WEBPACK_IMPORTED_MODULE_2__previous_svg___default);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__next_svg__ = __webpack_require__(32);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__next_svg__ = __webpack_require__(34);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__next_svg___default = __WEBPACK_IMPORTED_MODULE_3__next_svg__ && __WEBPACK_IMPORTED_MODULE_3__next_svg__.__esModule ? function() { return __WEBPACK_IMPORTED_MODULE_3__next_svg__['default'] } : function() { return __WEBPACK_IMPORTED_MODULE_3__next_svg__; };
 /* harmony import */ __webpack_require__.d(__WEBPACK_IMPORTED_MODULE_3__next_svg___default, 'a', __WEBPACK_IMPORTED_MODULE_3__next_svg___default);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__search_svg__ = __webpack_require__(34);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__search_svg__ = __webpack_require__(36);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__search_svg___default = __WEBPACK_IMPORTED_MODULE_4__search_svg__ && __WEBPACK_IMPORTED_MODULE_4__search_svg__.__esModule ? function() { return __WEBPACK_IMPORTED_MODULE_4__search_svg__['default'] } : function() { return __WEBPACK_IMPORTED_MODULE_4__search_svg__; };
 /* harmony import */ __webpack_require__.d(__WEBPACK_IMPORTED_MODULE_4__search_svg___default, 'a', __WEBPACK_IMPORTED_MODULE_4__search_svg___default);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__clear_svg__ = __webpack_require__(30);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__clear_svg__ = __webpack_require__(32);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__clear_svg___default = __WEBPACK_IMPORTED_MODULE_5__clear_svg__ && __WEBPACK_IMPORTED_MODULE_5__clear_svg__.__esModule ? function() { return __WEBPACK_IMPORTED_MODULE_5__clear_svg__['default'] } : function() { return __WEBPACK_IMPORTED_MODULE_5__clear_svg__; };
 /* harmony import */ __webpack_require__.d(__WEBPACK_IMPORTED_MODULE_5__clear_svg___default, 'a', __WEBPACK_IMPORTED_MODULE_5__clear_svg___default);
 
@@ -812,10 +812,10 @@ function setRoute() {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_array_from__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_array_from___default = __WEBPACK_IMPORTED_MODULE_0_array_from__ && __WEBPACK_IMPORTED_MODULE_0_array_from__.__esModule ? function() { return __WEBPACK_IMPORTED_MODULE_0_array_from__['default'] } : function() { return __WEBPACK_IMPORTED_MODULE_0_array_from__; };
 /* harmony import */ __webpack_require__.d(__WEBPACK_IMPORTED_MODULE_0_array_from___default, 'a', __WEBPACK_IMPORTED_MODULE_0_array_from___default);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__embed_box_styl__ = __webpack_require__(24);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__embed_box_styl__ = __webpack_require__(26);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__embed_box_styl___default = __WEBPACK_IMPORTED_MODULE_1__embed_box_styl__ && __WEBPACK_IMPORTED_MODULE_1__embed_box_styl__.__esModule ? function() { return __WEBPACK_IMPORTED_MODULE_1__embed_box_styl__['default'] } : function() { return __WEBPACK_IMPORTED_MODULE_1__embed_box_styl__; };
 /* harmony import */ __webpack_require__.d(__WEBPACK_IMPORTED_MODULE_1__embed_box_styl___default, 'a', __WEBPACK_IMPORTED_MODULE_1__embed_box_styl___default);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__iframe_styl__ = __webpack_require__(25);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__iframe_styl__ = __webpack_require__(27);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__iframe_styl___default = __WEBPACK_IMPORTED_MODULE_2__iframe_styl__ && __WEBPACK_IMPORTED_MODULE_2__iframe_styl__.__esModule ? function() { return __WEBPACK_IMPORTED_MODULE_2__iframe_styl__['default'] } : function() { return __WEBPACK_IMPORTED_MODULE_2__iframe_styl__; };
 /* harmony import */ __webpack_require__.d(__WEBPACK_IMPORTED_MODULE_2__iframe_styl___default, 'a', __WEBPACK_IMPORTED_MODULE_2__iframe_styl___default);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_autobind_decorator__ = __webpack_require__(2);
@@ -823,10 +823,11 @@ function setRoute() {
 /* harmony import */ __webpack_require__.d(__WEBPACK_IMPORTED_MODULE_3_autobind_decorator___default, 'a', __WEBPACK_IMPORTED_MODULE_3_autobind_decorator___default);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_components_base_component__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_components_application__ = __webpack_require__(10);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_lib_custom_event__ = __webpack_require__(13);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_lib_request_animation_frame__ = __webpack_require__(14);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_lib_store__ = __webpack_require__(15);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_lib_custom_event__ = __webpack_require__(15);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_lib_request_animation_frame__ = __webpack_require__(16);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_lib_store__ = __webpack_require__(17);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_lib_routing__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10_lib_create_theme_stylesheet__ = __webpack_require__(14);
 
 /* harmony export */ __webpack_require__.d(exports, "default", function() { return EmbedBoxBase; });
 
@@ -866,6 +867,7 @@ function _applyDecoratedDescriptor(target, property, decorators, descriptor, con
 
   return desc;
 }
+
 
 
 
@@ -921,8 +923,6 @@ var EmbedBoxBase = (_class = (_temp = _class2 = function () {
     var customTargets = _spec$customTargets === undefined ? [] : _spec$customTargets;
     var _spec$targets = spec.targets;
     var targetConfigs = _spec$targets === undefined ? {} : _spec$targets;
-    var _spec$theme = spec.theme;
-    var theme = _spec$theme === undefined ? {} : _spec$theme;
 
     // HACK: Custom targets have a different BaseComponent instance.
     // This ensures all components have access to the store.
@@ -953,7 +953,6 @@ var EmbedBoxBase = (_class = (_temp = _class2 = function () {
       iframe: iframe,
       container: container,
       events: spec.events || {},
-      theme: _extends({}, this.constructor.theme, theme),
       style: document.createElement("style")
     });
 
@@ -1001,7 +1000,7 @@ var EmbedBoxBase = (_class = (_temp = _class2 = function () {
       // :active style fix for Safari
       iframe.document.addEventListener("touchstart", function () {}, true);
 
-      _this._appendIframeStylesheet(spec.style);
+      _this._applyTheme(spec.style);
       __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_6_lib_custom_event__["a" /* default */])(iframe);
 
       _this.application = new __WEBPACK_IMPORTED_MODULE_5_components_application__["a" /* default */](_this.iframe.document.body, {
@@ -1074,18 +1073,14 @@ var EmbedBoxBase = (_class = (_temp = _class2 = function () {
     }
   };
 
-  EmbedBoxBase.prototype._appendIframeStylesheet = function _appendIframeStylesheet() {
+  EmbedBoxBase.prototype._applyTheme = function _applyTheme() {
     var extension = arguments.length <= 0 || arguments[0] === undefined ? "" : arguments[0];
-    var theme = this.theme;
     var iframeStylesheet = this.constructor.iframeStylesheet;
+    var theme = this._store.theme;
 
     var style = this.iframe.document.createElement("style");
 
-    var $ = function $(value) {
-      return value + " !important";
-    };
-
-    style.innerHTML = iframeStylesheet + ("\n      [data-component=\"application\"] .modal {\n        background-color: " + $(theme.backgroundColor) + ";\n        color: " + $(theme.textColor) + ";\n      }\n\n      a, .accent-color {\n        color: " + $(theme.accentColor) + ";\n      }\n\n      .button.primary, button.primary,\n      [data-component=\"target-search\"] .entries .entry[data-selected],\n      [data-component=\"target-search\"] .entries .entry:active,\n      [data-component=\"application\"][is-touch-device=\"true\"] [data-component=\"target-search\"] .entries .entry:hover,\n      .accent-background-color {\n        background: " + $(theme.accentColor) + ";\n      }\n\n      .target-instructions .steps li:before {\n        background: " + $(theme.accentColor) + ";\n      }\n    ") + extension;
+    style.innerHTML = [iframeStylesheet, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_10_lib_create_theme_stylesheet__["a" /* default */])(theme), extension].join(" ");
 
     this.iframe.document.head.appendChild(style);
   };
@@ -1192,11 +1187,7 @@ var EmbedBoxBase = (_class = (_temp = _class2 = function () {
   return EmbedBoxBase;
 }(), _class2.stylesheet = __WEBPACK_IMPORTED_MODULE_1__embed_box_styl___default.a, _class2.iframeStylesheet = __WEBPACK_IMPORTED_MODULE_2__iframe_styl___default.a, _class2.fetchedTargets = [], _class2.iframeAttributes = (_class2$iframeAttribu = {
   allowTransparency: ""
-}, _class2$iframeAttribu[VISIBILITY_ATTRIBUTE] = "hidden", _class2$iframeAttribu.frameBorder = "0", _class2$iframeAttribu.srcdoc = "<div data-iframe-loader-shim style='display: none;'></div>", _class2$iframeAttribu.src = "about:blank", _class2$iframeAttribu), _class2.theme = {
-  accentColor: "#2d88f3",
-  backgroundColor: "#ffffff",
-  textColor: "#000000"
-}, _temp), (_applyDecoratedDescriptor(_class.prototype, "_handleTransitionEnd", [__WEBPACK_IMPORTED_MODULE_3_autobind_decorator___default.a], Object.getOwnPropertyDescriptor(_class.prototype, "_handleTransitionEnd"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "hide", [__WEBPACK_IMPORTED_MODULE_3_autobind_decorator___default.a], Object.getOwnPropertyDescriptor(_class.prototype, "hide"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "show", [__WEBPACK_IMPORTED_MODULE_3_autobind_decorator___default.a], Object.getOwnPropertyDescriptor(_class.prototype, "show"), _class.prototype)), _class);
+}, _class2$iframeAttribu[VISIBILITY_ATTRIBUTE] = "hidden", _class2$iframeAttribu.frameBorder = "0", _class2$iframeAttribu.srcdoc = "<div data-iframe-loader-shim style='display: none;'></div>", _class2$iframeAttribu.src = "about:blank", _class2$iframeAttribu), _temp), (_applyDecoratedDescriptor(_class.prototype, "_handleTransitionEnd", [__WEBPACK_IMPORTED_MODULE_3_autobind_decorator___default.a], Object.getOwnPropertyDescriptor(_class.prototype, "_handleTransitionEnd"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "hide", [__WEBPACK_IMPORTED_MODULE_3_autobind_decorator___default.a], Object.getOwnPropertyDescriptor(_class.prototype, "hide"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "show", [__WEBPACK_IMPORTED_MODULE_3_autobind_decorator___default.a], Object.getOwnPropertyDescriptor(_class.prototype, "show"), _class.prototype)), _class);
 
 
 /***/ },
@@ -1422,10 +1413,10 @@ module.exports = (function() {
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__application_styl__ = __webpack_require__(21);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__application_styl__ = __webpack_require__(23);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__application_styl___default = __WEBPACK_IMPORTED_MODULE_0__application_styl__ && __WEBPACK_IMPORTED_MODULE_0__application_styl__.__esModule ? function() { return __WEBPACK_IMPORTED_MODULE_0__application_styl__['default'] } : function() { return __WEBPACK_IMPORTED_MODULE_0__application_styl__; };
 /* harmony import */ __webpack_require__.d(__WEBPACK_IMPORTED_MODULE_0__application_styl___default, 'a', __WEBPACK_IMPORTED_MODULE_0__application_styl___default);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__application_pug__ = __webpack_require__(27);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__application_pug__ = __webpack_require__(29);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__application_pug___default = __WEBPACK_IMPORTED_MODULE_1__application_pug__ && __WEBPACK_IMPORTED_MODULE_1__application_pug__.__esModule ? function() { return __WEBPACK_IMPORTED_MODULE_1__application_pug__['default'] } : function() { return __WEBPACK_IMPORTED_MODULE_1__application_pug__; };
 /* harmony import */ __webpack_require__.d(__WEBPACK_IMPORTED_MODULE_1__application_pug___default, 'a', __WEBPACK_IMPORTED_MODULE_1__application_pug___default);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_autobind_decorator__ = __webpack_require__(2);
@@ -1517,9 +1508,9 @@ var Application = (_class = (_temp = _class2 = function (_BaseComponent) {
       button.appendChild(icon.render());
     });
 
-    iframeWindow.addEventListener("keyup", _this.delgateKeyEvent);
+    iframeWindow.addEventListener("keyup", _this.delegateKeyEvent);
     iframeWindow.addEventListener("keydown", _this.handleKeyNavigation);
-    iframeWindow.addEventListener("keypress", _this.delgateKeyEvent);
+    iframeWindow.addEventListener("keypress", _this.delegateKeyEvent);
 
     _this.element.setAttribute("is-touch-device", "ontouchstart" in document.documentElement);
     _this.element.setAttribute("is-iphone", (!!navigator.userAgent.match(/iPhone/i) || !!navigator.userAgent.match(/iPod/i)) && !!navigator.userAgent.match(/WebKit/i));
@@ -1554,18 +1545,18 @@ var Application = (_class = (_temp = _class2 = function (_BaseComponent) {
     this.onClose();
   };
 
-  Application.prototype.delgateKeyEvent = function delgateKeyEvent(nativeEvent) {
+  Application.prototype.delegateKeyEvent = function delegateKeyEvent(nativeEvent) {
     var PolyFilledCustomEvent = this.store.iframe.window.PolyFilledCustomEvent;
 
     var receiver = this.refs.content.querySelector("[data-event-receiver]");
 
     if (!receiver) return;
 
-    var delgated = new PolyFilledCustomEvent("dispatched-" + nativeEvent.type, {
-      detail: { nativeEvent: nativeEvent }
+    var delegated = new PolyFilledCustomEvent("dispatched-" + nativeEvent.type, {
+      detail: { nativeEvent: nativeEvent, route: this.route }
     });
 
-    receiver.dispatchEvent(delgated);
+    receiver.dispatchEvent(delegated);
   };
 
   Application.prototype.handleKeyNavigation = function handleKeyNavigation(event) {
@@ -1585,7 +1576,7 @@ var Application = (_class = (_temp = _class2 = function (_BaseComponent) {
         break;
 
       default:
-        this.delgateKeyEvent(event);
+        this.delegateKeyEvent(event);
     }
   };
 
@@ -1729,7 +1720,7 @@ var Application = (_class = (_temp = _class2 = function (_BaseComponent) {
   }]);
 
   return Application;
-}(__WEBPACK_IMPORTED_MODULE_3_components_base_component__["a" /* default */]), _class2.template = __WEBPACK_IMPORTED_MODULE_1__application_pug___default.a, _class2.stylesheet = __WEBPACK_IMPORTED_MODULE_0__application_styl___default.a, _temp), (_applyDecoratedDescriptor(_class.prototype, "closeModal", [__WEBPACK_IMPORTED_MODULE_2_autobind_decorator___default.a], Object.getOwnPropertyDescriptor(_class.prototype, "closeModal"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "delgateKeyEvent", [__WEBPACK_IMPORTED_MODULE_2_autobind_decorator___default.a], Object.getOwnPropertyDescriptor(_class.prototype, "delgateKeyEvent"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "handleKeyNavigation", [__WEBPACK_IMPORTED_MODULE_2_autobind_decorator___default.a], Object.getOwnPropertyDescriptor(_class.prototype, "handleKeyNavigation"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "handleTransition", [__WEBPACK_IMPORTED_MODULE_2_autobind_decorator___default.a], Object.getOwnPropertyDescriptor(_class.prototype, "handleTransition"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "navigateToHome", [__WEBPACK_IMPORTED_MODULE_2_autobind_decorator___default.a], Object.getOwnPropertyDescriptor(_class.prototype, "navigateToHome"), _class.prototype)), _class);
+}(__WEBPACK_IMPORTED_MODULE_3_components_base_component__["a" /* default */]), _class2.template = __WEBPACK_IMPORTED_MODULE_1__application_pug___default.a, _class2.stylesheet = __WEBPACK_IMPORTED_MODULE_0__application_styl___default.a, _temp), (_applyDecoratedDescriptor(_class.prototype, "closeModal", [__WEBPACK_IMPORTED_MODULE_2_autobind_decorator___default.a], Object.getOwnPropertyDescriptor(_class.prototype, "closeModal"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "delegateKeyEvent", [__WEBPACK_IMPORTED_MODULE_2_autobind_decorator___default.a], Object.getOwnPropertyDescriptor(_class.prototype, "delegateKeyEvent"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "handleKeyNavigation", [__WEBPACK_IMPORTED_MODULE_2_autobind_decorator___default.a], Object.getOwnPropertyDescriptor(_class.prototype, "handleKeyNavigation"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "handleTransition", [__WEBPACK_IMPORTED_MODULE_2_autobind_decorator___default.a], Object.getOwnPropertyDescriptor(_class.prototype, "handleTransition"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "navigateToHome", [__WEBPACK_IMPORTED_MODULE_2_autobind_decorator___default.a], Object.getOwnPropertyDescriptor(_class.prototype, "navigateToHome"), _class.prototype)), _class);
 
 
 /***/ },
@@ -1737,10 +1728,10 @@ var Application = (_class = (_temp = _class2 = function (_BaseComponent) {
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__target_search_pug__ = __webpack_require__(28);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__target_search_pug__ = __webpack_require__(30);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__target_search_pug___default = __WEBPACK_IMPORTED_MODULE_0__target_search_pug__ && __WEBPACK_IMPORTED_MODULE_0__target_search_pug__.__esModule ? function() { return __WEBPACK_IMPORTED_MODULE_0__target_search_pug__['default'] } : function() { return __WEBPACK_IMPORTED_MODULE_0__target_search_pug__; };
 /* harmony import */ __webpack_require__.d(__WEBPACK_IMPORTED_MODULE_0__target_search_pug___default, 'a', __WEBPACK_IMPORTED_MODULE_0__target_search_pug___default);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__target_search_styl__ = __webpack_require__(22);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__target_search_styl__ = __webpack_require__(24);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__target_search_styl___default = __WEBPACK_IMPORTED_MODULE_1__target_search_styl__ && __WEBPACK_IMPORTED_MODULE_1__target_search_styl__.__esModule ? function() { return __WEBPACK_IMPORTED_MODULE_1__target_search_styl__['default'] } : function() { return __WEBPACK_IMPORTED_MODULE_1__target_search_styl__; };
 /* harmony import */ __webpack_require__.d(__WEBPACK_IMPORTED_MODULE_1__target_search_styl___default, 'a', __WEBPACK_IMPORTED_MODULE_1__target_search_styl___default);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_autobind_decorator__ = __webpack_require__(2);
@@ -1749,13 +1740,13 @@ var Application = (_class = (_temp = _class2 = function (_BaseComponent) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_components_base_component__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_components_icons__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_lib_key_map__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_lodash_findindex__ = __webpack_require__(26);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_lodash_findindex__ = __webpack_require__(28);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_lodash_findindex___default = __WEBPACK_IMPORTED_MODULE_6_lodash_findindex__ && __WEBPACK_IMPORTED_MODULE_6_lodash_findindex__.__esModule ? function() { return __WEBPACK_IMPORTED_MODULE_6_lodash_findindex__['default'] } : function() { return __WEBPACK_IMPORTED_MODULE_6_lodash_findindex__; };
 /* harmony import */ __webpack_require__.d(__WEBPACK_IMPORTED_MODULE_6_lodash_findindex___default, 'a', __WEBPACK_IMPORTED_MODULE_6_lodash_findindex___default);
 
 /* harmony export */ __webpack_require__.d(exports, "a", function() { return TargetSearch; });var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _desc, _value, _class, _class2, _temp2;
+var _DELTA_LOOKUP, _desc, _value, _class, _class2, _temp2;
 
 function _defaults(obj, defaults) { var keys = Object.getOwnPropertyNames(defaults); for (var i = 0; i < keys.length; i++) { var key = keys[i]; var value = Object.getOwnPropertyDescriptor(defaults, key); if (value && value.configurable && obj[key] === undefined) { Object.defineProperty(obj, key, value); } } return obj; }
 
@@ -1812,6 +1803,8 @@ var entryQuery = function entryQuery(id) {
   return ".entry[data-id=" + id + "]";
 };
 
+var DELTA_LOOKUP = (_DELTA_LOOKUP = {}, _DELTA_LOOKUP[__WEBPACK_IMPORTED_MODULE_5_lib_key_map__["a" /* default */].up] = -1, _DELTA_LOOKUP[__WEBPACK_IMPORTED_MODULE_5_lib_key_map__["a" /* default */].down] = 1, _DELTA_LOOKUP);
+
 var TargetSearch = (_class = (_temp2 = _class2 = function (_BaseComponent) {
   _inherits(TargetSearch, _BaseComponent);
 
@@ -1857,14 +1850,14 @@ var TargetSearch = (_class = (_temp2 = _class2 = function (_BaseComponent) {
   };
 
   TargetSearch.prototype.handleDelgatedKeydown = function handleDelgatedKeydown(_ref2) {
-    var _KM$up$KM$down;
-
     var _ref2$detail = _ref2.detail;
     var keyCode = _ref2$detail.keyCode;
     var nativeEvent = _ref2$detail.nativeEvent;
+    var route = _ref2$detail.route;
 
-    var delta = (_KM$up$KM$down = {}, _KM$up$KM$down[__WEBPACK_IMPORTED_MODULE_5_lib_key_map__["a" /* default */].up] = -1, _KM$up$KM$down[__WEBPACK_IMPORTED_MODULE_5_lib_key_map__["a" /* default */].down] = 1, _KM$up$KM$down)[keyCode || nativeEvent.keyCode];
+    var delta = DELTA_LOOKUP[keyCode || nativeEvent.keyCode];
 
+    if (route !== "home") return;
     if (!delta) return;
 
     if (nativeEvent) nativeEvent.preventDefault();
@@ -1896,9 +1889,11 @@ var TargetSearch = (_class = (_temp2 = _class2 = function (_BaseComponent) {
     var _ref4$detail = _ref4.detail;
     var keyCode = _ref4$detail.keyCode;
     var nativeEvent = _ref4$detail.nativeEvent;
+    var route = _ref4$detail.route;
 
     keyCode = keyCode || nativeEvent.keyCode;
 
+    if (route !== "home") return;
     if (keyCode !== __WEBPACK_IMPORTED_MODULE_5_lib_key_map__["a" /* default */].enter) return;
     if (nativeEvent) nativeEvent.preventDefault();
 
@@ -1914,6 +1909,7 @@ var TargetSearch = (_class = (_temp2 = _class2 = function (_BaseComponent) {
   TargetSearch.prototype.selectEntry = function selectEntry(selectedId) {
     var _this2 = this;
 
+    var options = arguments.length <= 1 || arguments[1] === undefined ? { focus: true } : arguments[1];
     var entrySpecs = this.entrySpecs;
     var _refs2 = this.refs;
     var entries = _refs2.entries;
@@ -1942,6 +1938,8 @@ var TargetSearch = (_class = (_temp2 = _class2 = function (_BaseComponent) {
     if (search !== iframeDocument.activeElement && entryEl) {
       entryEl.focus();
     }
+
+    if (options.focus) entryEl.scrollIntoView(false);
   };
 
   TargetSearch.prototype.render = function render() {
@@ -2016,7 +2014,7 @@ var TargetSearch = (_class = (_temp2 = _class2 = function (_BaseComponent) {
       _this3.updateRefs();
 
       entry.addEventListener("click", function () {
-        _this3.selectEntry(spec.id);
+        _this3.selectEntry(spec.id, { focus: false });
         _this3.submit();
       });
 
@@ -2066,10 +2064,10 @@ var TargetSearch = (_class = (_temp2 = _class2 = function (_BaseComponent) {
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__target_wrapper_pug__ = __webpack_require__(29);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__target_wrapper_pug__ = __webpack_require__(31);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__target_wrapper_pug___default = __WEBPACK_IMPORTED_MODULE_0__target_wrapper_pug__ && __WEBPACK_IMPORTED_MODULE_0__target_wrapper_pug__.__esModule ? function() { return __WEBPACK_IMPORTED_MODULE_0__target_wrapper_pug__['default'] } : function() { return __WEBPACK_IMPORTED_MODULE_0__target_wrapper_pug__; };
 /* harmony import */ __webpack_require__.d(__WEBPACK_IMPORTED_MODULE_0__target_wrapper_pug___default, 'a', __WEBPACK_IMPORTED_MODULE_0__target_wrapper_pug___default);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__target_wrapper_styl__ = __webpack_require__(23);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__target_wrapper_styl__ = __webpack_require__(25);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__target_wrapper_styl___default = __WEBPACK_IMPORTED_MODULE_1__target_wrapper_styl__ && __WEBPACK_IMPORTED_MODULE_1__target_wrapper_styl__.__esModule ? function() { return __WEBPACK_IMPORTED_MODULE_1__target_wrapper_styl__['default'] } : function() { return __WEBPACK_IMPORTED_MODULE_1__target_wrapper_styl__; };
 /* harmony import */ __webpack_require__.d(__WEBPACK_IMPORTED_MODULE_1__target_wrapper_styl___default, 'a', __WEBPACK_IMPORTED_MODULE_1__target_wrapper_styl___default);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_components_base_component__ = __webpack_require__(0);
@@ -2119,6 +2117,51 @@ var TargetWrapper = (_temp = _class = function (_BaseComponent) {
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
+/* harmony export */ exports["a"] = createStylesheetTemplate;function createStylesheetTemplate(definitions) {
+  return function stylesheetTemplate(strings) {
+    var merged = strings.slice();
+    var offset = 0;
+
+    for (var _len = arguments.length, values = Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
+      values[_key - 1] = arguments[_key];
+    }
+
+    for (var i = 0; i < merged.length; i++) {
+      if (i === values.length) break;
+
+      offset++;
+      var value = definitions[values[i] || "inherit"] + " !important;";
+
+      merged.splice(i + offset, 0, value);
+    }
+
+    return merged.join("");
+  };
+}
+
+/***/ },
+/* 14 */
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_lib_create_stylesheet_template__ = __webpack_require__(13);
+/* harmony export */ exports["a"] = createThemeStylesheet;var _templateObject = _taggedTemplateLiteralLoose(["\n    [data-component=\"application\"] .modal {\n      background-color: ", "\n      color: ", "\n    }\n\n    a, .accent-color {\n      color: ", "\n    }\n\n    .button.primary, button.primary,\n    [data-component=\"target-search\"] .entries .entry[data-selected],\n    [data-component=\"target-search\"] .entries .entry:active,\n    [data-component=\"application\"][is-touch-device=\"true\"] [data-component=\"target-search\"] .entries .entry:hover,\n    .accent-background-color {\n      background: ", "\n    }\n\n    .target-instructions .steps li::before {\n      background: ", "\n    }\n\n    .target-instructions figure [annotation-arrow] svg {\n      fill: ", "\n    }\n  "], ["\n    [data-component=\"application\"] .modal {\n      background-color: ", "\n      color: ", "\n    }\n\n    a, .accent-color {\n      color: ", "\n    }\n\n    .button.primary, button.primary,\n    [data-component=\"target-search\"] .entries .entry[data-selected],\n    [data-component=\"target-search\"] .entries .entry:active,\n    [data-component=\"application\"][is-touch-device=\"true\"] [data-component=\"target-search\"] .entries .entry:hover,\n    .accent-background-color {\n      background: ", "\n    }\n\n    .target-instructions .steps li::before {\n      background: ", "\n    }\n\n    .target-instructions figure [annotation-arrow] svg {\n      fill: ", "\n    }\n  "]);
+
+function _taggedTemplateLiteralLoose(strings, raw) { strings.raw = raw; return strings; }
+
+
+
+function createThemeStylesheet(theme) {
+  var stylesheetTemplate = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_lib_create_stylesheet_template__["a" /* default */])(theme);
+
+  return stylesheetTemplate(_templateObject, "backgroundColor", "textColor", "accentColor", "accentColor", "stepNumberColor", "screenshotAnnotationColor");
+}
+
+/***/ },
+/* 15 */
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
 /* harmony export */ exports["a"] = polyfillCustomEvent;function polyfillCustomEvent(_ref) {
   var $document = _ref.document;
   var $window = _ref.window;
@@ -2159,7 +2202,7 @@ var TargetWrapper = (_temp = _class = function (_BaseComponent) {
 }
 
 /***/ },
-/* 14 */
+/* 16 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2189,11 +2232,18 @@ var TargetWrapper = (_temp = _class = function (_BaseComponent) {
 }
 
 /***/ },
-/* 15 */
+/* 17 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
 /* harmony export */ exports["a"] = createStore;var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+var DEFAULT_THEME = {
+  accentColor: "#2d88f3",
+  backgroundColor: "#ffffff",
+  screenshotAnnotationColor: "#fde757",
+  textColor: "#000000"
+};
 
 function createStore() {
   var spec = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
@@ -2204,6 +2254,10 @@ function createStore() {
   var _spec$labels = spec.labels;
   var labels = _spec$labels === undefined ? {} : _spec$labels;
 
+
+  var theme = _extends({}, DEFAULT_THEME, spec.theme);
+
+  if (!theme.stepNumberColor) theme.stepNumberColor = theme.accentColor;
 
   return {
     name: spec.name || "a plugin",
@@ -2240,37 +2294,11 @@ function createStore() {
       }
     }, labels),
 
-    routing: spec.routing || false
+    routing: spec.routing || false,
+
+    theme: theme
   };
 }
-
-/***/ },
-/* 16 */
-/***/ function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(1)();
-// imports
-
-
-// module
-exports.push([module.i, "[data-component=\"application\"] {\n  -ms-flex-align: center;\n      -ms-grid-row-align: center;\n      align-items: center;\n  -ms-flex-pack: center;\n      justify-content: center;\n  max-height: 100%;\n  min-height: 100%;\n}\n@media (max-height: 24em) {\n  [data-component=\"application\"] {\n    -ms-flex-pack: start;\n        justify-content: flex-start;\n  }\n}\n[data-component=\"application\"][data-route=\"home\"] .modal-header [data-action=\"previous\"],\n[data-component=\"application\"][data-target-count=\"1\"] .modal-header [data-action=\"previous\"] {\n  opacity: 0;\n  pointer-events: none;\n}\n[data-component=\"application\"][data-mode=\"inline\"] .modal-header [data-action=\"close\"] {\n  opacity: 0;\n  pointer-events: none;\n}\n[data-component=\"application\"] .content {\n  transform: translate3d(0, 0, 0);\n  transition: transform 0.2s ease;\n}\n[data-component=\"application\"][data-route]:not([data-route=\"home\"]) .content {\n  transform: translate3d(-100%, 0, 0);\n}\n[data-component=\"application\"][data-transition-state=\"transitioned\"] [inert] > * {\n  display: none;\n}\n[data-component=\"application\"] .modal {\n  background: #fff;\n  border-radius: 0.3125em;\n  -ms-flex: 1 1 auto;\n      flex: 1 1 auto;\n  max-height: 38em;\n  max-width: 100vw;\n  min-height: 18em;\n  overflow: hidden;\n  position: relative;\n  width: 35rem;\n  z-index: 1;\n}\n@media (min-width: 769px) {\n  [data-component=\"application\"] .modal {\n    box-shadow: 0 2px 8px rgba(0,0,0,0.4);\n    margin: 1.5em 0;\n  }\n}\n@media (max-width: 768px) {\n  [data-component=\"application\"] .modal {\n    border-radius: 0;\n    max-height: 100vh;\n    max-width: 100vw;\n    width: 100%;\n  }\n}\n[data-component=\"application\"] .modal .content {\n  -ms-flex: 1 1 auto;\n      flex: 1 1 auto;\n  transform: translate3d(0, 0, 0);\n}\n[data-component=\"application\"] .modal .content > * {\n  margin: 0;\n  -ms-flex: 1 0 auto;\n      flex: 1 0 auto;\n  max-width: 100vw;\n  width: 100%;\n}\n[data-component=\"application\"] .modal-header {\n  -ms-flex-align: center;\n      -ms-grid-row-align: center;\n      align-items: center;\n  box-shadow: 0 1px rgba(0,0,0,0.21);\n  -ms-flex: 0 0 auto;\n      flex: 0 0 auto;\n  -ms-flex-pack: justify;\n      justify-content: space-between;\n  width: 100%;\n  max-width: 100vw;\n  z-index: 1;\n}\n[data-component=\"application\"] .modal-header > * {\n  display: -ms-flexbox;\n  display: flex;\n  -ms-flex-align: center;\n      align-items: center;\n}\n[data-component=\"application\"] .modal-header .title {\n  text-align: center;\n  line-height: 1.4;\n  white-space: nowrap;\n  overflow: hidden;\n  text-overflow: ellipsis;\n  max-width: 100%;\n  display: inline-block;\n}\n@media (max-width: 500px) {\n  [data-component=\"application\"] .modal-header .title[data-title-char-length=\"long\"] {\n    font-size: 0.8em;\n  }\n  [data-component=\"application\"] .modal-header .title[data-title-char-length=\"medium\"] {\n    font-size: 0.9em;\n  }\n}\n@media (max-width: 400px) {\n  [data-component=\"application\"] .modal-header .title[data-title-char-length=\"medium\"] {\n    font-size: 0.8em;\n  }\n  [data-component=\"application\"] .modal-header .title[data-title-char-length=\"short\"] {\n    font-size: 0.9em;\n  }\n}\n@media (max-width: 360px) {\n  [data-component=\"application\"] .modal-header .title[data-title-char-length=\"short\"] {\n    font-size: 0.8em;\n  }\n  [data-component=\"application\"] .modal-header .title[data-title-char-length=\"puny\"] {\n    font-size: 0.9em;\n  }\n}\n@media (max-width: 340px) {\n  [data-component=\"application\"] .modal-header .title[data-title-char-length=\"puny\"] {\n    font-size: 0.8em;\n  }\n}\n[data-component=\"application\"] .modal-header .button[data-action] {\n  -webkit-appearance: none;\n     -moz-appearance: none;\n          appearance: none;\n  background: inherit;\n  border-radius: 0;\n  color: inherit;\n  -ms-flex: 0 0 auto;\n      flex: 0 0 auto;\n  display: -ms-flexbox;\n  display: flex;\n  height: 4em;\n  -ms-flex-pack: center;\n      justify-content: center;\n  padding: 0;\n  margin: 0;\n  width: 4em;\n  transition: opacity 0.15s ease;\n}\n[data-component=\"application\"] .modal-header .button[data-action]:focus:before {\n  display: none;\n}\n[data-component=\"application\"] .modal-header .button[data-action]:hover,\n[data-component=\"application\"] .modal-header .button[data-action]:focus {\n  background: rgba(0,0,0,0.045);\n  box-shadow: none;\n}\n[data-component=\"application\"] .modal-header .button[data-action]:not(:hover) {\n  color: rgba(0,0,0,0.5);\n}\n[data-component=\"application\"] .modal-header .button[data-action] > .icon {\n  -ms-flex: 1 0 auto;\n      flex: 1 0 auto;\n  width: 1em;\n  height: 1em;\n  stroke: currentColor;\n}\n", ""]);
-
-// exports
-
-
-/***/ },
-/* 17 */
-/***/ function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(1)();
-// imports
-
-
-// module
-exports.push([module.i, "[data-component=\"target-search\"] .header {\n  -ms-flex-align: center;\n      -ms-grid-row-align: center;\n      align-items: center;\n  background-color: rgba(0,0,0,0.045);\n  box-shadow: 0 1px rgba(0,0,0,0.21);\n  -ms-flex: 0 0 auto;\n      flex: 0 0 auto;\n  padding: 1em;\n  width: 100%;\n  z-index: 2;\n}\n[data-component=\"target-search\"] .header label {\n  color: #7b7b7b;\n  margin-bottom: 0.5em;\n}\n[data-component=\"target-search\"] .header .input-wrapper {\n  position: relative;\n  width: 100%;\n}\n[data-component=\"target-search\"] .header .input-wrapper > .icon {\n  position: absolute;\n  pointer-events: none;\n  height: 1em;\n  width: 1em;\n  left: 1em;\n  top: 0;\n  bottom: 0;\n  margin-top: auto;\n  margin-bottom: auto;\n  stroke: rgba(0,0,0,0.5);\n}\n[data-component=\"target-search\"] .header .search {\n  background: #fff;\n  border: 0;\n  width: 100%;\n  border-radius: 5em;\n  padding: 0.5em 3em;\n}\n[data-component=\"target-search\"] .header .search::-webkit-input-placeholder {\n  color: rgba(0,0,0,0.3);\n  font-family: inherit;\n  font-size: 1em;\n}\n[data-component=\"target-search\"] .header .search::-moz-placeholder {\n  color: rgba(0,0,0,0.3);\n  font-family: inherit;\n  font-size: 1em;\n}\n[data-component=\"target-search\"] .header .search:-ms-input-placeholder {\n  color: rgba(0,0,0,0.3);\n  font-family: inherit;\n  font-size: 1em;\n}\n[data-component=\"target-search\"] .header .search::placeholder {\n  color: rgba(0,0,0,0.3);\n  font-family: inherit;\n  font-size: 1em;\n}\n[data-component=\"target-search\"] .header .search:focus {\n  outline: none;\n}\n[data-component=\"target-search\"] .header .search-clear {\n  position: absolute;\n  right: 0;\n  top: 0;\n  bottom: 0;\n  padding-left: 0.75em;\n  width: 2.5em;\n  padding-right: 0.75em;\n  cursor: pointer;\n  transition: opacity 0.15s ease;\n  opacity: 0;\n  pointer-events: none;\n}\n[data-component=\"target-search\"] .header .search-clear:focus:hover {\n  outline: none;\n}\n[data-component=\"target-search\"] .header .search-clear .icon {\n  position: absolute;\n  pointer-events: none;\n  height: 1em;\n  width: 1em;\n  right: 0.85em;\n  top: 0;\n  bottom: 0;\n  margin-top: auto;\n  margin-bottom: auto;\n  stroke: rgba(0,0,0,0.5);\n}\n[data-component=\"target-search\"] .header .search-clear:hover .icon {\n  opacity: 1;\n}\n[data-component=\"target-search\"] .header .search[data-empty=\"false\"] ~ .search-clear {\n  opacity: 1;\n  pointer-events: all;\n}\n[data-component=\"target-search\"] .entries {\n  height: 0;\n  -ms-flex: 1 1 auto;\n      flex: 1 1 auto;\n  overflow: auto;\n  -webkit-overflow-scrolling: touch;\n  z-index: 1;\n}\n@media (max-width: 768px) {\n  [data-component=\"application\"][is-iphone=\"true\"] [data-component=\"target-search\"] .entries::after {\n    content: \"\";\n    display: block;\n    -ms-flex: 0 0 auto;\n        flex: 0 0 auto;\n    height: 64px;\n  }\n}\n[data-component=\"target-search\"] .entries .entry {\n  position: relative;\n  cursor: pointer;\n  -ms-flex-align: center;\n      -ms-grid-row-align: center;\n      align-items: center;\n  -ms-flex: 0 0 auto;\n      flex: 0 0 auto;\n  padding: 1em;\n  overflow: ellipsis;\n  border: 1px solid rgba(0,0,0,0.063);\n  border-left: 0;\n  border-right: 0;\n}\n[data-component=\"target-search\"] .entries .entry[data-visible-order=\"-1\"] {\n  display: none;\n}\n[data-component=\"target-search\"] .entries .entry[data-visible-order=\"0\"] {\n  border-top-color: transparent;\n}\n[data-component=\"target-search\"] .entries .entry:last-child {\n  border-bottom-color: transparent;\n}\n[data-component=\"target-search\"] .entries .entry:not(:last-child) {\n  margin-bottom: -1px;\n}\n[data-component=\"target-search\"] .entries .entry:not([data-selected]) {\n  z-index: 1;\n  background: transparent;\n  color: inherit;\n}\n[data-component=\"target-search\"] .entries .entry:not([data-selected]):hover {\n  background: rgba(0,0,0,0.045);\n}\n[data-component=\"application\"][is-touch-device=\"true\"] [data-component=\"target-search\"] .entries .entry:not([data-selected]):hover {\n  color: #fff;\n}\n[data-component=\"target-search\"] .entries .entry:focus {\n  outline: none;\n  background: rgba(0,0,0,0.045);\n}\n[data-component=\"target-search\"] .entries .entry .primary {\n  -ms-flex: 1 1 auto;\n      flex: 1 1 auto;\n  -ms-flex-align: center;\n      -ms-grid-row-align: center;\n      align-items: center;\n  position: relative;\n}\n[data-component=\"target-search\"] .entries .entry .primary::after {\n  pointer-events: none;\n  position: absolute;\n  right: 0.75em;\n  opacity: 0;\n}\n@media (min-width: 400px) {\n  [data-component=\"application\"][is-touch-device=\"false\"] [data-component=\"target-search\"] .entries .entry:hover .primary::after {\n    content: attr(data-click-hint-short);\n    opacity: 0.5;\n  }\n  [data-component=\"application\"][is-touch-device=\"false\"] [data-component=\"target-search\"] .entries .entry[data-selected]:not(:hover) .primary::after {\n    content: attr(data-submit-hint-short);\n    opacity: 0.5;\n  }\n}\n@media (min-width: 460px) {\n  [data-component=\"application\"][is-touch-device=\"false\"] [data-component=\"target-search\"] .entries .entry:hover .primary::after {\n    content: attr(data-click-hint);\n  }\n  [data-component=\"application\"][is-touch-device=\"false\"] [data-component=\"target-search\"] .entries .entry[data-selected]:not(:hover) .primary::after {\n    content: attr(data-submit-hint);\n  }\n}\n[data-component=\"target-search\"] .entries .entry .icon.logo {\n  fill: currentColor;\n  height: 2em;\n  margin-right: 1em;\n  width: 2em;\n}\n[data-component=\"target-search\"] .entries .entry .icon.next {\n  -ms-flex: 0 0 auto;\n      flex: 0 0 auto;\n  height: 1em;\n  opacity: 0;\n  stroke: currentColor;\n  width: 1em;\n  margin-right: 0.25em;\n}\n[data-component=\"target-search\"] .entries .entry:hover .icon.next,\n[data-component=\"target-search\"] .entries .entry:focus .icon.next {\n  opacity: 0.6;\n}\n[data-component=\"target-search\"] .entries .entry[data-selected] .icon.next,\n[data-component=\"target-search\"] .entries .entry:active .icon.next,\n[data-component=\"application\"][is-touch-device=\"true\"] [data-component=\"target-search\"] .entries .entry:hover .icon.next,\n[data-component=\"target-search\"] .entries .entry[data-selected]:hover .icon.next,\n[data-component=\"target-search\"] .entries .entry:active:hover .icon.next,\n[data-component=\"application\"][is-touch-device=\"true\"] [data-component=\"target-search\"] .entries .entry:hover:hover .icon.next {\n  opacity: 1;\n}\n[data-component=\"target-search\"] .entries .entry path.is-light-source-facing {\n  opacity: 0.75;\n}\n[data-component=\"target-search\"] .entries .entry path.is-not-light-source-facing {\n  opacity: 1;\n}\n[data-component=\"target-search\"] .entries .entry[data-selected],\n[data-component=\"target-search\"] .entries .entry:active,\n[data-component=\"application\"][is-touch-device=\"true\"] [data-component=\"target-search\"] .entries .entry:hover {\n  border-color: transparent;\n}\n[data-component=\"target-search\"] .entries .entry[data-selected],\n[data-component=\"target-search\"] .entries .entry:active,\n[data-component=\"application\"][is-touch-device=\"true\"] [data-component=\"target-search\"] .entries .entry:hover,\n[data-component=\"target-search\"] .entries .entry[data-selected]:hover,\n[data-component=\"target-search\"] .entries .entry:active:hover,\n[data-component=\"application\"][is-touch-device=\"true\"] [data-component=\"target-search\"] .entries .entry:hover:hover {\n  z-index: 2;\n  color: #fff;\n  box-shadow: none !important;\n}\n[data-component=\"target-search\"] .entries .entry[data-selected] path.is-light-source-facing,\n[data-component=\"target-search\"] .entries .entry:active path.is-light-source-facing,\n[data-component=\"application\"][is-touch-device=\"true\"] [data-component=\"target-search\"] .entries .entry:hover path.is-light-source-facing,\n[data-component=\"target-search\"] .entries .entry[data-selected]:hover path.is-light-source-facing,\n[data-component=\"target-search\"] .entries .entry:active:hover path.is-light-source-facing,\n[data-component=\"application\"][is-touch-device=\"true\"] [data-component=\"target-search\"] .entries .entry:hover:hover path.is-light-source-facing {\n  opacity: 1;\n}\n[data-component=\"target-search\"] .entries .entry[data-selected] path.is-not-light-source-facing,\n[data-component=\"target-search\"] .entries .entry:active path.is-not-light-source-facing,\n[data-component=\"application\"][is-touch-device=\"true\"] [data-component=\"target-search\"] .entries .entry:hover path.is-not-light-source-facing,\n[data-component=\"target-search\"] .entries .entry[data-selected]:hover path.is-not-light-source-facing,\n[data-component=\"target-search\"] .entries .entry:active:hover path.is-not-light-source-facing,\n[data-component=\"application\"][is-touch-device=\"true\"] [data-component=\"target-search\"] .entries .entry:hover:hover path.is-not-light-source-facing {\n  opacity: 0.5;\n}\n", ""]);
-
-// exports
-
 
 /***/ },
 /* 18 */
@@ -2281,7 +2309,7 @@ exports = module.exports = __webpack_require__(1)();
 
 
 // module
-exports.push([module.i, "[data-component$=\"-target\"] {\n  -ms-flex: 1 1 auto;\n      flex: 1 1 auto;\n  overflow: auto;\n  -webkit-overflow-scrolling: touch;\n}\n[data-component$=\"-target\"] [data-content-slot] {\n  background: rgba(0,0,0,0.045);\n  border-radius: 3px;\n  display: block;\n  margin: 1em;\n  padding: 1em;\n  text-align: center;\n}\n[data-component$=\"-target\"] .copy-container {\n  background: rgba(0,0,0,0.045);\n  border-radius: 3px;\n  font-size: 0.8em;\n  margin: 2rem 0;\n  max-width: 100vw;\n  position: relative;\n}\n[data-component$=\"-target\"] .copy-container button.run {\n  margin: 0;\n  padding: 0.3em 1em;\n  position: absolute;\n  left: 1.5em;\n  top: 1.5em;\n}\n[data-component$=\"-target\"] .copy-container button.run::after {\n  color: #000;\n  content: \"Copied\";\n  display: inline-block;\n  left: 100%;\n  margin-left: 0.5em;\n  opacity: 0;\n  position: absolute;\n}\n[data-component$=\"-target\"] .copy-container button.run[data-status=\"copied\"]::after {\n  animation: copied 400ms linear;\n  animation-fill-mode: forwards;\n  opacity: 1;\n}\n[data-component$=\"-target\"] .copy-container > .copyable {\n  display: block;\n  font-family: Monaco, \"Bitstream Vera Sans Mono\", \"Lucida Console\", Terminal, monospace;\n  margin: 0;\n  padding: 1.3em;\n  padding-top: 4.3em;\n  white-space: pre-wrap;\n  width: 100%;\n  word-wrap: break-word;\n}\n[data-component$=\"-target\"] .copy-container > .copyable:focus {\n  outline: none;\n}\n.target-instructions {\n  cursor: auto;\n  display: block;\n  -ms-flex: 1 1 auto;\n      flex: 1 1 auto;\n  height: 0;\n  padding-bottom: 1em;\n  -webkit-user-select: text;\n     -moz-user-select: text;\n      -ms-user-select: text;\n          user-select: text;\n}\n.target-instructions figure {\n  margin: 2em 0;\n  position: relative;\n}\n.target-instructions figure img,\n.target-instructions figure[data-component=\"screenshot\"] {\n  display: block;\n  max-width: 100%;\n}\n.target-instructions figure[data-component=\"screenshot\"] {\n  height: 0;\n  overflow: hidden;\n  padding-left: 0;\n  padding-right: 0;\n  padding-top: 0;\n  position: relative;\n  width: 100%;\n}\n.target-instructions figure[data-component=\"screenshot\"] iframe {\n  border: 0;\n  left: 0;\n  opacity: 0;\n  position: absolute;\n  top: 0;\n  transform-origin: 0 0;\n}\n.target-instructions figure[data-component=\"screenshot\"][data-render-state=\"scaled\"] iframe {\n  opacity: 1;\n}\n.target-instructions figure::after {\n  content: \"\";\n  display: block;\n  position: absolute;\n  cursor: default;\n  border: 1px solid rgba(0,0,0,0.2);\n  z-index: 1;\n  top: 0;\n  right: 0;\n  bottom: 0;\n  left: 0;\n}\n[data-component=\"application\"][data-mode=\"modal\"] .target-instructions figure::after {\n  border-left: 0;\n  border-right: 0;\n}\n@media (max-width: 35rem) {\n  .target-instructions figure::after {\n    border-left: 0;\n    border-right: 0;\n  }\n}\n.target-instructions figure [annotation-arrow] {\n  position: absolute;\n}\n.target-instructions figure [annotation-arrow] > div {\n  position: absolute;\n  top: 0;\n  left: 0;\n  height: 0;\n  width: 100%;\n}\n.target-instructions figure [annotation-arrow] svg {\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  fill: #fde757;\n}\n.target-instructions figure [annotation-arrow][data-svg-view-box=\"0 0 83 114\"] > div {\n  padding-bottom: 137.35%;\n}\n.target-instructions figure [annotation-arrow][data-svg-view-box=\"0 0 127 73\"] > div {\n  padding-bottom: 57.48%;\n}\n.target-instructions,\n.target-instructions *:focus {\n  outline: none;\n}\n.target-instructions .target-title {\n  -ms-flex-align: center;\n      -ms-grid-row-align: center;\n      align-items: center;\n  background: rgba(0,0,0,0.045);\n  border-bottom: 1px solid rgba(0,0,0,0.045);\n  padding: 2em 4em 1.6em;\n  text-align: center;\n}\n@media (max-width: 568px) {\n  .target-instructions .target-title {\n    padding-left: 2em;\n    padding-right: 2em;\n  }\n}\n@media (max-width: 22.5em) {\n  .target-instructions .target-title {\n    padding-left: 1.5em;\n    padding-right: 1.5em;\n  }\n}\n.target-instructions .target-title .icon {\n  height: 3em;\n  width: 3em;\n  margin-bottom: 1em;\n}\n.target-instructions .target-title .icon > svg {\n  display: block;\n  width: 100%;\n}\n.target-instructions .target-title .icon path.is-light-source-facing {\n  opacity: 0.75;\n}\n.target-instructions .target-title .icon path.is-not-light-source-facing {\n  opacity: 1;\n}\n.target-instructions .target-title h1 {\n  font-size: 1.25em;\n  font-weight: 300;\n  margin: 0 0 0.5em;\n  text-align: center;\n}\n.target-instructions .target-title h1:last-child {\n  margin-bottom: 0;\n}\n.target-instructions .target-title .versions {\n  -ms-flex-align: center;\n      -ms-grid-row-align: center;\n      align-items: center;\n  color: rgba(0,0,0,0.5);\n  font-size: 0.9em;\n}\n.target-instructions .target-title .versions .label {\n  margin-right: 0.5em;\n}\n.target-instructions .target-title .versions select {\n  display: inline-block;\n  border: 1px solid rgba(0,0,0,0.21);\n  background: transparent;\n  cursor: pointer;\n  font-family: inherit;\n  font-size: inherit;\n}\n.target-instructions .target-title .versions select:focus {\n  outline: none;\n  border: 1px dashed rgba(0,0,0,0.21);\n}\n.target-instructions .target-title .versions select:hover {\n  background: #fff;\n}\n.target-instructions ol.steps {\n  width: 35rem;\n  max-width: 100%;\n  margin: 0 auto;\n  counter-reset: item 0;\n  list-style: none;\n  padding: 2em 0 0;\n}\n@media (max-width: 768px) {\n  [data-component=\"application\"][is-iphone=\"true\"] .target-instructions ol.steps::after {\n    content: \"\";\n    display: block;\n    -ms-flex: 0 0 auto;\n        flex: 0 0 auto;\n    height: 64px;\n  }\n}\n.target-instructions ol.steps div,\n.target-instructions ol.steps footer,\n.target-instructions ol.steps header,\n.target-instructions ol.steps section {\n  display: block;\n}\n.target-instructions ol.steps li {\n  counter-increment: item;\n  margin: 1em 0;\n  padding: 0;\n  position: relative;\n}\n.target-instructions ol.steps li:first-child {\n  margin-top: 0;\n}\n.target-instructions ol.steps li + li {\n  margin-top: 3.5em;\n}\n.target-instructions ol.steps li:first-child > *:first-child {\n  margin-top: 0;\n}\n.target-instructions ol.steps li:last-child > *:last-child {\n  margin-bottom: 0;\n}\n.target-instructions ol.steps li::before {\n  background: rgba(0,0,0,0.045);\n  border-radius: 50%;\n  color: #fff;\n  content: counter(item);\n  display: inline-block;\n  left: 0;\n  line-height: 2em;\n  margin-left: 1em;\n  position: absolute;\n  text-align: center;\n  top: -0.2em;\n  width: 2em;\n}\n.target-instructions ol.steps li > p,\n.target-instructions ol.steps li > h1,\n.target-instructions ol.steps li > h2 {\n  margin: 1em 2em 1em 4em;\n}\n@media (max-width: 568px) {\n  .target-instructions ol.steps li > p,\n  .target-instructions ol.steps li > h1,\n  .target-instructions ol.steps li > h2 {\n    margin-right: 1em;\n  }\n}\n.target-instructions h2 {\n  font-size: 1em;\n  font-weight: 400;\n  margin-top: 3em;\n}\n.target-instructions > *:first-child {\n  margin-top: 0;\n}\n.target-instructions > *:last-child {\n  margin-bottom: 0;\n}\n@-moz-keyframes copied {\n  0%, 100% {\n    opacity: 0;\n  }\n  50% {\n    opacity: 1;\n    transform: translate3d(0, -1.8em, 0);\n  }\n  100% {\n    transform: translate3d(0, -1.8em, 0);\n  }\n}\n@-webkit-keyframes copied {\n  0%, 100% {\n    opacity: 0;\n  }\n  50% {\n    opacity: 1;\n    transform: translate3d(0, -1.8em, 0);\n  }\n  100% {\n    transform: translate3d(0, -1.8em, 0);\n  }\n}\n@-o-keyframes copied {\n  0%, 100% {\n    opacity: 0;\n  }\n  50% {\n    opacity: 1;\n    transform: translate3d(0, -1.8em, 0);\n  }\n  100% {\n    transform: translate3d(0, -1.8em, 0);\n  }\n}\n@keyframes copied {\n  0%, 100% {\n    opacity: 0;\n  }\n  50% {\n    opacity: 1;\n    transform: translate3d(0, -1.8em, 0);\n  }\n  100% {\n    transform: translate3d(0, -1.8em, 0);\n  }\n}\n", ""]);
+exports.push([module.i, "[data-component=\"application\"] {\n  -ms-flex-align: center;\n      -ms-grid-row-align: center;\n      align-items: center;\n  -ms-flex-pack: center;\n      justify-content: center;\n  max-height: 100%;\n  min-height: 100%;\n}\n@media (max-height: 24em) {\n  [data-component=\"application\"] {\n    -ms-flex-pack: start;\n        justify-content: flex-start;\n  }\n}\n[data-component=\"application\"][data-route=\"home\"] .modal-header [data-action=\"previous\"],\n[data-component=\"application\"][data-target-count=\"1\"] .modal-header [data-action=\"previous\"] {\n  opacity: 0;\n  pointer-events: none;\n}\n[data-component=\"application\"][data-mode=\"inline\"] .modal-header [data-action=\"close\"] {\n  opacity: 0;\n  pointer-events: none;\n}\n[data-component=\"application\"] .content {\n  transform: translate3d(0, 0, 0);\n  transition: transform 0.2s ease;\n}\n[data-component=\"application\"][data-route]:not([data-route=\"home\"]) .content {\n  transform: translate3d(-100%, 0, 0);\n}\n[data-component=\"application\"][data-transition-state=\"transitioned\"] [inert] > * {\n  display: none;\n}\n[data-component=\"application\"] .modal {\n  background: #fff;\n  border-radius: 0.3125em;\n  -ms-flex: 1 1 auto;\n      flex: 1 1 auto;\n  max-height: 38em;\n  max-width: 100vw;\n  min-height: 18em;\n  overflow: hidden;\n  position: relative;\n  width: 35rem;\n  z-index: 1;\n}\n@media (min-width: 769px) {\n  [data-component=\"application\"] .modal {\n    box-shadow: 0 2px 8px rgba(0,0,0,0.4);\n    margin: 1.5em 0;\n  }\n}\n@media (max-width: 768px) {\n  [data-component=\"application\"] .modal {\n    border-radius: 0;\n    max-height: 100vh;\n    max-width: 100vw;\n    width: 100%;\n  }\n}\n[data-component=\"application\"] .modal .content {\n  -ms-flex: 1 1 auto;\n      flex: 1 1 auto;\n  transform: translate3d(0, 0, 0);\n}\n[data-component=\"application\"] .modal .content > * {\n  margin: 0;\n  -ms-flex: 1 0 auto;\n      flex: 1 0 auto;\n  max-width: 100vw;\n  width: 100%;\n}\n[data-component=\"application\"] .modal-header {\n  -ms-flex-align: center;\n      -ms-grid-row-align: center;\n      align-items: center;\n  box-shadow: 0 1px rgba(0,0,0,0.21);\n  -ms-flex: 0 0 auto;\n      flex: 0 0 auto;\n  -ms-flex-pack: justify;\n      justify-content: space-between;\n  width: 100%;\n  max-width: 100vw;\n  z-index: 1;\n}\n[data-component=\"application\"] .modal-header > * {\n  display: -ms-flexbox;\n  display: flex;\n  -ms-flex-align: center;\n      align-items: center;\n}\n[data-component=\"application\"] .modal-header .title {\n  text-align: center;\n  line-height: 1.4;\n  white-space: nowrap;\n  overflow: hidden;\n  text-overflow: ellipsis;\n  max-width: 100%;\n  display: inline-block;\n}\n@media (max-width: 500px) {\n  [data-component=\"application\"] .modal-header .title[data-title-char-length=\"long\"] {\n    font-size: 0.8em;\n  }\n  [data-component=\"application\"] .modal-header .title[data-title-char-length=\"medium\"] {\n    font-size: 0.9em;\n  }\n}\n@media (max-width: 400px) {\n  [data-component=\"application\"] .modal-header .title[data-title-char-length=\"medium\"] {\n    font-size: 0.8em;\n  }\n  [data-component=\"application\"] .modal-header .title[data-title-char-length=\"short\"] {\n    font-size: 0.9em;\n  }\n}\n@media (max-width: 360px) {\n  [data-component=\"application\"] .modal-header .title[data-title-char-length=\"short\"] {\n    font-size: 0.8em;\n  }\n  [data-component=\"application\"] .modal-header .title[data-title-char-length=\"puny\"] {\n    font-size: 0.9em;\n  }\n}\n@media (max-width: 340px) {\n  [data-component=\"application\"] .modal-header .title[data-title-char-length=\"puny\"] {\n    font-size: 0.8em;\n  }\n}\n[data-component=\"application\"] .modal-header .button[data-action] {\n  -webkit-appearance: none;\n     -moz-appearance: none;\n          appearance: none;\n  background: inherit;\n  border-radius: 0;\n  color: inherit;\n  -ms-flex: 0 0 auto;\n      flex: 0 0 auto;\n  display: -ms-flexbox;\n  display: flex;\n  height: 4em;\n  -ms-flex-pack: center;\n      justify-content: center;\n  padding: 0;\n  margin: 0;\n  width: 4em;\n  transition: opacity 0.15s ease;\n}\n[data-component=\"application\"] .modal-header .button[data-action]:focus:before {\n  display: none;\n}\n[data-component=\"application\"] .modal-header .button[data-action]:hover,\n[data-component=\"application\"] .modal-header .button[data-action]:focus {\n  background: rgba(0,0,0,0.045);\n  box-shadow: none;\n}\n[data-component=\"application\"] .modal-header .button[data-action] > .icon {\n  -ms-flex: 1 0 auto;\n      flex: 1 0 auto;\n  width: 1em;\n  height: 1em;\n  stroke: currentColor;\n}\n[data-component=\"application\"] .modal-header .button[data-action]:not(:hover) .icon {\n  stroke-opacity: 0.5;\n}\n", ""]);
 
 // exports
 
@@ -2295,7 +2323,7 @@ exports = module.exports = __webpack_require__(1)();
 
 
 // module
-exports.push([module.i, ".embed-box {\n  transform: translate3d(0, 0, 0);\n}\n.embed-box[data-mode=\"inline\"] {\n  display: inline-block;\n  height: 100vh;\n  max-height: 100vh;\n  min-height: 15em;\n  width: 100%;\n}\n.embed-box[data-mode=\"modal\"] {\n  bottom: 0 !important;\n  display: block;\n  height: 100% !important;\n  left: 0 !important;\n  max-height: 100vh !important;\n  max-width: 100vw !important;\n  opacity: 0;\n  position: fixed !important;\n  right: 0 !important;\n  top: 0 !important;\n  transition: opacity 0.1s linear !important;\n  width: 100% !important;\n  z-index: 100000 !important;\n}\n.embed-box-download-iframe {\n  position: fixed;\n  visibility: hidden;\n  width: 1px;\n  height: 1px;\n  z-index: -99999;\n}\n[data-embed-box-scroll-state] {\n  height: 100%;\n}\nbody[data-embed-box-scroll-state=\"locked\"] {\n  overflow: hidden !important;\n}\n@media (max-width: 768px) {\n  .embed-box[data-mode=\"modal\"] {\n    position: absolute !important;\n  }\n  body[data-embed-box-scroll-state=\"locked\"],\n  html[data-embed-box-scroll-state=\"locked\"] {\n    bottom: 0 !important;\n    left: 0 !important;\n    overflow: hidden !important;\n    position: fixed !important;\n    right: 0 !important;\n    top: 0 !important;\n  }\n}\n", ""]);
+exports.push([module.i, "[data-component=\"target-search\"] .header {\n  -ms-flex-align: center;\n      -ms-grid-row-align: center;\n      align-items: center;\n  background-color: rgba(0,0,0,0.045);\n  box-shadow: 0 1px rgba(0,0,0,0.21);\n  -ms-flex: 0 0 auto;\n      flex: 0 0 auto;\n  padding: 1em;\n  width: 100%;\n  z-index: 2;\n}\n[data-component=\"target-search\"] .header label {\n  color: inherit;\n  opacity: 0.5;\n  margin-bottom: 0.5em;\n}\n[data-component=\"target-search\"] .header .input-wrapper {\n  position: relative;\n  width: 100%;\n  color: #000;\n}\n[data-component=\"target-search\"] .header .input-wrapper > .icon {\n  position: absolute;\n  pointer-events: none;\n  height: 1em;\n  width: 1em;\n  left: 1em;\n  top: 0;\n  bottom: 0;\n  margin-top: auto;\n  margin-bottom: auto;\n  stroke: currentColor;\n  stroke-opacity: 0.5;\n}\n[data-component=\"target-search\"] .header .search {\n  background: #fff;\n  color: currentColor;\n  border: 0;\n  width: 100%;\n  border-radius: 5em;\n  padding: 0.5em 3em;\n}\n[data-component=\"target-search\"] .header .search::-webkit-input-placeholder {\n  color: rgba(0,0,0,0.3);\n  font-family: inherit;\n  font-size: 1em;\n}\n[data-component=\"target-search\"] .header .search::-moz-placeholder {\n  color: rgba(0,0,0,0.3);\n  font-family: inherit;\n  font-size: 1em;\n}\n[data-component=\"target-search\"] .header .search:-ms-input-placeholder {\n  color: rgba(0,0,0,0.3);\n  font-family: inherit;\n  font-size: 1em;\n}\n[data-component=\"target-search\"] .header .search::placeholder {\n  color: rgba(0,0,0,0.3);\n  font-family: inherit;\n  font-size: 1em;\n}\n[data-component=\"target-search\"] .header .search:focus {\n  outline: none;\n}\n[data-component=\"target-search\"] .header .search-clear {\n  position: absolute;\n  right: 0;\n  top: 0;\n  bottom: 0;\n  padding-left: 0.75em;\n  width: 2.5em;\n  padding-right: 0.75em;\n  cursor: pointer;\n  transition: opacity 0.15s ease;\n  opacity: 0;\n  pointer-events: none;\n}\n[data-component=\"target-search\"] .header .search-clear:focus:hover {\n  outline: none;\n}\n[data-component=\"target-search\"] .header .search-clear .icon {\n  position: absolute;\n  pointer-events: none;\n  height: 1em;\n  width: 1em;\n  right: 0.85em;\n  top: 0;\n  bottom: 0;\n  margin-top: auto;\n  margin-bottom: auto;\n  stroke: currentColor;\n  stroke-opacity: 0.5;\n}\n[data-component=\"target-search\"] .header .search-clear:hover .icon {\n  opacity: 1;\n}\n[data-component=\"target-search\"] .header .search[data-empty=\"false\"] ~ .search-clear {\n  opacity: 1;\n  pointer-events: all;\n}\n[data-component=\"target-search\"] .entries {\n  height: 0;\n  -ms-flex: 1 1 auto;\n      flex: 1 1 auto;\n  overflow: auto;\n  -webkit-overflow-scrolling: touch;\n  z-index: 1;\n}\n@media (max-width: 768px) {\n  [data-component=\"application\"][is-iphone=\"true\"] [data-component=\"target-search\"] .entries::after {\n    content: \"\";\n    display: block;\n    -ms-flex: 0 0 auto;\n        flex: 0 0 auto;\n    height: 64px;\n  }\n}\n[data-component=\"target-search\"] .entries .entry {\n  position: relative;\n  cursor: pointer;\n  -ms-flex-align: center;\n      -ms-grid-row-align: center;\n      align-items: center;\n  -ms-flex: 0 0 auto;\n      flex: 0 0 auto;\n  padding: 1em;\n  overflow: ellipsis;\n  border: 1px solid rgba(0,0,0,0.063);\n  border-left: 0;\n  border-right: 0;\n}\n[data-component=\"target-search\"] .entries .entry[data-visible-order=\"-1\"] {\n  display: none;\n}\n[data-component=\"target-search\"] .entries .entry[data-visible-order=\"0\"] {\n  border-top-color: transparent;\n}\n[data-component=\"target-search\"] .entries .entry:last-child {\n  border-bottom-color: transparent;\n}\n[data-component=\"target-search\"] .entries .entry:not(:last-child) {\n  margin-bottom: -1px;\n}\n[data-component=\"target-search\"] .entries .entry:not([data-selected]) {\n  z-index: 1;\n  background: transparent;\n  color: inherit;\n}\n[data-component=\"target-search\"] .entries .entry:not([data-selected]):hover {\n  background: rgba(0,0,0,0.045);\n}\n[data-component=\"application\"][is-touch-device=\"true\"] [data-component=\"target-search\"] .entries .entry:not([data-selected]):hover {\n  color: #fff;\n}\n[data-component=\"target-search\"] .entries .entry:focus {\n  outline: none;\n  background: rgba(0,0,0,0.045);\n}\n[data-component=\"target-search\"] .entries .entry .primary {\n  -ms-flex: 1 1 auto;\n      flex: 1 1 auto;\n  -ms-flex-align: center;\n      -ms-grid-row-align: center;\n      align-items: center;\n  position: relative;\n}\n[data-component=\"target-search\"] .entries .entry .primary::after {\n  pointer-events: none;\n  position: absolute;\n  right: 0.75em;\n  opacity: 0;\n}\n@media (min-width: 400px) {\n  [data-component=\"application\"][is-touch-device=\"false\"] [data-component=\"target-search\"] .entries .entry:hover .primary::after {\n    content: attr(data-click-hint-short);\n    opacity: 0.5;\n  }\n  [data-component=\"application\"][is-touch-device=\"false\"] [data-component=\"target-search\"] .entries .entry[data-selected]:not(:hover) .primary::after {\n    content: attr(data-submit-hint-short);\n    opacity: 0.5;\n  }\n}\n@media (min-width: 460px) {\n  [data-component=\"application\"][is-touch-device=\"false\"] [data-component=\"target-search\"] .entries .entry:hover .primary::after {\n    content: attr(data-click-hint);\n  }\n  [data-component=\"application\"][is-touch-device=\"false\"] [data-component=\"target-search\"] .entries .entry[data-selected]:not(:hover) .primary::after {\n    content: attr(data-submit-hint);\n  }\n}\n[data-component=\"target-search\"] .entries .entry .icon.logo {\n  fill: currentColor;\n  height: 2em;\n  margin-right: 1em;\n  width: 2em;\n}\n[data-component=\"target-search\"] .entries .entry .icon.next {\n  -ms-flex: 0 0 auto;\n      flex: 0 0 auto;\n  height: 1em;\n  opacity: 0;\n  stroke: currentColor;\n  width: 1em;\n  margin-right: 0.25em;\n}\n[data-component=\"target-search\"] .entries .entry:hover .icon.next,\n[data-component=\"target-search\"] .entries .entry:focus .icon.next {\n  opacity: 0.6;\n}\n[data-component=\"target-search\"] .entries .entry[data-selected] .icon.next,\n[data-component=\"target-search\"] .entries .entry:active .icon.next,\n[data-component=\"application\"][is-touch-device=\"true\"] [data-component=\"target-search\"] .entries .entry:hover .icon.next,\n[data-component=\"target-search\"] .entries .entry[data-selected]:hover .icon.next,\n[data-component=\"target-search\"] .entries .entry:active:hover .icon.next,\n[data-component=\"application\"][is-touch-device=\"true\"] [data-component=\"target-search\"] .entries .entry:hover:hover .icon.next {\n  opacity: 1;\n}\n[data-component=\"target-search\"] .entries .entry path.is-light-source-facing {\n  opacity: 0.75;\n}\n[data-component=\"target-search\"] .entries .entry path.is-not-light-source-facing {\n  opacity: 1;\n}\n[data-component=\"target-search\"] .entries .entry[data-selected],\n[data-component=\"target-search\"] .entries .entry:active,\n[data-component=\"application\"][is-touch-device=\"true\"] [data-component=\"target-search\"] .entries .entry:hover {\n  border-color: transparent;\n}\n[data-component=\"target-search\"] .entries .entry[data-selected],\n[data-component=\"target-search\"] .entries .entry:active,\n[data-component=\"application\"][is-touch-device=\"true\"] [data-component=\"target-search\"] .entries .entry:hover,\n[data-component=\"target-search\"] .entries .entry[data-selected]:hover,\n[data-component=\"target-search\"] .entries .entry:active:hover,\n[data-component=\"application\"][is-touch-device=\"true\"] [data-component=\"target-search\"] .entries .entry:hover:hover {\n  z-index: 2;\n  color: #fff;\n  box-shadow: none !important;\n}\n[data-component=\"target-search\"] .entries .entry[data-selected] path.is-light-source-facing,\n[data-component=\"target-search\"] .entries .entry:active path.is-light-source-facing,\n[data-component=\"application\"][is-touch-device=\"true\"] [data-component=\"target-search\"] .entries .entry:hover path.is-light-source-facing,\n[data-component=\"target-search\"] .entries .entry[data-selected]:hover path.is-light-source-facing,\n[data-component=\"target-search\"] .entries .entry:active:hover path.is-light-source-facing,\n[data-component=\"application\"][is-touch-device=\"true\"] [data-component=\"target-search\"] .entries .entry:hover:hover path.is-light-source-facing {\n  opacity: 1;\n}\n[data-component=\"target-search\"] .entries .entry[data-selected] path.is-not-light-source-facing,\n[data-component=\"target-search\"] .entries .entry:active path.is-not-light-source-facing,\n[data-component=\"application\"][is-touch-device=\"true\"] [data-component=\"target-search\"] .entries .entry:hover path.is-not-light-source-facing,\n[data-component=\"target-search\"] .entries .entry[data-selected]:hover path.is-not-light-source-facing,\n[data-component=\"target-search\"] .entries .entry:active:hover path.is-not-light-source-facing,\n[data-component=\"application\"][is-touch-device=\"true\"] [data-component=\"target-search\"] .entries .entry:hover:hover path.is-not-light-source-facing {\n  opacity: 0.5;\n}\n", ""]);
 
 // exports
 
@@ -2309,7 +2337,7 @@ exports = module.exports = __webpack_require__(1)();
 
 
 // module
-exports.push([module.i, "article,\naside,\ndetails,\nfigcaption,\nfigure,\nfooter,\nheader,\nhgroup,\nnav,\nsection,\nsummary {\n  display: block;\n}\naudio,\ncanvas,\nvideo {\n  display: inline;\n  zoom: 1;\n}\naudio:not([controls]) {\n  display: none;\n  height: 0;\n}\n[hidden] {\n  display: none;\n}\nhtml {\n  font-size: 100%;\n  -webkit-text-size-adjust: 100%;\n      -ms-text-size-adjust: 100%;\n          text-size-adjust: 100%;\n}\nbody {\n  margin: 0;\n  text-rendering: optimizeLegibility;\n}\nbutton,\ninput,\nselect,\ntextarea {\n  font-family: inherit;\n  font-size: inherit;\n  margin: 0;\n}\nbutton,\ninput {\n  line-height: normal;\n}\nbutton,\ninput[type=\"button\"],\ninput[type=\"reset\"],\ninput[type=\"submit\"] {\n  cursor: pointer;\n}\nbutton[disabled],\ninput[type=\"button\"][disabled],\ninput[type=\"reset\"][disabled],\ninput[type=\"submit\"][disabled] {\n  cursor: not-allowed;\n}\nbutton::-moz-focus-inner,\ninput::-moz-focus-inner {\n  border: 0;\n  padding: 0;\n}\na:focus {\n  outline: thin dotted;\n}\na:active,\na:hover {\n  outline: 0;\n}\nabbr[title] {\n  border-bottom: thin dotted;\n}\nb,\nstrong {\n  font-weight: 700;\n}\ndfn {\n  font-style: italic;\n}\npre {\n  white-space: pre-wrap;\n  word-wrap: break-word;\n}\nimg {\n  border: 0;\n  -ms-interpolation-mode: bicubic;\n}\nsvg:not(:root) {\n  overflow: hidden;\n}\ntextarea {\n  overflow: auto;\n  -webkit-overflow-scrolling: touch;\n  vertical-align: top;\n  resize: vertical;\n}\ntable {\n  border-collapse: collapse;\n  border-spacing: 0;\n}\nfigure,\nform {\n  margin: 0;\n}\np,\npre,\ndl,\nmenu,\nol,\nul {\n  margin: 1em 0;\n}\n*,\n*:after,\n*:before {\n  box-sizing: border-box;\n}\nhtml {\n  font-size: 16px;\n}\nbody {\n  font-family: \"Avenir New\", Avenir, \"Helvetica Neue\", sans-serif;\n}\n.button {\n  -webkit-font-smoothing: subpixel-antialiased;\n  -moz-osx-font-smoothing: auto;\n  position: relative;\n  text-rendering: optimizeLegibility;\n  -webkit-tap-highlight-color: transparent;\n  -webkit-user-select: none;\n     -moz-user-select: none;\n      -ms-user-select: none;\n          user-select: none;\n  -webkit-appearance: none;\n     -moz-appearance: none;\n          appearance: none;\n  display: inline-block;\n  cursor: pointer;\n  border: 0;\n  border-radius: 0.1875em;\n  font-size: 1em;\n  padding: 0.6em 2em;\n  margin: 0;\n  text-align: center;\n  font-family: \"Avenir New\", Avenir, \"Helvetica Neue\", sans-serif;\n  font-weight: 300;\n  letter-spacing: 0.04em;\n  text-indent: 0.04em;\n  text-decoration: none;\n}\n.button.slim {\n  padding-left: 1em;\n  padding-right: 1em;\n}\n.button.nowrap {\n  white-space: nowrap;\n  max-width: 100%;\n}\n@media screen and (-webkit-min-device-pixel-ratio: 0) {\n  .button {\n    font-weight: 400;\n  }\n}\n@media all and (-webkit-min-device-pixel-ratio: 0) and (-webkit-min-device-pixel-ratio: 0.001), all and (-webkit-min-device-pixel-ratio: 0) and (min-resolution: 0.001dppx) {\n  .button {\n    font-weight: 300;\n  }\n}\n.button:hover {\n  text-decoration: none;\n}\n.button[disabled] {\n  opacity: 0.7;\n}\n.button[disabled]:hover,\n.button[disabled]:focus,\n.button[disabled]:focus:hover {\n  box-shadow: none !important;\n}\n.button:hover {\n  box-shadow: 0 0.1875em 0.375em -0.1875em rgba(0,0,0,0.325);\n}\n.button:hover:active,\n.button.active {\n  box-shadow: inset 0 0.125em 0.375em rgba(0,0,0,0.325);\n}\n.button:focus {\n  outline: none;\n}\n.button:focus::before {\n  content: \"\";\n  position: absolute;\n  z-index: 1;\n  top: 2px;\n  right: 2px;\n  bottom: 2px;\n  left: 2px;\n  border-radius: 0.1em;\n  box-shadow: inset 0 0 0 1px currentColor;\n  pointer-events: none;\n  transition: opacity 0.3s ease-in-out;\n}\n.button:focus:active::before {\n  opacity: 0;\n}\n.button.primary {\n  background: #000;\n  color: #fff;\n}\n.button.transparent {\n  font-weight: 400;\n}\n.button.transparent:not(:hover):not(:active):not(.active):not(:focus) {\n  background: transparent;\n  box-shadow: inset 0 0 0 1px lightLineGrayRGBA;\n  color: rgba(0,0,0,0.55);\n}\n.button.small {\n  font-size: 0.9em;\n  border-radius: 0.2083em;\n  letter-spacing: 0.06em;\n  text-indent: 0.06em;\n}\n.button.large {\n  font-size: 1.25em;\n}\n.button.with-spinner-icon {\n  position: relative;\n}\n.button.with-spinner-icon .icon.spinner-icon {\n  display: none;\n}\n.button.with-spinner-icon.showing-spinner-icon .button-content {\n  opacity: 0;\n  pointer-events: none;\n}\n.button.with-spinner-icon.showing-spinner-icon .icon.spinner-icon {\n  position: absolute;\n  display: block;\n  margin: auto;\n  top: 0;\n  right: 0;\n  bottom: 0;\n  left: 0;\n}\n.button.with-spinner-icon.showing-spinner-icon.more:after {\n  opacity: 0;\n  pointer-events: none;\n}\n.buttons-group span.buttons-group-message {\n  display: inline-block;\n  padding: 0.6em 0;\n}\n.buttons-group span.buttons-group-message.small {\n  font-size: 0.9em;\n}\n.buttons-group span.buttons-group-message.large {\n  font-size: 1.25em;\n}\n@media (min-width: 569px) {\n  .buttons-group button,\n  .buttons-group .button,\n  .buttons-group span.buttons-group-message {\n    margin-right: 1em;\n  }\n  .buttons-group button:last-child,\n  .buttons-group .button:last-child,\n  .buttons-group span.buttons-group-message:last-child {\n    margin-right: 0;\n  }\n}\n@media (max-width: 568px) {\n  .buttons-group button,\n  .buttons-group .button,\n  .buttons-group span.buttons-group-message {\n    display: block;\n    margin-bottom: 1em;\n  }\n  .buttons-group button:last-child,\n  .buttons-group .button:last-child,\n  .buttons-group span.buttons-group-message:last-child {\n    margin-bottom: 0;\n  }\n}\n@media (max-width: 568px) {\n  .buttons-group button {\n    width: 100%;\n  }\n}\n\n@font-face {\n  font-family: \"embed-box-icons\";\n  font-style: normal;\n  font-weight: normal;\n  src: url(data:application/x-font-woff;charset=utf-8;base64,d09GRk9UVE8AAAQQAAoAAAAABewAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAABDRkYgAAAA9AAAARQAAAEw7LPuDUZGVE0AAAIIAAAAGgAAABx04jsnT1MvMgAAAiQAAABLAAAAYGFpBYRjbWFwAAACcAAAAEcAAAFOP7UHcGhlYWQAAAK4AAAALwAAADYGoUQqaGhlYQAAAugAAAAfAAAAJAe/AetobXR4AAADCAAAABAAAAAQCwoAAG1heHAAAAMYAAAABgAAAAYABFAAbmFtZQAAAyAAAADaAAABsE3GDFBwb3N0AAAD/AAAABMAAAAg/50AZnicTY69S8NQFMXvbV5aLI/4GXEIzSJYAh0dXPwXLNpgVymvH6AtpMHJsWglk06CuPXvEPyg9E9wt2SVt/huk2exWUo5HPgdONx7EBgDROTioiWCSqfR6/YBc4BwTKUcuQbtsTo3JGelIrBh2Y2iJfBCFM5GydB04GXdAdhwYLTpwJqDB1tgZjfysA0ueHAYdq5EP+i02mGl0RbXQa97KZpLXvm9OgMA73CI98AQ90+aN+onkgmXKCVpacjd2ST5+pvk5TywE056zgsW+XRrq281rX2m0zROYxXXTtU0zRS/n6lFVhl9mBY90sDW5/RUrZOnhV547JvWLw0Y+fp5/KbLJMgjUX1dlB92Zkd2xIv/gw+CN3icY2BgYGQAggsF9tdA9CWLvytgNABOBQe1AAB4nGNgZopgnMDAysDBasw6k4GBUQ5CM19nSGMSYgACVgYIaGBgYGJAAgFprikMDgzXFazY0v6lMexg/sIgDhRmhCtQAEJGABgTC0oAeJxjYGBgZoBgGQZGBhDwAPIYwXwWBh0gzQakGRmYGK4rWP3/D+RfV7D8//+/FpAFUsUC1s0E5LAxQA0YnoCZibAaAF3eCGYAeJxjYGRgYADisx3H/eL5bb4ycHMwgMAli78rEPT/l8wCzF+AXA4GJpAoAFzJDHkAeJxjYGRgYP7y/yXDDmYBBoZ/b4EkUAQFsAAAloYFrwAEAAAAAf0AAAH9AAADEAAAAABQAAAEAAB4nI2PvQ3CMBCFXyCJxI8oEaULJCpHTiRSMEBKSvoIWVGaWHKYgREYgzEYgDEYgJoXc0UKCizZ/u7euzsbwBI3RBhWhAU2whMkMMJT7HAVjul5CCfkl3CKRbSiM4pnzKxD1cATzLEVnuKIUjim5y6ckJ/CKfkNixoNTw+NFmc4dOgBWzfW6/bsOgajvGSqEF/C7UO9QoGM/1A4cP/u+tVK5nI6NSsMac92rrtUzjdWFZlRBzWazqjUudGFyWn857WnoPfUB1VxwvAunKzvW9epPDN/9fkAFF9DNgAAeJxjYGYAg/+zGNIYsAAALpkCAwA=) format(\"woff\");\n}\na.more::after,\nbutton.more::after,\n.with-more-icon-after::after {\n  font-family: \"embed-box-icons\";\n  position: relative;\n  display: inline-block;\n  vertical-align: baseline;\n  color: inherit;\n  font-style: normal;\n  font-weight: inherit;\n  font-size: 1em;\n  line-height: 1;\n  text-decoration: none;\n  content: \"\\203A\";\n  padding-left: 0.3em;\n}\na.before::before,\n.with-before-icon-before::before {\n  font-family: \"embed-box-icons\";\n  position: relative;\n  display: inline-block;\n  vertical-align: baseline;\n  color: inherit;\n  font-style: normal;\n  font-weight: inherit;\n  font-size: 1em;\n  line-height: 1;\n  text-decoration: none;\n  content: \"\\2039\";\n  padding-right: 0.3em;\n}\na.more:not(.button)::after {\n  padding-right: 0.3em;\n}\n.with-more-icon-after:empty::after {\n  padding-left: 0.15em;\n  padding-right: 0.15em;\n}\n.loading-dots {\n  opacity: 0;\n  animation: loading-dots-fadein 0.5s linear forwards;\n}\n.loading-dots[data-state=\"loaded\"] i,\n.loading-dots[data-state=\"loaded\"] i:first-child,\n.loading-dots[data-state=\"loaded\"] i:last-child {\n  opacity: 0;\n  animation-play-state: paused;\n}\n.loading-dots i {\n  width: 0.5em;\n  height: 0.5em;\n  display: inline-block;\n  vertical-align: middle;\n  background: currentColor;\n  border-radius: 50%;\n  margin: 0 0.25em;\n  animation: loading-dots-middle-dots 0.5s linear infinite;\n}\n.loading-dots i:first-child {\n  animation: loading-dots-first-dot 0.5s linear infinite;\n  opacity: 0;\n  transform: translate(-1em);\n}\n.loading-dots i:last-child {\n  animation: loading-dots-last-dot 0.5s linear infinite;\n}\n@-moz-keyframes loading-dots-fadein {\n  100% {\n    opacity: 1;\n  }\n}\n@-webkit-keyframes loading-dots-fadein {\n  100% {\n    opacity: 1;\n  }\n}\n@-o-keyframes loading-dots-fadein {\n  100% {\n    opacity: 1;\n  }\n}\n@keyframes loading-dots-fadein {\n  100% {\n    opacity: 1;\n  }\n}\n@-moz-keyframes loading-dots-first-dot {\n  100% {\n    transform: translate(1em);\n    opacity: 1;\n  }\n}\n@-webkit-keyframes loading-dots-first-dot {\n  100% {\n    transform: translate(1em);\n    opacity: 1;\n  }\n}\n@-o-keyframes loading-dots-first-dot {\n  100% {\n    transform: translate(1em);\n    opacity: 1;\n  }\n}\n@keyframes loading-dots-first-dot {\n  100% {\n    transform: translate(1em);\n    opacity: 1;\n  }\n}\n@-moz-keyframes loading-dots-middle-dots {\n  100% {\n    transform: translate(1em);\n  }\n}\n@-webkit-keyframes loading-dots-middle-dots {\n  100% {\n    transform: translate(1em);\n  }\n}\n@-o-keyframes loading-dots-middle-dots {\n  100% {\n    transform: translate(1em);\n  }\n}\n@keyframes loading-dots-middle-dots {\n  100% {\n    transform: translate(1em);\n  }\n}\n@-moz-keyframes loading-dots-last-dot {\n  100% {\n    transform: translate(2em);\n    opacity: 0;\n  }\n}\n@-webkit-keyframes loading-dots-last-dot {\n  100% {\n    transform: translate(2em);\n    opacity: 0;\n  }\n}\n@-o-keyframes loading-dots-last-dot {\n  100% {\n    transform: translate(2em);\n    opacity: 0;\n  }\n}\n@keyframes loading-dots-last-dot {\n  100% {\n    transform: translate(2em);\n    opacity: 0;\n  }\n}\nhtml,\nbody {\n  height: 100%;\n}\nbody {\n  margin: 0;\n}\ndiv,\nfooter,\nheader,\nmain,\nsection {\n  display: -ms-flexbox;\n  display: flex;\n}\n[data-flow=\"column\"] {\n  -ms-flex-flow: column nowrap;\n      flex-flow: column nowrap;\n}\n[data-action] {\n  cursor: pointer;\n}\n[data-action],\n[tabindex] {\n  -webkit-tap-highlight-color: transparent;\n}\n[data-selectable],\n[contenteditable] {\n  cursor: text;\n  -webkit-user-select: text;\n     -moz-user-select: text;\n      -ms-user-select: text;\n          user-select: text;\n}\nhtml,\nbody {\n  overflow: hidden;\n}\nhtml {\n  background: transparent;\n}\nmain {\n  height: 100%;\n  overflow: hidden;\n}\nbody {\n  background: rgba(0,0,0,0.4);\n  cursor: default;\n  -webkit-user-select: none;\n     -moz-user-select: none;\n      -ms-user-select: none;\n          user-select: none;\n}\n", ""]);
+exports.push([module.i, "[data-component$=\"-target\"] {\n  -ms-flex: 1 1 auto;\n      flex: 1 1 auto;\n  overflow: auto;\n  -webkit-overflow-scrolling: touch;\n}\n[data-component$=\"-target\"] [data-content-slot] {\n  background: rgba(0,0,0,0.045);\n  border-radius: 3px;\n  display: block;\n  margin: 1em;\n  padding: 1em;\n  text-align: center;\n}\n[data-component$=\"-target\"] .copy-container {\n  background: rgba(0,0,0,0.045);\n  border-radius: 3px;\n  font-size: 0.8em;\n  margin: 2rem 0;\n  max-width: 100vw;\n  position: relative;\n}\n[data-component$=\"-target\"] .copy-container button.run {\n  margin: 0;\n  padding: 0.3em 1em;\n  position: absolute;\n  left: 1.5em;\n  top: 1.5em;\n}\n[data-component$=\"-target\"] .copy-container button.run::after {\n  color: #000;\n  content: \"Copied\";\n  display: inline-block;\n  left: 100%;\n  margin-left: 0.5em;\n  opacity: 0;\n  position: absolute;\n}\n[data-component$=\"-target\"] .copy-container button.run[data-status=\"copied\"]::after {\n  animation: copied 400ms linear;\n  animation-fill-mode: forwards;\n  opacity: 1;\n}\n[data-component$=\"-target\"] .copy-container > .copyable {\n  display: block;\n  font-family: Monaco, \"Bitstream Vera Sans Mono\", \"Lucida Console\", Terminal, monospace;\n  margin: 0;\n  padding: 1.3em;\n  padding-top: 4.3em;\n  white-space: pre-wrap;\n  width: 100%;\n  word-wrap: break-word;\n}\n[data-component$=\"-target\"] .copy-container > .copyable:focus {\n  outline: none;\n}\n.target-instructions {\n  cursor: auto;\n  display: block;\n  -ms-flex: 1 1 auto;\n      flex: 1 1 auto;\n  height: 0;\n  padding-bottom: 1em;\n  -webkit-user-select: text;\n     -moz-user-select: text;\n      -ms-user-select: text;\n          user-select: text;\n}\n.target-instructions figure {\n  margin: 2em 0;\n  position: relative;\n}\n.target-instructions figure img,\n.target-instructions figure[data-component=\"screenshot\"] {\n  background: #fff;\n  display: block;\n  max-width: 100%;\n}\n.target-instructions figure[data-component=\"screenshot\"] {\n  height: 0;\n  overflow: hidden;\n  padding-left: 0;\n  padding-right: 0;\n  padding-top: 0;\n  position: relative;\n  width: 100%;\n}\n.target-instructions figure[data-component=\"screenshot\"] iframe {\n  border: 0;\n  left: 0;\n  opacity: 0;\n  position: absolute;\n  top: 0;\n  transform-origin: 0 0;\n}\n.target-instructions figure[data-component=\"screenshot\"][data-render-state=\"scaled\"] iframe {\n  opacity: 1;\n}\n.target-instructions figure::after {\n  content: \"\";\n  display: block;\n  position: absolute;\n  cursor: default;\n  border: 1px solid rgba(0,0,0,0.2);\n  z-index: 1;\n  top: 0;\n  right: 0;\n  bottom: 0;\n  left: 0;\n}\n[data-component=\"application\"][data-mode=\"modal\"] .target-instructions figure::after {\n  border-left: 0;\n  border-right: 0;\n}\n@media (max-width: 35rem) {\n  .target-instructions figure::after {\n    border-left: 0;\n    border-right: 0;\n  }\n}\n.target-instructions figure [annotation-arrow] {\n  position: absolute;\n}\n.target-instructions figure [annotation-arrow] > div {\n  position: absolute;\n  top: 0;\n  left: 0;\n  height: 0;\n  width: 100%;\n}\n.target-instructions figure [annotation-arrow] svg {\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n}\n.target-instructions figure [annotation-arrow][data-svg-view-box=\"0 0 83 114\"] > div {\n  padding-bottom: 137.35%;\n}\n.target-instructions figure [annotation-arrow][data-svg-view-box=\"0 0 127 73\"] > div {\n  padding-bottom: 57.48%;\n}\n.target-instructions,\n.target-instructions *:focus {\n  outline: none;\n}\n.target-instructions .target-title {\n  -ms-flex-align: center;\n      -ms-grid-row-align: center;\n      align-items: center;\n  background: rgba(0,0,0,0.045);\n  border-bottom: 1px solid rgba(0,0,0,0.045);\n  padding: 2em 4em 1.6em;\n  text-align: center;\n}\n@media (max-width: 568px) {\n  .target-instructions .target-title {\n    padding-left: 2em;\n    padding-right: 2em;\n  }\n}\n@media (max-width: 22.5em) {\n  .target-instructions .target-title {\n    padding-left: 1.5em;\n    padding-right: 1.5em;\n  }\n}\n.target-instructions .target-title .icon {\n  height: 3em;\n  width: 3em;\n  margin-bottom: 1em;\n}\n.target-instructions .target-title .icon > svg {\n  display: block;\n  width: 100%;\n  fill: currentColor;\n}\n.target-instructions .target-title .icon path.is-light-source-facing {\n  opacity: 0.75;\n}\n.target-instructions .target-title .icon path.is-not-light-source-facing {\n  opacity: 1;\n}\n.target-instructions .target-title h1 {\n  font-size: 1.25em;\n  font-weight: 300;\n  margin: 0 0 0.5em;\n  text-align: center;\n}\n.target-instructions .target-title h1:last-child {\n  margin-bottom: 0;\n}\n.target-instructions .target-title .versions {\n  -ms-flex-align: center;\n      -ms-grid-row-align: center;\n      align-items: center;\n  font-size: 0.9em;\n}\n.target-instructions .target-title .versions .label {\n  margin-right: 0.5em;\n  opacity: 0.5;\n}\n.target-instructions .target-title .versions select {\n  display: inline-block;\n  border: 1px solid rgba(0,0,0,0.21);\n  background: transparent;\n  cursor: pointer;\n  font-family: inherit;\n  font-size: inherit;\n  color: inherit;\n}\n.target-instructions .target-title .versions select:not(:hover) {\n  opacity: 0.5;\n}\n.target-instructions .target-title .versions select:focus {\n  outline: none;\n  border: 1px dashed currentColor;\n}\n.target-instructions ol.steps {\n  width: 35rem;\n  max-width: 100%;\n  margin: 0 auto;\n  counter-reset: item 0;\n  list-style: none;\n  padding: 2em 0 0;\n}\n@media (max-width: 768px) {\n  [data-component=\"application\"][is-iphone=\"true\"] .target-instructions ol.steps::after {\n    content: \"\";\n    display: block;\n    -ms-flex: 0 0 auto;\n        flex: 0 0 auto;\n    height: 64px;\n  }\n}\n.target-instructions ol.steps div,\n.target-instructions ol.steps footer,\n.target-instructions ol.steps header,\n.target-instructions ol.steps section {\n  display: block;\n}\n.target-instructions ol.steps li {\n  counter-increment: item;\n  margin: 1em 0;\n  padding: 0;\n  position: relative;\n}\n.target-instructions ol.steps li:first-child {\n  margin-top: 0;\n}\n.target-instructions ol.steps li + li {\n  margin-top: 3.5em;\n}\n.target-instructions ol.steps li:first-child > *:first-child {\n  margin-top: 0;\n}\n.target-instructions ol.steps li:last-child > *:last-child {\n  margin-bottom: 0;\n}\n.target-instructions ol.steps li::before {\n  background: rgba(0,0,0,0.045);\n  border-radius: 50%;\n  color: #fff;\n  content: counter(item);\n  display: inline-block;\n  left: 0;\n  line-height: 2em;\n  margin-left: 1em;\n  position: absolute;\n  text-align: center;\n  top: -0.2em;\n  width: 2em;\n}\n.target-instructions ol.steps li > p,\n.target-instructions ol.steps li > h1,\n.target-instructions ol.steps li > h2 {\n  margin: 1em 2em 1em 4em;\n}\n@media (max-width: 568px) {\n  .target-instructions ol.steps li > p,\n  .target-instructions ol.steps li > h1,\n  .target-instructions ol.steps li > h2 {\n    margin-right: 1em;\n  }\n}\n.target-instructions h2 {\n  font-size: 1em;\n  font-weight: 400;\n  margin-top: 3em;\n}\n.target-instructions > *:first-child {\n  margin-top: 0;\n}\n.target-instructions > *:last-child {\n  margin-bottom: 0;\n}\n@-moz-keyframes copied {\n  0%, 100% {\n    opacity: 0;\n  }\n  50% {\n    opacity: 1;\n    transform: translate3d(0, -1.8em, 0);\n  }\n  100% {\n    transform: translate3d(0, -1.8em, 0);\n  }\n}\n@-webkit-keyframes copied {\n  0%, 100% {\n    opacity: 0;\n  }\n  50% {\n    opacity: 1;\n    transform: translate3d(0, -1.8em, 0);\n  }\n  100% {\n    transform: translate3d(0, -1.8em, 0);\n  }\n}\n@-o-keyframes copied {\n  0%, 100% {\n    opacity: 0;\n  }\n  50% {\n    opacity: 1;\n    transform: translate3d(0, -1.8em, 0);\n  }\n  100% {\n    transform: translate3d(0, -1.8em, 0);\n  }\n}\n@keyframes copied {\n  0%, 100% {\n    opacity: 0;\n  }\n  50% {\n    opacity: 1;\n    transform: translate3d(0, -1.8em, 0);\n  }\n  100% {\n    transform: translate3d(0, -1.8em, 0);\n  }\n}\n", ""]);
 
 // exports
 
@@ -2318,35 +2346,29 @@ exports.push([module.i, "article,\naside,\ndetails,\nfigcaption,\nfigure,\nfoote
 /* 21 */
 /***/ function(module, exports, __webpack_require__) {
 
-// css-to-string-loader: transforms styles from css-loader to a string output
+exports = module.exports = __webpack_require__(1)();
+// imports
 
-// Get the styles
-var styles = __webpack_require__(16);
 
-if (typeof styles === 'string') {
-  // Return an existing string
-  module.exports = styles;
-} else {
-  // Call the custom toString method from css-loader module
-  module.exports = styles.toString();
-}
+// module
+exports.push([module.i, ".embed-box {\n  transform: translate3d(0, 0, 0);\n}\n.embed-box[data-mode=\"inline\"] {\n  display: inline-block;\n  height: 100vh;\n  max-height: 100vh;\n  min-height: 15em;\n  width: 100%;\n}\n.embed-box[data-mode=\"modal\"] {\n  bottom: 0 !important;\n  display: block;\n  height: 100% !important;\n  left: 0 !important;\n  max-height: 100vh !important;\n  max-width: 100vw !important;\n  opacity: 0;\n  position: fixed !important;\n  right: 0 !important;\n  top: 0 !important;\n  transition: opacity 0.1s linear !important;\n  width: 100% !important;\n  z-index: 100000 !important;\n}\n.embed-box-download-iframe {\n  position: fixed;\n  visibility: hidden;\n  width: 1px;\n  height: 1px;\n  z-index: -99999;\n}\n[data-embed-box-scroll-state] {\n  height: 100%;\n}\nbody[data-embed-box-scroll-state=\"locked\"] {\n  overflow: hidden !important;\n}\n@media (max-width: 768px) {\n  .embed-box[data-mode=\"modal\"] {\n    position: absolute !important;\n  }\n  body[data-embed-box-scroll-state=\"locked\"],\n  html[data-embed-box-scroll-state=\"locked\"] {\n    bottom: 0 !important;\n    left: 0 !important;\n    overflow: hidden !important;\n    position: fixed !important;\n    right: 0 !important;\n    top: 0 !important;\n  }\n}\n", ""]);
+
+// exports
+
 
 /***/ },
 /* 22 */
 /***/ function(module, exports, __webpack_require__) {
 
-// css-to-string-loader: transforms styles from css-loader to a string output
+exports = module.exports = __webpack_require__(1)();
+// imports
 
-// Get the styles
-var styles = __webpack_require__(17);
 
-if (typeof styles === 'string') {
-  // Return an existing string
-  module.exports = styles;
-} else {
-  // Call the custom toString method from css-loader module
-  module.exports = styles.toString();
-}
+// module
+exports.push([module.i, "article,\naside,\ndetails,\nfigcaption,\nfigure,\nfooter,\nheader,\nhgroup,\nnav,\nsection,\nsummary {\n  display: block;\n}\naudio,\ncanvas,\nvideo {\n  display: inline;\n  zoom: 1;\n}\naudio:not([controls]) {\n  display: none;\n  height: 0;\n}\n[hidden] {\n  display: none;\n}\nhtml {\n  font-size: 100%;\n  -webkit-text-size-adjust: 100%;\n      -ms-text-size-adjust: 100%;\n          text-size-adjust: 100%;\n}\nbody {\n  margin: 0;\n  text-rendering: optimizeLegibility;\n}\nbutton,\ninput,\nselect,\ntextarea {\n  font-family: inherit;\n  font-size: inherit;\n  margin: 0;\n}\nbutton,\ninput {\n  line-height: normal;\n}\nbutton,\ninput[type=\"button\"],\ninput[type=\"reset\"],\ninput[type=\"submit\"] {\n  cursor: pointer;\n}\nbutton[disabled],\ninput[type=\"button\"][disabled],\ninput[type=\"reset\"][disabled],\ninput[type=\"submit\"][disabled] {\n  cursor: not-allowed;\n}\nbutton::-moz-focus-inner,\ninput::-moz-focus-inner {\n  border: 0;\n  padding: 0;\n}\na:focus {\n  outline: thin dotted;\n}\na:active,\na:hover {\n  outline: 0;\n}\nabbr[title] {\n  border-bottom: thin dotted;\n}\nb,\nstrong {\n  font-weight: 700;\n}\ndfn {\n  font-style: italic;\n}\npre {\n  white-space: pre-wrap;\n  word-wrap: break-word;\n}\nimg {\n  border: 0;\n  -ms-interpolation-mode: bicubic;\n}\nsvg:not(:root) {\n  overflow: hidden;\n}\ntextarea {\n  overflow: auto;\n  -webkit-overflow-scrolling: touch;\n  vertical-align: top;\n  resize: vertical;\n}\ntable {\n  border-collapse: collapse;\n  border-spacing: 0;\n}\nfigure,\nform {\n  margin: 0;\n}\np,\npre,\ndl,\nmenu,\nol,\nul {\n  margin: 1em 0;\n}\n*,\n*:after,\n*:before {\n  box-sizing: border-box;\n}\nhtml {\n  font-size: 16px;\n}\nbody {\n  font-family: \"Avenir New\", Avenir, \"Helvetica Neue\", sans-serif;\n}\n.button {\n  -webkit-font-smoothing: subpixel-antialiased;\n  -moz-osx-font-smoothing: auto;\n  position: relative;\n  text-rendering: optimizeLegibility;\n  -webkit-tap-highlight-color: transparent;\n  -webkit-user-select: none;\n     -moz-user-select: none;\n      -ms-user-select: none;\n          user-select: none;\n  -webkit-appearance: none;\n     -moz-appearance: none;\n          appearance: none;\n  display: inline-block;\n  cursor: pointer;\n  border: 0;\n  border-radius: 0.1875em;\n  font-size: 1em;\n  padding: 0.6em 2em;\n  margin: 0;\n  text-align: center;\n  font-family: \"Avenir New\", Avenir, \"Helvetica Neue\", sans-serif;\n  font-weight: 300;\n  letter-spacing: 0.04em;\n  text-indent: 0.04em;\n  text-decoration: none;\n}\n.button.slim {\n  padding-left: 1em;\n  padding-right: 1em;\n}\n.button.nowrap {\n  white-space: nowrap;\n  max-width: 100%;\n}\n@media screen and (-webkit-min-device-pixel-ratio: 0) {\n  .button {\n    font-weight: 400;\n  }\n}\n@media all and (-webkit-min-device-pixel-ratio: 0) and (-webkit-min-device-pixel-ratio: 0.001), all and (-webkit-min-device-pixel-ratio: 0) and (min-resolution: 0.001dppx) {\n  .button {\n    font-weight: 300;\n  }\n}\n.button:hover {\n  text-decoration: none;\n}\n.button[disabled] {\n  opacity: 0.7;\n}\n.button[disabled]:hover,\n.button[disabled]:focus,\n.button[disabled]:focus:hover {\n  box-shadow: none !important;\n}\n.button:hover {\n  box-shadow: 0 0.1875em 0.375em -0.1875em rgba(0,0,0,0.325);\n}\n.button:hover:active,\n.button.active {\n  box-shadow: inset 0 0.125em 0.375em rgba(0,0,0,0.325);\n}\n.button:focus {\n  outline: none;\n}\n.button:focus::before {\n  content: \"\";\n  position: absolute;\n  z-index: 1;\n  top: 2px;\n  right: 2px;\n  bottom: 2px;\n  left: 2px;\n  border-radius: 0.1em;\n  box-shadow: inset 0 0 0 1px currentColor;\n  pointer-events: none;\n  transition: opacity 0.3s ease-in-out;\n}\n.button:focus:active::before {\n  opacity: 0;\n}\n.button.primary {\n  background: #000;\n  color: #fff;\n}\n.button.transparent {\n  font-weight: 400;\n}\n.button.transparent:not(:hover):not(:active):not(.active):not(:focus) {\n  background: transparent;\n  box-shadow: inset 0 0 0 1px lightLineGrayRGBA;\n  color: rgba(0,0,0,0.55);\n}\n.button.small {\n  font-size: 0.9em;\n  border-radius: 0.2083em;\n  letter-spacing: 0.06em;\n  text-indent: 0.06em;\n}\n.button.large {\n  font-size: 1.25em;\n}\n.button.with-spinner-icon {\n  position: relative;\n}\n.button.with-spinner-icon .icon.spinner-icon {\n  display: none;\n}\n.button.with-spinner-icon.showing-spinner-icon .button-content {\n  opacity: 0;\n  pointer-events: none;\n}\n.button.with-spinner-icon.showing-spinner-icon .icon.spinner-icon {\n  position: absolute;\n  display: block;\n  margin: auto;\n  top: 0;\n  right: 0;\n  bottom: 0;\n  left: 0;\n}\n.button.with-spinner-icon.showing-spinner-icon.more:after {\n  opacity: 0;\n  pointer-events: none;\n}\n.buttons-group span.buttons-group-message {\n  display: inline-block;\n  padding: 0.6em 0;\n}\n.buttons-group span.buttons-group-message.small {\n  font-size: 0.9em;\n}\n.buttons-group span.buttons-group-message.large {\n  font-size: 1.25em;\n}\n@media (min-width: 569px) {\n  .buttons-group button,\n  .buttons-group .button,\n  .buttons-group span.buttons-group-message {\n    margin-right: 1em;\n  }\n  .buttons-group button:last-child,\n  .buttons-group .button:last-child,\n  .buttons-group span.buttons-group-message:last-child {\n    margin-right: 0;\n  }\n}\n@media (max-width: 568px) {\n  .buttons-group button,\n  .buttons-group .button,\n  .buttons-group span.buttons-group-message {\n    display: block;\n    margin-bottom: 1em;\n  }\n  .buttons-group button:last-child,\n  .buttons-group .button:last-child,\n  .buttons-group span.buttons-group-message:last-child {\n    margin-bottom: 0;\n  }\n}\n@media (max-width: 568px) {\n  .buttons-group button {\n    width: 100%;\n  }\n}\n\n@font-face {\n  font-family: \"embed-box-icons\";\n  font-style: normal;\n  font-weight: normal;\n  src: url(data:application/x-font-woff;charset=utf-8;base64,d09GRk9UVE8AAAQQAAoAAAAABewAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAABDRkYgAAAA9AAAARQAAAEw7LPuDUZGVE0AAAIIAAAAGgAAABx04jsnT1MvMgAAAiQAAABLAAAAYGFpBYRjbWFwAAACcAAAAEcAAAFOP7UHcGhlYWQAAAK4AAAALwAAADYGoUQqaGhlYQAAAugAAAAfAAAAJAe/AetobXR4AAADCAAAABAAAAAQCwoAAG1heHAAAAMYAAAABgAAAAYABFAAbmFtZQAAAyAAAADaAAABsE3GDFBwb3N0AAAD/AAAABMAAAAg/50AZnicTY69S8NQFMXvbV5aLI/4GXEIzSJYAh0dXPwXLNpgVymvH6AtpMHJsWglk06CuPXvEPyg9E9wt2SVt/huk2exWUo5HPgdONx7EBgDROTioiWCSqfR6/YBc4BwTKUcuQbtsTo3JGelIrBh2Y2iJfBCFM5GydB04GXdAdhwYLTpwJqDB1tgZjfysA0ueHAYdq5EP+i02mGl0RbXQa97KZpLXvm9OgMA73CI98AQ90+aN+onkgmXKCVpacjd2ST5+pvk5TywE056zgsW+XRrq281rX2m0zROYxXXTtU0zRS/n6lFVhl9mBY90sDW5/RUrZOnhV547JvWLw0Y+fp5/KbLJMgjUX1dlB92Zkd2xIv/gw+CN3icY2BgYGQAggsF9tdA9CWLvytgNABOBQe1AAB4nGNgZopgnMDAysDBasw6k4GBUQ5CM19nSGMSYgACVgYIaGBgYGJAAgFprikMDgzXFazY0v6lMexg/sIgDhRmhCtQAEJGABgTC0oAeJxjYGBgZoBgGQZGBhDwAPIYwXwWBh0gzQakGRmYGK4rWP3/D+RfV7D8//+/FpAFUsUC1s0E5LAxQA0YnoCZibAaAF3eCGYAeJxjYGRgYADisx3H/eL5bb4ycHMwgMAli78rEPT/l8wCzF+AXA4GJpAoAFzJDHkAeJxjYGRgYP7y/yXDDmYBBoZ/b4EkUAQFsAAAloYFrwAEAAAAAf0AAAH9AAADEAAAAABQAAAEAAB4nI2PvQ3CMBCFXyCJxI8oEaULJCpHTiRSMEBKSvoIWVGaWHKYgREYgzEYgDEYgJoXc0UKCizZ/u7euzsbwBI3RBhWhAU2whMkMMJT7HAVjul5CCfkl3CKRbSiM4pnzKxD1cATzLEVnuKIUjim5y6ckJ/CKfkNixoNTw+NFmc4dOgBWzfW6/bsOgajvGSqEF/C7UO9QoGM/1A4cP/u+tVK5nI6NSsMac92rrtUzjdWFZlRBzWazqjUudGFyWn857WnoPfUB1VxwvAunKzvW9epPDN/9fkAFF9DNgAAeJxjYGYAg/+zGNIYsAAALpkCAwA=) format(\"woff\");\n}\na.more::after,\nbutton.more::after,\n.with-more-icon-after::after {\n  font-family: \"embed-box-icons\";\n  position: relative;\n  display: inline-block;\n  vertical-align: baseline;\n  color: inherit;\n  font-style: normal;\n  font-weight: inherit;\n  font-size: 1em;\n  line-height: 1;\n  text-decoration: none;\n  content: \"\\203A\";\n  padding-left: 0.3em;\n}\na.before::before,\n.with-before-icon-before::before {\n  font-family: \"embed-box-icons\";\n  position: relative;\n  display: inline-block;\n  vertical-align: baseline;\n  color: inherit;\n  font-style: normal;\n  font-weight: inherit;\n  font-size: 1em;\n  line-height: 1;\n  text-decoration: none;\n  content: \"\\2039\";\n  padding-right: 0.3em;\n}\na.more:not(.button)::after {\n  padding-right: 0.3em;\n}\n.with-more-icon-after:empty::after {\n  padding-left: 0.15em;\n  padding-right: 0.15em;\n}\n.loading-dots {\n  opacity: 0;\n  animation: loading-dots-fadein 0.5s linear forwards;\n}\n.loading-dots[data-state=\"loaded\"] i,\n.loading-dots[data-state=\"loaded\"] i:first-child,\n.loading-dots[data-state=\"loaded\"] i:last-child {\n  opacity: 0;\n  animation-play-state: paused;\n}\n.loading-dots i {\n  width: 0.5em;\n  height: 0.5em;\n  display: inline-block;\n  vertical-align: middle;\n  background: currentColor;\n  border-radius: 50%;\n  margin: 0 0.25em;\n  animation: loading-dots-middle-dots 0.5s linear infinite;\n}\n.loading-dots i:first-child {\n  animation: loading-dots-first-dot 0.5s linear infinite;\n  opacity: 0;\n  transform: translate(-1em);\n}\n.loading-dots i:last-child {\n  animation: loading-dots-last-dot 0.5s linear infinite;\n}\n@-moz-keyframes loading-dots-fadein {\n  100% {\n    opacity: 1;\n  }\n}\n@-webkit-keyframes loading-dots-fadein {\n  100% {\n    opacity: 1;\n  }\n}\n@-o-keyframes loading-dots-fadein {\n  100% {\n    opacity: 1;\n  }\n}\n@keyframes loading-dots-fadein {\n  100% {\n    opacity: 1;\n  }\n}\n@-moz-keyframes loading-dots-first-dot {\n  100% {\n    transform: translate(1em);\n    opacity: 1;\n  }\n}\n@-webkit-keyframes loading-dots-first-dot {\n  100% {\n    transform: translate(1em);\n    opacity: 1;\n  }\n}\n@-o-keyframes loading-dots-first-dot {\n  100% {\n    transform: translate(1em);\n    opacity: 1;\n  }\n}\n@keyframes loading-dots-first-dot {\n  100% {\n    transform: translate(1em);\n    opacity: 1;\n  }\n}\n@-moz-keyframes loading-dots-middle-dots {\n  100% {\n    transform: translate(1em);\n  }\n}\n@-webkit-keyframes loading-dots-middle-dots {\n  100% {\n    transform: translate(1em);\n  }\n}\n@-o-keyframes loading-dots-middle-dots {\n  100% {\n    transform: translate(1em);\n  }\n}\n@keyframes loading-dots-middle-dots {\n  100% {\n    transform: translate(1em);\n  }\n}\n@-moz-keyframes loading-dots-last-dot {\n  100% {\n    transform: translate(2em);\n    opacity: 0;\n  }\n}\n@-webkit-keyframes loading-dots-last-dot {\n  100% {\n    transform: translate(2em);\n    opacity: 0;\n  }\n}\n@-o-keyframes loading-dots-last-dot {\n  100% {\n    transform: translate(2em);\n    opacity: 0;\n  }\n}\n@keyframes loading-dots-last-dot {\n  100% {\n    transform: translate(2em);\n    opacity: 0;\n  }\n}\nhtml,\nbody {\n  height: 100%;\n}\nbody {\n  margin: 0;\n}\ndiv,\nfooter,\nheader,\nmain,\nsection {\n  display: -ms-flexbox;\n  display: flex;\n}\n[data-flow=\"column\"] {\n  -ms-flex-flow: column nowrap;\n      flex-flow: column nowrap;\n}\n[data-action] {\n  cursor: pointer;\n}\n[data-action],\n[tabindex] {\n  -webkit-tap-highlight-color: transparent;\n}\n[data-selectable],\n[contenteditable] {\n  cursor: text;\n  -webkit-user-select: text;\n     -moz-user-select: text;\n      -ms-user-select: text;\n          user-select: text;\n}\nhtml,\nbody {\n  overflow: hidden;\n}\nhtml {\n  background: transparent;\n}\nmain {\n  height: 100%;\n  overflow: hidden;\n}\nbody {\n  background: rgba(0,0,0,0.4);\n  cursor: default;\n  -webkit-user-select: none;\n     -moz-user-select: none;\n      -ms-user-select: none;\n          user-select: none;\n}\n", ""]);
+
+// exports
+
 
 /***/ },
 /* 23 */
@@ -2401,6 +2423,40 @@ if (typeof styles === 'string') {
 
 /***/ },
 /* 26 */
+/***/ function(module, exports, __webpack_require__) {
+
+// css-to-string-loader: transforms styles from css-loader to a string output
+
+// Get the styles
+var styles = __webpack_require__(21);
+
+if (typeof styles === 'string') {
+  // Return an existing string
+  module.exports = styles;
+} else {
+  // Call the custom toString method from css-loader module
+  module.exports = styles.toString();
+}
+
+/***/ },
+/* 27 */
+/***/ function(module, exports, __webpack_require__) {
+
+// css-to-string-loader: transforms styles from css-loader to a string output
+
+// Get the styles
+var styles = __webpack_require__(22);
+
+if (typeof styles === 'string') {
+  // Return an existing string
+  module.exports = styles;
+} else {
+  // Call the custom toString method from css-loader module
+  module.exports = styles.toString();
+}
+
+/***/ },
+/* 28 */
 /***/ function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global, module) {/**
@@ -4798,10 +4854,10 @@ function property(path) {
 
 module.exports = findIndex;
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(35), __webpack_require__(36)(module)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(37), __webpack_require__(38)(module)))
 
 /***/ },
-/* 27 */
+/* 29 */
 /***/ function(module, exports, __webpack_require__) {
 
 var pug = __webpack_require__(3);
@@ -4810,7 +4866,7 @@ function template(locals) {var pug_html = "", pug_mixins = {}, pug_interp;;var l
 module.exports = template;
 
 /***/ },
-/* 28 */
+/* 30 */
 /***/ function(module, exports, __webpack_require__) {
 
 var pug = __webpack_require__(3);
@@ -4819,7 +4875,7 @@ function template(locals) {var pug_html = "", pug_mixins = {}, pug_interp;;var l
 module.exports = template;
 
 /***/ },
-/* 29 */
+/* 31 */
 /***/ function(module, exports, __webpack_require__) {
 
 var pug = __webpack_require__(3);
@@ -4828,37 +4884,37 @@ function template(locals) {var pug_html = "", pug_mixins = {}, pug_interp;pug_ht
 module.exports = template;
 
 /***/ },
-/* 30 */
+/* 32 */
 /***/ function(module, exports) {
 
 module.exports = "<svg viewBox=\"-3 -3 22 22\" stroke-linecap=\"round\"><path d=\"M1 1l14 14M1 15L15 1\"></path></svg>"
 
 /***/ },
-/* 31 */
+/* 33 */
 /***/ function(module, exports) {
 
 module.exports = "<svg viewBox=\"0 0 16 16\" stroke-linecap=\"round\"><path d=\"M1 1l14 14M1 15L15 1\"></path></svg>"
 
 /***/ },
-/* 32 */
+/* 34 */
 /***/ function(module, exports) {
 
 module.exports = "<svg viewBox=\"0 0 16 16\" stroke-linecap=\"round\"><path d=\"M4 1l7 7M4 15l7-7\"></path></svg>"
 
 /***/ },
-/* 33 */
+/* 35 */
 /***/ function(module, exports) {
 
 module.exports = "<svg viewBox=\"0 0 16 16\" stroke-linecap=\"round\"><path d=\"M11 1L4 8M11 15L4 8\"></path></svg>"
 
 /***/ },
-/* 34 */
+/* 36 */
 /***/ function(module, exports) {
 
 module.exports = "<svg viewBox=\"0 0 16 16\" stroke-width=\"1\" stroke-linecap=\"round\"><circle cx=\"6.5\" cy=\"6.5\" r=\"5.5\" fill=\"none\"></circle><path d=\"M10.5,10.5 L15,15\"></path></svg>"
 
 /***/ },
-/* 35 */
+/* 37 */
 /***/ function(module, exports) {
 
 var g;
@@ -4883,7 +4939,7 @@ module.exports = g;
 
 
 /***/ },
-/* 36 */
+/* 38 */
 /***/ function(module, exports) {
 
 module.exports = function(module) {
@@ -4909,13 +4965,13 @@ module.exports = function(module) {
 
 
 /***/ },
-/* 37 */
+/* 39 */
 /***/ function(module, exports) {
 
 /* (ignored) */
 
 /***/ },
-/* 38 */
+/* 40 */
 /***/ function(module, exports, __webpack_require__) {
 
 /* eslint-env node, es6 */
