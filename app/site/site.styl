@@ -754,10 +754,8 @@ button[data-run]
     button[data-run="inline"]
       display none
 
-  code, pre
-    display block
-
   pre
+    display block
     color siteDocsColor
     flex 1 0 auto
     line-height 1.4
@@ -768,6 +766,10 @@ button[data-run]
     white-space pre
     width 100%
     word-wrap normal
+
+    > code
+      display inline-block
+      padding-right 1.5em
 
     &::-webkit-scrollbar
       background transparent
