@@ -92,7 +92,7 @@ export default class TargetSearch extends BaseComponent {
     this.onSubmit(this.selectedId)
   }
 
-  selectEntry(selectedId) {
+  selectEntry(selectedId, options = {focus: true}) {
     const {entrySpecs} = this
     const {entries, entriesContainer, search} = this.refs
     const iframeDocument = this.store.iframe.document
@@ -115,6 +115,8 @@ export default class TargetSearch extends BaseComponent {
     if (search !== iframeDocument.activeElement && entryEl) {
       entryEl.focus()
     }
+
+    if (options.focus) entryEl.scrollIntoView(false)
   }
 
   render() {
