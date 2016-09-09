@@ -38,12 +38,6 @@ export default class EmbedBoxBase {
     src: "about:blank"
   };
 
-  static theme = {
-    accentColor: "#2d88f3",
-    backgroundColor: "#ffffff",
-    textColor: "#000000"
-  };
-
   constructor(spec = {}) {
     polyfillRequestAnimationFrame(window)
 
@@ -55,8 +49,7 @@ export default class EmbedBoxBase {
       className = "",
       container = document.body,
       customTargets = [],
-      targets: targetConfigs = {},
-      theme = {}
+      targets: targetConfigs = {}
     } = spec
 
     // HACK: Custom targets have a different BaseComponent instance.
@@ -85,7 +78,6 @@ export default class EmbedBoxBase {
       iframe,
       container,
       events: spec.events || {},
-      theme: {...this.constructor.theme, ...theme},
       style: document.createElement("style")
     })
 
@@ -132,7 +124,7 @@ export default class EmbedBoxBase {
       // :active style fix for Safari
       iframe.document.addEventListener("touchstart", () => {}, true)
 
-      this._appendIframeStylesheet(spec.style)
+      this._applyTheme(spec.style)
       polyfillCustomEvent(iframe)
 
       this.application = new Application(this.iframe.document.body, {
@@ -259,11 +251,12 @@ export default class EmbedBoxBase {
     }
   }
 
-  _appendIframeStylesheet(extension = "") {
-    const {theme, constructor: {iframeStylesheet}} = this
+  _applyTheme(extension = "") {
+    const {iframeStylesheet} = this.constructor
+    const {theme} = this._store
     const style = this.iframe.document.createElement("style")
 
-    style.innerHTML = [iframeStylesheet, createThemeStylesheet(theme), extension].join("; ")
+    style.innerHTML = [iframeStylesheet, createThemeStylesheet(theme), extension].join(" ")
 
     this.iframe.document.head.appendChild(style)
   }

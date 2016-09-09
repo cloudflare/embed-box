@@ -1,14 +1,16 @@
-export default function createThemeStylesheet(theme) {
-  const _ = value => `${value || "inherit"} !important;`
+import createStylesheetTemplate from "lib/create-stylesheet-template"
 
-  return `
+export default function createThemeStylesheet(theme) {
+  const stylesheetTemplate = createStylesheetTemplate(theme)
+
+  return stylesheetTemplate`
     [data-component="application"] .modal {
-      background-color: ${_(theme.backgroundColor)}
-      color: ${_(theme.textColor)}
+      background-color: ${"backgroundColor"}
+      color: ${"textColor"}
     }
 
     a, .accent-color {
-      color: ${_(theme.accentColor)}
+      color: ${"accentColor"}
     }
 
     .button.primary, button.primary,
@@ -16,11 +18,15 @@ export default function createThemeStylesheet(theme) {
     [data-component="target-search"] .entries .entry:active,
     [data-component="application"][is-touch-device="true"] [data-component="target-search"] .entries .entry:hover,
     .accent-background-color {
-      background: ${_(theme.accentColor)}
+      background: ${"accentColor"}
     }
 
-    .target-instructions .steps li:before {
-      background: ${_(theme.accentColor)}
+    .target-instructions .steps li::before {
+      background: ${"stepNumberColor"}
+    }
+
+    .target-instructions figure [annotation-arrow] svg {
+      fill: ${"screenshotAnnotationColor"}
     }
   `
 }

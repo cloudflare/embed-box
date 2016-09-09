@@ -36,6 +36,15 @@ export function createStore(spec = {}) {
       ...labels
     },
 
-    routing: spec.routing || false
+    routing: spec.routing || false,
+
+    theme: {
+      accentColor: "#2d88f3",
+      backgroundColor: "#ffffff",
+      screenshotAnnotationColor: "#fde757",
+      stepNumberColor: "#2d88f3",
+      textColor: "#000000",
+      ...spec.theme
+    }
   }
 }
