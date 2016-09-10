@@ -1,3 +1,3 @@
 ```html
-<script src="embed-box.js"></script>
+<script src="embed-box.min.js"></script>
 ```
