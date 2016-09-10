@@ -31,3 +31,11 @@ npm start
 ```
 
 Then navigate to <a href="http://localhost:9000" target="_blank">http://localhost:9000</a>
+
+## Companies using EmbedBox
+
+- [Eager](https://eager.io)
+- [Rakam](https://rakam.io/integrate?part=website)
+
+Let us know if you’d like your product be added to this list!
+
