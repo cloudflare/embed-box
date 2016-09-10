@@ -17,7 +17,8 @@ var CustomTarget = EmbedBoxCustomTarget.extend({
   }
 })
 
-new EmbedBoxCustom({
+new EmbedBox({
+  embedCode: "<script src='{{BASE_URL}}/examples/library.js'></script>",
   customTargets: [CustomTarget]
 })
 ```
