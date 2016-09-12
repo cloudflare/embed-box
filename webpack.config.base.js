@@ -3,8 +3,8 @@
 
 const ENVIRONMENT = process.env.NODE_ENV || "development"
 const {resolve} = require("path")
-const route = require("./package.json").routes[ENVIRONMENT]
-const {hostname, port} = route
+const {routes, version} = require("./package.json")
+const {hostname, port} = routes[ENVIRONMENT]
 const webpack = require("webpack")
 const marked = require("marked")
 const {highlight} = require("highlight.js")
@@ -47,6 +47,7 @@ module.exports = function createWebpackConfig(overrides = {}) {
   $.plugins = [
     new webpack.NoErrorsPlugin(),
     new webpack.DefinePlugin({
+      VERSION: JSON.stringify(version),
       BASE_URL: JSON.stringify(BASE_URL),
       "process.env.NODE_ENV": JSON.stringify(ENVIRONMENT)
     })

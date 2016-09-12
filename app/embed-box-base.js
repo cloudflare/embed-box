@@ -25,6 +25,7 @@ export default class EmbedBoxBase {
   static iframeStylesheet = iframeStylesheet;
 
   static fetchedTargets = [];
+  static version = VERSION;
 
   static getTargetIDs() {
     return this.fetchedTargets.map(target => target.id)

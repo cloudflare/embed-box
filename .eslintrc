@@ -7,7 +7,8 @@
   "ecmaVersion": 7,
   "globals": {
     "BASE_URL": null,
-    "process": null
+    "process": null,
+    "VERSION": null
   },
   "parser": "babel-eslint",
   "plugins": [
