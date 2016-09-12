@@ -175,7 +175,7 @@ export default class EmbedBoxBase {
     return this._visible
   }
 
-  set visible (willBeVisible) {
+  _setVisible (willBeVisible) {
     const currentlyVisible = this._visible
 
     const update = () => {
@@ -264,7 +264,7 @@ export default class EmbedBoxBase {
 
   destroy() {
     this.destroyed = true
-    this.visible = false
+    this._setVisible(false)
 
     Array
       .from(document.querySelectorAll(".embed-box-download-iframe"))
@@ -280,7 +280,7 @@ export default class EmbedBoxBase {
   hide() {
     if (!this.visible) return
 
-    this.visible = false
+    this._setVisible(false)
   }
 
   @autobind
@@ -292,7 +292,7 @@ export default class EmbedBoxBase {
 
     if (this.visible) return
 
-    this.visible = true
+    this._setVisible(true)
 
     this.application.autofocus()
   }
