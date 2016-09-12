@@ -32,6 +32,8 @@ npm start
 
 Then navigate to <a href="http://localhost:9000" target="_blank">http://localhost:9000</a>
 
+For a breakdown of how EmbedBox is built, check out our [design architecture](https://github.com/EagerIO/EmbedBox/blob/master/docs/design-architecture.md) docs.
+
 ## Companies using EmbedBox
 
 - [Eager](https://eager.io)
