@@ -1056,6 +1056,8 @@ var ARRAY_REF_PATTERN = /([a-zA-Z\d]*)(\[?\]?)/;
 
 var BaseComponent = (_class = (_temp = _class2 = function () {
   function BaseComponent() {
+    var _this = this;
+
     var spec = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
 
     _classCallCheck(this, BaseComponent);
@@ -1066,16 +1068,21 @@ var BaseComponent = (_class = (_temp = _class2 = function () {
     }, spec);
 
     var stylesheet = this.constructor.stylesheet;
+    var _store$iframe = this.store.iframe;
+    var iframeElement = _store$iframe.element;
+    var iframeDocument = _store$iframe.document;
 
-    var iframeDocument = this.store.iframe.document;
 
-    if (stylesheet && !iframeDocument.head.contains(this.constructor.style)) {
+    var appendStylesheet = function appendStylesheet() {
+      if (!stylesheet || iframeDocument.head.contains(_this.constructor.style)) return;
       // Common style tag has yet to be inserted in iframe.
-      var style = this.constructor.style = iframeDocument.createElement("style");
+      var style = _this.constructor.style = iframeDocument.createElement("style");
 
       style.innerHTML = stylesheet;
       iframeDocument.head.appendChild(style);
-    }
+    };
+
+    if (iframeDocument.head) appendStylesheet();else iframeElement.addEventListener("load", appendStylesheet);
   }
 
   BaseComponent.prototype.autofocus = function autofocus() {
