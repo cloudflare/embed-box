@@ -1,4 +1,5 @@
 @import "shared"
+@import "styl/colors"
 
 html, body
   overflow hidden
@@ -11,6 +12,9 @@ main
   overflow hidden
 
 body
-  background rgba(#000, .4)
+  background lightGray
   cursor default
   user-select none
+
+  &[data-mode="modal"]
+    background lightGrayRGBA

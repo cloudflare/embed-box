@@ -10,6 +10,7 @@ import {createStore} from "lib/store"
 import {getRoute, setRoute} from "lib/routing"
 import createThemeStylesheet from "lib/create-theme-stylesheet"
 
+const MODE_ATTRIBUTE = "data-mode"
 const VISIBILITY_ATTRIBUTE = "data-visibility"
 const SCROLL_STATE_ATTRIBUTE = "data-embed-box-scroll-state"
 let storeReceivers
@@ -124,6 +125,7 @@ export default class EmbedBoxBase {
     this.iframe.element.onload = () => {
       // :active style fix for Safari
       iframe.document.addEventListener("touchstart", () => {}, true)
+      iframe.document.body.setAttribute(MODE_ATTRIBUTE, this.mode)
 
       this._applyTheme(spec.style)
       polyfillCustomEvent(iframe)
@@ -153,7 +155,7 @@ export default class EmbedBoxBase {
     const mode = this._container.tagName === "BODY" ? "modal" : "inline"
 
     this._store.mode = mode
-    iframeElement.setAttribute("data-mode", mode)
+    iframeElement.setAttribute(MODE_ATTRIBUTE, mode)
 
     if (iframeElement.parentNode) {
       this._container.removeAttribute(SCROLL_STATE_ATTRIBUTE)

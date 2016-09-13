@@ -2,6 +2,21 @@
 @import "~styl/sizes"
 @import "~styl/media-query-variables"
 
+body[data-mode="modal"] [data-component="application"]
+  .modal
+    border-radius .3125em
+
+    @media desktopMinWidthQuery
+      box-shadow 0 2px 8px rgba(#000, .4)
+      margin 1.5em 0
+
+    @media mobileMaxWidthQuery
+      border-radius 0
+
+body[data-mode="inline"] [data-component="application"]
+  .modal
+    box-shadow 0 0 0 1px solid lightLineGrayRGBA
+
 [data-component="application"]
   align-items center
   justify-content center
@@ -34,7 +49,6 @@
 
   .modal
     background #fff
-    border-radius .3125em
     flex 1 1 auto
     max-height 38em
     max-width 100vw
@@ -44,12 +58,7 @@
     width targetInstructionsMaxWidth
     z-index 1 // Fix border radius overflow issues.
 
-    @media desktopMinWidthQuery
-      box-shadow 0 2px 8px rgba(#000, .4)
-      margin 1.5em 0
-
     @media mobileMaxWidthQuery
-      border-radius 0
       max-height 100vh
       max-width 100vw
       width 100%
