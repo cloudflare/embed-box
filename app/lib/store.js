@@ -47,6 +47,7 @@ export function createStore(spec = {}) {
       ...labels
     },
 
+    route: "home",
     routing: spec.routing || false,
 
     theme

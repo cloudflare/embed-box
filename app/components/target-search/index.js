@@ -54,10 +54,10 @@ export default class TargetSearch extends BaseComponent {
   }
 
   @autobind
-  handleDelgatedKeydown({detail: {keyCode, nativeEvent, route}}) {
+  handleDelgatedKeydown({detail: {keyCode, nativeEvent}}) {
     const delta = DELTA_LOOKUP[keyCode || nativeEvent.keyCode]
 
-    if (route !== "home") return
+    if (this.store.route !== "home") return
     if (!delta) return
 
     if (nativeEvent) nativeEvent.preventDefault()
@@ -79,10 +79,10 @@ export default class TargetSearch extends BaseComponent {
   }
 
   @autobind
-  handleDelgatedKeypress({detail: {keyCode, nativeEvent, route}}) {
+  handleDelgatedKeypress({detail: {keyCode, nativeEvent}}) {
     keyCode = keyCode || nativeEvent.keyCode
 
-    if (route !== "home") return
+    if (this.store.route !== "home") return
     if (keyCode !== KM.enter) return
     if (nativeEvent) nativeEvent.preventDefault()
 

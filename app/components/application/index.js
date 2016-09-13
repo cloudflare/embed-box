@@ -64,17 +64,17 @@ export default class Application extends BaseComponent {
   }
 
   get route() {
-    return this._route
+    return this.store.route
   }
 
   set route(value) {
-    this._route = value
+    this.store.route = value
 
     if (this.element) {
       this.element.setAttribute("data-transition-state", "transitioning")
 
       requestAnimationFrame(() => {
-        this.element.setAttribute("data-route", this._route)
+        this.element.setAttribute("data-route", this.store.route)
       })
     }
 
@@ -82,7 +82,7 @@ export default class Application extends BaseComponent {
       setRoute(value === "home" ? "" : value)
     }
 
-    return this._route
+    return this.store.route
   }
 
   @autobind
@@ -100,7 +100,7 @@ export default class Application extends BaseComponent {
     if (!receiver) return
 
     const delegated = new PolyFilledCustomEvent(`dispatched-${nativeEvent.type}`, {
-      detail: {nativeEvent, route: this.route}
+      detail: {nativeEvent}
     })
 
     receiver.dispatchEvent(delegated)
