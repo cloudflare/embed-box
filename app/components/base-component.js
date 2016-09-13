@@ -15,15 +15,19 @@ export default class BaseComponent {
     }, spec)
 
     const {stylesheet} = this.constructor
-    const iframeDocument = this.store.iframe.document
+    const {element: iframeElement, document: iframeDocument} = this.store.iframe
 
-    if (stylesheet && !iframeDocument.head.contains(this.constructor.style)) {
+    const appendStylesheet = () => {
+      if (!stylesheet || iframeDocument.head.contains(this.constructor.style)) return
       // Common style tag has yet to be inserted in iframe.
       const style = this.constructor.style = iframeDocument.createElement("style")
 
       style.innerHTML = stylesheet
       iframeDocument.head.appendChild(style)
     }
+
+    if (iframeDocument.head) appendStylesheet()
+    else iframeElement.addEventListener("load", appendStylesheet)
   }
 
   autofocus() {
