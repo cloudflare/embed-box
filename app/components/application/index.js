@@ -72,10 +72,7 @@ export default class Application extends BaseComponent {
 
     if (this.element) {
       this.element.setAttribute("data-transition-state", "transitioning")
-
-      requestAnimationFrame(() => {
-        this.element.setAttribute("data-route", this.store.route)
-      })
+      this.element.setAttribute("data-route", this.store.route)
     }
 
     if (this.store.routing) {
