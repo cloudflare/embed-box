@@ -1,0 +1,48 @@
+include ../../../components/base-screenshot/mixin-annotation-arrow.pug
+
+ol.steps
+  li
+    h2 Login to the <a target="_blank" href="https://www.tumblr.com/login">Tumblr Dashboard</a>.
+
+  li
+    h2 Navigate to <strong>Edit appearance<span class="with-more-icon-after"></span> Edit Theme <span class="with-more-icon-after"></span> Edit HTML</strong>.
+    p
+      | In the top right menu bar, click the user icon, then <strong>Edit appearance</strong>.
+
+    p Then click <strong>Edit HTML/CSS</strong> in the menu that appears.
+
+    figure
+      img(src=require("./edit-appearance.jpg"))
+      +annotation-arrow("ne")(style={top: "-3%", left: "47%", width: "19%"} transform="rotate(41deg)")
+      +annotation-arrow("nw")(style={top: "76%", left: "33%", width: "18%"} transform="rotate(135deg)")
+
+  li
+    p In the center column, Click <strong>Edit Theme</strong>.
+
+    figure
+      img(src=require("./edit-theme.jpg"))
+      +annotation-arrow("sw")(style={top: "45%", left: "46%", width: "20%"})
+
+  li
+    p On the top left, Click <strong>Edit HTML</strong>.
+
+    figure
+      img(src=require("./edit-html.jpg"))
+      +annotation-arrow("nw")(style={top: "47%", left: "44%", width: "20%"} transform="rotate(17deg)")
+
+  li
+    h2 Copy the code below.
+
+    .copy-container
+      button.button.primary.run(data-ref="copyButtons[]") Copy
+      div.copyable(contenteditable)= this.copyText
+
+    p Paste this code into your site’s &lt;#{this.location}&gt; tag.
+
+    figure(data-ref="screenshotMounts[]" data-screenshot="installScript")
+
+  li
+    h2 Save your changes.
+
+    p Clicking <strong>Update Preview</strong> and <strong>Save</strong>.
+    p You’re done!

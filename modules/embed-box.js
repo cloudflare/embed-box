@@ -2,15 +2,17 @@
 
 const EmbedBoxBase = require("../app/embed-box-base").default
 const targets = require("../app/targets")
-
-EmbedBoxBase.fetchedTargets = [
-  targets.wordpress,
-  targets.shopify,
-  targets.squarespace,
-  targets.weebly,
-  targets.drupal,
-  targets.joomla,
-  targets.generic
+const targetOrder = [
+  "wordpress",
+  "shopify",
+  "squarespace",
+  "tumblr",
+  "weebly",
+  "drupal",
+  "joomla",
+  "generic"
 ]
+
+EmbedBoxBase.fetchedTargets = targetOrder.map(id => targets[id])
 
 module.exports = EmbedBoxBase
