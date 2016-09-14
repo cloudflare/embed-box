@@ -469,7 +469,7 @@ html
     margin-bottom 0
 
     & + p
-      margin-top .2em
+      margin-top .5em
 
   .wrapper
     display flex
@@ -637,7 +637,7 @@ html
       @media embedBoxDesktopMinWidthQuery
         font-size 1.125em
 
-    *:not(h2) + h3, *:not(h3) + h4
+    *:not(h2) + h3, *:not(h3) + h4, *:not(h3):not(h4) + h5
       margin-top 3.5rem
       margin-bottom 0
 
@@ -760,6 +760,9 @@ button[data-run]
   @media embedBoxMobileMaxWidthQuery
     button[data-run="inline"]
       display none
+
+    button[data-run="modal"]
+      margin-left .75em
 
   pre
     display block
