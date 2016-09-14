@@ -38,4 +38,4 @@ tasks.forEach(task => {
 
 console.log("Done!")
 console.log("Publish with:")
-console.log("git push --follow-tags && npm publish")
+console.log("git push && git push --tags && npm publish")

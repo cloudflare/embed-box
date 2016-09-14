@@ -40,7 +40,7 @@ EmbedBox uses [semantic versioning](http://semver.org/)
 
 ```shell
 npm run release 1.2.3
-git push --follow-tags && npm publish
+git push && git push --tags && npm publish
 ```
 
 ## Companies using EmbedBox
