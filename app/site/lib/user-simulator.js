@@ -44,7 +44,7 @@ export function runDemo(iframe, onComplete = () => {}) {
         pluginURL: `${BASE_URL}/examples/drupal-plugin.zip`
       }
     },
-    routing: false
+    branding: false
   }
   const barrier = iframe.parentNode.querySelector(".barrier")
   const loadingDots = iframe.parentNode.querySelector(".loading-dots")

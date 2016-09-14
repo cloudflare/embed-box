@@ -9,7 +9,7 @@ export default function createThemeStylesheet(theme) {
       color: ${"textColor"}
     }
 
-    a, .accent-color {
+    .modal a, .accent-color {
       color: ${"accentColor"}
     }
 

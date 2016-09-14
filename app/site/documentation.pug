@@ -54,7 +54,7 @@ mixin codeExample(runnable, id)
 
 +anchored("h3", "Options")
 
-+anchored("h4", "container")
++anchored("h5", "container")
 :marked
   EmbedBox can appear inline by specifying `container` in the config.
   This can be a CSS selector.
@@ -66,14 +66,14 @@ mixin codeExample(runnable, id)
 
 +codeExample!= require("./examples/container-element.md")
 
-+anchored("h4", "initialTarget")
++anchored("h5", "initialTarget")
 :marked
   The target search screen can be skipped with `initialTarget`.
   Instead the box will render with a specific target already set.
 
 +codeExample(true)!= require("./examples/initial-target.md")
 
-+anchored("h4", "pluginURL")
++anchored("h5", "pluginURL")
 :marked
   If you have an existing plugin for a CMS, specify it in that targets configuration and the docs will update automatically:
 
@@ -92,19 +92,19 @@ table#target-supports
       th.plugin-url <code>pluginUrl</code>
   tbody
 
-+anchored("h4", "autoDownload")
++anchored("h5", "autoDownload")
 :marked
   Plugins will automatically download when a target is selected.
 
   Set `autoDownload: false` to disable to this behavior.
 
-+anchored("h4", "autoShow")
++anchored("h5", "autoShow")
 :marked
   EmbedBox will automatically appear on creation.
 
   Set `autoShow: false` to disable to this behavior.
 
-+anchored("h4", "routing")
++anchored("h5", "routing")
 :marked
   EmbedBox can automatically update the hash of the page to allow visitors to link to a specific target’s instructions.
   If you don’t use the hash for another purpose, it’s a good idea to enable this by setting `routing: true`.
@@ -120,6 +120,11 @@ table#target-supports
   The instruction number labels will default to a provided `accentColor` unless `stepNumberColor` is set.
 
 +codeExample(true)!= require("./examples/custom-theme.md")
+
++anchored("h5", "branding")
+:marked
+  EmbedBox includes a branded link when rendered as a modal.
+  Set `branding: false` to hide the link entirely.
 
 :marked
   If you need more configuration,

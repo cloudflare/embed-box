@@ -1,4 +1,5 @@
 main(
+  data-branding=(config.branding ? "visible" : "hidden")
   data-flow="column"
   data-component="application"
   data-target-count=this.targets.length
@@ -21,3 +22,6 @@ main(
         role="menuitem")
 
     .content(data-ref="content")
+
+  .branding
+    a.with-more-icon-after(href=PROJECT_URL target="_blank") Powered by EmbedBox

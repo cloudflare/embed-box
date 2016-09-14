@@ -2,21 +2,6 @@
 @import "~styl/sizes"
 @import "~styl/media-query-variables"
 
-body[data-mode="modal"] [data-component="application"]
-  .modal
-    border-radius .3125em
-
-    @media desktopMinWidthQuery
-      box-shadow 0 2px 8px rgba(#000, .4)
-      margin 1.5em 0
-
-    @media mobileMaxWidthQuery
-      border-radius 0
-
-body[data-mode="inline"] [data-component="application"]
-  .modal
-    box-shadow 0 0 0 1px solid lightLineGrayRGBA
-
 [data-component="application"]
   align-items center
   justify-content center
@@ -40,12 +25,61 @@ body[data-mode="inline"] [data-component="application"]
     transform translate3d(0, 0, 0)
     transition transform .2s ease
 
-
   &[data-route]:not([data-route="home"]) .content
     transform translate3d(-100%, 0, 0)
 
   &[data-transition-state="transitioned"] [inert] > *
     display none
+
+  &[data-mode="modal"]
+    background lightGrayRGBA
+
+    @media desktopMinWidthQuery
+      padding 1.5em 0
+
+    .modal
+      border-radius .3125em
+
+      @media desktopMinWidthQuery
+        box-shadow 0 2px 8px rgba(#000, .4)
+
+      @media mobileMaxWidthQuery
+        border-radius 0
+
+  &[data-mode="inline"]
+    background lightGray
+
+    .modal
+      box-shadow 0 0 0 1px solid lightLineGrayRGBA
+
+
+  &[data-branding="visible"][data-mode="modal"]
+    padding-bottom 0
+
+    @media desktopMinWidthQuery
+      .branding
+        display flex
+
+  .branding
+    display none
+    font-size .8em
+    justify-content flex-end
+    line-height 3
+    margin-bottom 1em
+
+    a
+      color #fff
+      -webkit-font-smoothing antialiased
+      text-decoration none
+      text-shadow 0 1px 2px rgba(#000, .75)
+      padding 0 .5em
+
+      &:after
+        font-size 1.4em
+
+  .modal, .branding
+    width targetInstructionsMaxWidth
+    max-width 100vw
 
   .modal
     background #fff
@@ -55,7 +89,6 @@ body[data-mode="inline"] [data-component="application"]
     min-height 18em
     overflow hidden
     position relative
-    width targetInstructionsMaxWidth
     z-index 1 // Fix border radius overflow issues.
 
     @media mobileMaxWidthQuery

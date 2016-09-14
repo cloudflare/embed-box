@@ -5,6 +5,8 @@ const DEFAULT_THEME = {
   textColor: "#000000"
 }
 
+const get = (value, fallback) => typeof value !== "undefined" ? value : fallback
+
 export function createStore(spec = {}) {
   const iframe = document.createElement("iframe")
   const {autoDownload = true, labels = {}} = spec
@@ -17,12 +19,14 @@ export function createStore(spec = {}) {
     name: spec.name || "a plugin",
     autoDownload,
 
+    branding: get(spec.branding, true),
+
     beforeContent: spec.beforeContent || "",
     afterContent: spec.afterContent || "",
 
     embedCode: spec.embedCode || "",
 
-    fallbackID: typeof spec.fallbackID !== "undefined" ? spec.fallbackID : "generic",
+    fallbackID: get(spec.fallbackID, "generic"),
 
     iframe: {
       element: iframe,
