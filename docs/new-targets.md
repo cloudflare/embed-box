@@ -62,7 +62,7 @@ Here are the options which may be specified:
 A logo in the format of an SVG string. You can import this logo as in the WordPress example,
 and use the build system to grab the string from an SVG file.
 Running your SVG file through [SVG Optimizer](https://jakearchibald.github.io/svgomg/)
-can reduce the file size signifigantly.
+can reduce the file size significantly.
 
 #### `id`
 
@@ -126,9 +126,12 @@ and is instead using the generic embed code instructions.
 ## Creation
 
 To create your own target, begin by copying an existing target folder which is similar to yours.
-Change the `id` and other properties in the `.js` file.
-Then the landing page (using the URL provided when you ran `npm start`),
-and write the instructions for your platform into the `.pug` file.
+
+- Change the `id` and other properties in the `.js` file.
+- Add your module to the (https://github.com/EagerIO/EmbedBox/blob/master/app/targets/index.js)[targets index] to expose your new target.
+- Add your module to the default [fetched target list](https://github.com/EagerIO/EmbedBox/blob/master/modules/embed-box.js). The order is based off the popularity of the platform.
+- Start the development server with `npm start`
+- Write the instructions for your platform into the `.pug` file.
 
 If everything looks great in your browser, then you're ready to submit a PR!
 
