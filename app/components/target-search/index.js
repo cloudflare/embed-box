@@ -39,7 +39,7 @@ export default class TargetSearch extends BaseComponent {
 
     search.setAttribute("data-empty", search.value === "")
     this.query = search.value.toLowerCase()
-    this.selectEntry(firstVisible ? firstVisible.id : null)
+    this.selectEntry(firstVisible ? firstVisible.id : null, {focus: false})
   }
 
   @autobind
@@ -100,6 +100,7 @@ export default class TargetSearch extends BaseComponent {
     const {entrySpecs} = this
     const {entries, entriesContainer, search} = this.refs
     const iframeDocument = this.store.iframe.document
+    const supportsScrollIntoView = this.store.scrollIntoView
     const entryEl = entriesContainer.querySelector(entryQuery(selectedId))
     const visibleSpecs = entrySpecs.filter(entry => !entry.hidden)
 
@@ -120,7 +121,7 @@ export default class TargetSearch extends BaseComponent {
       entryEl.focus()
     }
 
-    if (options.focus) entryEl.scrollIntoView(false)
+    if (options.focus && supportsScrollIntoView) entryEl.scrollIntoView(false)
   }
 
   render() {

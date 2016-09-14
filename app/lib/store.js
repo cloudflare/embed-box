@@ -54,6 +54,8 @@ export function createStore(spec = {}) {
     route: "home",
     routing: get(spec.routing, false),
 
+    scrollIntoView: get(spec.scrollIntoView, true),
+
     theme
   }
 }
