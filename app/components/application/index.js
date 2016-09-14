@@ -68,11 +68,17 @@ export default class Application extends BaseComponent {
   }
 
   set route(value) {
+    const previousRoute = this.store.route
+    const {element} = this
+
     this.store.route = value
 
-    if (this.element) {
-      this.element.setAttribute("data-transition-state", "transitioning")
-      this.element.setAttribute("data-route", this.store.route)
+    if (element) {
+      const transitionState = previousRoute === this.store.route ? "transitioned" : "transitioning"
+
+      element.setAttribute("data-transition-state", transitionState)
+
+      element.setAttribute("data-route", this.store.route)
     }
 
     if (this.store.routing) {
