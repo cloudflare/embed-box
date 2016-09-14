@@ -53,6 +53,7 @@ export function createStore(spec = {}) {
 
     route: "home",
     routing: get(spec.routing, false),
+    projectUrl: PROJECT_URL,
 
     scrollIntoView: get(spec.scrollIntoView, true),
 
