@@ -4,10 +4,13 @@ import downloadLinkTemplate from "./download-link.pug"
 import beforeContentTemplate from "./before-content.pug"
 import afterContentTemplate from "./after-content.pug"
 import defaultIcon from "./base-target.svg"
+import * as icons from "components/icons"
 
 import autobind from "autobind-decorator"
 import BaseComponent from "components/base-component"
 import Clipboard from "clipboard"
+
+const {copy: CopyIcon} = icons
 
 export default class BaseTarget extends BaseComponent {
   static template = template;
@@ -137,6 +140,9 @@ export default class BaseTarget extends BaseComponent {
 
     copyButtons.forEach(copyButton => {
       const copyableContent = copyButton.parentNode.querySelector(".copyable")
+      const copyIcon = new CopyIcon()
+
+      copyButton.appendChild(copyIcon.render())
 
       copyableContent.addEventListener("click", () => {
         const range = iframe.document.createRange()
