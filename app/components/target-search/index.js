@@ -37,7 +37,7 @@ export default class TargetSearch extends BaseComponent {
     const {search} = this.refs
     const [firstVisible] = this.entrySpecs.filter(({hidden}) => !hidden)
 
-    search.setAttribute("data-empty", search.value === "")
+    search.setAttribute("data-state", search.value === "" ? "empty" : "filled")
     this.query = search.value.toLowerCase()
     this.selectEntry(firstVisible ? firstVisible.id : null, {focus: false})
   }
