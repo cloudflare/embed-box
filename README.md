@@ -34,6 +34,15 @@ Then navigate to <a href="http://localhost:9000" target="_blank">http://localhos
 
 For a breakdown of how EmbedBox is built, check out our [design architecture](https://github.com/EagerIO/EmbedBox/blob/master/docs/design-architecture.md) docs.
 
+#### Releases
+
+EmbedBox uses [semantic versioning](http://semver.org/)
+
+```shell
+npm run release 1.2.3
+git push --follow-tags && npm publish
+```
+
 ## Companies using EmbedBox
 
 - [Eager](https://eager.io)
