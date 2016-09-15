@@ -9,6 +9,13 @@ import autobind from "autobind-decorator"
 import BaseComponent from "components/base-component"
 import Clipboard from "clipboard"
 
+function getLocation(targetUsesHead, storeUsesHead) {
+  // Respect target specific falsey values.
+  const insertInHead = typeof targetUsesHead !== "undefined" ? targetUsesHead : storeUsesHead
+
+  return insertInHead ? "head" : "body"
+}
+
 export default class BaseTarget extends BaseComponent {
   static template = template;
   static titleTemplate = titleTemplate;
@@ -38,14 +45,19 @@ export default class BaseTarget extends BaseComponent {
 
   static isConstructable(config, store) {
     const supportsPlugin = this.supports.plugin
+    const supportsLocation = this.supports.insertInto
     const hasLocalEmbed = !!config.embedCode
     const hasGlobalEmbed = !!store.embedCode
     const embedCodePresent = hasLocalEmbed || hasGlobalEmbed
     const hasPluginURL = !!config.pluginURL
+    const location = getLocation(config.insertInHead, store.insertInHead)
 
-    if (supportsPlugin) return hasPluginURL || embedCodePresent
+    const locationIsValid = location === "head" && supportsLocation.head ||
+      location === "body" && supportsLocation.body
 
-    return hasPluginURL && hasLocalEmbed || !hasPluginURL && embedCodePresent
+    if (supportsPlugin) return hasPluginURL || locationIsValid && embedCodePresent
+
+    return locationIsValid && embedCodePresent
   }
 
   constructor(spec = {}) {
@@ -88,13 +100,7 @@ export default class BaseTarget extends BaseComponent {
   }
 
   get location() {
-    const targetUsesHead = this.config.insertInHead
-    const storeUsesHead = this.store.insertInHead
-
-    // Respect target specific falsey values.
-    const insertInHead = typeof targetUsesHead !== "undefined" ? targetUsesHead : storeUsesHead
-
-    return insertInHead ? "head" : "body"
+    return getLocation(this.config.insertInHead, this.store.insertInHead)
   }
 
   get icon() {

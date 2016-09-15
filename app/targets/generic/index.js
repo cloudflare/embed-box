@@ -5,7 +5,7 @@ import BaseTarget from "components/base-target"
 export default class GenericTarget extends BaseTarget {
   static id = "generic";
   static label = "Any other site";
-  static supports = {embedCode: true};
+  static supports = {embedCode: true, insertInto: {head: true, body: true}};
   static versions = [genericLatest];
 
   get modalTitle() {

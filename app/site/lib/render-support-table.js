@@ -1,12 +1,21 @@
+const booleanToLabel = boolean => ({
+  label: boolean ? "✓" : "✗",
+  supported: !!boolean
+})
+
 function targetToRow({supports}) {
-  const {embedCode, plugin} = supports
-  const yes = "Yes"
-  const no = "No"
+  const {embedCode, plugin, insertInto = {}} = supports
 
   return [
-    embedCode ? yes : no,
-    plugin ? yes : no
-  ]
+    embedCode,
+    plugin,
+    insertInto.head,
+    insertInto.body
+  ].map(booleanToLabel)
+}
+
+function rowTemplate(html, {label, supported = ""}) {
+  return `${html}<td data-supported="${supported}">${label}</td>`
 }
 
 export default function renderSupportTable(EmbedBox) {
@@ -14,9 +23,9 @@ export default function renderSupportTable(EmbedBox) {
 
   EmbedBox.fetchedTargets.forEach(Target => {
     const row = document.createElement("tr")
-    const cells = [`<code>${Target.id}</code>`].concat(targetToRow(Target))
+    const cells = [{label: `<code>${Target.id}</code>`}].concat(targetToRow(Target))
 
-    row.innerHTML = cells.reduce((html, cell) => `${html}<td>${cell}</td>`, "")
+    row.innerHTML = cells.reduce(rowTemplate, "")
 
     tableBody.appendChild(row)
   })

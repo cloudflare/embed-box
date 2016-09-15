@@ -7,6 +7,6 @@ export default class WordPressTarget extends BaseTarget {
   static icon = icon;
   static id = "wordpress";
   static label = "WordPress";
-  static supports = {embedCode: true, plugin: true};
+  static supports = {embedCode: true, plugin: true, insertInto: {head: true, body: true}};
   static versions = [{id: "4.x", template: wordpress4}];
 }
