@@ -101,7 +101,7 @@ export default class TargetSearch extends BaseComponent {
     const {entries, entriesContainer, search} = this.refs
     const iframeDocument = this.store.iframe.document
     const supportsScrollIntoView = this.store.scrollIntoView
-    const entryEl = entriesContainer.querySelector(entryQuery(selectedId))
+    const selectedEntryEl = entriesContainer.querySelector(entryQuery(selectedId))
     const visibleSpecs = entrySpecs.filter(entry => !entry.hidden)
 
     this.selectedId = selectedId
@@ -112,16 +112,18 @@ export default class TargetSearch extends BaseComponent {
     })
 
     visibleSpecs.forEach((spec, index) => {
-      const entryEl = entriesContainer.querySelector(entryQuery(spec.id))
-
-      entryEl.setAttribute("data-visible-order", index)
+      entriesContainer
+        .querySelector(entryQuery(spec.id))
+        .setAttribute("data-visible-order", index)
     })
 
-    if (search !== iframeDocument.activeElement && entryEl) {
-      entryEl.focus()
-    }
+    if (selectedEntryEl) {
+      if (search !== iframeDocument.activeElement) {
+        selectedEntryEl.focus()
+      }
 
-    if (options.focus && supportsScrollIntoView) entryEl.scrollIntoView(false)
+      if (options.focus && supportsScrollIntoView) selectedEntryEl.scrollIntoView(false)
+    }
   }
 
   render() {
