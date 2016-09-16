@@ -34,31 +34,38 @@
 
     button.run
       position absolute
-      padding .4em 1.125em
+      padding .4em 1.125em .4em 2.4em
       margin 0
       height 2.3em
       top -1.1em
-      left 50%
-      transform translateX(-50%)
+      width 6em
+      left calc(50% - 3em)
+
+      &, &::before
+        border-radius 99em
 
       > svg
-        fill currentColor
-        display inline-block
-        vertical-align middle
-        float left
-        height 80%
-        margin-right .5em
+        position absolute
+        height 15px
+        width 15px
+        top 0
+        bottom 0
+        margin-top auto
+        margin-bottom auto
+        left 1.125em
+        stroke currentColor
 
       &::after
         content "Copied"
-        color #000
+        position absolute
         display inline-block
+        top .25em
         left 0
         right 0
+        color #000
         margin auto
-        opacity 0
-        position absolute
         pointer-events none
+        opacity 0
 
       &[data-status="copied"]::after
         animation copied 400ms ease
