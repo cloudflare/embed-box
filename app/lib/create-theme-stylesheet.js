@@ -4,12 +4,12 @@ export default function createThemeStylesheet(theme) {
   const stylesheetTemplate = createStylesheetTemplate(theme)
 
   return stylesheetTemplate`
-    [data-component="application"] .modal {
+    [data-component="application"] .surface {
       background-color: ${"backgroundColor"}
       color: ${"textColor"}
     }
 
-    .modal a, .accent-color {
+    .surface a, .accent-color {
       color: ${"accentColor"}
     }
 

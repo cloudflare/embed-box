@@ -109,7 +109,7 @@ export default class BaseTarget extends BaseComponent {
     return `Instructions for ${this.label} version`
   }
 
-  get modalTitle() {
+  get headerTitle() {
     return `Installing ${this.store.name} <span class="with-more-icon-after"></span> ${this.label}`
   }
 
