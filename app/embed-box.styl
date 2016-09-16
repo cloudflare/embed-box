@@ -1,52 +1,50 @@
 @import "./styl/media-query-variables"
 
 .embed-box
-  transform translate3d(0, 0, 0)
-
-.embed-box[data-mode="inline"]
-  display inline-block
-  height 36em
-  max-height 100vh
-  min-height 15em
-  width 100%
-
-.embed-box[data-mode="modal"]
-  bottom 0 !important
   display block
-  height 100% !important
-  left 0 !important
-  max-height 100vh !important
-  max-width 100vw !important
-  opacity 0
-  position fixed !important
-  right 0 !important
-  top 0 !important
-  transition opacity .1s linear !important
-  width 100% !important
-  z-index 100000 !important
 
-.embed-box-download-iframe
-  position fixed
-  visibility hidden
-  width 1px
-  height 1px
-  z-index -99999
+  &[data-mode="inline"]
+    width 100%
+    height 576px
+    min-height 320px
+    max-height 100vh
 
-[data-embed-box-scroll-state]
-  height 100%
+  &[data-mode="modal"]
+    position fixed !important
+    z-index 100000 !important
+    top 0 !important
+    right 0 !important
+    bottom 0 !important
+    left 0 !important
+    height 100% !important
+    width 100% !important
+    max-height 100vh !important
+    max-width 100vw !important
+    transition opacity .1s linear !important
+    opacity 0
+
+    @media mobileMaxWidthQuery
+      position absolute !important
 
 body[data-embed-box-scroll-state="locked"]
   overflow hidden !important
 
 @media mobileMaxWidthQuery
-  .embed-box[data-mode="modal"]
-    position absolute !important
-
   body, html
     &[data-embed-box-scroll-state="locked"]
+      position fixed !important
+      overflow hidden !important
+      top 0 !important
+      right 0 !important
       bottom 0 !important
       left 0 !important
-      overflow hidden !important
-      position fixed !important
-      right 0 !important
-      top 0 !important
+
+.embed-box-download-iframe
+  position fixed
+  z-index -99999
+  visibility hidden
+  width 1px
+  height 1px
+
+[data-embed-box-scroll-state]
+  height 100%

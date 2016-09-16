@@ -3,7 +3,7 @@ new EmbedBox({
   embedCode: "<script src='{{BASE_URL}}/examples/library.js'></script>",
   name: "Example Stylesheet App",
   style: "" +
-  ".modal-header .title {" +
+  ".header .title {" +
   "  color: hotpink;" +
   "  text-shadow: 0 0 4px pink;" +
   "}"

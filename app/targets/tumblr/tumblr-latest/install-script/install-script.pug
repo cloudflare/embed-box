@@ -1,0 +1,41 @@
+.screenshot
+  if this.location === "head"
+    :marked
+      ```django
+      <!DOCTYPE html>
+      <html>
+        <head>
+          {{EMBED_CODE_SLOT}}
+          <title>{Title}{block:SearchPage} ({lang:Search results for SearchQuery}){/block:SearchPage}{block:PermalinkPage}{block:PostSummary} — {PostSummary}{/block:PostSummary}{/block:PermalinkPage}</title>
+
+          <meta charset="utf-8">
+          <meta name="description" content="{block:IndexPage}{block:Description}{MetaDescription}{/block:Description}{/block:IndexPage}{block:PermalinkPage}{block:PostSummary}{PostSummary}{/block:PostSummary}{/block:PermalinkPage}" />
+        </head>
+
+        <body>
+          {block:IfShowBarOnTop}<section id="color_bar"></section>{/block:IfShowBarOnTop}
+          <section id="container" class="group">
+          </section>
+        </body>
+      </html>
+      ```
+  else
+    :marked
+      ```django
+      <!DOCTYPE html>
+      <html>
+        <head>
+          <title>{Title}{block:SearchPage} ({lang:Search results for SearchQuery}){/block:SearchPage}{block:PermalinkPage}{block:PostSummary} — {PostSummary}{/block:PostSummary}{/block:PermalinkPage}</title>
+
+          <meta charset="utf-8">
+          <meta name="description" content="{block:IndexPage}{block:Description}{MetaDescription}{/block:Description}{/block:IndexPage}{block:PermalinkPage}{block:PostSummary}{PostSummary}{/block:PostSummary}{/block:PermalinkPage}" />
+        </head>
+
+        <body>
+          {{EMBED_CODE_SLOT}}
+          {block:IfShowBarOnTop}<section id="color_bar"></section>{/block:IfShowBarOnTop}
+          <section id="container" class="group">
+          </section>
+        </body>
+      </html>
+      ```

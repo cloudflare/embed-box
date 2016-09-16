@@ -83,14 +83,14 @@
       &:hover .icon
         opacity 1
 
-    .search[data-empty="false"] ~ .search-clear
+    .search[data-state="filled"] ~ .search-clear
       opacity 1
       pointer-events all
 
   .entries
     // Fixes Firefox scroll issues. flex-grow will consume the remaining space.
     height 0
-    flex 1 1 auto
+    flex 1 0 auto
     overflow auto
     -webkit-overflow-scrolling touch
     z-index 1 // Fixes box-shadow translucent stacking artifacts

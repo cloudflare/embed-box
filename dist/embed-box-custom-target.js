@@ -1900,25 +1900,22 @@ function template(locals) {var pug_html = "", pug_mixins = {}, pug_interp;pug_ht
 if (this.versionIDs.length > 1) {
 pug_html = pug_html + "\u003Cdiv class=\"versions\"\u003E\u003Cdiv class=\"label\"\u003E" + (null == (pug_interp = this.instructionsLabel) ? "" : pug_interp) + "\u003C\u002Fdiv\u003E\u003Cselect data-ref=\"versionSelector\"\u003E";
 // iterate this.versionIDs
-var pug_obj0 = this.versionIDs;
-if ('number' == typeof pug_obj0.length) {
-
-  for (var pug_index0 = 0, pug_length0 = pug_obj0.length; pug_index0 < pug_length0; pug_index0++) {
-    var versionID = pug_obj0[pug_index0];
-
+;(function(){
+  var $$obj = this.versionIDs;
+  if ('number' == typeof $$obj.length) {
+      for (var pug_index0 = 0, $$l = $$obj.length; pug_index0 < $$l; pug_index0++) {
+        var versionID = $$obj[pug_index0];
 pug_html = pug_html + "\u003Coption" + (pug.attr("selected", (versionID === this.versionID), true, true)) + "\u003E" + (pug.escape(null == (pug_interp = versionID) ? "" : pug_interp)) + "\u003C\u002Foption\u003E";
-  }
-
-} else {
-  var pug_length0 = 0;
-  for (var pug_index0 in pug_obj0) {
-    pug_length0++;
-    var versionID = pug_obj0[pug_index0];
-
+      }
+  } else {
+    var $$l = 0;
+    for (var pug_index0 in $$obj) {
+      $$l++;
+      var versionID = $$obj[pug_index0];
 pug_html = pug_html + "\u003Coption" + (pug.attr("selected", (versionID === this.versionID), true, true)) + "\u003E" + (pug.escape(null == (pug_interp = versionID) ? "" : pug_interp)) + "\u003C\u002Foption\u003E";
+    }
   }
-
-}
+}).call(this);
 
 pug_html = pug_html + "\u003C\u002Fselect\u003E\u003C\u002Fdiv\u003E";
 }

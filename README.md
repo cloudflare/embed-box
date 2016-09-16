@@ -18,7 +18,7 @@ Feel free to open an issue, submit a PR or contribute to the docs.
 
 EmbedBox currently has instructions for all of the most popular CMS platforms, including WordPress, Weebly, Joomla, and Drupal, and we plan to continue to add more over time.
 
-[Open issues tagged with `cms wanted`](https://github.com/EagerIO/EmbedBox/issues?q=is%3Aopen+is%3Aissue+label%3A%22cms+wanted%22) represent those we plan to add, and are a great way to dip your toes in. The more CMS instructions we can add, the more useful and powerful EmbedBox will become. Follow [these guidelines](https://github.com/EagerIO/EmbedBox/blob/master/docs/new-targets.md) when contributing docs for new “targets” (what the EmbedBox codebase calls CMS platforms).
+We’re planning to add more targets over time. You can track our progress in [Project #1](https://github.com/EagerIO/EmbedBox/projects/1). The more CMS instructions we can add, the more useful and powerful EmbedBox will become. Follow [these guidelines](https://github.com/EagerIO/EmbedBox/blob/master/docs/new-targets.md) when contributing docs for new “targets” (what the EmbedBox codebase calls CMS platforms).
 
 ### Requirements
 Node v5.0.0+
@@ -33,6 +33,15 @@ npm start
 Then navigate to <a href="http://localhost:9000" target="_blank">http://localhost:9000</a>
 
 For a breakdown of how EmbedBox is built, check out our [design architecture](https://github.com/EagerIO/EmbedBox/blob/master/docs/design-architecture.md) docs.
+
+#### Releases
+
+EmbedBox uses [semantic versioning](http://semver.org/)
+
+```shell
+npm run release 1.2.3
+git push && git push --tags && npm publish
+```
 
 ## Companies using EmbedBox
 

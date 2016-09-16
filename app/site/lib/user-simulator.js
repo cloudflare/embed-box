@@ -44,7 +44,8 @@ export function runDemo(iframe, onComplete = () => {}) {
         pluginURL: `${BASE_URL}/examples/drupal-plugin.zip`
       }
     },
-    branding: false
+    branding: false,
+    scrollIntoView: false
   }
   const barrier = iframe.parentNode.querySelector(".barrier")
   const loadingDots = iframe.parentNode.querySelector(".loading-dots")
@@ -72,7 +73,8 @@ export function runDemo(iframe, onComplete = () => {}) {
           loadingDots.setAttribute("data-state", "loading")
           setTimeout(createInteractiveDemo, 1500)
         }
-      }
+      },
+      scrollIntoView: true
     }
 
     loadingDots.setAttribute("data-state", "loading")

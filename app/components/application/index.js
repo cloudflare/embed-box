@@ -225,7 +225,7 @@ export default class Application extends BaseComponent {
       targetWrapper.setAttribute("data-component", "target-wrapper")
     }
     else {
-      this.renderTitle(target.modalTitle)
+      this.renderTitle(target.headerTitle)
     }
 
     if (previousTargetWrapper) {

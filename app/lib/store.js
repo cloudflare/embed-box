@@ -16,15 +16,15 @@ export function createStore(spec = {}) {
   if (!theme.stepNumberColor) theme.stepNumberColor = theme.accentColor
 
   return {
-    name: spec.name || "a plugin",
+    name: get(spec.name, "a plugin"),
     autoDownload,
 
     branding: get(spec.branding, true),
 
-    beforeContent: spec.beforeContent || "",
-    afterContent: spec.afterContent || "",
+    beforeContent: get(spec.beforeContent, ""),
+    afterContent: get(spec.afterContent, ""),
 
-    embedCode: spec.embedCode || "",
+    embedCode: get(spec.embedCode, ""),
 
     fallbackID: get(spec.fallbackID, "generic"),
 
@@ -38,7 +38,7 @@ export function createStore(spec = {}) {
       }
     },
 
-    insertInHead: spec.insertInHead || false,
+    insertInHead: get(spec.insertInHead, false),
 
     labels: {
       searchHeader: "Select the type of website you have.",
@@ -52,7 +52,10 @@ export function createStore(spec = {}) {
     },
 
     route: "home",
-    routing: spec.routing || false,
+    routing: get(spec.routing, false),
+    projectUrl: PROJECT_URL,
+
+    scrollIntoView: get(spec.scrollIntoView, true),
 
     theme
   }
