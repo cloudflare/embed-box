@@ -52,7 +52,7 @@ ol.steps
         p As the <strong>Block Description</strong> enter “#{ config.name } Embed”.
         p As the <strong>Block Body</strong> paste this embed code:
 
-        .copy-container
+        .copy-container(data-ref="copyContainers[]")
           button.button.primary.run(data-ref="copyButtons[]") Copy
           div.copyable(contenteditable)= this.copyText
 
@@ -72,7 +72,7 @@ ol.steps
         p Click <strong>Install new module</strong>.
         p In the <strong>Install from a URL</strong> field enter:
 
-        .copy-container
+        .copy-container(data-ref="copyContainers[]")
           button.button.primary.run(data-ref="copyButtons[]") Copy
           div.copyable(contenteditable) https://ftp.drupal.org/files/projects/add_to_head-7.x-1.2.tar.gz
 
@@ -93,7 +93,7 @@ ol.steps
         p For the <strong>Name</strong> enter “#{ config.name } Embed”.
         p For the <strong>Code</strong> enter:
 
-        .copy-container
+        .copy-container(data-ref="copyContainers[]")
           button.button.primary.run(data-ref="copyButtons[]") Copy
           div.copyable(contenteditable)= this.copyText
 

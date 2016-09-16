@@ -9,6 +9,10 @@ export default function createThemeStylesheet(theme) {
       color: ${"textColor"}
     }
 
+    [data-component$="-target"] .copy-container[collapsed] button.collapse {
+      background-color: ${"backgroundColor"}
+    }
+
     .modal a, .accent-color {
       color: ${"accentColor"}
     }

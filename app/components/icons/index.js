@@ -39,3 +39,6 @@ export const clear = svgToComponent(clearSVG)
 
 import copySVG from "./copy.svg"
 export const copy = svgToComponent(copySVG)
+
+import collapseSVG from "./collapse.svg"
+export const collapse = svgToComponent(collapseSVG)
