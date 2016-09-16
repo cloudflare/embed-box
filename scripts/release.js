@@ -3,6 +3,7 @@
 const {spawnSync} = require("child_process")
 const {writeFileSync} = require("fs")
 const packageConfig = require("../package.json")
+const testPackageConfig = require("../test/package.json")
 const bowerConfig = require("../bower.json")
 const resolve = require("path").resolve.bind(null, __dirname)
 const {argv} = process
@@ -15,12 +16,20 @@ const spawnOptions = {
   stdio: [0, 1, 2]
 }
 
-packageConfig.version = version
-bowerConfig.version = version
+const configs = {
+  "../package.json": packageConfig,
+  "../test/package.json": testPackageConfig,
+  "../bower.json": bowerConfig
+}
 
-console.log(`Publishing version ${version}`)
-writeFileSync(resolve("../package.json"), stringify(packageConfig))
-writeFileSync(resolve("../bower.json"), stringify(bowerConfig))
+console.log(`Upgrading version ${packageConfig.version} to ${version}`)
+
+Object
+  .keys(configs)
+  .forEach(path => {
+    configs[path].version = version
+    writeFileSync(resolve(path), stringify(configs[path]))
+  })
 
 const tasks = [
   ["npm", ["run", "prepare-publish"]],
