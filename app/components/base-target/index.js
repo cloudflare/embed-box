@@ -4,10 +4,13 @@ import downloadLinkTemplate from "./download-link.pug"
 import beforeContentTemplate from "./before-content.pug"
 import afterContentTemplate from "./after-content.pug"
 import defaultIcon from "./base-target.svg"
+import * as icons from "components/icons"
 
 import autobind from "autobind-decorator"
 import BaseComponent from "components/base-component"
 import Clipboard from "clipboard"
+
+const {copy: CopyIcon, collapse: CollapseIcon} = icons
 
 export default class BaseTarget extends BaseComponent {
   static template = template;
@@ -131,12 +134,40 @@ export default class BaseTarget extends BaseComponent {
     this.render()
   }
 
+  setupCollapsibleCopyContainers() {
+    const {copyContainers = []} = this.refs
+
+    copyContainers.forEach(copyContainer => {
+      const copyableContent = copyContainer.querySelector(".copyable")
+      const isMultiline = copyableContent.textContent.split("\n").length > 1
+
+      if (!isMultiline) return
+
+      const collapseButton = document.createElement("button")
+      const collapseIcon = new CollapseIcon()
+
+      collapseButton.className = "button collapse"
+      collapseButton.appendChild(collapseIcon.render())
+      collapseButton.addEventListener("click", () => {
+        const collapsed = copyContainer.getAttribute("collapsed") === "true"
+
+        copyContainer.setAttribute("collapsed", !collapsed)
+      })
+
+      copyContainer.setAttribute("collapsed", true)
+      copyContainer.appendChild(collapseButton)
+    })
+  }
+
   bindCopyButtons() {
     const {iframe} = this.store
     const {copyButtons = []} = this.refs
 
     copyButtons.forEach(copyButton => {
       const copyableContent = copyButton.parentNode.querySelector(".copyable")
+      const copyIcon = new CopyIcon()
+
+      copyButton.appendChild(copyIcon.render())
 
       copyableContent.addEventListener("click", () => {
         const range = iframe.document.createRange()
@@ -187,6 +218,7 @@ export default class BaseTarget extends BaseComponent {
       versionSelector.addEventListener("change", this.handleVersionChange)
     }
 
+    this.setupCollapsibleCopyContainers()
     this.bindCopyButtons()
 
     if (previousElement) this.replaceElement(previousElement, this.element)

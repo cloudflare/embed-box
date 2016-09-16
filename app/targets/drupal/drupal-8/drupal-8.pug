@@ -45,7 +45,7 @@ ol.steps
       p In the <strong>Body</strong> field click the <strong>Source</strong> button inside the editor.
       p Paste this embed code:
 
-      .copy-container
+      .copy-container(data-ref="copyContainers[]")
         button.button.primary.run(data-ref="copyButtons[]") Copy
         div.copyable(contenteditable)= this.copyText
 

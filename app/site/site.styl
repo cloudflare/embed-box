@@ -434,17 +434,6 @@ html
         &:not(:last-child)
           margin-bottom 4em
 
-          &::before
-            background lighterLineGrayRGBA
-            content ""
-            display block
-            height .0625em
-            margin-top 2em
-            pointer-events none
-            position absolute
-            top 100%
-            width 100%
-
         .content, .image
           width auto
 
@@ -729,9 +718,9 @@ button[data-run]
   &:hover
     background-color lighten(brandYellow, 7%)
 
-  &:hover:active, &.active
-    background-color darken(brandYellow, 8%)
-    box-shadow none
+    &:active
+      background-color darken(brandYellow, 8%)
+      box-shadow none
 
 .code-example
   antialiasedFonts()
