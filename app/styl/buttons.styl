@@ -118,35 +118,3 @@
       &.more:after
         opacity 0
         pointer-events none
-
-.buttons-group
-
-  span.buttons-group-message
-    display inline-block
-    padding .6em 0
-
-    &.small
-      font-size .9em
-
-    &.large
-      font-size 1.25em
-
-  button, .button, span.buttons-group-message
-
-    @media largerThanIphoneMinWidthQuery
-      margin-right 1em
-
-      &:last-child
-        margin-right 0
-
-    @media iPhoneMaxWidthQuery
-      display block
-      margin-bottom 1em
-
-      &:last-child
-        margin-bottom 0
-
-  // Because block `button` elements are still not full width :(
-  button
-    @media iPhoneMaxWidthQuery
-      width 100%
