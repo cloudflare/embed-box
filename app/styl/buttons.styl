@@ -48,15 +48,16 @@
     outline none
 
     &::before
+      // `px` below to avoid `em` rounding issues
       content ""
       position absolute
       z-index 1
-      top 2px // Avoid dumb `em` rounding issues
-      right 2px // Avoid dumb `em` rounding issues
-      bottom 2px // Avoid dumb `em` rounding issues
-      left 2px // Avoid dumb `em` rounding issues
+      top 2px
+      right 2px
+      bottom 2px
+      left 2px
       border-radius .1em
-      box-shadow inset 0 0 0 1px currentColor // Avoid dumb `em` rounding issues
+      box-shadow inset 0 0 0 1px currentColor
       pointer-events none
       transition opacity .3s ease-in-out
 
