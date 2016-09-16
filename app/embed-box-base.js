@@ -151,6 +151,11 @@ export default class EmbedBoxBase {
     const iframeElement = this.iframe.element
 
     this._container = typeof value === "string" ? document.querySelector(value) : value
+
+    if (!this._container) {
+      throw new Error(`EmbedBox: Could not find container "${value}"`)
+    }
+
     const mode = this._container.tagName === "BODY" ? "modal" : "inline"
 
     this._store.mode = mode
