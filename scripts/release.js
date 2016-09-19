@@ -33,7 +33,7 @@ Object
 
 const tasks = [
   ["npm", ["run", "prepare-publish"]],
-  ["git", ["add", "./dist/", "./package.json", "./bower.json"]],
+  ["git", ["add", "./dist/", "./test/package.json", "./package.json", "./bower.json"]],
   ["git", ["commit", `-m v${version}`]],
   ["git", ["tag", `v${version}`]]
 ]
