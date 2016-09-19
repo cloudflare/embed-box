@@ -175,6 +175,7 @@ export default class Application extends BaseComponent {
     const {firstChild} = content
     const previousTargetSearch = content.querySelector("[data-component='target-search']")
     const targetSearch = new TargetSearch({
+      store: this.store,
       targets: this.targets,
       onSelection: this.setNavigationState,
       onSubmit: selectedId => {
@@ -214,6 +215,7 @@ export default class Application extends BaseComponent {
     const previousTargetWrapper = content.querySelector("[data-component='target-wrapper']")
     const targetWrapper = !target ? document.createElement("section") : new TargetWrapper({
       onDone: this.closeModal,
+      store: this.store,
       target
     }).render()
 
