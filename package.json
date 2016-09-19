@@ -1,9 +1,9 @@
 {
   "name": "embed-box",
-  "version": "1.3.5",
+  "version": "1.4.0",
   "license": "MIT",
   "author": "Eager",
-  "homepage": "http://embedbox.io",
+  "homepage": "https://github.com/EagerIO/EmbedBox",
   "keywords": [
     "UI",
     "embed",
@@ -27,7 +27,6 @@
     "prepare-publish": "npm run lint && npm run build-dist",
     "release": "NODE_ENV=production babel-node scripts/release.js"
   },
-  "homepage": "https://github.com/EagerIO/EmbedBox",
   "main": "embed-box.js",
   "dependencies": {
     "clipboard": "1.5.12"
