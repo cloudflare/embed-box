@@ -10,6 +10,8 @@ import TargetSearch from "components/target-search"
 import TargetWrapper from "components/target-wrapper"
 
 const AUTO_DOWNLOAD_DELAY = 3000
+const iDevicePattern = /(iPhone|iPod)/i
+const webkitPattern = /WebKit/i
 
 export default class Application extends BaseComponent {
   static template = template;
@@ -20,6 +22,7 @@ export default class Application extends BaseComponent {
 
     const element = this.compileTemplate()
 
+    const {userAgent} = navigator
     const iframeWindow = this.store.iframe.window
     const {content, closeModalButton, previousButton} = this.refs
     const headerButtons = [closeModalButton, previousButton]
@@ -35,8 +38,8 @@ export default class Application extends BaseComponent {
     iframeWindow.addEventListener("keydown", this.handleKeyNavigation)
     iframeWindow.addEventListener("keypress", this.delegateKeyEvent)
 
-    this.element.setAttribute("is-touch-device", "ontouchstart" in document.documentElement)
-    this.element.setAttribute("is-iphone", (!!navigator.userAgent.match(/iPhone/i) || !!navigator.userAgent.match(/iPod/i)) && !!navigator.userAgent.match(/WebKit/i))
+    element.setAttribute("is-touch-device", "ontouchstart" in document.documentElement)
+    element.setAttribute("is-iphone", iDevicePattern.test(userAgent) && webkitPattern.test(userAgent))
 
     closeModalButton.addEventListener("click", this.closeModal)
     element.addEventListener("click", event => {
