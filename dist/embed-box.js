@@ -630,19 +630,32 @@ function _applyDecoratedDescriptor(target, property, decorators, descriptor, con
 
 var CopyIcon = __WEBPACK_IMPORTED_MODULE_6_components_icons__["copy"];
 var CollapseIcon = __WEBPACK_IMPORTED_MODULE_6_components_icons__["collapse"];
+
+
+function getLocation(targetUsesHead, storeUsesHead) {
+  // Respect target specific falsey values.
+  var insertInHead = typeof targetUsesHead !== "undefined" ? targetUsesHead : storeUsesHead;
+
+  return insertInHead ? "head" : "body";
+}
+
 var BaseTarget = (_class = (_temp = _class2 = function (_BaseComponent) {
   _inherits(BaseTarget, _BaseComponent);
 
   BaseTarget.isConstructable = function isConstructable(config, store) {
     var supportsPlugin = this.supports.plugin;
+    var supportsLocation = this.supports.insertInto;
     var hasLocalEmbed = !!config.embedCode;
     var hasGlobalEmbed = !!store.embedCode;
     var embedCodePresent = hasLocalEmbed || hasGlobalEmbed;
     var hasPluginURL = !!config.pluginURL;
+    var location = getLocation(config.insertInHead, store.insertInHead);
 
-    if (supportsPlugin) return hasPluginURL || embedCodePresent;
+    var locationIsValid = location === "head" && supportsLocation.head || location === "body" && supportsLocation.body;
 
-    return hasPluginURL && hasLocalEmbed || !hasPluginURL && embedCodePresent;
+    if (supportsPlugin) return hasPluginURL || locationIsValid && embedCodePresent;
+
+    return locationIsValid && embedCodePresent;
   };
 
   function BaseTarget() {
@@ -841,13 +854,7 @@ var BaseTarget = (_class = (_temp = _class2 = function (_BaseComponent) {
   }, {
     key: "location",
     get: function get() {
-      var targetUsesHead = this.config.insertInHead;
-      var storeUsesHead = this.store.insertInHead;
-
-      // Respect target specific falsey values.
-      var insertInHead = typeof targetUsesHead !== "undefined" ? targetUsesHead : storeUsesHead;
-
-      return insertInHead ? "head" : "body";
+      return getLocation(this.config.insertInHead, this.store.insertInHead);
     }
   }, {
     key: "icon",
@@ -1771,7 +1778,7 @@ var EmbedBoxBase = (_class = (_temp = _class2 = function () {
   }]);
 
   return EmbedBoxBase;
-}(), _class2.stylesheet = __WEBPACK_IMPORTED_MODULE_1__embed_box_styl___default.a, _class2.iframeStylesheet = __WEBPACK_IMPORTED_MODULE_2__iframe_styl___default.a, _class2.fetchedTargets = [], _class2.version = "1.4.1", _class2.iframeAttributes = (_class2$iframeAttribu = {
+}(), _class2.stylesheet = __WEBPACK_IMPORTED_MODULE_1__embed_box_styl___default.a, _class2.iframeStylesheet = __WEBPACK_IMPORTED_MODULE_2__iframe_styl___default.a, _class2.fetchedTargets = [], _class2.version = "1.4.2", _class2.iframeAttributes = (_class2$iframeAttribu = {
   allowTransparency: ""
 }, _class2$iframeAttribu[VISIBILITY_ATTRIBUTE] = "hidden", _class2$iframeAttribu.frameBorder = "0", _class2$iframeAttribu.srcdoc = "<div data-iframe-loader-shim style='display: none;'></div>", _class2$iframeAttribu.src = "about:blank", _class2$iframeAttribu), _temp), (_applyDecoratedDescriptor(_class.prototype, "_handleTransitionEnd", [__WEBPACK_IMPORTED_MODULE_3_autobind_decorator___default.a], Object.getOwnPropertyDescriptor(_class.prototype, "_handleTransitionEnd"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "hide", [__WEBPACK_IMPORTED_MODULE_3_autobind_decorator___default.a], Object.getOwnPropertyDescriptor(_class.prototype, "hide"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "show", [__WEBPACK_IMPORTED_MODULE_3_autobind_decorator___default.a], Object.getOwnPropertyDescriptor(_class.prototype, "show"), _class.prototype)), _class);
 
@@ -3381,7 +3388,7 @@ var DrupalTarget = (_temp = _class = function (_BaseTarget) {
   }
 
   return DrupalTarget;
-}(__WEBPACK_IMPORTED_MODULE_3_components_base_target__["a" /* default */]), _class.icon = __WEBPACK_IMPORTED_MODULE_2__drupal_svg___default.a, _class.id = "drupal", _class.label = "Drupal", _class.supports = { embedCode: true, plugin: true }, _class.versions = [__WEBPACK_IMPORTED_MODULE_1__drupal_8__["a" /* default */], __WEBPACK_IMPORTED_MODULE_0__drupal_7__["a" /* default */]], _temp);
+}(__WEBPACK_IMPORTED_MODULE_3_components_base_target__["a" /* default */]), _class.icon = __WEBPACK_IMPORTED_MODULE_2__drupal_svg___default.a, _class.id = "drupal", _class.label = "Drupal", _class.supports = { embedCode: true, plugin: true, insertInto: { body: true } }, _class.versions = [__WEBPACK_IMPORTED_MODULE_1__drupal_8__["a" /* default */], __WEBPACK_IMPORTED_MODULE_0__drupal_7__["a" /* default */]], _temp);
 
 
 /***/ },
@@ -3500,7 +3507,7 @@ var GenericTarget = (_temp = _class = function (_BaseTarget) {
   }]);
 
   return GenericTarget;
-}(__WEBPACK_IMPORTED_MODULE_1_components_base_target__["a" /* default */]), _class.id = "generic", _class.label = "Any other site", _class.supports = { embedCode: true }, _class.versions = [__WEBPACK_IMPORTED_MODULE_0__generic_latest__["a" /* default */]], _temp);
+}(__WEBPACK_IMPORTED_MODULE_1_components_base_target__["a" /* default */]), _class.id = "generic", _class.label = "Any other site", _class.supports = { embedCode: true, insertInto: { head: true, body: true } }, _class.versions = [__WEBPACK_IMPORTED_MODULE_0__generic_latest__["a" /* default */]], _temp);
 
 
 /***/ },
@@ -3541,7 +3548,7 @@ var JoomlaTarget = (_temp = _class = function (_BaseTarget) {
   }
 
   return JoomlaTarget;
-}(__WEBPACK_IMPORTED_MODULE_2_components_base_target__["a" /* default */]), _class.icon = __WEBPACK_IMPORTED_MODULE_1__joomla_svg___default.a, _class.id = "joomla", _class.label = "Joomla", _class.supports = { embedCode: true, plugin: true }, _class.versions = [{ id: "3.6.x", template: __WEBPACK_IMPORTED_MODULE_0__joomla_3_6_x_pug___default.a }], _temp);
+}(__WEBPACK_IMPORTED_MODULE_2_components_base_target__["a" /* default */]), _class.icon = __WEBPACK_IMPORTED_MODULE_1__joomla_svg___default.a, _class.id = "joomla", _class.label = "Joomla", _class.supports = { embedCode: true, plugin: true, insertInto: { head: true, body: true } }, _class.versions = [{ id: "3.6.x", template: __WEBPACK_IMPORTED_MODULE_0__joomla_3_6_x_pug___default.a }], _temp);
 
 
 /***/ },
@@ -3580,7 +3587,7 @@ var ShopifyTarget = (_temp = _class = function (_BaseTarget) {
   }
 
   return ShopifyTarget;
-}(__WEBPACK_IMPORTED_MODULE_2_components_base_target__["a" /* default */]), _class.icon = __WEBPACK_IMPORTED_MODULE_1__shopify_svg___default.a, _class.id = "shopify", _class.label = "Shopify", _class.supports = { embedCode: true }, _class.versions = [__WEBPACK_IMPORTED_MODULE_0__shopify_latest__["a" /* default */]], _temp);
+}(__WEBPACK_IMPORTED_MODULE_2_components_base_target__["a" /* default */]), _class.icon = __WEBPACK_IMPORTED_MODULE_1__shopify_svg___default.a, _class.id = "shopify", _class.label = "Shopify", _class.supports = { embedCode: true, insertInto: { head: true, body: true } }, _class.versions = [__WEBPACK_IMPORTED_MODULE_0__shopify_latest__["a" /* default */]], _temp);
 
 
 /***/ },
@@ -3689,7 +3696,7 @@ var SquarespaceTarget = (_temp = _class = function (_BaseTarget) {
   }
 
   return SquarespaceTarget;
-}(__WEBPACK_IMPORTED_MODULE_2_components_base_target__["a" /* default */]), _class.icon = __WEBPACK_IMPORTED_MODULE_1__squarespace_svg___default.a, _class.id = "squarespace", _class.label = "Squarespace", _class.supports = { embedCode: true }, _class.versions = [__WEBPACK_IMPORTED_MODULE_0__squarespace_latest__["a" /* default */]], _temp);
+}(__WEBPACK_IMPORTED_MODULE_2_components_base_target__["a" /* default */]), _class.icon = __WEBPACK_IMPORTED_MODULE_1__squarespace_svg___default.a, _class.id = "squarespace", _class.label = "Squarespace", _class.supports = { embedCode: true, insertInto: { head: true, body: true } }, _class.versions = [__WEBPACK_IMPORTED_MODULE_0__squarespace_latest__["a" /* default */]], _temp);
 
 
 /***/ },
@@ -3798,7 +3805,7 @@ var TumblrTarget = (_temp = _class = function (_BaseTarget) {
   }
 
   return TumblrTarget;
-}(__WEBPACK_IMPORTED_MODULE_2_components_base_target__["a" /* default */]), _class.icon = __WEBPACK_IMPORTED_MODULE_1__tumblr_svg___default.a, _class.id = "tumblr", _class.label = "Tumblr", _class.supports = { embedCode: true }, _class.versions = [__WEBPACK_IMPORTED_MODULE_0__tumblr_latest__["a" /* default */]], _temp);
+}(__WEBPACK_IMPORTED_MODULE_2_components_base_target__["a" /* default */]), _class.icon = __WEBPACK_IMPORTED_MODULE_1__tumblr_svg___default.a, _class.id = "tumblr", _class.label = "Tumblr", _class.supports = { embedCode: true, insertInto: { head: true, body: true } }, _class.versions = [__WEBPACK_IMPORTED_MODULE_0__tumblr_latest__["a" /* default */]], _temp);
 
 
 /***/ },
@@ -3909,7 +3916,7 @@ var WeeblyTarget = (_temp = _class = function (_BaseTarget) {
   }
 
   return WeeblyTarget;
-}(__WEBPACK_IMPORTED_MODULE_2_components_base_target__["a" /* default */]), _class.icon = __WEBPACK_IMPORTED_MODULE_1__weebly_svg___default.a, _class.id = "weebly", _class.label = "Weebly", _class.supports = { embedCode: true }, _class.versions = [{ id: "Latest", template: __WEBPACK_IMPORTED_MODULE_0__weebly_latest_pug___default.a }], _temp);
+}(__WEBPACK_IMPORTED_MODULE_2_components_base_target__["a" /* default */]), _class.icon = __WEBPACK_IMPORTED_MODULE_1__weebly_svg___default.a, _class.id = "weebly", _class.label = "Weebly", _class.supports = { embedCode: true, insertInto: { head: true, body: true } }, _class.versions = [{ id: "Latest", template: __WEBPACK_IMPORTED_MODULE_0__weebly_latest_pug___default.a }], _temp);
 
 
 /***/ },
@@ -3950,7 +3957,7 @@ var WordPressTarget = (_temp = _class = function (_BaseTarget) {
   }
 
   return WordPressTarget;
-}(__WEBPACK_IMPORTED_MODULE_2_components_base_target__["a" /* default */]), _class.icon = __WEBPACK_IMPORTED_MODULE_1__wordpress_svg___default.a, _class.id = "wordpress", _class.label = "WordPress", _class.supports = { embedCode: true, plugin: true }, _class.versions = [{ id: "4.x", template: __WEBPACK_IMPORTED_MODULE_0__wordpress_4_pug___default.a }], _temp);
+}(__WEBPACK_IMPORTED_MODULE_2_components_base_target__["a" /* default */]), _class.icon = __WEBPACK_IMPORTED_MODULE_1__wordpress_svg___default.a, _class.id = "wordpress", _class.label = "WordPress", _class.supports = { embedCode: true, plugin: true, insertInto: { head: true, body: true } }, _class.versions = [{ id: "4.x", template: __WEBPACK_IMPORTED_MODULE_0__wordpress_4_pug___default.a }], _temp);
 
 
 /***/ },

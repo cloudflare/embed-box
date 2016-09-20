@@ -718,19 +718,32 @@ function _applyDecoratedDescriptor(target, property, decorators, descriptor, con
 
 var CopyIcon = __WEBPACK_IMPORTED_MODULE_6_components_icons__["a" /* copy */];
 var CollapseIcon = __WEBPACK_IMPORTED_MODULE_6_components_icons__["b" /* collapse */];
+
+
+function getLocation(targetUsesHead, storeUsesHead) {
+  // Respect target specific falsey values.
+  var insertInHead = typeof targetUsesHead !== "undefined" ? targetUsesHead : storeUsesHead;
+
+  return insertInHead ? "head" : "body";
+}
+
 var BaseTarget = (_class = (_temp = _class2 = function (_BaseComponent) {
   _inherits(BaseTarget, _BaseComponent);
 
   BaseTarget.isConstructable = function isConstructable(config, store) {
     var supportsPlugin = this.supports.plugin;
+    var supportsLocation = this.supports.insertInto;
     var hasLocalEmbed = !!config.embedCode;
     var hasGlobalEmbed = !!store.embedCode;
     var embedCodePresent = hasLocalEmbed || hasGlobalEmbed;
     var hasPluginURL = !!config.pluginURL;
+    var location = getLocation(config.insertInHead, store.insertInHead);
 
-    if (supportsPlugin) return hasPluginURL || embedCodePresent;
+    var locationIsValid = location === "head" && supportsLocation.head || location === "body" && supportsLocation.body;
 
-    return hasPluginURL && hasLocalEmbed || !hasPluginURL && embedCodePresent;
+    if (supportsPlugin) return hasPluginURL || locationIsValid && embedCodePresent;
+
+    return locationIsValid && embedCodePresent;
   };
 
   function BaseTarget() {
@@ -929,13 +942,7 @@ var BaseTarget = (_class = (_temp = _class2 = function (_BaseComponent) {
   }, {
     key: "location",
     get: function get() {
-      var targetUsesHead = this.config.insertInHead;
-      var storeUsesHead = this.store.insertInHead;
-
-      // Respect target specific falsey values.
-      var insertInHead = typeof targetUsesHead !== "undefined" ? targetUsesHead : storeUsesHead;
-
-      return insertInHead ? "head" : "body";
+      return getLocation(this.config.insertInHead, this.store.insertInHead);
     }
   }, {
     key: "icon",
