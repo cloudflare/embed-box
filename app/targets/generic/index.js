@@ -8,7 +8,7 @@ export default class GenericTarget extends BaseTarget {
   static supports = {embedCode: true, insertInto: {head: true, body: true}};
   static versions = [genericLatest];
 
-  get modalTitle() {
+  get headerTitle() {
     return this.title
   }
 

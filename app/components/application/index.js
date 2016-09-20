@@ -10,6 +10,8 @@ import TargetSearch from "components/target-search"
 import TargetWrapper from "components/target-wrapper"
 
 const AUTO_DOWNLOAD_DELAY = 3000
+const iDevicePattern = /(iPhone|iPod)/i
+const webkitPattern = /WebKit/i
 
 export default class Application extends BaseComponent {
   static template = template;
@@ -20,6 +22,7 @@ export default class Application extends BaseComponent {
 
     const element = this.compileTemplate()
 
+    const {userAgent} = navigator
     const iframeWindow = this.store.iframe.window
     const {content, closeModalButton, previousButton} = this.refs
     const headerButtons = [closeModalButton, previousButton]
@@ -35,8 +38,8 @@ export default class Application extends BaseComponent {
     iframeWindow.addEventListener("keydown", this.handleKeyNavigation)
     iframeWindow.addEventListener("keypress", this.delegateKeyEvent)
 
-    this.element.setAttribute("is-touch-device", "ontouchstart" in document.documentElement)
-    this.element.setAttribute("is-iphone", (!!navigator.userAgent.match(/iPhone/i) || !!navigator.userAgent.match(/iPod/i)) && !!navigator.userAgent.match(/WebKit/i))
+    element.setAttribute("is-touch-device", "ontouchstart" in document.documentElement)
+    element.setAttribute("is-iphone", iDevicePattern.test(userAgent) && webkitPattern.test(userAgent))
 
     closeModalButton.addEventListener("click", this.closeModal)
     element.addEventListener("click", event => {
@@ -172,6 +175,7 @@ export default class Application extends BaseComponent {
     const {firstChild} = content
     const previousTargetSearch = content.querySelector("[data-component='target-search']")
     const targetSearch = new TargetSearch({
+      store: this.store,
       targets: this.targets,
       onSelection: this.setNavigationState,
       onSubmit: selectedId => {
@@ -211,6 +215,7 @@ export default class Application extends BaseComponent {
     const previousTargetWrapper = content.querySelector("[data-component='target-wrapper']")
     const targetWrapper = !target ? document.createElement("section") : new TargetWrapper({
       onDone: this.closeModal,
+      store: this.store,
       target
     }).render()
 
@@ -225,7 +230,7 @@ export default class Application extends BaseComponent {
       targetWrapper.setAttribute("data-component", "target-wrapper")
     }
     else {
-      this.renderTitle(target.modalTitle)
+      this.renderTitle(target.headerTitle)
     }
 
     if (previousTargetWrapper) {

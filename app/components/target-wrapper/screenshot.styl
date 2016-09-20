@@ -32,8 +32,8 @@ figure
 
   &::after
     content ""
-    display block
     position absolute
+    display block
     cursor default
     border 1px solid lightLineGrayRGBA
     z-index 1
@@ -45,6 +45,13 @@ figure
     [data-component="application"][data-mode="modal"] &
       border-left 0
       border-right 0
+
+      @media mobileMaxWidthQuery
+        border 1px solid lightLineGrayRGBA
+
+      @media smallerThanTargetInstructionsMaxWidthQuery
+        border-left 0
+        border-right 0
 
     @media smallerThanTargetInstructionsMaxWidthQuery
       border-left 0

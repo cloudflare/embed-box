@@ -2,7 +2,6 @@ import stylesheet from "./embed-box.styl"
 import iframeStylesheet from "./iframe.styl"
 
 import autobind from "autobind-decorator"
-import BaseComponent from "components/base-component"
 import Application from "components/application"
 import polyfillCustomEvent from "lib/custom-event"
 import polyfillRequestAnimationFrame from "lib/request-animation-frame"
@@ -13,7 +12,6 @@ import createThemeStylesheet from "lib/create-theme-stylesheet"
 const MODE_ATTRIBUTE = "data-mode"
 const VISIBILITY_ATTRIBUTE = "data-visibility"
 const SCROLL_STATE_ATTRIBUTE = "data-embed-box-scroll-state"
-let storeReceivers
 
 function removeElement(element) {
   if (!element || !element.parentNode) return null
@@ -54,17 +52,6 @@ export default class EmbedBoxBase {
       targets: targetConfigs = {}
     } = spec
 
-    // HACK: Custom targets have a different BaseComponent instance.
-    // This ensures all components have access to the store.
-    storeReceivers = [BaseComponent, ...customTargets]
-
-    storeReceivers.forEach(Receiver => {
-      Object.defineProperty(Receiver.prototype, "store", {
-        configurable: true,
-        get() { return store }
-      })
-    })
-
     Object
       .keys(iframeAttributes)
       .forEach(key => iframe.element.setAttribute(key, iframeAttributes[key]))
@@ -75,6 +62,7 @@ export default class EmbedBoxBase {
 
     Object.assign(this, {
       destroyed: false,
+      _store: store,
       _visible: false,
       _previousContainerScrollPosition: null,
       iframe,
@@ -132,7 +120,8 @@ export default class EmbedBoxBase {
       this.application = new Application(this.iframe.document.body, {
         initialTarget,
         onClose: this.hide,
-        targets: visibleTargets.map(Target => new Target({config: getConfig(Target)}))
+        store,
+        targets: visibleTargets.map(Target => new Target({config: getConfig(Target), store}))
       })
 
       if (autoShow || this._pendingShow) this.show()
@@ -151,6 +140,11 @@ export default class EmbedBoxBase {
     const iframeElement = this.iframe.element
 
     this._container = typeof value === "string" ? document.querySelector(value) : value
+
+    if (!this._container) {
+      throw new Error(`EmbedBox: Could not find container "${value}"`)
+    }
+
     const mode = this._container.tagName === "BODY" ? "modal" : "inline"
 
     this._store.mode = mode
@@ -166,10 +160,6 @@ export default class EmbedBoxBase {
 
   get mode() {
     return this._store.mode
-  }
-
-  get _store() {
-    return BaseComponent.prototype.store || {}
   }
 
   get visible () {
@@ -273,8 +263,6 @@ export default class EmbedBoxBase {
 
     removeElement(this.iframe.element)
     removeElement(this.style)
-
-    storeReceivers.forEach(Receiver => delete Receiver.prototype.store)
   }
 
   @autobind

@@ -27,30 +27,46 @@
     text-align center
 
   .copy-container
-    background lightGrayRGBA
-    margin 2rem 0
-    max-width 100vw
     position relative
+    margin 2.5rem 0 2.25rem
+    max-width 100vw
+    background lightGrayRGBA
+    box-shadow 0 0 0 1px lightLineGrayRGBA
 
     button.run
       position absolute
-      padding .4em 1.125em
+      padding .4em 1.125em .4em 2.4em
       margin 0
       height 2.3em
       top -1.1em
-      left 50%
-      transform translateX(-50%)
+      width 6em
+      left calc(50% - 3em)
+
+      &, &::before
+        border-radius 99em
+
+      > svg
+        position absolute
+        height 15px
+        width 15px
+        top 0
+        bottom 0
+        margin-top auto
+        margin-bottom auto
+        left 1.125em
+        stroke currentColor
 
       &::after
         content "Copied"
-        color #000
+        position absolute
         display inline-block
+        top .25em
         left 0
         right 0
+        color #000
         margin auto
-        opacity 0
-        position absolute
         pointer-events none
+        opacity 0
 
       &[data-status="copied"]::after
         animation copied 400ms ease
@@ -71,6 +87,68 @@
       &:focus
         outline none
 
+    &[collapsed]
+
+      > .copyable
+        transition max-height .25s ease
+        max-height 80vh
+        overflow hidden
+
+      &[collapsed="true"] > .copyable
+        max-height 7em
+
+      button.collapse
+        position absolute
+        height 1.7em
+        width 2.75em
+        bottom -.85em
+        left calc(50% - 1.375em)
+        margin 0
+        padding 0
+        color inherit
+        box-shadow 0 0 0 1px lightLineGrayRGBA
+
+        &, &::before
+          border-radius 99em
+
+        &:hover
+
+          &:not(:focus)
+            box-shadow 0 0 0 1px lightLineGrayRGBA, 0 .1875em .375em -.1875em rgba(#000, .3)
+
+          &:active
+            box-shadow 0 0 0 1px lightLineGrayRGBA, inset 0 .125em .375em rgba(#000, .15)
+
+        &:not(:hover):focus::before
+          opacity .15
+
+        &:hover:focus::before
+          opacity 0
+
+        > svg
+          display block
+          position absolute
+          top 0
+          right 0
+          bottom 0
+          left 0
+          height 1em
+          width 1em
+          margin auto
+          pointer-events none
+          transform rotate(0deg)
+          transition transform .25s ease
+          stroke currentColor
+          stroke-opacity .5
+
+        &:hover, &:focus
+
+          > svg
+            stroke-opacity .75
+
+      &[collapsed="false"] button.collapse > svg
+        transform rotate(-180deg)
+
 .target-instructions
   @import "./screenshot"
 
@@ -87,10 +165,10 @@
 
   .target-title
     align-items center
-    background lightGrayRGBA
-    border-bottom 1px solid lightGrayRGBA
     padding 2em 4em 1.6em
     text-align center
+    background lightGrayRGBA
+    box-shadow 0 1px lightLineGrayRGBA
 
     @media iPhoneMaxWidthQuery
       padding-left 2em

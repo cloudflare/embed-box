@@ -55,7 +55,7 @@ ol.steps
     li
       h2 Copy the code to your site’s &lt;#{this.location}&gt; tag.
 
-      .copy-container
+      .copy-container(data-ref="copyContainers[]")
         button.button.primary.run(data-ref="copyButtons[]") Copy
         div.copyable(contenteditable)= this.copyText
 

@@ -12,7 +12,9 @@ export default class BaseScreenshot {
   static iframeStylesheet = iframeStylesheet;
 
   serialize = BaseComponent.prototype.serialize;
-  store = BaseComponent.prototype.store;
+  constructor(spec) {
+    Object.assign(this, spec)
+  }
 
   @autobind
   setScale() {
