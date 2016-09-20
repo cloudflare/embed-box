@@ -200,7 +200,7 @@ export default class BaseTarget extends BaseComponent {
 
     screenshotMounts.forEach(screenshotMount => {
       const Screenshot = version.screenshots[screenshotMount.getAttribute("data-screenshot")]
-      const screenshot = new Screenshot()
+      const screenshot = new Screenshot({store: this.store})
 
       this.replaceElement(screenshotMount, screenshot.render(this))
     })

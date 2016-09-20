@@ -10,24 +10,37 @@ export default class BaseComponent {
 
   constructor(spec = {}) {
     Object.assign(this, {
+      store: null,
       element: null,
       refs: {}
     }, spec)
 
+    this.appendStylesheet()
+  }
+
+  appendStylesheet() {
     const {stylesheet} = this.constructor
-    const {element: iframeElement, document: iframeDocument} = this.store.iframe
 
-    const appendStylesheet = () => {
-      if (!stylesheet || iframeDocument.head.contains(this.constructor.style)) return
-      // Common style tag has yet to be inserted in iframe.
-      const style = this.constructor.style = iframeDocument.createElement("style")
-
-      style.innerHTML = stylesheet
-      iframeDocument.head.appendChild(style)
+    if (!stylesheet) return
+    if (!this.store) {
+      console.error(this)
+      throw new Error("Component attempted to mount stylesheet without a store reference")
     }
 
-    if (iframeDocument.head) appendStylesheet()
-    else iframeElement.addEventListener("load", appendStylesheet)
+    const {element: iframeElement, document: iframeDocument} = this.store.iframe
+
+    const onLoad = () => {
+      if (iframeDocument.head.contains(this.constructor.styleElement)) return
+
+      // Common style tag has yet to be inserted in iframe.
+      const styleElement = iframeDocument.createElement("style")
+
+      styleElement.innerHTML = stylesheet
+      this.constructor.styleElement = iframeDocument.head.appendChild(styleElement)
+    }
+
+    if (iframeDocument.head) onLoad()
+    else iframeElement.addEventListener("load", onLoad)
   }
 
   autofocus() {
