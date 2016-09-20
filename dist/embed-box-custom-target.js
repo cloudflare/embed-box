@@ -485,34 +485,48 @@ var ARRAY_REF_PATTERN = /([a-zA-Z\d]*)(\[?\]?)/;
 
 var BaseComponent = (_class = (_temp = _class2 = function () {
   function BaseComponent() {
-    var _this = this;
-
     var spec = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
 
     _classCallCheck(this, BaseComponent);
 
     _extends(this, {
+      store: null,
       element: null,
       refs: {}
     }, spec);
 
+    this.appendStylesheet();
+  }
+
+  BaseComponent.prototype.appendStylesheet = function appendStylesheet() {
+    var _this = this;
+
     var stylesheet = this.constructor.stylesheet;
+
+
+    if (!stylesheet) return;
+    if (!this.store) {
+      console.error(this);
+      throw new Error("Component attempted to mount stylesheet without a store reference");
+    }
+
     var _store$iframe = this.store.iframe;
     var iframeElement = _store$iframe.element;
     var iframeDocument = _store$iframe.document;
 
 
-    var appendStylesheet = function appendStylesheet() {
-      if (!stylesheet || iframeDocument.head.contains(_this.constructor.style)) return;
-      // Common style tag has yet to be inserted in iframe.
-      var style = _this.constructor.style = iframeDocument.createElement("style");
+    var onLoad = function onLoad() {
+      if (iframeDocument.head.contains(_this.constructor.styleElement)) return;
 
-      style.innerHTML = stylesheet;
-      iframeDocument.head.appendChild(style);
+      // Common style tag has yet to be inserted in iframe.
+      var styleElement = iframeDocument.createElement("style");
+
+      styleElement.innerHTML = stylesheet;
+      _this.constructor.styleElement = iframeDocument.head.appendChild(styleElement);
     };
 
-    if (iframeDocument.head) appendStylesheet();else iframeElement.addEventListener("load", appendStylesheet);
-  }
+    if (iframeDocument.head) onLoad();else iframeElement.addEventListener("load", onLoad);
+  };
 
   BaseComponent.prototype.autofocus = function autofocus() {
     if (this.store.mode === "inline") return;
@@ -832,7 +846,7 @@ var BaseTarget = (_class = (_temp = _class2 = function (_BaseComponent) {
 
     screenshotMounts.forEach(function (screenshotMount) {
       var Screenshot = version.screenshots[screenshotMount.getAttribute("data-screenshot")];
-      var screenshot = new Screenshot();
+      var screenshot = new Screenshot({ store: _this2.store });
 
       _this2.replaceElement(screenshotMount, screenshot.render(_this2));
     });
