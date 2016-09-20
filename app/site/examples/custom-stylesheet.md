@@ -1,6 +1,6 @@
 ```javascript
 new EmbedBox({
-  embedCode: "<script src='{{BASE_URL}}/examples/library.js'></script>",
+  embedCode: "<script src='{{PROJECT_URL}}/examples/library.js'></script>",
   name: "Example Stylesheet App",
   style: "" +
   ".header .title {" +

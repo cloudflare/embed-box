@@ -1,7 +1,7 @@
 ```javascript
 var embedBox = new EmbedBox({
   autoShow: false,
-  embedCode: "<script src='{{BASE_URL}}/examples/library.js'></script>"
+  embedCode: "<script src='{{PROJECT_URL}}/examples/library.js'></script>"
 })
 
 embedBox.show()

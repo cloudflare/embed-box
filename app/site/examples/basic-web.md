@@ -2,7 +2,7 @@
 new EmbedBox({
   name: "Example Plugin",
   embedCode: "" +
-  "<script src='{{BASE_URL}}/examples/library.js'></script>\n" +
+  "<script src='{{PROJECT_URL}}/examples/library.js'></script>\n" +
   "<script>\n" +
   "  (function(){\n" +
   "    var options = { /*  ... */ };\n" +

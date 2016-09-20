@@ -38,10 +38,10 @@ export function runDemo(iframe, onComplete = () => {}) {
   const sequence = createSequence(EmbedBox)
   const {PolyFilledCustomEvent} = window
   const defaults = {
-    embedCode: `<script src='${BASE_URL}/examples/generic-library.js'></script>`,
+    embedCode: `<script src='${PROJECT_URL}/examples/library.js'></script>`,
     targets: {
       drupal: {
-        pluginURL: `${BASE_URL}/examples/drupal-plugin.zip`
+        pluginURL: `${PROJECT_URL}/examples/drupal-plugin.zip`
       }
     },
     branding: false,

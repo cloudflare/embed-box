@@ -11,13 +11,12 @@ const {highlight} = require("highlight.js")
 const autoprefixer = require("autoprefixer")
 
 const PORT_POSTFIX = port ? `:${port}` : ""
-const BASE_URL = `${hostname}${PORT_POSTFIX}`
-const PROJECT_URL = `${protocol}://${BASE_URL}`
+const PROJECT_URL = `${protocol}://${hostname}${PORT_POSTFIX}`
 const exclude = /node_modules/
 
 marked.setOptions({
   highlight(code, language) {
-    code = code.replace(/\{\{BASE_URL\}\}/g, `//${BASE_URL}`)
+    code = code.replace(/\{\{PROJECT_URL\}\}/g, PROJECT_URL)
 
     return highlight(language, code).value
   }
@@ -49,7 +48,6 @@ module.exports = function createWebpackConfig(overrides = {}) {
     new webpack.NoErrorsPlugin(),
     new webpack.DefinePlugin({
       VERSION: JSON.stringify(version),
-      BASE_URL: JSON.stringify(BASE_URL),
       PROJECT_URL: JSON.stringify(PROJECT_URL),
       "process.env.NODE_ENV": JSON.stringify(ENVIRONMENT)
     })
