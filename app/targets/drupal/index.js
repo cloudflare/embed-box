@@ -8,7 +8,7 @@ export default class DrupalTarget extends BaseTarget {
   static icon = icon;
   static id = "drupal";
   static label = "Drupal";
-  static supports = {embedCode: true, plugin: true};
+  static supports = {embedCode: true, plugin: true, insertInto: {body: true}};
   static versions = [
     drupal8,
     drupal7

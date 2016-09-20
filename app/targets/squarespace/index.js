@@ -7,6 +7,6 @@ export default class SquarespaceTarget extends BaseTarget {
   static icon = icon;
   static id = "squarespace";
   static label = "Squarespace";
-  static supports = {embedCode: true};
+  static supports = {embedCode: true, insertInto: {head: true, body: true}};
   static versions = [squarespaceLatest];
 }

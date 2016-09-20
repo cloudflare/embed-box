@@ -7,6 +7,6 @@ export default class WeeblyTarget extends BaseTarget {
   static icon = icon;
   static id = "weebly";
   static label = "Weebly";
-  static supports = {embedCode: true};
+  static supports = {embedCode: true, insertInto: {head: true, body: true}};
   static versions = [{id: "Latest", template: weeblyLatest}];
 }
