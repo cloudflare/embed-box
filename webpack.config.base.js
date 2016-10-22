@@ -65,12 +65,13 @@ module.exports = function createWebpackConfig(overrides = {}) {
   $.postcss = () => [autoprefixer({remove: false, browsers: ["last 2 versions", "ie 10"]})]
 
   const minimizeParam = ENVIRONMENT === "development" ? "-minimize" : "minimize"
+  const filePathPrefix = ENVIRONMENT === "development" ? "" : "assets/"
 
   $.module = {
     loaders: loaders.concat([
       {test: /\.md$/, loader: "html!markdown", exclude},
       {test: /\.pug$/, loader: "pug", exclude},
-      {test: /\.png|jpe?g|gif$/i, loader: "file?name=[path][name].[ext]", exclude: /site/},
+      {test: /\.png|jpe?g|gif$/i, loader: `file?name=${filePathPrefix}[path][name].[ext]`, exclude: /site/},
       {test: /\.js$/, loader: "babel", exclude},
       {test: /\.svg$/, loader: "svg-inline", exclude},
       {
