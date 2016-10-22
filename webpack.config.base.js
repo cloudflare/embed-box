@@ -70,7 +70,7 @@ module.exports = function createWebpackConfig(overrides = {}) {
     loaders: loaders.concat([
       {test: /\.md$/, loader: "html!markdown", exclude},
       {test: /\.pug$/, loader: "pug", exclude},
-      {test: /\.png|jpe?g|gif$/i, loader: "file?name=assets/[path][name].[ext]", exclude: /site/},
+      {test: /\.png|jpe?g|gif$/i, loader: "file?name=[path][name].[ext]", exclude: /site/},
       {test: /\.js$/, loader: "babel", exclude},
       {test: /\.svg$/, loader: "svg-inline", exclude},
       {
