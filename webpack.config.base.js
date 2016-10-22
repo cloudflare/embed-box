@@ -14,7 +14,7 @@ const PORT_POSTFIX = port ? `:${port}` : ""
 const PROJECT_URL = `${protocol}://${hostname}${PORT_POSTFIX}`
 const exclude = /node_modules/
 const {stringify} = JSON
-const CDN_URL = `https://raw.githubusercontent.com/${githubPath}/v${version}`
+const ASSET_CDN_URL = `https://cdn.rawgit.com/${githubPath}/v${version}/assets`
 
 marked.setOptions({
   highlight(code, language) {
@@ -49,7 +49,7 @@ module.exports = function createWebpackConfig(overrides = {}) {
   $.plugins = [
     new webpack.NoErrorsPlugin(),
     new webpack.DefinePlugin({
-      ASSET_PATH: stringify(ENVIRONMENT === "development" ? PROJECT_URL : CDN_URL),
+      ASSET_PATH: stringify(ENVIRONMENT === "development" ? PROJECT_URL : ASSET_CDN_URL),
       VERSION: stringify(version),
       PROJECT_URL: stringify(PROJECT_URL),
       "process.env.NODE_ENV": stringify(ENVIRONMENT)
@@ -69,7 +69,7 @@ module.exports = function createWebpackConfig(overrides = {}) {
     loaders: loaders.concat([
       {test: /\.md$/, loader: "html!markdown", exclude},
       {test: /\.pug$/, loader: "pug", exclude},
-      {test: /\.png|jpe?g|gif$/i, loader: "file?name=[path][name].[ext]", exclude: /site/},
+      {test: /\.png|jpe?g|gif$/i, loader: "file?name=assets/[path][name].[ext]", exclude: /site/},
       {test: /\.js$/, loader: "babel", exclude},
       {test: /\.svg$/, loader: "svg-inline", exclude},
       {

@@ -8,9 +8,11 @@ const {resolve} = require("path")
 const {entries, IDs} = require("../modules")
 const validate = require("./validate")
 const fs = require("fs")
+const zipFolder = require("zip-folder")
 
 const {assign} = Object
 const nodeTargetsDirectory = resolve(__dirname, "../targets")
+const outputPath = baseConfig.output.path
 
 const optimizePlugins = [
   new webpack.optimize.OccurrenceOrderPlugin(true),
@@ -20,7 +22,7 @@ const optimizePlugins = [
 ]
 
 console.log("Cleaning previous files...")
-del.sync(baseConfig.output.path)
+del.sync(outputPath)
 del.sync(nodeTargetsDirectory)
 
 fs.mkdirSync(nodeTargetsDirectory)
@@ -62,4 +64,14 @@ function buildEntry(id, next) {
 }
 
 console.log("Building bundles...")
-each(IDs, buildEntry)
+each(IDs, buildEntry, () => {
+  console.log("Archiving assets...")
+
+  zipFolder(`${outputPath}/assets/`, `${outputPath}/assets.zip`, error => {
+    if (error) {
+      console.error(error)
+      return
+    }
+    console.log("+ assets.zip")
+  })
+})
