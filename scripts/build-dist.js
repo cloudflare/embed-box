@@ -67,8 +67,6 @@ function buildEntry(id, next) {
 
 console.log("Building bundles...")
 each(IDs, buildEntry, () => {
-  console.log("Archiving assets...")
-
   zipFolder(`${outputPath}/assets/`, `${outputPath}/${ASSET_ARCHIVE_NAME}`, error => {
     if (error) {
       console.error(error)
