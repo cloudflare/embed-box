@@ -14,7 +14,7 @@ const PORT_POSTFIX = port ? `:${port}` : ""
 const PROJECT_URL = `${protocol}://${hostname}${PORT_POSTFIX}`
 const exclude = /node_modules/
 const {stringify} = JSON
-const ASSET_CDN_URL = `https://cdn.rawgit.com/${githubPath}/v${version}/assets`
+const ASSET_CDN_URL = `https://cdn.rawgit.com/${githubPath}/v${version}`
 
 marked.setOptions({
   highlight(code, language) {
@@ -49,7 +49,8 @@ module.exports = function createWebpackConfig(overrides = {}) {
   $.plugins = [
     new webpack.NoErrorsPlugin(),
     new webpack.DefinePlugin({
-      ASSET_PATH: stringify(ENVIRONMENT === "development" ? PROJECT_URL : ASSET_CDN_URL),
+      ASSET_CDN_URL: stringify(ASSET_CDN_URL),
+      ASSET_PATH: stringify(ENVIRONMENT === "development" ? PROJECT_URL : `${ASSET_CDN_URL}/assets`),
       VERSION: stringify(version),
       PROJECT_URL: stringify(PROJECT_URL),
       "process.env.NODE_ENV": stringify(ENVIRONMENT)

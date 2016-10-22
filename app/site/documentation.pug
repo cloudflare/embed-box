@@ -58,7 +58,9 @@ mixin codeExample(runnable, id)
 :marked
   EmbedBox's assets are hosted by [RawGit](http://rawgit.com/) by default.
 
-  Set `assetPath` if you want to host them yourself.
+  Set `assetPath` to specify where assets are hosted.
+
+a.more(download href=(ASSET_CDN_URL + "/assets/assets.zip")) Download assets
 
 +codeExample!= require("./examples/asset-path.md")
 
