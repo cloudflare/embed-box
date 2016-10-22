@@ -22,7 +22,8 @@ module.exports = createWebpackConfig({
 
   loaders: [
     {
-      test: /\.external-styl$/,
+      test: /\.styl$/,
+      include: /site/,
       loader: ExtractTextPlugin.extract({
         notExtractLoader: "style",
         loader: "css!postcss!stylus?paths=app/"

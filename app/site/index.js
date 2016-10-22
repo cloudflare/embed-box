@@ -1,4 +1,4 @@
-import "./site.external-styl"
+import "./site.styl"
 
 import {runDemo} from "site/lib/user-simulator"
 import loadScripts from "site/lib/load-scripts"

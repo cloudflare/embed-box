@@ -69,7 +69,11 @@ module.exports = function createWebpackConfig(overrides = {}) {
       {test: /\.png|jpe?g|gif$/i, loader: "url?limit=0", exclude},
       {test: /\.js$/, loader: "babel", exclude},
       {test: /\.svg$/, loader: "svg-inline", exclude},
-      {test: /\.styl$/, loader: `css-to-string!css?${minimizeParam}!postcss!stylus?paths=app`}
+      {
+        test: /\.styl$/,
+        exclude: /site/,
+        loader: `css-to-string!css?${minimizeParam}!postcss!stylus?paths=app`
+      }
     ]),
     noParse: /\.min\.js/
   }
