@@ -16,6 +16,7 @@ export function createStore(spec = {}) {
   if (!theme.stepNumberColor) theme.stepNumberColor = theme.accentColor
 
   return {
+    assetPath: get(spec.assetPath, ASSET_PATH),
     name: get(spec.name, "a plugin"),
     autoDownload,
 

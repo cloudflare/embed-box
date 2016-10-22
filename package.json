@@ -18,6 +18,7 @@
     "type": "git",
     "url": "git://github.com/EagerIO/EmbedBox.git"
   },
+  "githubPath": "EagerIO/EmbedBox",
   "scripts": {
     "start": "babel-node scripts/watch.js",
     "build-dist": "NODE_ENV=production babel-node scripts/build-dist.js",

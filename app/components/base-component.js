@@ -43,6 +43,11 @@ export default class BaseComponent {
     else iframeElement.addEventListener("load", onLoad)
   }
 
+  @autobind
+  asset(path) {
+    return `${this.store.assetPath}${path}`
+  }
+
   autofocus() {
     if (this.store.mode === "inline") return
 
@@ -83,6 +88,7 @@ export default class BaseComponent {
 
     if (typeof template === "function") {
       serializer.innerHTML = template.call(this, {
+        asset: this.asset,
         config: this.store,
         label: this.label,
         ...templateVars

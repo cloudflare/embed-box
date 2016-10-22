@@ -21,6 +21,7 @@ module.exports = createWebpackConfig({
   },
 
   loaders: [
+    {test: /\.png|jpe?g|gif$/i, loader: "url?limit=0", include: /site/},
     {
       test: /\.styl$/,
       include: /site/,
