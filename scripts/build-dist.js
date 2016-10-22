@@ -10,6 +10,8 @@ const validate = require("./validate")
 const fs = require("fs")
 const zipFolder = require("zip-folder")
 
+const ASSET_ARCHIVE_NAME = "assets.zip"
+
 const {assign} = Object
 const nodeTargetsDirectory = resolve(__dirname, "../targets")
 const outputPath = baseConfig.output.path
@@ -67,11 +69,11 @@ console.log("Building bundles...")
 each(IDs, buildEntry, () => {
   console.log("Archiving assets...")
 
-  zipFolder(`${outputPath}/assets/`, `${outputPath}/assets.zip`, error => {
+  zipFolder(`${outputPath}/assets/`, `${outputPath}/${ASSET_ARCHIVE_NAME}`, error => {
     if (error) {
       console.error(error)
       return
     }
-    console.log("+ assets.zip")
+    console.log(`+ ${ASSET_ARCHIVE_NAME}`)
   })
 })
