@@ -528,6 +528,10 @@ var BaseComponent = (_class = (_temp = _class2 = function () {
     if (iframeDocument.head) onLoad();else iframeElement.addEventListener("load", onLoad);
   };
 
+  BaseComponent.prototype.asset = function asset(path) {
+    return "" + this.store.assetPath + path;
+  };
+
   BaseComponent.prototype.autofocus = function autofocus() {
     if (this.store.mode === "inline") return;
 
@@ -575,6 +579,7 @@ var BaseComponent = (_class = (_temp = _class2 = function () {
 
     if (typeof template === "function") {
       serializer.innerHTML = template.call(this, _extends({
+        asset: this.asset,
         config: this.store,
         label: this.label
       }, templateVars));
@@ -628,7 +633,7 @@ var BaseComponent = (_class = (_temp = _class2 = function () {
   };
 
   return BaseComponent;
-}(), _class2.template = null, _class2.stylesheet = null, _class2.store = null, _temp), (_applyDecoratedDescriptor(_class.prototype, "label", [__WEBPACK_IMPORTED_MODULE_1_autobind_decorator___default.a], Object.getOwnPropertyDescriptor(_class.prototype, "label"), _class.prototype)), _class);
+}(), _class2.template = null, _class2.stylesheet = null, _class2.store = null, _temp), (_applyDecoratedDescriptor(_class.prototype, "asset", [__WEBPACK_IMPORTED_MODULE_1_autobind_decorator___default.a], Object.getOwnPropertyDescriptor(_class.prototype, "asset"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "label", [__WEBPACK_IMPORTED_MODULE_1_autobind_decorator___default.a], Object.getOwnPropertyDescriptor(_class.prototype, "label"), _class.prototype)), _class);
 
 
 /***/ },

@@ -323,6 +323,10 @@ var BaseComponent = (_class = (_temp = _class2 = function () {
     if (iframeDocument.head) onLoad();else iframeElement.addEventListener("load", onLoad);
   };
 
+  BaseComponent.prototype.asset = function asset(path) {
+    return "" + this.store.assetPath + path;
+  };
+
   BaseComponent.prototype.autofocus = function autofocus() {
     if (this.store.mode === "inline") return;
 
@@ -370,6 +374,7 @@ var BaseComponent = (_class = (_temp = _class2 = function () {
 
     if (typeof template === "function") {
       serializer.innerHTML = template.call(this, _extends({
+        asset: this.asset,
         config: this.store,
         label: this.label
       }, templateVars));
@@ -423,7 +428,7 @@ var BaseComponent = (_class = (_temp = _class2 = function () {
   };
 
   return BaseComponent;
-}(), _class2.template = null, _class2.stylesheet = null, _class2.store = null, _temp), (_applyDecoratedDescriptor(_class.prototype, "label", [__WEBPACK_IMPORTED_MODULE_1_autobind_decorator___default.a], Object.getOwnPropertyDescriptor(_class.prototype, "label"), _class.prototype)), _class);
+}(), _class2.template = null, _class2.stylesheet = null, _class2.store = null, _temp), (_applyDecoratedDescriptor(_class.prototype, "asset", [__WEBPACK_IMPORTED_MODULE_1_autobind_decorator___default.a], Object.getOwnPropertyDescriptor(_class.prototype, "asset"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "label", [__WEBPACK_IMPORTED_MODULE_1_autobind_decorator___default.a], Object.getOwnPropertyDescriptor(_class.prototype, "label"), _class.prototype)), _class);
 
 
 /***/ },
@@ -1204,7 +1209,7 @@ var EmbedBoxBase = (_class = (_temp = _class2 = function () {
   }]);
 
   return EmbedBoxBase;
-}(), _class2.stylesheet = __WEBPACK_IMPORTED_MODULE_1__embed_box_styl___default.a, _class2.iframeStylesheet = __WEBPACK_IMPORTED_MODULE_2__iframe_styl___default.a, _class2.fetchedTargets = [], _class2.version = "1.4.2", _class2.iframeAttributes = (_class2$iframeAttribu = {
+}(), _class2.stylesheet = __WEBPACK_IMPORTED_MODULE_1__embed_box_styl___default.a, _class2.iframeStylesheet = __WEBPACK_IMPORTED_MODULE_2__iframe_styl___default.a, _class2.fetchedTargets = [], _class2.version = "2.0.0", _class2.iframeAttributes = (_class2$iframeAttribu = {
   allowTransparency: ""
 }, _class2$iframeAttribu[VISIBILITY_ATTRIBUTE] = "hidden", _class2$iframeAttribu.frameBorder = "0", _class2$iframeAttribu.srcdoc = "<div data-iframe-loader-shim style='display: none;'></div>", _class2$iframeAttribu.src = "about:blank", _class2$iframeAttribu), _temp), (_applyDecoratedDescriptor(_class.prototype, "_handleTransitionEnd", [__WEBPACK_IMPORTED_MODULE_3_autobind_decorator___default.a], Object.getOwnPropertyDescriptor(_class.prototype, "_handleTransitionEnd"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "hide", [__WEBPACK_IMPORTED_MODULE_3_autobind_decorator___default.a], Object.getOwnPropertyDescriptor(_class.prototype, "hide"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "show", [__WEBPACK_IMPORTED_MODULE_3_autobind_decorator___default.a], Object.getOwnPropertyDescriptor(_class.prototype, "show"), _class.prototype)), _class);
 
@@ -2289,6 +2294,7 @@ function createStore() {
   if (!theme.stepNumberColor) theme.stepNumberColor = theme.accentColor;
 
   return {
+    assetPath: get(spec.assetPath, "https://cdn.rawgit.com/EagerIO/EmbedBox/v2.0.0/assets"),
     name: get(spec.name, "a plugin"),
     autoDownload: autoDownload,
 
