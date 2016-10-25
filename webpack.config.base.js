@@ -50,7 +50,7 @@ module.exports = function createWebpackConfig(overrides = {}) {
     new webpack.NoErrorsPlugin(),
     new webpack.DefinePlugin({
       ASSET_CDN_URL: stringify(ASSET_CDN_URL),
-      ASSET_PATH: stringify(ENVIRONMENT === "development" ? PROJECT_URL : `${ASSET_CDN_URL}/assets`),
+      ASSET_PATH: stringify(ENVIRONMENT === "development" ? PROJECT_URL : `${ASSET_CDN_URL}/${buildDirectory}`),
       VERSION: stringify(version),
       PROJECT_URL: stringify(PROJECT_URL),
       "process.env.NODE_ENV": stringify(ENVIRONMENT)
