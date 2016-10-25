@@ -25,9 +25,10 @@ marked.setOptions({
 })
 
 const renderer = new marked.Renderer()
+const DIST_DIRECTORY_NAME = "dist"
 
 module.exports = function createWebpackConfig(overrides = {}) {
-  const buildDirectory = overrides.buildDirectory || "dist"
+  const buildDirectory = overrides.buildDirectory || DIST_DIRECTORY_NAME
   const {entry = {}, loaders = [], output = {}, plugins = []} = overrides
   const $ = {}
 
@@ -50,7 +51,7 @@ module.exports = function createWebpackConfig(overrides = {}) {
     new webpack.NoErrorsPlugin(),
     new webpack.DefinePlugin({
       ASSET_CDN_URL: stringify(ASSET_CDN_URL),
-      ASSET_PATH: stringify(ENVIRONMENT === "development" ? PROJECT_URL : `${ASSET_CDN_URL}/${buildDirectory}`),
+      ASSET_PATH: stringify(ENVIRONMENT === "development" ? PROJECT_URL : `${ASSET_CDN_URL}/${DIST_DIRECTORY_NAME}`),
       VERSION: stringify(version),
       PROJECT_URL: stringify(PROJECT_URL),
       "process.env.NODE_ENV": stringify(ENVIRONMENT)
