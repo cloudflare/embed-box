@@ -8,7 +8,7 @@ Start by cloning the repo to your machine and installing the dependencies.
 Version 5 or higher of Node is recommended.
 
 ```shell
-git clone git@github.com:EagerIO/EmbedBox.git
+git clone git@github.com:cloudflare/embed-box.git
 cd EmbedBox
 npm install
 npm start
@@ -19,11 +19,11 @@ Open the URL logged to to the terminal in your browser and you'll see the EmbedB
 
 ## Overview
 
-EmbedBox separates targets into [individual directories](https://github.com/EagerIO/EmbedBox/tree/master/app/targets).
+EmbedBox separates targets into [individual directories](https://github.com/cloudflare/embed-box/tree/master/app/targets).
 It's a great idea to take a look at some of those existing targets to get an idea of how the folders are structured.
 
 As you can see, each target is composed of a few types of files:
-- The [Pug](https://github.com/EagerIO/EmbedBox/blob/master/app/targets/wordpress/wordpress-4.pug) file is a template.
+- The [Pug](https://github.com/cloudflare/embed-box/blob/master/app/targets/wordpress/wordpress-4.pug) file is a template.
 - The JS file defines the metadata about the target and allows you to fancy JS customization should you need.
 - The images are used in the template, and are automatically compiled into the final JS files.
 
@@ -100,7 +100,7 @@ If you only have one version, specify it:
 ```
 
 If you have multiple versions,specify each with it's own options as in the
-[Drupal target](https://github.com/EagerIO/EmbedBox/blob/master/app/targets/drupal/index.js).
+[Drupal target](https://github.com/cloudflare/embed-box/blob/master/app/targets/drupal/index.js).
 
 ### HTML
 
@@ -128,8 +128,8 @@ and is instead using the generic embed code instructions.
 To create your own target, begin by copying an existing target folder which is similar to yours.
 
 - Change the `id` and other properties in the `.js` file.
-- Add your module to the (https://github.com/EagerIO/EmbedBox/blob/master/app/targets/index.js)[targets index] to expose your new target.
-- Add your module to the default [fetched target list](https://github.com/EagerIO/EmbedBox/blob/master/modules/embed-box.js). The order is based off the popularity of the platform.
+- Add your module to the (https://github.com/cloudflare/embed-box/blob/master/app/targets/index.js)[targets index] to expose your new target.
+- Add your module to the default [fetched target list](https://github.com/cloudflare/embed-box/blob/master/modules/embed-box.js). The order is based off the popularity of the platform.
 - Start the development server with `npm start`
 - Write the instructions for your platform into the `.pug` file.
 
