@@ -3,7 +3,7 @@
   "version": "2.0.3",
   "license": "MIT",
   "author": "Eager",
-  "homepage": "https://github.com/EagerIO/EmbedBox",
+  "homepage": "https://github.com/cloudflare/embed-box",
   "keywords": [
     "UI",
     "embed",
@@ -16,9 +16,9 @@
   "description": "Simple install guidance for CMS plugins",
   "repository": {
     "type": "git",
-    "url": "git://github.com/EagerIO/EmbedBox.git"
+    "url": "git://github.com/cloudflare/embed-box.git"
   },
-  "githubPath": "EagerIO/EmbedBox",
+  "githubPath": "cloudflare/embed-box",
   "scripts": {
     "start": "babel-node scripts/watch.js",
     "build-dist": "NODE_ENV=production babel-node scripts/build-dist.js",
