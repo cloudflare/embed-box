@@ -26,7 +26,7 @@
     "eslint-loader": "1.5.0",
     "eslint-plugin-babel": "3.3.0",
     "html-webpack-plugin": "2.21.0",
-    "webpack": "2.1.0-beta.19",
+    "webpack": "5.94.0",
     "webpack-dev-server": "2.1.0-beta.0"
   },
   "routes": {
